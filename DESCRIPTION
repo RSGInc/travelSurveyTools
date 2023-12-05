@@ -1,0 +1,36 @@
+Package: utahreportingdashboard
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("James", "Clark", , "james.clark@rsginc.com", role = c("aut", "cre"))
+    person("Ashley", "Asmus", , "jacob.moore@rsginc.com", role = c("aut", "cre"))
+    person("Jacob", "Moore", , "james.clark@rsginc.com", role = c("aut", "cre"))
+    person("Sean", "Liu", , "james.clark@rsginc.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: none
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    bslib,
+    data.table,
+    dplyr,
+    ggplot2,
+    leafem,
+    leaflet,
+    lubridate,
+    networkD3,
+    plotly,
+    qs,
+    reactable,
+    reactablefmtr,
+    readxl,
+    sf,
+    shiny,
+    shinyjs,
+    srvyr,
+    stringr,
+    tidyr,
+    tippy,
+    waiter,
+    yaml
