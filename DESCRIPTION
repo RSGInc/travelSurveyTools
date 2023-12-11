@@ -17,4 +17,8 @@ Imports:
     dplyr,
     stats
     srvyr,
+<<<<<<< HEAD
     stringr
+=======
+    stringr
+>>>>>>> b5497cb40a3b9a2bf5b3fc12d16a97a852e3cd24
