@@ -1,108 +1,49 @@
 library(data.table)
+library(stringr)
 
-get_pops_creds = function(what = c('user_name', 'password'), env = parent.frame()) {
-  
-  if ( !what %in% c('user_name', 'password')){
-    stop('please specify what = "user_name" or "password"')
-  }
-  
-  # On Azure Pipelines, pops creds are stored as variables in the environment
-  # Keep this here so it will continue to function
-  
-  if (paste0('pops.', what) %in% names(env)) {
-    
-    value = get(paste0('pops.', what), envir = env)
-    message('Using ', what, ' from environment')
-    return(value)
-    
-  }
-  
-  #if ( !requireNamespace('keyring', quietly = TRUE) ) {
-  #  return(value)
-  #}
-  
-  try({
-    value = keyring::key_get('pops', what)
-  }, silent = TRUE)
-  
-  if ( !exists('value') || is.null(value) || value == '') {
-    
-    message(what, ' not found in keyring')
-    
-    value = readline(prompt = paste0('Please enter your POPS ', what, ': '))
-    
-    keyring::key_set_with_value(
-      service = 'pops',
-      username = what,
-      password = value)
-    
-    value = keyring::key_get(
-      'pops',
-      what)
-    
-    message('Saved ', what, ' in default keyring')
-    
-  }
-  
-  return(value)
-}
+source('data-raw/connect_to_pops.R')
+source('data-raw/get_pops_creds.R')
+source('data-raw/read_from_db.R')
 
-connect_to_pops = function(
-    dbname,
-    env = parent.frame() # needed for azure pipelines
-){
-  
-  drv = RPostgres::Postgres()
-  
-  if (dbname == 'calgary') {
-    
-    host_name = '40.86.250.54'
-    
-  } else {
-    
-    host_name = 'pops.rsginc.com'
-    
-  }
-  
-  con = DBI::dbConnect(
-    drv,
-    host = host_name,
-    user = get_pops_creds(what = 'user_name', env),
-    password = get_pops_creds(what = 'password', env),
-    dbname = dbname,
-    port = "5432",
-    sslcert = "",
-    sslkey = "",
-    sslmode = "require",
-    bigint = c("numeric")
-  )
-  
-  return(con)
-}
+### Read in data-----
 
-sql_pops = function(
-    sql,
-    dbname
-){
-  
-  con = connect_to_pops(dbname)
-  
-  qry = DBI::dbGetQuery(con,sql)
-  
-  dt = data.table::setDT(qry)
-  
-  DBI::dbDisconnect(con)
-  
-  return(dt)
-}
+# reading in data from POPS
+dbname = 'psrc'
+schema = 'psrc_2023'
+con = connect_to_pops(dbname)
 
-hh = sql_pops('select * from psrc_2023.d_ex_hh_indri', 'psrc')
-person = sql_pops('select * from psrc_2023.d_ex_person_indri', 'psrc')
-day = sql_pops('select * from psrc_2023.d_ex_day_indri', 'psrc')
-vehicle = sql_pops('select * from psrc_2023.d_ex_vehicle_indri', 'psrc')
-trip = sql_pops('select * from psrc_2023.d_ex_trip_indri', 'psrc')
-location = sql_pops('select * from psrc_2023.d_ex_location_indri', 'psrc')
+hh = read_from_db(con, str_glue('select * from {schema}.ex_hh_interim'), 
+                  disconnect = FALSE)
+person = read_from_db(con, str_glue('select * from {schema}.ex_person_interim'), 
+                      disconnect = FALSE)
+day = read_from_db(con, str_glue('select * from {schema}.ex_day_interim'), 
+                   disconnect = FALSE)
+vehicle = read_from_db(con, str_glue('select * from {schema}.ex_vehicle_interim'),
+                       disconnect = FALSE)
+trip = read_from_db(con, str_glue('select * from {schema}.ex_trip_interim'), 
+                    disconnect = TRUE)
 
+user = Sys.info()['user']
+
+# reading in codebook from sharepoint
+codebook_path = paste0('C:/Users/',
+                       user,
+                       '/Resource Systems Group, Inc/Transportation MR - Documents/',
+                       'PSRC Survey Program/210252_PSRC_HTS/Internal/3.DataAnalysis/',
+                       '1.Data/Codebook/PSRC_Combined_Codebook_2023_08162023_RSG.xlsx')
+
+variable_list = readxl::read_xlsx(codebook_path,
+                                  sheet = 'ex_variable_list_2023')
+setDT(variable_list)
+
+value_labels = readxl::read_xlsx(codebook_path,
+                                 sheet = 'ex_value_labels_2023')
+setDT(value_labels)
+
+
+### Filter data----
+
+# choose 1000 random hhs to keep
 ids_to_keep = sample(hh$hh_id, size = 1000)
 
 hh_filtered = hh[hh_id %in% ids_to_keep]
@@ -111,6 +52,7 @@ day_filtered = day[hh_id %in% ids_to_keep]
 vehicle_filtered = vehicle[hh_id %in% ids_to_keep]
 trip_filtered = trip[hh_id %in% ids_to_keep]
 
+# filter out columns containing pii
 names(hh_filtered)
 hh_pii_cols = c('home_lon', 'home_lat', 'sample_home_lon', 'sample_home_lat')
 keep_hh_cols = setdiff(names(hh_filtered), hh_pii_cols)
@@ -136,12 +78,13 @@ vehicle_filtered = vehicle_filtered[, ..keep_vehicle_cols]
 
 
 names(trip_filtered)
-trip_pii_cols = c('o_lon', 'o_lat', 'd_lon', 'd_lat', 'mode_other_specify', 'd_purpose_other')
+trip_pii_cols = c('o_lon', 'o_lat', 'd_lon', 'd_lat', 'mode_other_specify',
+                  'd_purpose_other')
 keep_trip_cols = setdiff(names(trip_filtered), trip_pii_cols)
 trip_filtered = trip_filtered[, ..keep_trip_cols]
 
 
-
+# only keep specified columns in each table
 names(hh_filtered)
 keep_hh_cols = c('hh_id', 'sample_segment', 'income_detailed', 'income_followup',
                  'num_people', 'residence_type')
@@ -171,41 +114,34 @@ names(vehicle_filtered)
 keep_veh_cols = c('hh_id', 'vehicle_id', 'fuel_type')
 vehicle_filtered = vehicle_filtered[, ..keep_veh_cols]
 
-user = Sys.info()['user']
-
-variable_list = readxl::read_xlsx(stringr::str_glue("C:/Users/{user}/Resource Systems Group, Inc/Transportation MR - Documents/210267 Metrolina HTS/Internal/3.DataAnalysis/1.Data/metrolina_pipeline_codebook.xlsx"),
-                              sheet = 'variable_list')
-setDT(variable_list)
-
+# only keep variables in the codebook that remain in the dataset
 variable_list = variable_list[variable %in% c(keep_hh_cols, keep_person_cols,
                                               keep_day_cols, keep_trip_cols,
                                               keep_veh_cols)]
-
-variable_list[, c('location', 'linked_trip', 'label', 'write_to_export') := NULL]
-
-value_labels = readxl::read_xlsx(stringr::str_glue("C:/Users/{user}/Resource Systems Group, Inc/Transportation MR - Documents/PSRC Survey Program/210252_PSRC_HTS/Internal/3.DataAnalysis/psrc_psrc_2023_pipeline_codebook.xlsx"),
-                              sheet = 'value_labels')
-setDT(value_labels)
-
+variable_list[, location := NULL]
 value_labels = value_labels[variable %in% c(keep_hh_cols, keep_person_cols,
-                                              keep_day_cols, keep_trip_cols,
-                                              keep_veh_cols)]
+                                            keep_day_cols, keep_trip_cols,
+                                            keep_veh_cols)]
+
+value_labels = value_labels[, c('variable', 'value', 'label')]
+
+### Write data----
 
 hh = hh_filtered
 usethis::use_data(hh, overwrite = TRUE)
 
 person = person_filtered
-usethis::use_data(person)
+usethis::use_data(person, overwrite = TRUE)
 
 day = day_filtered
-usethis::use_data(day)
+usethis::use_data(day, overwrite = TRUE)
 
 trip = trip_filtered
-usethis::use_data(trip)
+usethis::use_data(trip, overwrite = TRUE)
 
 vehicle = vehicle_filtered
-usethis::use_data(vehicle)
+usethis::use_data(vehicle, overwrite = TRUE)
 
-usethis::use_data(variable_list)
+usethis::use_data(variable_list, overwrite = TRUE)
 
-usethis::use_data(value_labels)
+usethis::use_data(value_labels, overwrite = TRUE)
