@@ -1,6 +1,7 @@
 #' Test household dataset
 #'
-#' A dataset containing household level attributes of 1,000 households.
+#' A dataset containing household level attributes of 1,000 households from the
+#' 2023 Puget Sound Regional Council Household Travel Survey.
 #' The variables are as follows:
 #'
 #' @format ## `hh`
@@ -8,16 +9,18 @@
 #' \describe{
 #'   \item{hh_id}{8 digit household ID}
 #'   \item{sample_segment}{Sample segment}
-#'   \item{income_detailed}{2022 household income (detailed categories)}
-#'   \item{income_followup}{2022 household income (broad categories)}
-#'   \item{num_people}{Household size}
-#'   \item{residence_type}{Type of residence}
+#'   \item{income_detailed}{2022 household income (detailed categories), response codes}
+#'   \item{income_followup}{2022 household income (broad categories), response codes}
+#'   \item{num_people}{Household size, response codes}
+#'   \item{residence_type}{Type of residence, response codes}
 #' }
+#' @source Export tables compiled from internal RSG database on 11/22/2023
 "hh"
 
 #' Test person dataset
 #'
-#' A dataset containing person level attributes of almost 2,000 persons.
+#' A dataset containing person level attributes of almost 2,000 persons from the
+#' 2023 Puget Sound Regional Council Household Travel Survey.
 #' The variables are as follows:
 #'
 #' @format ## `person`
@@ -25,29 +28,31 @@
 #' \describe{
 #'   \item{hh_id}{8 digit household ID}
 #'   \item{person_id}{10 digit person ID}
-#'   \item{ethnicity_1}{Not of Hispnic, Latino, or Spanish origin}
-#'   \item{ethnicity_2}{Mexican, Mexican American, Chicano}
-#'   \item{ethnicity_3}{Puerto Rican}
-#'   \item{ethnicity_4}{Cuban}
-#'   \item{ethnicity_997}{Another Hispanic, Latino, or Spanish origin}
-#'   \item{ethnicity_999}{Prefer not to answer}
-#'   \item{race_1}{African American or Black}
-#'   \item{race_2}{Americian Indian or Alaska Native}
-#'   \item{race_3}{Asian}
-#'   \item{race_4}{Native Hawaiian or other Pacific Islander}
-#'   \item{race_5}{White}
-#'   \item{race_997}{Other race}
-#'   \item{race_999}{Prefer not to answer}
-#'   \item{age}{Age}
-#'   \item{gender}{Gender}
-#'   \item{employment}{Employment status}
-#'   \item{education}{Highest level of education completed}
+#'   \item{ethnicity_1}{Not of Hispnic, Latino, or Spanish origin, response codes}
+#'   \item{ethnicity_2}{Mexican, Mexican American, Chicano, response codes}
+#'   \item{ethnicity_3}{Puerto Rican, response codes}
+#'   \item{ethnicity_4}{Cuban, response codes}
+#'   \item{ethnicity_997}{Another Hispanic, Latino, or Spanish origin, response codes}
+#'   \item{ethnicity_999}{Prefer not to answer, response codes}
+#'   \item{race_1}{African American or Black, response codes}
+#'   \item{race_2}{Americian Indian or Alaska Native, response codes}
+#'   \item{race_3}{Asian, response codes}
+#'   \item{race_4}{Native Hawaiian or other Pacific Islander, response codes}
+#'   \item{race_5}{White, response codes}
+#'   \item{race_997}{Other race, response codes}
+#'   \item{race_999}{Prefer not to answer, response codes}
+#'   \item{age}{Age, response codes}
+#'   \item{gender}{Gender, response codes}
+#'   \item{employment}{Employment status, response codes}
+#'   \item{education}{Highest level of education completed, response codes}
 #' }
+#' @source Export tables compiled from internal RSG database on 11/22/2023
 "person"
 
 #' Test day dataset
 #'
-#' A dataset containing information about participant travel days.
+#' A dataset containing information about participant travel days from the
+#' 2023 Puget Sound Regional Council Household Travel Survey.
 #' The variables are as follows:
 #'
 #' @format ## `day`
@@ -56,24 +61,26 @@
 #'   \item{hh_id}{8 digit household ID}
 #'   \item{person_id}{10 digit person ID}
 #'   \item{day_id}{12 digit day ID}
-#'   \item{delivery_2}{Take-out/prepared food delivered to home}
+#'   \item{delivery_2}{Take-out/prepared food delivered to home, response codes}
 #'   \item{delivery_3}{Someone came to do work at home (e.g., babysitter,
-#'     housecleaning, lawn)}
-#'   \item{delivery_4}{Groceries delivered to home}
-#'   \item{delivery_5}{Received packages at home (e.g., USPS, FedEx, UPS)}
-#'   \item{delivery_6}{Received personal packages at work}
+#'     housecleaning, lawn), response codes}
+#'   \item{delivery_4}{Groceries delivered to home, response codes}
+#'   \item{delivery_5}{Received packages at home (e.g., USPS, FedEx, UPS), response codes}
+#'   \item{delivery_6}{Received personal packages at work, response codes}
 #'   \item{delivery_7}{Received packages at another location (e.g.,
-#'     Amazon Locker, package pick-up point)}
-#'   \item{delivery_8}{Other item delivered to home (e.g., appliance)}
-#'   \item{delivery_996}{None of the above}
-#'   \item{begin_day}{Location at the beginning of the day}
-#'   \item{end_day}{Location at the end of the day}
+#'     Amazon Locker, package pick-up point), response codes}
+#'   \item{delivery_8}{Other item delivered to home (e.g., appliance), response codes}
+#'   \item{delivery_996}{None of the above, response codes}
+#'   \item{begin_day}{Location at the beginning of the day, response codes}
+#'   \item{end_day}{Location at the end of the day, response codes}
 #' }
+#' @source Export tables compiled from internal RSG database on 11/22/2023
 "day"
 
 #' Test trip dataset
 #'
-#' A dataset containing attributes of over 20,000 trips.
+#' A dataset containing attributes of over 20,000 trips from the
+#' 2023 Puget Sound Regional Council Household Travel Survey.
 #' The variables are as follows:
 #'
 #' @format ## `trip`
@@ -84,14 +91,16 @@
 #'   \item{day_id}{12 digit day ID}
 #'   \item{trip_id}{13 digit trip ID}
 #'   \item{travel_date}{Date of trip}
-#'   \item{mode_type}{Type of transportation used for trip}
-#'   \item{d_purpose_category}{Purpose for taking trip to destination}
+#'   \item{mode_type}{Type of transportation used for trip, response codes}
+#'   \item{d_purpose_category}{Purpose for taking trip to destination, response codes}
 #' }
+#' @source Export tables compiled from internal RSG database on 11/22/2023
 "trip"
 
 #' Test vehicle dataset
 #'
-#' A dataset containing attributes of over 6,500 vehicles.
+#' A dataset containing attributes of over 6,500 vehicles from the
+#' 2023 Puget Sound Regional Council Household Travel Survey.
 #' The variables are as follows:
 #'
 #' @format ## `vehicle`
@@ -99,8 +108,9 @@
 #' \describe{
 #'   \item{hh_id}{8 digit household ID}
 #'   \item{vehicle_id}{10 digit vehicle ID}
-#'   \item{fuel_type}{Type of fuel taken by vehicle}
+#'   \item{fuel_type}{Type of fuel taken by vehicle, response codes}
 #' }
+#' @source Export tables compiled from internal RSG database on 11/22/2023
 "vehicle"
 
 #' List of variables

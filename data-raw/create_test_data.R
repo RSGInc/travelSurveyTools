@@ -1,9 +1,6 @@
 library(data.table)
 library(stringr)
-
-source('data-raw/connect_to_pops.R')
-source('data-raw/get_pops_creds.R')
-source('data-raw/read_from_db.R')
+library(tmrtools)
 
 ### Read in data-----
 
