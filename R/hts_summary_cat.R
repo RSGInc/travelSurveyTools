@@ -65,11 +65,11 @@ hts_summary_cat = function(prepped_dt,
           group_by_at(unlist(groupbyvars)) %>%
           summarize(
             count = length(get(summarize_var)),
-            prop =  round(survey_prop(
+            prop =  survey_prop(
               proportion = FALSE, 
               vartype = variance_type
-            ), 3),
-            est =   round(survey_total(vartype = variance_type))
+            ),
+            est =   survey_total(vartype = variance_type)
           ) %>%
           setDT()
         # tictoc::toc()
@@ -83,22 +83,21 @@ hts_summary_cat = function(prepped_dt,
         
         cat_summary_w = cat_so_ls[["wtd"]][,.(
           count = .N,
-          est = round(
+          est = 
             sum(
               get(weight_name)
             )
-          )
         ),
         groupbyvars
         ]
         
         if (is.null(summarize_by)){
           
-          cat_summary_w[, prop := round(est/ sum(est), digits)]
+          cat_summary_w[, prop := est/ sum(est)]
           
         } else {
           
-          cat_summary_w[, prop := round(est/ sum(est), digits), summarize_by]
+          cat_summary_w[, prop := est/ sum(est), summarize_by]
           
         }
         
@@ -112,11 +111,11 @@ hts_summary_cat = function(prepped_dt,
       
       if (is.null(summarize_by)){
         
-        cat_summary_w[, prop := round(count/ sum(count), digits)]
+        cat_summary_w[, prop := count/ sum(count)]
         
       } else {
         
-        cat_summary_w[, prop := round(count/ sum(count), digits), summarize_by]
+        cat_summary_w[, prop := count/ sum(count), summarize_by]
         
       }
       
@@ -136,11 +135,11 @@ hts_summary_cat = function(prepped_dt,
       # recalculate prop without value == 0
       if (is.null(summarize_by)){
         
-        cat_summary_w[, prop := round(count/ sum(count), digits)]
+        cat_summary_w[, prop := count/ sum(count)]
         
       } else {
         
-        cat_summary_w[, prop := round(count/ sum(count), digits), summarize_by]
+        cat_summary_w[, prop := count/ sum(count), summarize_by]
         
       }
       

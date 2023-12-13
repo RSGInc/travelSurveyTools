@@ -52,7 +52,7 @@ hts_get_ns = function(prepped_dt,
     
     ndt_wts = prepped_dt[, ..n_wtcols]
     
-    ns_wtd = lapply(ndt_wts, function(x) round(sum(x)))
+    ns_wtd = lapply(ndt_wts, function(x) sum(x))
     
     n_names =
       paste0(stringr::str_to_title(
