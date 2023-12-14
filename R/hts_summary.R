@@ -1,3 +1,25 @@
+#' Title
+#'
+#' @param hts_data
+#' @param summarize_var
+#' @param summarize_by
+#' @param variables_dt
+#' @param var_description_sep
+#' @param values_dt
+#' @param weighted
+#' @param wtname
+#' @param strataname
+#' @param remove_outliers
+#' @param se
+#' @param threshold
+#' @param remove_missing
+#' @param missing_value
+#' @param not_imputable
+#'
+#' @return
+#' @export
+#'
+#' @examples
 hts_summary = function(
     hts_data = list('hh' = hh,
                     'person' = person,
@@ -19,43 +41,43 @@ hts_summary = function(
     remove_missing = TRUE,
     missing_value = 995,
     not_imputable = -1) {
-  
+
   # TODO: Add filter values (e.g., missing)
   # TODO: Ability to filter variables from shared_name checkbox variables (e.g., "none of the above")
   # TODO: Ability to specify hh/person/trip/etc. tables so that custom subsetting can occur outside of function
-  
+
   # tictoc::tic("Total Time")
   # Message:
-  msg_pt1 = paste0("Creating a summary of ", 
+  msg_pt1 = paste0("Creating a summary of ",
                    hts_find_var(summarize_var, variables_dt = variables_dt), " ", summarize_var)
-  
-  
+
+
   if (!is.null(summarize_by)){
-    
+
     byvarlocs = lapply(summarize_by, hts_find_var)
-    
+
     for(b in 1:length(byvarlocs)) {
       byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
     }
-    
+
     byvarlocs = unlist(byvarlocs)
-    
+
     msg_pt2 = ifelse(length(summarize_by) > 0,
-                     paste0("broken down by ", 
+                     paste0("broken down by ",
                             paste0(byvarlocs, collapse = " and ")),
                      "")
   } else {
     msg_pt2 = NULL
   }
   message(paste0(msg_pt1, " ", msg_pt2))
-  
+
   # For instances where num obs is singular inside a sub-strata, adjust:
   options(survey.lonely.psu = "adjust")
-  
+
   #remove missing response data
-  
+
   if (remove_missing){
-    
+
     hts_data = hts_remove_missing_data(hts_data = hts_data,
                                        variables_dt = variables_dt,
                                        summarize_var = summarize_var,
@@ -63,11 +85,11 @@ hts_summary = function(
                                        missing_value = missing_value,
                                        not_imputable = not_imputable)
   }
-  
+
   # tictoc::tic("!num_trips -> hts_prep_data")
-  
+
   if(summarize_var == "num_trips"){
-    
+
     prepped_dt_ls = hts_prep_triprate(
       summarize_by = summarize_by,
       remove_outliers = remove_outliers,
@@ -75,11 +97,11 @@ hts_summary = function(
       trip = hts_data$trip,
       day = hts_data$day
     )
-    
+
   }
-  
+
   if(!summarize_var == "num_trips"){
-    
+
     prepped_dt_ls = hts_prep_data(
       summarize_var = summarize_var,
       summarize_by = summarize_by,
@@ -88,29 +110,29 @@ hts_summary = function(
       data = hts_data,
       variables_dt = variables_dt
     )
-    
+
   }
-  
-  
+
+
   # tictoc::toc(log = TRUE)
-  
+
   # Counts:
   cat_ns =  hts_get_ns(
     prepped_dt_ls[["cat"]],
     weighted = weighted
   )
-  
+
   # tictoc::tic("!num_trips -> hts_summary_cat")
-  
+
   if ( weighted == FALSE & se == TRUE){
-    
+
     message("Standard errors require weighted data; setting se = FALSE")
-    
+
     se = FALSE
-    
+
   }
-  
-  
+
+
   # Summary:
   cat_summary = hts_summary_cat(
     prepped_dt = prepped_dt_ls[["cat"]],
@@ -118,13 +140,13 @@ hts_summary = function(
     summarize_by = summarize_by,
     weighted = weighted,
     wtname = wtname,
-    strataname = strataname, 
+    strataname = strataname,
     values_dt = values_dt,
     se = se
   )
-  
+
   # tictoc::toc(log = TRUE)
-  
+
   if (!is.null(prepped_dt_ls[["num"]])) {
     num_summary = hts_summary_num(
       prepped_dt = prepped_dt_ls[["num"]],
@@ -135,23 +157,23 @@ hts_summary = function(
       strataname = strataname,
       values_dt = values_dt
     )
-    
+
   }
-  
+
   if (is.null(prepped_dt_ls[["num"]])) {
     num_summary = NULL
   }
-  
+
   # Get variable descriptions
   summarize_var_desc = variables_dt[shared_name == summarize_var, description]
-  
+
   if(length(summarize_var_desc) > 1){
     summarize_var_desc = unique(tstrsplit(summarize_var_desc, var_description_sep, keep = 1)[[1]])
   }
-  
+
   if(!is.null(summarize_by)){
     summarize_by_desc = variables_dt[shared_name == summarize_by, description]
-    
+
     if(length(summarize_by_desc) > 1){
       summarize_by_desc = unique(tstrsplit(summarize_by_desc, var_description_sep, keep = 1)[[1]])
     }
@@ -159,7 +181,7 @@ hts_summary = function(
     summarize_by_desc = NULL
   }
 
-  
+
   summary_ls = list(
     "n_ls" = cat_ns,
     "cat_summary" = cat_summary,
@@ -171,8 +193,8 @@ hts_summary = function(
     "summarize_by" = summarize_by,
     "summarize_by_desc" = summarize_by_desc
   )
-  
-  
+
+
   return(summary_ls)
-  
+
 }

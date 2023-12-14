@@ -1,9 +1,20 @@
+#' Find table location of a variable
+#'
+#' @param var searchable variable in string format
+#' @param variables_dt codebook variable list in data table format
+#'
+#' @return variable location in string format
+#' @export
+#'
+#' @examples
+#' var_location = hts_find_var('income_detailed')
+#'
 hts_find_var = function(var, variables_dt = variable_list) {
-  
+
   varlist = data.table::copy(variables_dt)
   varlist = varlist[, .SD[1], keyby = .(shared_name)]
   setDT(varlist)
-  
+
   # Find the locations of the variable:
   var_location = melt(varlist[shared_name == var,
                               .(variable,
@@ -14,7 +25,7 @@ hts_find_var = function(var, variables_dt = variable_list) {
                                 day)],
                       id.vars = c("variable"),
                       variable.name = "table")
-  
+
   if (nrow(var_location) == 0) {
     msg = paste0("Variable ", var, " not found")
     similar_vars =
@@ -30,10 +41,10 @@ hts_find_var = function(var, variables_dt = variable_list) {
     }
     stop(msg)
   }
-  
+
   if (nrow(var_location) > 0) {
-    
-  
+
+
   # choose finest level of dis-aggregation for this variable:
   var_location =
     ifelse(var_location[table == "trip", "value"] == 1,
@@ -49,10 +60,10 @@ hts_find_var = function(var, variables_dt = variable_list) {
                       "hh")
              )
            ))
-  
+
   var_location = var_location[1,][["value"]]
-  
+
   }
-  
+
   return(var_location)
 }

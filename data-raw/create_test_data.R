@@ -1,44 +1,4 @@
 library(data.table)
-library(stringr)
-library(tmrtools)
-
-### Read in data-----
-
-# reading in data from POPS
-dbname = 'psrc'
-schema = 'psrc_2023'
-con = connect_to_pops(dbname)
-
-hh = read_from_db(con, str_glue('select * from {schema}.ex_hh_interim'), 
-                  disconnect = FALSE)
-person = read_from_db(con, str_glue('select * from {schema}.ex_person_interim'), 
-                      disconnect = FALSE)
-day = read_from_db(con, str_glue('select * from {schema}.ex_day_interim'), 
-                   disconnect = FALSE)
-vehicle = read_from_db(con, str_glue('select * from {schema}.ex_vehicle_interim'),
-                       disconnect = FALSE)
-trip = read_from_db(con, str_glue('select * from {schema}.ex_trip_interim'), 
-                    disconnect = TRUE)
-
-user = Sys.info()['user']
-
-# reading in codebook from sharepoint
-codebook_path = paste0('C:/Users/',
-                       user,
-                       '/Resource Systems Group, Inc/Transportation MR - Documents/',
-                       'PSRC Survey Program/210252_PSRC_HTS/Internal/3.DataAnalysis/',
-                       '1.Data/Codebook/PSRC_Combined_Codebook_2023_08162023_RSG.xlsx')
-
-variable_list = readxl::read_xlsx(codebook_path,
-                                  sheet = 'ex_variable_list_2023')
-setDT(variable_list)
-
-value_labels = readxl::read_xlsx(codebook_path,
-                                 sheet = 'ex_value_labels_2023')
-setDT(value_labels)
-
-
-### Filter data----
 
 # choose 1000 random hhs to keep
 ids_to_keep = sample(hh$hh_id, size = 1000)
