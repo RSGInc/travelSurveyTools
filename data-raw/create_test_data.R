@@ -1,13 +1,6 @@
 library(data.table)
-library(tmrtools)
 
-hh = sql_pops('select * from psrc_2023.d_ex_hh_indri', 'psrc')
-person = sql_pops('select * from psrc_2023.d_ex_person_indri', 'psrc')
-day = sql_pops('select * from psrc_2023.d_ex_day_indri', 'psrc')
-vehicle = sql_pops('select * from psrc_2023.d_ex_vehicle_indri', 'psrc')
-trip = sql_pops('select * from psrc_2023.d_ex_trip_indri', 'psrc')
-location = sql_pops('select * from psrc_2023.d_ex_location_indri', 'psrc')
-
+# choose 1000 random hhs to keep
 ids_to_keep = sample(hh$hh_id, size = 1000)
 
 hh_filtered = hh[hh_id %in% ids_to_keep]
@@ -16,6 +9,7 @@ day_filtered = day[hh_id %in% ids_to_keep]
 vehicle_filtered = vehicle[hh_id %in% ids_to_keep]
 trip_filtered = trip[hh_id %in% ids_to_keep]
 
+# filter out columns containing pii
 names(hh_filtered)
 hh_pii_cols = c('home_lon', 'home_lat', 'sample_home_lon', 'sample_home_lat')
 keep_hh_cols = setdiff(names(hh_filtered), hh_pii_cols)
@@ -41,12 +35,13 @@ vehicle_filtered = vehicle_filtered[, ..keep_vehicle_cols]
 
 
 names(trip_filtered)
-trip_pii_cols = c('o_lon', 'o_lat', 'd_lon', 'd_lat', 'mode_other_specify', 'd_purpose_other')
+trip_pii_cols = c('o_lon', 'o_lat', 'd_lon', 'd_lat', 'mode_other_specify',
+                  'd_purpose_other')
 keep_trip_cols = setdiff(names(trip_filtered), trip_pii_cols)
 trip_filtered = trip_filtered[, ..keep_trip_cols]
 
 
-
+# only keep specified columns in each table
 names(hh_filtered)
 keep_hh_cols = c('hh_id', 'sample_segment', 'income_detailed', 'income_followup',
                  'num_people', 'residence_type')
@@ -76,41 +71,34 @@ names(vehicle_filtered)
 keep_veh_cols = c('hh_id', 'vehicle_id', 'fuel_type')
 vehicle_filtered = vehicle_filtered[, ..keep_veh_cols]
 
-user = Sys.info()['user']
-
-variable_list = readxl::read_xlsx(stringr::str_glue("C:/Users/{user}/Resource Systems Group, Inc/Transportation MR - Documents/210267 Metrolina HTS/Internal/3.DataAnalysis/1.Data/metrolina_pipeline_codebook.xlsx"),
-                              sheet = 'variable_list')
-setDT(variable_list)
-
+# only keep variables in the codebook that remain in the dataset
 variable_list = variable_list[variable %in% c(keep_hh_cols, keep_person_cols,
                                               keep_day_cols, keep_trip_cols,
                                               keep_veh_cols)]
-
-variable_list[, c('location', 'linked_trip', 'label', 'write_to_export') := NULL]
-
-value_labels = readxl::read_xlsx(stringr::str_glue("C:/Users/{user}/Resource Systems Group, Inc/Transportation MR - Documents/PSRC Survey Program/210252_PSRC_HTS/Internal/3.DataAnalysis/psrc_psrc_2023_pipeline_codebook.xlsx"),
-                              sheet = 'value_labels')
-setDT(value_labels)
-
+variable_list[, location := NULL]
 value_labels = value_labels[variable %in% c(keep_hh_cols, keep_person_cols,
-                                              keep_day_cols, keep_trip_cols,
-                                              keep_veh_cols)]
+                                            keep_day_cols, keep_trip_cols,
+                                            keep_veh_cols)]
+
+value_labels = value_labels[, c('variable', 'value', 'label')]
+
+### Write data----
 
 hh = hh_filtered
 usethis::use_data(hh, overwrite = TRUE)
 
 person = person_filtered
-usethis::use_data(person)
+usethis::use_data(person, overwrite = TRUE)
 
 day = day_filtered
-usethis::use_data(day)
+usethis::use_data(day, overwrite = TRUE)
 
 trip = trip_filtered
-usethis::use_data(trip)
+usethis::use_data(trip, overwrite = TRUE)
 
 vehicle = vehicle_filtered
-usethis::use_data(vehicle)
+usethis::use_data(vehicle, overwrite = TRUE)
 
-usethis::use_data(variable_list)
+usethis::use_data(variable_list, overwrite = TRUE)
 
-usethis::use_data(value_labels)
+usethis::use_data(value_labels, overwrite = TRUE)
