@@ -13,10 +13,10 @@ hts_find_var = function(var, variables_dt = variable_list) {
 
   varlist = data.table::copy(variables_dt)
   varlist = varlist[, .SD[1], keyby = .(shared_name)]
-  setDT(varlist)
+  data.table::setDT(varlist)
 
   # Find the locations of the variable:
-  var_location = melt(varlist[shared_name == var,
+  var_location = data.table::melt(varlist[shared_name == var,
                               .(variable,
                                 hh,
                                 person,

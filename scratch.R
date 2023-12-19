@@ -1,19 +1,32 @@
 # Example walk-through: income_detailed x education
 
 # load data ================================================================
-hts_data = list(
-  'hh' = data(hh),
-  'person' = data(person),
-  'day' = data(day),
-  'trip' = data(trip),
-  'vehicle' = data(vehicle)
-)
+devtools::load_all()
+library(data.table)
 
+data(hts_data)
+data(variable_list)
+data(value_labels)
+
+variables_dt = variable_list
 summarize_var = 'income_detailed'
 summarize_by = 'education'
 
-variables_dt = data(variable_list)
-values_dt = data(value_labels)
+# Defaults:
+remove_missing = FALSE
+# missing_value = 995
+# not_imputable = -1
+
+
+weighted = TRUE
+wtname = NULL
+strataname = NULL
+remove_outliers = TRUE
+se = FALSE
+threshold = 0.975
+
+
+
 
 # hts_summary() ================================================================
 

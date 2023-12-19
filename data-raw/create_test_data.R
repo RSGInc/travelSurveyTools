@@ -121,7 +121,8 @@ variable_list = variable_list[, c(
   'trip',
   'vehicle',
   'location',
-  'description'
+  'description',
+  'data_type'
 )]
 
 # Requires a shared_name column
