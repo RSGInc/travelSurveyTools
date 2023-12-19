@@ -3,6 +3,8 @@
 library(data.table)
 library(tmrtools) # internal RSG package for working with the database
 library(readxl)
+library(stringr)
+library(usethis)
 
 # Survey Data ==================================================================
 tbl_names = c("hh", "person", "day", "trip", "vehicle")
@@ -11,7 +13,7 @@ hts_data = list()
 
 hts_data = lapply(tbl_names, function(t) {
   query = stringr::str_glue('select * from psrc_2023.d_ex_{t}')
-  db_tab = read_from_db(con = connect_to_pops(dbname = 'psrc'),
+  db_tab = tmrtools::read_from_db(con = connect_to_pops(dbname = 'psrc'),
                         query,
                         disconnect = TRUE)
 })
@@ -121,6 +123,13 @@ variable_list = variable_list[, c(
   'location',
   'description'
 )]
+
+# Requires a shared_name column
+variable_list[, shared_name :=
+                ifelse(is_checkbox == 1,
+                       sub('_[^_]*$', '', variable),
+                       variable)]
+
 
 value_labels = value_labels[, c('variable', 'value', 'label')]
 
