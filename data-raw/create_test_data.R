@@ -74,13 +74,20 @@ keep_cols = c(
   'd_purpose_category',
 
   # Vehicle variables:
-  'fuel_type'
+  'fuel_type',
+
+  # Weights
+  'hh_weight',
+  'person_weight',
+  'day_weight',
+  'trip_weight'
 )
 
 hts_data = lapply(hts_data, function(dt) {
   keep_dt = names(dt)[names(dt) %in% keep_cols]
   dt = dt[, ..keep_dt]
 })
+
 
 
 
@@ -131,11 +138,34 @@ variable_list[, shared_name :=
                        sub('_[^_]*$', '', variable),
                        variable)]
 
+# Requires a val_order column
+value_labels[, val_order := seq(1:nrow(value_labels))]
 
-value_labels = value_labels[, c('variable', 'value', 'label')]
+value_labels = value_labels[, c('variable', 'value', 'label', 'val_order')]
 
+## Create dummy weights --------------------------------------------------------
+hts_data$hh[, hh_weight :=
+              sample(10:1000,
+                     size = nrow(hts_data$hh),
+                     replace = TRUE)]
+hts_data$person[, person_weight :=
+                  sample(10:1000,
+                         size = nrow(hts_data$person),
+                         replace = TRUE)]
+hts_data$day[, day_weight :=
+              sample(10:1000,
+                     size = nrow(hts_data$day),
+                     replace = TRUE)]
+hts_data$trip[, trip_weight :=
+              sample(10:1000,
+                     size = nrow(hts_data$trip),
+                     replace = TRUE)]
+hts_data$vehicle = merge(hts_data$vehicle,
+                         hts_data$hh[, c('hh_id', 'hh_weight')],
+                         by = 'hh_id', all.x = TRUE)
 
+test_data = hts_data
 # Write data ===================================================================
-usethis::use_data(hts_data, overwrite = TRUE)
+usethis::use_data(test_data, overwrite = TRUE)
 usethis::use_data(variable_list, overwrite = TRUE)
 usethis::use_data(value_labels, overwrite = TRUE)

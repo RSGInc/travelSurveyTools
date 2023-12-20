@@ -4,11 +4,12 @@
 devtools::load_all()
 library(data.table)
 
-data(hts_data)
+data(test_data)
 data(variable_list)
 data(value_labels)
 
 variables_dt = variable_list
+values_dt = value_labels
 summarize_var = 'income_detailed'
 summarize_by = 'education'
 
@@ -17,7 +18,7 @@ remove_missing = FALSE
 # missing_value = 995
 # not_imputable = -1
 
-
+hts_data = test_data
 weighted = TRUE
 wtname = NULL
 strataname = NULL
@@ -181,4 +182,4 @@ summary_ls = list(
 
 return(summary_ls)
 
-}
+
