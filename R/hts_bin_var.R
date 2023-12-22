@@ -1,5 +1,21 @@
-# TODO: Test with other numeric variables that may not want to be rounded (bus/taxi fare?)
-# TODO: Bin Date/Time variables.
+#' Bin numeric variables
+#'
+#' @param prepped_dt Dataset containing variable to bin in data.table format
+#' @param numvar Name of the numeric variable to bin
+#' @param nbins Number of bins for variable. Defaults to 7.
+#' 
+#' @return Inputted dataset with the specified variable binned in data.table format.
+#' @export
+#'
+#' @examples
+#' set.seed(45)
+#' require(data.table)
+#' require(stringr)
+#' DT = data.table(
+#'       id = 1:10,
+#'       speed = sample(1:100, size = 10))
+#' hts_bin_var(prepped_dt = DT, numvar = 'speed')
+#'
 hts_bin_var = function(prepped_dt,
                        numvar,
                        nbins = 7) {

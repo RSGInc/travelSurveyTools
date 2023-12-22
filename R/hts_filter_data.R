@@ -1,6 +1,40 @@
-#filers hts_data based on supplied ids
-#hts_data is a list of dts
-
+#' Filter datasets to only keep specified ids
+#'
+#' @param data List of containing household, person, day, trip, and vehicle
+#' tables in data.table format
+#' @param ids List of ids to keep in all of the tables
+#' @param id_type Type of id being used for filtering. Options are 'hh', 'person',
+#' 'day', and 'trip'. Defaults to 'hh'.
+#' 
+#' @return Inputted list of tables filtered to the specified ids.
+#' @export
+#'
+#' @examples
+#' set.seed(45)
+#' require(data.table)
+#' DT = list(hh = data.table(
+#'               hh_id = 1:10,
+#'               num_people = sample(1:10, size = 10, replace = TRUE)),
+#'       person = data.table(
+#'               hh_id = sample(1:10, size = 20, replace = TRUE),
+#'               person_id = 1:20,
+#'               age = sample(1:5, size = 20, replace = TRUE)),
+#'       day = data.table(
+#'               hh_id = sample(1:10, size = 30, replace = TRUE),
+#'               day_id = 1:30,
+#'               dow = sample(1:7, size = 30, replace = TRUE)),
+#'       trip = data.table(
+#'               hh_id = sample(1:10, size = 30, replace = TRUE),
+#'               trip_id = 1:30,
+#'               mode = sample(1:10, size = 30, replace = TRUE)),
+#'       vehicle = data.table(
+#'               hh_id = sample(1:10, size = 20, replace = TRUE),
+#'               vehicle_id = 1:20,
+#'               fuel_type = sample(1:3, size = 20, replace = TRUE))) 
+#' hts_filter_data(data = DT,
+#'                 ids = DT$hh[num_people > 5, hh_id],
+#'                 id_type = 'hh')
+#'
 
 hts_filter_data = function(data = list('hh' = hh,
                                        'person' = person,

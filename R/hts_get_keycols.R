@@ -1,3 +1,26 @@
+#' Find key columns in table
+#'
+#' @param dt Dataset to find key columns of in data.table format
+#' @param ids Boolean whether to return id columns. Default is TRUE.
+#' @param weights Boolean whether to return weight columns. Default is TRUE.
+#' @param priority Boolean whether to only return highest level weight/id.
+#' Default is FALSE.
+#' 
+#' @return List of names of key columns in the dataset.
+#' @export
+#'
+#' @examples
+#' set.seed(45)
+#' require(data.table)
+#' DT = data.table(
+#'       hh_id = sample(1:10, size = 30, replace = TRUE),
+#'       trip_id = 1:30,
+#'       mode = sample(1:10, size = 30, replace = TRUE),
+#'       hh_weight = sample(100:200, size = 30, replace = TRUE),
+#'       trip_weight = sample(100:200, size = 30, replace = TRUE))
+#' hts_get_keycols(dt = DT)
+#' hts_get_keycols(dt = DT, priority = TRUE)
+#'
 hts_get_keycols = function(dt,
                            ids = TRUE,
                            weights = TRUE,
