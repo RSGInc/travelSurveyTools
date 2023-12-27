@@ -1,7 +1,7 @@
 #' Remove missing data for summary variables
 #'
 #' @param hts_data List containing household, person, day, trip, and vehicle 
-#' datasets in data.table format
+#' datasets in data.table format.
 #' @param variables_dt A variable list with descriptions and table locations
 #' of variables.
 #' @param summarize_var Variable to be summarized that has it's missing data
