@@ -7,15 +7,9 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
-#' DT = data.table(
-#'       hh_id = sample(1:10, size = 30, replace = TRUE),
-#'       trip_id = 1:30,
-#'       mode = sample(1:10, size = 30, replace = TRUE),
-#'       hh_weight = sample(100:200, size = 30, replace = TRUE),
-#'       trip_weight = sample(100:200, size = 30, replace = TRUE))
-#' hts_get_ns(prepped_dt = DT, weighted = TRUE)
+#' hts_get_ns(prepped_dt = day, weighted = TRUE)
 #'
 hts_get_ns = function(prepped_dt,
                       weighted

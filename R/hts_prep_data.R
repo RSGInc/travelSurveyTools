@@ -2,14 +2,14 @@
 #'
 #' @param summarize_var Name of the variable to summarize. Default is NULL
 #' @param summarize_by Name of the variable to summarize the summarize_var by.
-#' Default is NULL.
+#'  Default is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
-#' format.
+#'  format.
 #' @param data List of household, person, vehicle, day, and trip tables in
-#' data.table format.
+#'  data.table format.
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
-#' is TRUE.
+#'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' 
 #' @return List containing the categorical and numeric datasets of the summary
@@ -19,40 +19,24 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#'
 #' require(data.table)
 #' require(stringr)
-#' person = data.table(
-#'               hh_id = rep(1:10,2),
-#'               person_id = 1:20,
-#'               age = sample(1:10, size = 20, replace = TRUE),
-#'               num_jobs = sample(1:10, size = 20, replace = TRUE))
-#' day = data.table(
-#'               hh_id = rep(1:10,4),
-#'               person_id = rep(1:20,2),
-#'               day_id = 1:40,
-#'               day_weight = sample(1:10, size = 40, replace = TRUE))
-#' trip = data.table(
-#'               hh_id = rep(1:10,8),
-#'               person_id = rep(1:20,4),
-#'               trip_id = 1:80,
-#'               day_id = rep(1:40,2),
-#'               trip_weight = sample(1:10, size = 80, replace = TRUE))
-#' hts_data = list(person = person, day = day, trip = trip)
-#' variable_list = data.table(
-#'       variable = c('age', 'num_jobs'),
-#'       hh = c(0,0),
-#'       person = c(1,1),
-#'       vehicle = c(0,0),
-#'       day = c(0,0),
-#'       trip = c(0,0),
-#'       shared_name = c('age', 'num_jobs'),
-#'       description = c('Age', 'Number of jobs'),
-#'       is_checkbox = c(0, 0),
-#'       data_type = c('integer/categorical', 'numeric'))
-#'hts_prep_data(summarize_var = 'age', variables_dt = variable_list)
-#'hts_prep_data(summarize_var = 'num_jobs', summarize_by = 'age', variables_dt =
-#'variable_list)
+#' hts_prep_data(summarize_var = 'age',
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
+#' hts_prep_data(summarize_var = 'num_people',
+#'               summarize_by = 'age',
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,

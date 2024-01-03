@@ -1,13 +1,13 @@
 #' Prepare datasets for trip rate calculations
 #'
 #' @param summarize_by Name of the variable to summarize trip rates by. Default
-#' is NULL.
+#'  is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
-#' format.
+#'  format.
 #' @param tripdat Dataset of trips in data.table format.
 #' @param daydat Dataset of days in data.table format.
 #' @param remove_outliers Boolean whether or not to remove outliers from dataset.
-#' Default is TRUE.
+#'  Default is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' 
@@ -17,40 +17,16 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
 #' require(stringr)
-#' person = data.table(
-#'               hh_id = rep(1:10,2),
-#'               person_id = 1:20,
-#'               age = sample(1:10, size = 20, replace = TRUE))
-#' day = data.table(
-#'               hh_id = rep(1:10,4),
-#'               person_id = rep(1:20,2),
-#'               day_id = 1:40,
-#'               day_weight = sample(1:10, size = 40, replace = TRUE))
-#' trip = data.table(
-#'               hh_id = rep(1:10,8),
-#'               person_id = rep(1:20,4),
-#'               trip_id = 1:80,
-#'               day_id = rep(1:40,2),
-#'               trip_weight = sample(1:10, size = 80, replace = TRUE))
-#' hts_data = list(person = person, day = day, trip = trip)
-#' variable_list = data.table(
-#'       variable = c('age'),
-#'       hh = c(0),
-#'       person = c(1),
-#'       vehicle = c(0),
-#'       day = c(0),
-#'       trip = c(0),
-#'       shared_name = c('age'),
-#'       description = c('Age'),
-#'       is_checkbox = c(0),
-#'       data_type = rep('integer/categorical', 1)) 
-#' hts_prep_triprate(variables_dt = variable_list, tripdat = trip,
-#' daydat = day)
-#' hts_prep_triprate(summarize_by = 'age', variables_dt = variable_list,
-#' tripdat = trip, daydat = day)
+#' hts_prep_triprate(variables_dt = variable_list,
+#'                   tripdat = trip,
+#'                   daydat = day)
+#' hts_prep_triprate(summarize_by = 'age',
+#'                   variables_dt = variable_list,
+#'                   tripdat = trip,
+#'                   daydat = day)
 hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
                              tripdat = trip,

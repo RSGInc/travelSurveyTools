@@ -3,20 +3,16 @@
 #' @param prepped_dt Dataframe in data.table format to transform to survey object.
 #' @param weighted If true creates a weighted survey object. Default is TRUE.
 #' @param wtname Name of the weight column in the dataframe. If NULL searches for
-#' one of hh_weight, person_weight, day_weight, or trip_weight.
+#'  one of hh_weight, person_weight, day_weight, or trip_weight.
 #' @param strataname Name of strata name to bring in. Default is NULL.
 #' 
 #' @return Inputted dataframe transformed into a survey object.
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
-#' DT = data.table(
-#'       hh_id = 1:10,
-#'       income = sample(1:100, size = 10),
-#'       hh_weight = sample(100:1000, size = 10))
-#' hts_to_so(prepped_dt = DT)
+#' hts_to_so(prepped_dt = trip)
 #'
 hts_to_so = function(prepped_dt,
                      weighted = TRUE,

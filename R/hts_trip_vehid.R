@@ -10,25 +10,25 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
-#' trip = data.table(
+#' trip_ex = data.table(
 #'       hh_id = sample(1:10, size = 20, replace = TRUE),
 #'       trip_id = 1:30,
 #'       mode_type = sample(1:2, size = 30, replace = TRUE),
 #'       mode_1 = sample(1, size = 30, replace = TRUE))
-#' vehicle = data.table(
+#' vehicle_ex = data.table(
 #'       hh_id = sample(1:10, size = 20, replace = TRUE),
 #'       vehicle_id = 1:20)
-#' values = data.table(
+#' values_ex = data.table(
 #'       variable = c(rep('mode_type', 2), ('mode_1')),
 #'       value = c(1,2,1),
 #'       value_label = c('Vehicle', 'Walk', 'Car')
 #'       )
-#' hts_trip_vehid(trip_table = trip,
-#'                vehicle_table = vehicle,
+#' hts_trip_vehid(trip_table = trip_ex,
+#'                vehicle_table = vehicle_ex,
 #'                vehicle_mode_type = 'Vehicle',
-#'                values_dt = values)
+#'                values_dt = values_ex)
 #'
 hts_trip_vehid = function(trip_table,
                           vehicle_table,

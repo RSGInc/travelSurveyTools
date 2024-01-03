@@ -1,23 +1,23 @@
 #' Melts checkbox variables into a single variable
 #'
 #' @param shared_name Shared name of the checkbox variable to melt (e.g., 'race_1',
-#' and 'race_2' have shared name of 'race'). Defaults to NULL.
+#'  and 'race_2' have shared name of 'race'). Defaults to NULL.
 #' @param wide_dt Table containing the checkbox variables to melt in data.table
-#' format.
+#'  format.
 #' @param shared_name_vars List of the checkbox variables with the same shared name.
-#' Defaults to NULL.
+#'  Defaults to NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
-#' format.
+#'  format.
 #' @param hts_data List containing household, person, day, trip, and vehicle 
-#' datasets in data.table format.
+#'  datasets in data.table format.
 #' @param remove_missing Boolean to remove rows with missing values. Defaults to
-#' TRUE.
+#'  TRUE.
 #' @param missing_values Missing values to remove. Defaults to 'Missing Response'
-#' and 995.
+#'  and 995.
 #' @param checkbox_label_sep Character to use to split description of checkbox
-#' variable in the variable list. Defaults to ':'
+#'  variable in the variable list. Defaults to ':'
 #' @param to_single_row Boolean if treating multiple checkbox selections as 'Two
-#' or more'. Defaults to FALSE.
+#'  or more'. Defaults to FALSE.
 #' 
 #' @return Inputted data table with checkbox variables melted into a single variable,
 #' with a 'variable' column to indicate original variable names and a 'value' column
@@ -25,25 +25,16 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
 #' require(stringr)
-#' person = data.table(
-#'               hh_id = sample(1:10, size = 20, replace = TRUE),
-#'               person_id = 1:20,
-#'               race_1 = sample(0:1, size = 20, replace = TRUE),
-#'               race_2 = sample(0:1, size = 20, replace = TRUE))
-#' hts_data = list(person = person)
-#' variable_list = data.table(
-#'       variable = c('race_1', 'race_2'),
-#'       hh = c(0,0),
-#'       person = c(1,1),
-#'       vehicle = c(0,0),
-#'       day = c(0,0),
-#'       trip = c(0,0),
-#'       shared_name = c('race', 'race'),
-#'       description = c('Race: White', 'Race: Asian')) 
-#' hts_melt_vars(shared_name = 'race', wide_dt = person)
+#' hts_melt_vars(shared_name = 'race',
+#'               wide_dt = person,
+#'               hts_data = list('hh' = hh,
+#'                               'person' = person,
+#'                               'day' = day,
+#'                               'trip' = trip,
+#'                               'vehicle' = vehicle))
 #'
 hts_melt_vars = function(shared_name = NULL,
                          wide_dt = NULL,

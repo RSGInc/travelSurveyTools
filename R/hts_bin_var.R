@@ -8,13 +8,10 @@
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
 #' require(stringr)
-#' DT = data.table(
-#'       id = 1:10,
-#'       speed = sample(1:100, size = 10))
-#' hts_bin_var(prepped_dt = DT, numvar = 'speed')
+#' hts_bin_var(prepped_dt = hh, numvar = 'num_people')
 #'
 hts_bin_var = function(prepped_dt,
                        numvar,

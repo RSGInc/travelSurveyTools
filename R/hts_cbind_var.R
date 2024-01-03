@@ -3,33 +3,17 @@
 #' @param lhs_table Table to bind a column to in data.table format
 #' @param rhs_var Variable to bind to the lhs_table.
 #' @param variable_list A variable list with descriptions and table locations
-#' of variables.
+#'  of variables.
 #' @param return_weight_cols If true binds weight variable along with rhs_var
-#' to lhs_table. Default is FALSE.
+#'  to lhs_table. Default is FALSE.
 #' @param ... Additional arguments passed to \code{link{hts_get_keycols}}
 #' 
 #' @return Inputted table with inputted variable binded.
 #' @export
 #'
 #' @examples
-#' set.seed(45)
+#' 
 #' require(data.table)
-#' hh = data.table(
-#'       hh_id = 1:10,
-#'       num_people = sample(1:10, size = 10, replace = TRUE),
-#'       hh_weight = sample(100:1000, size = 10))
-#' trip = data.table(
-#'       hh_id = sample(1:10, size = 30, replace = TRUE),
-#'       trip_id = 1:30,
-#'       mode = sample(1:10, size = 30, replace = TRUE))
-#' variable_list = data.table(
-#'       variable = 'num_people',
-#'       hh = 1,
-#'       person = 0,
-#'       vehicle = 0,
-#'       day = 0,
-#'       trip = 0,
-#'       shared_name = 'num_people')
 #' hts_cbind_var(lhs_table = trip, rhs_var = 'num_people', variable_list = variable_list)
 #' hts_cbind_var(lhs_table = trip, rhs_var = 'num_people', 
 #' variable_list = variable_list, return_weight_cols = TRUE)

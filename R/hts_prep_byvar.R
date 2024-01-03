@@ -2,37 +2,29 @@
 #'
 #' @param summarize_by Name of the variable to be prepped. Default is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
-#' format.
+#'  format.
 #' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
 #' 
 #' @return Data table containing the variable to be summarized and other key
-#' columns.
+#'  columns.
 #' @export
 #'
 #' @examples
-#' set.seed(45)
-#' require(data.table)
-#' require(stringr)
-#' person = data.table(
-#'               hh_id = sample(1:10, size = 20, replace = TRUE),
-#'               person_id = 1:20,
-#'               race_1 = sample(0:1, size = 20, replace = TRUE),
-#'               race_2 = sample(0:1, size = 20, replace = TRUE),
-#'               age = sample(1:10, size = 20, replace = TRUE))
-#' hts_data = list(person = person)
-#' variable_list = data.table(
-#'       variable = c('race_1', 'race_2', 'age'),
-#'       hh = c(0,0,0),
-#'       person = c(1,1,1),
-#'       vehicle = c(0,0,0),
-#'       day = c(0,0,0),
-#'       trip = c(0,0,0),
-#'       shared_name = c('race', 'race', 'age'),
-#'       description = c('Race: White', 'Race: Asian', 'Age'),
-#'       is_checkbox = c(1,1,0),
-#'       data_type = rep('integer/categorical', 3)) 
-#' hts_prep_byvar(summarize_by = 'age', variables_dt = variable_list)
-#' hts_prep_byvar(summarize_by = 'race', variables_dt = variable_list)
+#'
+#' hts_prep_byvar(summarize_by = 'age',
+#'                variables_dt = variable_list,
+#'                hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
+#' hts_prep_byvar(summarize_by = 'race',
+#'                variables_dt = variable_list,
+#'                hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 #'
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
