@@ -18,6 +18,7 @@ variable location in string format
 Find table location of a variable
 }
 \examples{
-var_location = hts_find_var('income_detailed')
+
+hts_find_var('income_detailed')
 
 }

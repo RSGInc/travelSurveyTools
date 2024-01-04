@@ -2,7 +2,7 @@
 % Please edit documentation in R/hts_summary.R
 \name{hts_summary}
 \alias{hts_summary}
-\title{Title}
+\title{Make household travel survey summaries}
 \usage{
 hts_summary(
   hts_data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle,
@@ -24,8 +24,72 @@ hts_summary(
 )
 }
 \arguments{
-\item{not_imputable}{}
+\item{hts_data}{List containing household, person, day, trip, and vehicle
+datasets in data.table format.}
+
+\item{summarize_var}{Name of the variable to summarize. Default is NULL.}
+
+\item{summarize_by}{Name of the variable to summarize the summarize_var by.
+Default is NULL.}
+
+\item{variables_dt}{Dataset of variable locations and descriptions in
+data.table format.}
+
+\item{var_description_sep}{Character used in the description of the variable
+list to separate the name from the description. Default is ':'.}
+
+\item{values_dt}{Dataset of values and value labels for all variables in
+data.table format.}
+
+\item{weighted}{Whether the data is weighted. Default is TRUE.}
+
+\item{wtname}{Name of the weight column to use. Default is NULL.}
+
+\item{strataname}{Name of strata name to bring in. Default is NULL.}
+
+\item{remove_outliers}{Whether to remove outliers from the data. Default is
+TRUE.}
+
+\item{se}{Whether to calculate standard error. Default is FALSE.}
+
+\item{threshold}{Threshold to define an outlier. Default is 0.975.}
+
+\item{remove_missing}{Whether to remove missing values from the summary.
+Default is TRUE.}
+
+\item{missing_value}{Missing value to remove. Default is 995.}
+
+\item{not_imputable}{Value representing 'Not imputable' to remove. Default
+is -1.}
+}
+\value{
+List containing sample sizes, categorical summary, numeric summary,
+outlier breakdown, whether or not the summarized variable is a checkbox,
+and the summary variables and their descriptions.
 }
 \description{
-Title
+Make household travel survey summaries
+}
+\examples{
+
+require(data.table)
+require(stringr)
+require(dplyr)
+require(srvyr)
+hts_summary(hts_data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle),
+            summarize_var = 'age',
+            summarize_by =  'employment',
+            variables_dt = variable_list)
+hts_summary(hts_data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle),
+            summarize_var = 'num_people',
+            summarize_by =  'age',
+            variables_dt = variable_list)
 }
