@@ -1,3 +1,48 @@
+#' Summarize a numeric variable
+#'
+#' @param prepped_dt Dataset containing the summary variables and key columns in
+#'  data.table format.
+#' @param summarize_var Name of the numeric variable to summarize. Default is NULL.
+#' @param summarize_by Name of the variable to summarize the summarize_var by.
+#'  Default is NULL.
+#' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param values_dt Dataset of values and value labels for all variables in
+#'  data.table format.
+#' @param wtname Name of the weight column to use. Default is NULL.
+#' @param strataname  Name of strata name to bring in. Default is NULL.
+#' 
+#' @return List of unweighted and weighted numeric summaries including count, min,
+#'  max, mean, se, and median.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' require(stringr)
+#' require(dplyr)
+#' require(srvyr)
+#' DT = hts_prep_data(summarize_var = 'num_people',
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$num
+#' hts_summary_num(prepped_dt = DT,
+#'                 summarize_var = 'num_people',
+#'                 values_dt = value_labels)
+#' DT = hts_prep_data(summarize_var = 'num_people',
+#'                    summarize_by = 'age', 
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$num
+#' hts_summary_num(prepped_dt = DT,
+#'                 summarize_var = 'num_people',
+#'                 summarize_by = 'age',
+#'                 values_dt = value_labels)
 hts_summary_num = function(prepped_dt,
                            summarize_var = NULL,
                            summarize_by = NULL,

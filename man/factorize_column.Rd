@@ -59,31 +59,12 @@ The "factorize" functions were borrowed and updated from the
 }
 \examples{
 
-vals_df = rbind(
-  data.frame(
-    variable = "hh_group",
-    value = 1:2,
-    value_label = c("1-rMove Diary", "2-Online Diary"),
-    stringsAsFactors = FALSE),
-  data.frame(
-    variable = "Missing",
-    value = c(995, -9998, -9999),
-    value_label = c("Missing: Valid skip (995)",
-              "Missing: Non-response (-9998)",
-              "Missing: Survey error (-9999)"),
-    stringsAsFactors = FALSE)
-  )
-
-hh = data.frame(
-  hh_group = c(rep(1:2, 4), NA, -9999),
-  num_trips = sample(1:20, 10)
-)
-
-hh_group_as_factor = factorize_column(
-  x = hh$hh_group,
-  var_str = "hh_group",
-  vals_df = vals_df,
-  extra_labels = "Missing"
+factored = factorize_column(
+  x = hh$income_detailed,
+  var_str = "income_detailed",
+  vals_df = value_labels,
+  extra_labels = "Missing",
+  value_label_colname = 'label'
 )
 
 }

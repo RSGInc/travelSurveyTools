@@ -13,43 +13,19 @@
 #'
 #' @param df A dataframe to label
 #' @param vals_df A dataframe of variable labels (i.e., factor levels and
-#' labels) with the format as specified below. Passed to factorize_column
-#' function.
+#'  labels) with the format as specified below. Passed to factorize_column
+#'  function.
 #' @param verbose Prints which vars are labeled and unlabeled
 #' @param ... Additional arguments passed to \code{\link{factorize_column}}
 #' @return A factorized (i.e. labeled) version of the dataframe it was passed.
 #' @examples
 #'
-#' # examples
-#' \dontrun{
-#' vals_df = rbind(
-#'   data.frame(
-#'     variable = "hh_group",
-#'     value = 1:2,
-#'     val_order = 1:2,
-#'     label = c("1-rMove Diary", "2-Online Diary"),
-#'     val_logic = NA,
-#'     stringsAsFactors = FALSE),
-#'   data.frame(
-#'     variable = "Missing",
-#'     value = c(995, -9998, -9999),
-#'     val_order = 3:5,
-#'     label = c("Missing: Valid skip (995)",
-#'               "Missing: Non-response (-9998)",
-#'               "Missing: Survey error (-9999)"),
-#'     val_logic = NA,
-#'     stringsAsFactors = FALSE)
-#'   )
-#'
-#' hh = data.frame(
-#'   hh_group = c(rep(1:2, 4), NA, -9999),
-#'   num_trips = sample(1:20, 10))
-#'
 #' hh_labeled = factorize_df(
 #'   df = hh,
-#'   vals_df = vals_df,
+#'   vals_df = value_labels,
+#'   value_label_colname = 'label',
 #'   extra_labels = c("Missing")
-#' )}
+#' )
 #'
 #' @export factorize_df
 factorize_df <- function(df, vals_df, verbose = TRUE, ...) {

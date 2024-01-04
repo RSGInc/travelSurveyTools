@@ -1,3 +1,31 @@
+#' Prepare variable to be summarized
+#'
+#' @param summarize_by Name of the variable to be prepped. Default is NULL.
+#' @param variables_dt List of variable locations and descriptions in data.table
+#'  format.
+#' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
+#' 
+#' @return Data table containing the variable to be summarized and other key
+#'  columns.
+#' @export
+#'
+#' @examples
+#'
+#' hts_prep_byvar(summarize_by = 'age',
+#'                variables_dt = variable_list,
+#'                hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
+#' hts_prep_byvar(summarize_by = 'race',
+#'                variables_dt = variable_list,
+#'                hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
+#'
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
                           ...) {

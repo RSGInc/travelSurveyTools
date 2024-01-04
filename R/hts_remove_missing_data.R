@@ -1,9 +1,38 @@
+#' Remove missing data for summary variables
+#'
+#' @param hts_data List containing household, person, day, trip, and vehicle 
+#'  datasets in data.table format.
+#' @param variables_dt A variable list with descriptions and table locations
+#'  of variables.
+#' @param summarize_var Variable to be summarized that has it's missing data
+#'  removed.
+#' @param summarize_by Variable being summarized by that has it's missing data
+#'  removed. Default is NULL.
+#' @param missing_value Missing value that will be removed. Default is 995.
+#' @param not_imputable Value meaning not_imputable that will be removed. Default
+#'  is -1.
+#' 
+#' @return Inputted list of datasets without missing values for specified variables.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' hts_remove_missing_data(hts_data = list('hh' = hh,
+#'                                         'person' = person,
+#'                                         'day' = day,
+#'                                         'trip' = trip,
+#'                                         'vehicle' = vehicle),
+#'                         variables_dt = variable_list,
+#'                         summarize_var = 'num_people',
+#'                         summarize_by = 'mode_type')
+#'
 hts_remove_missing_data = function(hts_data,
                                    variables_dt,
                                    summarize_var,
-                                   summarize_by,
-                                   missing_value,
-                                   not_imputable){
+                                   summarize_by = NULL,
+                                   missing_value = 995,
+                                   not_imputable = -1){
   
   summarize_var_loc = hts_find_var(summarize_var)
   

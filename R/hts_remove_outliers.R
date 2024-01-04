@@ -1,3 +1,18 @@
+#' Remove outliers from a numeric variable
+#'
+#' @param var_dt Dataset with a numeric variable to remove outliers from
+#'  in data.table format.
+#' @param numvar Numeric variable to remove outliers from. Default is NULL.
+#' @param threshold Threshold to define what an outlier is. Default is .975.
+#' 
+#' @return List of outliers removed and the dataset without the outliers.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' hts_remove_outliers(var_dt = hh, numvar = 'num_people')
+#'
 hts_remove_outliers = function (var_dt, numvar = NULL,
                                 threshold = 0.975){
   

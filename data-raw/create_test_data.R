@@ -76,11 +76,25 @@ variable_list = variable_list[variable %in% c(keep_hh_cols, keep_person_cols,
                                               keep_day_cols, keep_trip_cols,
                                               keep_veh_cols)]
 variable_list[, location := NULL]
+variable_list[variable == 'num_people', data_type := 'numeric']
+variable_list[, shared_name := ifelse(
+  grepl(':', description),
+  sub('_[^_]*$', '', variable), variable)]
+
 value_labels = value_labels[variable %in% c(keep_hh_cols, keep_person_cols,
                                             keep_day_cols, keep_trip_cols,
                                             keep_veh_cols)]
 
 value_labels = value_labels[, c('variable', 'value', 'label')]
+value_labels = value_labels[variable != 'age' | !grepl('Age', label)]
+value_labels[, val_order := seq_len(nrow(value_labels))]
+
+# add weights
+hh_filtered[, hh_weight := sample(10:100, size = nrow(hh_filtered), replace = TRUE)]
+person_filtered[, person_weight := sample(10:100, size = nrow(person_filtered), replace = TRUE)]
+day_filtered[, day_weight := sample(10:100, size = nrow(day_filtered), replace = TRUE)]
+vehicle_filtered[, hh_weight := sample(10:100, size = nrow(vehicle_filtered), replace = TRUE)]
+trip_filtered[, trip_weight := sample(10:100, size = nrow(trip_filtered), replace = TRUE)]
 
 ### Write data----
 
