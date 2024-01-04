@@ -1,13 +1,13 @@
 #' Make household travel survey summaries
 #'
-#' @param hts_data List containing household, person, day, trip, and vehicle 
+#' @param hts_data List containing household, person, day, trip, and vehicle
 #'  datasets in data.table format.
 #' @param summarize_var Name of the variable to summarize. Default is NULL.
 #' @param summarize_by Name of the variable to summarize the summarize_var by.
 #'  Default is NULL.
 #' @param variables_dt Dataset of variable locations and descriptions in
 #'  data.table format.
-#' @param var_description_sep Character used in the desciption of the variable
+#' @param var_description_sep Character used in the description of the variable
 #'  list to separate the name from the description. Default is ':'.
 #' @param values_dt Dataset of values and value labels for all variables in
 #'  data.table format.
@@ -21,16 +21,16 @@
 #' @param remove_missing Whether to remove missing values from the summary.
 #'  Default is TRUE.
 #' @param missing_value Missing value to remove. Default is 995.
-#' @param not_imputable Value respresenting 'Not imputable' to remove. Default
+#' @param not_imputable Value representing 'Not imputable' to remove. Default
 #'  is -1.
-#' 
+#'
 #' @return List containing sample sizes, categorical summary, numeric summary,
 #' outlier breakdown, whether or not the summarized variable is a checkbox,
 #' and the summary variables and their descriptions.
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' require(data.table)
 #' require(stringr)
 #' require(dplyr)

@@ -1,25 +1,25 @@
 #' Add vehicle_id to trip table
 #'
 #' @param trip_table Dataset of trips in data.table format.
-#' @param vehicle_table Dataset of vehicles in data.table format. 
+#' @param vehicle_table Dataset of vehicles in data.table format.
 #' @param vehicle_mode_type Mode type label for vehicle. Default is 'Vehicle'.
 #' @param values_dt Dataset of value labels in data.table format.
-#' @param ... Additional arguments passed to \code{link{factorize_column}} 
-#' 
+#' @param ... Additional arguments passed to \code{link{factorize_column}}
+#'
 #' @return Trip table with vehicle_id attached.
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' require(data.table)
 #' trip_ex = data.table(
-#'       hh_id = sample(1:10, size = 20, replace = TRUE),
+#'       hh_id = sample(1:10, size = 30, replace = TRUE),
 #'       trip_id = 1:30,
 #'       mode_type = sample(1:2, size = 30, replace = TRUE),
 #'       mode_1 = sample(1, size = 30, replace = TRUE))
 #' vehicle_ex = data.table(
-#'       hh_id = sample(1:10, size = 20, replace = TRUE),
-#'       vehicle_id = 1:20)
+#'       hh_id = sample(1:10, size = 30, replace = TRUE),
+#'       vehicle_id = 1:30)
 #' values_ex = data.table(
 #'       variable = c(rep('mode_type', 2), ('mode_1')),
 #'       value = c(1,2,1),
