@@ -1,6 +1,25 @@
-#filers hts_data based on supplied ids
-#hts_data is a list of dts
-
+#' Filter datasets to only keep specified ids
+#'
+#' @param data List of containing household, person, day, trip, and vehicle
+#'  tables in data.table format
+#' @param ids List of ids to keep in all of the tables
+#' @param id_type Type of id being used for filtering. Options are 'hh', 'person',
+#'  'day', and 'trip'. Defaults to 'hh'.
+#' 
+#' @return Inputted list of tables filtered to the specified ids.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' hts_filter_data(data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle),
+#'                 ids = hh[num_people > 5, hh_id],
+#'                 id_type = 'hh')
+#'
 
 hts_filter_data = function(hts_data,
                            ids,

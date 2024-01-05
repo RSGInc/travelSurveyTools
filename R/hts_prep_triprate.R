@@ -1,3 +1,32 @@
+#' Prepare datasets for trip rate calculations
+#'
+#' @param summarize_by Name of the variable to summarize trip rates by. Default
+#'  is NULL.
+#' @param variables_dt List of variable locations and descriptions in data.table
+#'  format.
+#' @param tripdat Dataset of trips in data.table format.
+#' @param daydat Dataset of days in data.table format.
+#' @param remove_outliers Boolean whether or not to remove outliers from dataset.
+#'  Default is TRUE.
+#' @param threshold Threshold to define outliers. Default is 0.975.
+#' @param weighted Whether the data is weighted. Default is TRUE.
+#' 
+#' @return List of binned number of trips with key columns and summarize by variable,
+#' unbinned number of trips with key columns and summarize by variable, and a
+#' breakdown of outliers if removed.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' require(stringr)
+#' hts_prep_triprate(variables_dt = variable_list,
+#'                   tripdat = trip,
+#'                   daydat = day)
+#' hts_prep_triprate(summarize_by = 'age',
+#'                   variables_dt = variable_list,
+#'                   tripdat = trip,
+#'                   daydat = day)
 hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
                              tripdat = trip,

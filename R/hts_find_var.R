@@ -7,7 +7,8 @@
 #' @export
 #'
 #' @examples
-#' var_location = hts_find_var('income_detailed')
+#' 
+#' hts_find_var('income_detailed')
 #'
 hts_find_var = function(var, variables_dt = variable_list) {
 

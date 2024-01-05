@@ -1,3 +1,16 @@
+#' Get counts from dataset
+#'
+#' @param prepped_dt Dataset to pull counts from.
+#' @param weighted Boolean whether to pull weighted estimates.
+#' 
+#' @return List of unweighted counts, weighted counts, and highest level unit.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' hts_get_ns(prepped_dt = day, weighted = TRUE)
+#'
 hts_get_ns = function(prepped_dt,
                       weighted
 ) {
@@ -29,7 +42,7 @@ hts_get_ns = function(prepped_dt,
   
   unit = NULL
   
-  for (name in id_names)
+  for (name in id_names) {
     
     
     if (name %in% names(prepped_dt)){
@@ -42,6 +55,8 @@ hts_get_ns = function(prepped_dt,
       break
       
     }
+    
+  }
   
   #get weighted counts
   if (weighted){

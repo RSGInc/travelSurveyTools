@@ -1,3 +1,41 @@
+#' Melts checkbox variables into a single variable
+#'
+#' @param shared_name Shared name of the checkbox variable to melt (e.g., 'race_1',
+#'  and 'race_2' have shared name of 'race'). Defaults to NULL.
+#' @param wide_dt Table containing the checkbox variables to melt in data.table
+#'  format.
+#' @param shared_name_vars List of the checkbox variables with the same shared name.
+#'  Defaults to NULL.
+#' @param variables_dt List of variable locations and descriptions in data.table
+#'  format.
+#' @param hts_data List containing household, person, day, trip, and vehicle 
+#'  datasets in data.table format.
+#' @param remove_missing Boolean to remove rows with missing values. Defaults to
+#'  TRUE.
+#' @param missing_values Missing values to remove. Defaults to 'Missing Response'
+#'  and 995.
+#' @param checkbox_label_sep Character to use to split description of checkbox
+#'  variable in the variable list. Defaults to ':'
+#' @param to_single_row Boolean if treating multiple checkbox selections as 'Two
+#'  or more'. Defaults to FALSE.
+#' 
+#' @return Inputted data table with checkbox variables melted into a single variable,
+#' with a 'variable' column to indicate original variable names and a 'value' column
+#' with the original value of the checkbox variable.
+#' @export
+#'
+#' @examples
+#' 
+#' require(data.table)
+#' require(stringr)
+#' hts_melt_vars(shared_name = 'race',
+#'               wide_dt = person,
+#'               hts_data = list('hh' = hh,
+#'                               'person' = person,
+#'                               'day' = day,
+#'                               'trip' = trip,
+#'                               'vehicle' = vehicle))
+#'
 hts_melt_vars = function(shared_name = NULL,
                          wide_dt = NULL,
                          shared_name_vars = NULL,
@@ -104,6 +142,6 @@ hts_melt_vars = function(shared_name = NULL,
                        new = shared_name,
                        skip_absent = TRUE)
   
-  return(melted_dt)
+  return(melted_dt[])
   
 }

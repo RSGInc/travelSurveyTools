@@ -1,11 +1,47 @@
+#' Prepare datasets to make summaries
+#'
+#' @param summarize_var Name of the variable to summarize. Default is NULL
+#' @param summarize_by Name of the variable to summarize the summarize_var by.
+#'  Default is NULL.
+#' @param variables_dt List of variable locations and descriptions in data.table
+#'  format.
+#' @param data List of household, person, vehicle, day, and trip tables in
+#'  data.table format.
+#' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param remove_outliers Whether to remove outliers for numeric variable. Default
+#'  is TRUE.
+#' @param threshold Threshold to define outliers. Default is 0.975.
+#' 
+#' @return List containing the categorical and numeric datasets of the summary
+#' variables and key columns, and either whether the summarize variable is shared
+#' or a breakdown of outliers, depending on if the summarize variable is
+#' categorical or numeric.
+#' @export
+#'
+#' @examples
+#'
+#' require(data.table)
+#' require(stringr)
+#' hts_prep_data(summarize_var = 'age',
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
+#' hts_prep_data(summarize_var = 'num_people',
+#'               summarize_by = 'age',
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,
-                         values_dt = value_labels,
                          data = hts_data,
                          weighted = TRUE,
-                         wtname = NULL,
-                         strataname = NULL,
                          remove_outliers = TRUE,
                          threshold = 0.975) {
 

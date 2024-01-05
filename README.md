@@ -15,3 +15,7 @@ Some of the things this package enables include:
 * Standard errors calculated with survey statistics
 * Ability to specify custom weights
 * Trip rate calculations
+
+  <!-- badges: start -->
+  [![R-CMD-check](https://github.com/RSGInc/rsgSurveyTools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RSGInc/rsgSurveyTools/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->

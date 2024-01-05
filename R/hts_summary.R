@@ -1,25 +1,56 @@
-#' Title
+#' Make household travel survey summaries
 #'
-#' @param hts_data
-#' @param summarize_var
-#' @param summarize_by
-#' @param variables_dt
-#' @param var_description_sep
-#' @param values_dt
-#' @param weighted
-#' @param wtname
-#' @param strataname
-#' @param remove_outliers
-#' @param se
-#' @param threshold
-#' @param remove_missing
-#' @param missing_value
-#' @param not_imputable
+#' @param hts_data List containing household, person, day, trip, and vehicle
+#'  datasets in data.table format.
+#' @param summarize_var Name of the variable to summarize. Default is NULL.
+#' @param summarize_by Name of the variable to summarize the summarize_var by.
+#'  Default is NULL.
+#' @param variables_dt Dataset of variable locations and descriptions in
+#'  data.table format.
+#' @param var_description_sep Character used in the description of the variable
+#'  list to separate the name from the description. Default is ':'.
+#' @param values_dt Dataset of values and value labels for all variables in
+#'  data.table format.
+#' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param wtname Name of the weight column to use. Default is NULL.
+#' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param remove_outliers Whether to remove outliers from the data. Default is
+#'  TRUE.
+#' @param se Whether to calculate standard error. Default is FALSE.
+#' @param threshold Threshold to define an outlier. Default is 0.975.
+#' @param remove_missing Whether to remove missing values from the summary.
+#'  Default is TRUE.
+#' @param missing_value Missing value to remove. Default is 995.
+#' @param not_imputable Value representing 'Not imputable' to remove. Default
+#'  is -1.
 #'
-#' @return
+#' @return List containing sample sizes, categorical summary, numeric summary,
+#' outlier breakdown, whether or not the summarized variable is a checkbox,
+#' and the summary variables and their descriptions.
 #' @export
 #'
 #' @examples
+#'
+#' require(data.table)
+#' require(stringr)
+#' require(dplyr)
+#' require(srvyr)
+#' hts_summary(hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle),
+#'             summarize_var = 'age',
+#'             summarize_by =  'employment',
+#'             variables_dt = variable_list)
+#' hts_summary(hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle),
+#'             summarize_var = 'num_people',
+#'             summarize_by =  'age',
+#'             variables_dt = variable_list)
 hts_summary = function(
     hts_data = list('hh' = hh,
                     'person' = person,
