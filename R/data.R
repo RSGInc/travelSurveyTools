@@ -1,3 +1,8 @@
+#' Test household travel survey dataset
+#' 
+#' @format ## `test_data`
+#' A list containing the following datasets:
+#' 
 #' Test household dataset
 #'
 #' A dataset containing household level attributes of 1,000 households from the
