@@ -143,7 +143,6 @@ value_labels[, val_order := seq(1:nrow(value_labels))]
 
 value_labels = value_labels[, c('variable', 'value', 'label', 'val_order')]
 
-<<<<<<< HEAD
 ## Create dummy weights --------------------------------------------------------
 hts_data$hh[, hh_weight :=
               sample(10:1000,
@@ -164,7 +163,7 @@ hts_data$trip[, trip_weight :=
 hts_data$vehicle = merge(hts_data$vehicle,
                          hts_data$hh[, c('hh_id', 'hh_weight')],
                          by = 'hh_id', all.x = TRUE)
-=======
+
 # only keep variables in the codebook that remain in the dataset
 variable_list = variable_list[variable %in% c(keep_hh_cols, keep_person_cols,
                                               keep_day_cols, keep_trip_cols,
@@ -206,7 +205,6 @@ usethis::use_data(trip, overwrite = TRUE)
 
 vehicle = vehicle_filtered
 usethis::use_data(vehicle, overwrite = TRUE)
->>>>>>> main
 
 test_data = hts_data
 # Write data ===================================================================
