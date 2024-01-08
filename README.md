@@ -21,7 +21,7 @@ Some of the things this package enables include:
 * Trip rate calculations
 
 ### Dependency Tree
-
+```
 ├─dplyr 1.1.4
 │ ├─cli 3.6.2
 │ ├─generics 0.1.3
@@ -104,3 +104,4 @@ Some of the things this package enables include:
 │ ├─tidyselect
 │ └─vctrs
 └─stringr
+```
