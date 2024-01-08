@@ -11,7 +11,7 @@
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
-#' 
+#'
 #' @return List containing the categorical and numeric datasets of the summary
 #' variables and key columns, and either whether the summarize variable is shared
 #' or a breakdown of outliers, depending on if the summarize variable is
@@ -75,7 +75,7 @@ hts_prep_data = function(summarize_var = NULL,
   var_location = hts_find_var(summarize_var, variables_dt = variables_dt)
 
   # Select table where this variable lives:
-  var_dt = hts_data[[var_location]]
+  var_dt = data[[var_location]]
 
   # Is this a shared variable?
   var_is_shared = variables_dt[shared_name == summarize_var, is_checkbox][1] == 1
@@ -165,7 +165,9 @@ hts_prep_data = function(summarize_var = NULL,
 
   if (length(summarize_by) > 0) {
 
-    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt)
+    byvar_dt = hts_prep_byvar(summarize_by,
+                              variables_dt = variables_dt,
+                              hts_data = data)
 
     # Merge by var and summarize var:
     allow_cartesian_setting = FALSE

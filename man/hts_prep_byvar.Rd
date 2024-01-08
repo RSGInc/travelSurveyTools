@@ -4,7 +4,12 @@
 \alias{hts_prep_byvar}
 \title{Prepare variable to be summarized}
 \usage{
-hts_prep_byvar(summarize_by = NULL, variables_dt = variables_list, ...)
+hts_prep_byvar(
+  summarize_by = NULL,
+  variables_dt = variables_list,
+  hts_data = hts_data,
+  ...
+)
 }
 \arguments{
 \item{summarize_by}{Name of the variable to be prepped. Default is NULL.}

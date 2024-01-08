@@ -5,12 +5,12 @@
 #' @param ids List of ids to keep in all of the tables
 #' @param id_type Type of id being used for filtering. Options are 'hh', 'person',
 #'  'day', and 'trip'. Defaults to 'hh'.
-#' 
+#'
 #' @return Inputted list of tables filtered to the specified ids.
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' require(data.table)
 #' hts_filter_data(data = list('hh' = hh,
 #'                             'person' = person,
@@ -25,7 +25,7 @@ hts_filter_data = function(hts_data,
                            ids,
                            id_type = 'hh'){
 
-  list2env(data, envir = environment())
+  list2env(hts_data, envir = environment())
 
   if (id_type == 'hh'){
 

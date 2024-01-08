@@ -18,6 +18,9 @@
 #'  universal values (e.g., "Total" or "Subtotal" row), or similar variables
 #'  (e.g., "mode_1" to reuse the mode_1 labels for mode_2). Default is NULL.
 #'
+#' @import dplyr
+#' @import srvyr
+#'
 #' @return List of unweighted and weighted categorical summaries including counts
 #' and proportions.
 #' @export
@@ -118,7 +121,7 @@ hts_summary_cat = function(prepped_dt,
           group_by_at(unlist(groupbyvars)) %>%
           summarize(
             count = length(get(summarize_var)),
-            prop =  survey_prop(
+            prop =  srvyr::survey_prop(
               proportion = FALSE,
               vartype = variance_type
             ),

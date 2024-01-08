@@ -4,7 +4,7 @@
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
 #' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
-#' 
+#'
 #' @return Data table containing the variable to be summarized and other key
 #'  columns.
 #' @export
@@ -28,6 +28,7 @@
 #'
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
+                          hts_data = hts_data,
                           ...) {
 
   # For each variables in trip table:
