@@ -3,11 +3,13 @@
 #' @param var searchable variable in string format
 #' @param variables_dt codebook variable list in data table format
 #'
+#' @import data.table
+#'
 #' @return variable location in string format
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' hts_find_var('income_detailed')
 #'
 hts_find_var = function(var, variables_dt = variable_list) {
