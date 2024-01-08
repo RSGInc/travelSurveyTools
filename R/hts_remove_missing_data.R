@@ -49,7 +49,7 @@ hts_remove_missing_data = function(hts_data,
                                      priority = TRUE)
 
   hts_data = hts_filter_data(
-    data = hts_data,
+    hts_data = hts_data,
     ids = summarize_var_tbl[, get(summarize_var_id)],
     id_type = stringr::str_remove(summarize_var_id, '_id')
   )
@@ -71,7 +71,7 @@ hts_remove_missing_data = function(hts_data,
                                       priority = TRUE)
 
     hts_data = hts_filter_data(
-      data = hts_data,
+      hts_data = hts_data,
       ids = summarize_by_tbl[, get(summarize_by_id)],
       id_type = stringr::str_remove(summarize_by_id, '_id')
     )

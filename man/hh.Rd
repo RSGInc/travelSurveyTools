@@ -3,8 +3,19 @@
 \docType{data}
 \name{hh}
 \alias{hh}
-\title{Test household dataset}
+\title{Test household travel survey dataset}
 \format{
+\subsection{\code{test_data}}{
+
+A list containing the following datasets:
+
+Test household dataset
+
+A dataset containing household level attributes of 1,000 households from the
+2023 Puget Sound Regional Council Household Travel Survey.
+The variables are as follows:
+}
+
 \subsection{\code{hh}}{
 
 A data frame with 1,000 rows and 6 columns:
@@ -25,8 +36,6 @@ Export tables compiled from internal RSG database on 11/22/2023
 hh
 }
 \description{
-A dataset containing household level attributes of 1,000 households from the
-2023 Puget Sound Regional Council Household Travel Survey.
-The variables are as follows:
+Test household travel survey dataset
 }
 \keyword{datasets}
