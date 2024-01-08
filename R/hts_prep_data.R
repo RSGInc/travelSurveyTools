@@ -44,7 +44,30 @@ hts_prep_data = function(summarize_var = NULL,
                          weighted = TRUE,
                          remove_outliers = TRUE,
                          threshold = 0.975) {
-
+  # tictoc::tic("Total Time")
+  # Message:
+  msg_pt1 = paste0("Creating a summary of ",
+                   hts_find_var(summarize_var, variables_dt = variables_dt), " ", summarize_var)
+  
+  
+  if (!is.null(summarize_by)){
+    
+    byvarlocs = lapply(summarize_by, hts_find_var)
+    
+    for(b in 1:length(byvarlocs)) {
+      byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
+    }
+    
+    byvarlocs = unlist(byvarlocs)
+    
+    msg_pt2 = ifelse(length(summarize_by) > 0,
+                     paste0("broken down by ",
+                            paste0(byvarlocs, collapse = " and ")),
+                     "")
+  } else {
+    msg_pt2 = NULL
+  }
+  message(paste0(msg_pt1, " ", msg_pt2))
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
 
@@ -170,6 +193,51 @@ hts_prep_data = function(summarize_var = NULL,
 
 
   }
+  if (remove_missing){
+    
+    hts_data = hts_remove_missing_data(hts_data = hts_data,
+                                       variables_dt = variables_dt,
+                                       summarize_var = summarize_var,
+                                       summarize_by = summarize_by,
+                                       missing_value = missing_value,
+                                       not_imputable = not_imputable)
+  }
+  
+  # tictoc::tic("!num_trips -> hts_prep_data")
+  
+  if(summarize_var == "num_trips"){
+    
+    prepped_dt_ls = hts_prep_triprate(
+      summarize_by = summarize_by,
+      remove_outliers = remove_outliers,
+      threshold = threshold,
+      trip = hts_data$trip,
+      day = hts_data$day
+    )
+    
+  }
+  
+  if(!summarize_var == "num_trips"){
+    
+    prepped_dt_ls = hts_prep_data(
+      summarize_var = summarize_var,
+      summarize_by = summarize_by,
+      remove_outliers = remove_outliers,
+      threshold = threshold,
+      data = hts_data,
+      variables_dt = variables_dt
+    )
+    
+  }
+  
+  
+  # tictoc::toc(log = TRUE)
+  
+  # Counts:
+  cat_ns =  hts_get_ns(
+    prepped_dt_ls[["cat"]],
+    weighted = weighted
+  )
 
 
   prepped_dt_ls = list("cat" = cat_res,
