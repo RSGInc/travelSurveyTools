@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(rsgSurveyTools)
+library(travelSurveyTools)
 
-test_check("rsgSurveyTools")
+test_check("travelSurveyTools")
