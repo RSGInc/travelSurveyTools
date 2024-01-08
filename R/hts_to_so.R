@@ -25,15 +25,6 @@ hts_to_so = function(prepped_dt,
   wso = data.table::copy(prepped_dt)
   
   if (weighted == TRUE) {
-    wtnames = names(wso)[names(wso) %in% wtcols]
-    
-    wtname = hts_get_keycols(wso,
-                             weights = TRUE,
-                             ids = FALSE,
-                             priority = TRUE)
-    
-    }
-    
     
     if (!wtname %in% names(wso)) {
       stop(
