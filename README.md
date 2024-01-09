@@ -7,6 +7,21 @@
 
 `travelSurveyTools` is in active development and is open-source; anyone can contribute 🤝. See the CONTRIBUTING page to learn how.
 
+### Cloning instructions
+
+1. Set config - 
+usethis::use_git_config(user.name = {"username"}, user.email = {your_email@email.com})
+
+2. Go to github page to generate token - 
+usethis::create_github_token()
+
+3. Paste your PAT into pop-up that follows - 
+credentials::set_github_pat()
+
+4. Lastly, remotes::install_github() will work - 
+remotes::install_github('RSGInc/travelSurveyTools')
+
+
 ### What can this package do?
 Some of the things this package enables include:
 * Cross tabs with an unlimited number of variables 
