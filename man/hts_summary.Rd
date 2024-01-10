@@ -89,7 +89,7 @@ hts_summary(hts_data = list('hh' = hh,
                             'day' = day,
                             'trip' = trip,
                             'vehicle' = vehicle),
-            summarize_var = 'num_people',
+            summarize_var = 'speed_mph',
             summarize_by =  'age',
             variables_dt = variable_list)
 }

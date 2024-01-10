@@ -14,7 +14,7 @@
 #' 
 #' require(data.table)
 #' require(stringr)
-#' hts_bin_var(prepped_dt = hh, numvar = 'num_people')
+#' hts_bin_var(prepped_dt = trip, numvar = 'speed_mph')
 #'
 hts_bin_var = function(prepped_dt,
                        numvar,

@@ -48,7 +48,7 @@
 #'                             'day' = day,
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle),
-#'             summarize_var = 'num_people',
+#'             summarize_var = 'speed_mph',
 #'             summarize_by =  'age',
 #'             variables_dt = variable_list)
 hts_summary = function(
@@ -126,7 +126,8 @@ hts_summary = function(
       remove_outliers = remove_outliers,
       threshold = threshold,
       trip = hts_data$trip,
-      day = hts_data$day
+      day = hts_data$day,
+      hts_data = hts_data
     )
 
   }

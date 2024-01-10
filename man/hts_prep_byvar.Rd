@@ -7,7 +7,7 @@
 hts_prep_byvar(
   summarize_by = NULL,
   variables_dt = variables_list,
-  hts_data = hts_data,
+  hts_data,
   ...
 )
 }
@@ -16,6 +16,9 @@ hts_prep_byvar(
 
 \item{variables_dt}{List of variable locations and descriptions in data.table
 format.}
+
+\item{hts_data}{List containing household, person, day, trip, and vehicle
+datasets in data.table format.}
 
 \item{...}{Additional parameters to pass to \code{link{hts_melt_vars}}}
 }

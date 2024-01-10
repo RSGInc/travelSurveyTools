@@ -10,6 +10,8 @@
 #'  Default is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param hts_data List containing household, person, day, trip, and vehicle
+#'  datasets in data.table format.
 #' 
 #' @return List of binned number of trips with key columns and summarize by variable,
 #' unbinned number of trips with key columns and summarize by variable, and a
@@ -22,18 +24,29 @@
 #' require(stringr)
 #' hts_prep_triprate(variables_dt = variable_list,
 #'                   tripdat = trip,
-#'                   daydat = day)
+#'                   daydat = day,
+#'                   hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 #' hts_prep_triprate(summarize_by = 'age',
 #'                   variables_dt = variable_list,
 #'                   tripdat = trip,
-#'                   daydat = day)
+#'                   daydat = day,
+#'                   hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
                              tripdat = trip,
                              daydat = day,
                              remove_outliers = TRUE,
                              threshold = 0.975,
-                             weighted = TRUE) {
+                             weighted = TRUE,
+                             hts_data) {
   
   tripratekeys = c("hh_id", "person_id", "day_id")
   trip_subset_cols = hts_get_keycols(tripdat)
@@ -88,7 +101,7 @@ hts_prep_triprate = function(summarize_by = NULL,
   
   if (length(summarize_by) > 0) {
     
-    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt)
+    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt, hts_data = hts_data)
     
     merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
     

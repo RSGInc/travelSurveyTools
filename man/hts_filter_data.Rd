@@ -7,13 +7,13 @@
 hts_filter_data(hts_data, ids, id_type = "hh")
 }
 \arguments{
+\item{hts_data}{List of containing household, person, day, trip, and vehicle
+tables in data.table format}
+
 \item{ids}{List of ids to keep in all of the tables}
 
 \item{id_type}{Type of id being used for filtering. Options are 'hh', 'person',
 'day', and 'trip'. Defaults to 'hh'.}
-
-\item{data}{List of containing household, person, day, trip, and vehicle
-tables in data.table format}
 }
 \value{
 Inputted list of tables filtered to the specified ids.
