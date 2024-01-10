@@ -29,7 +29,7 @@
 #'                             'day' = day,
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle))
-#' hts_prep_data(summarize_var = 'num_people',
+#' hts_prep_data(summarize_var = 'speed_mph',
 #'               summarize_by = 'age',
 #'               variables_dt = variable_list,
 #'               data = list('hh' = hh,

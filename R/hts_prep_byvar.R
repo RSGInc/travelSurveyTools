@@ -3,6 +3,8 @@
 #' @param summarize_by Name of the variable to be prepped. Default is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
+#' @param hts_data List containing household, person, day, trip, and vehicle
+#'  datasets in data.table format.
 #' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
 #'
 #' @return Data table containing the variable to be summarized and other key

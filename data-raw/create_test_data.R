@@ -14,8 +14,8 @@ hts_data = list()
 hts_data = lapply(tbl_names, function(t) {
   query = stringr::str_glue('select * from psrc_2023.d_ex_{t}')
   db_tab = tmrtools::read_from_db(con = connect_to_pops(dbname = 'psrc'),
-                        query,
-                        disconnect = TRUE)
+                                  query,
+                                  disconnect = TRUE)
 })
 
 names(hts_data) = tbl_names
@@ -34,14 +34,14 @@ keep_cols = c(
   'day_id',
   'trip_id',
   'vehicle_id',
-
+  
   # Household variables:
   'sample_segment',
   'income_detailed',
   'income_followup',
   'num_people',
   'residence_type',
-
+  
   # Person variables:
   'race_1',
   'race_2',
@@ -54,7 +54,7 @@ keep_cols = c(
   'gender',
   'employment',
   'education',
-
+  
   # Day variables:
   'day_id',
   'delivery_2',
@@ -67,15 +67,17 @@ keep_cols = c(
   'delivery_996',
   'begin_day',
   'end_day',
-
+  
   # Trip variables:
   'travel_date',
   'mode_type',
   'd_purpose_category',
-
+  'num_trips',
+  'speed_mph',
+  
   # Vehicle variables:
   'fuel_type',
-
+  
   # Weights
   'hh_weight',
   'person_weight',
@@ -153,57 +155,50 @@ hts_data$person[, person_weight :=
                          size = nrow(hts_data$person),
                          replace = TRUE)]
 hts_data$day[, day_weight :=
-              sample(10:1000,
-                     size = nrow(hts_data$day),
-                     replace = TRUE)]
+               sample(10:1000,
+                      size = nrow(hts_data$day),
+                      replace = TRUE)]
 hts_data$trip[, trip_weight :=
-              sample(10:1000,
-                     size = nrow(hts_data$trip),
-                     replace = TRUE)]
+                sample(10:1000,
+                       size = nrow(hts_data$trip),
+                       replace = TRUE)]
 hts_data$vehicle = merge(hts_data$vehicle,
                          hts_data$hh[, c('hh_id', 'hh_weight')],
                          by = 'hh_id', all.x = TRUE)
 
 # only keep variables in the codebook that remain in the dataset
-variable_list = variable_list[variable %in% c(keep_hh_cols, keep_person_cols,
-                                              keep_day_cols, keep_trip_cols,
-                                              keep_veh_cols)]
+variable_list = variable_list[variable %in% keep_cols]
 variable_list[, location := NULL]
 variable_list[variable == 'num_people', data_type := 'numeric']
 variable_list[, shared_name := ifelse(
   grepl(':', description),
   sub('_[^_]*$', '', variable), variable)]
 
-value_labels = value_labels[variable %in% c(keep_hh_cols, keep_person_cols,
-                                            keep_day_cols, keep_trip_cols,
-                                            keep_veh_cols)]
+value_labels = value_labels[variable %in% keep_cols]
+
+value_labels[, value := as.numeric(value)]
+
+setorder(value_labels, variable, value)
 
 value_labels = value_labels[, c('variable', 'value', 'label')]
 value_labels = value_labels[variable != 'age' | !grepl('Age', label)]
 value_labels[, val_order := seq_len(nrow(value_labels))]
 
-# add weights
-hh_filtered[, hh_weight := sample(10:100, size = nrow(hh_filtered), replace = TRUE)]
-person_filtered[, person_weight := sample(10:100, size = nrow(person_filtered), replace = TRUE)]
-day_filtered[, day_weight := sample(10:100, size = nrow(day_filtered), replace = TRUE)]
-vehicle_filtered[, hh_weight := sample(10:100, size = nrow(vehicle_filtered), replace = TRUE)]
-trip_filtered[, trip_weight := sample(10:100, size = nrow(trip_filtered), replace = TRUE)]
-
 ### Write data----
 
-hh = hh_filtered
+hh = hts_data$hh
 usethis::use_data(hh, overwrite = TRUE)
 
-person = person_filtered
+person = hts_data$person
 usethis::use_data(person, overwrite = TRUE)
 
-day = day_filtered
+day = hts_data$day
 usethis::use_data(day, overwrite = TRUE)
 
-trip = trip_filtered
+trip = hts_data$trip
 usethis::use_data(trip, overwrite = TRUE)
 
-vehicle = vehicle_filtered
+vehicle = hts_data$vehicle
 usethis::use_data(vehicle, overwrite = TRUE)
 
 test_data = hts_data

@@ -54,7 +54,7 @@ before proceding.")
                   as.numeric(paste0(
                     hh_id,
                     stringr::str_pad(
-                      paste0(str_extract_all(mode_1, pattern = "[:digit:]")[[1]],
+                      paste0(stringr::str_extract_all(mode_1, pattern = "[:digit:]")[[1]],
                              collapse = ""),
                       width = 2,
                       side = "left",
