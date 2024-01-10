@@ -18,8 +18,12 @@ Imports:
     stats,
     stringr
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr (>= 1.45),
+    rmarkdown (>= 2.25)
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
+vignetteBuilder: knitr
+VignetteBuilder: knitr

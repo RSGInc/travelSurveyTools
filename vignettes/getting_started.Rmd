@@ -1,0 +1,234 @@
+---
+title: "Getting Started"
+description: >
+  Learn what travelSurveyTools is for and how to get set up for it
+output: html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+## About TravelSurveyTools
+
+The `travelSurveyTools` package provides tools for R users to aid use of data from household travel surveys. Some possible uses include creating custom cross tabs, labeling data, and calculating trip rates.
+
+## Installing travelSurveyTools
+
+Installing `travelSurveyTools` can be accomplished with the following:
+
+<!-- #FIXME: Should this address the fact that the repo is currently private or leave with the assumption is will eventually be public -->
+
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github('RSGInc/travelSurveyTools')
+```
+
+## Data Assumptions
+
+`travelSurveyTools` assumes the the data have the structure shown below. If this does not reflect the structure of your data
+
+### hts_data
+
+hts_data is a list of five core tables:
+
+#### hh
+
+Household dataset
+
+-   hh_id: 8 digit household ID
+-   survey variables asked on a household level
+-   hh_weight: household weight
+
+#### person
+
+Person dataset
+
+-   hh_id: 8 digit household ID
+-   person_id: 10 digit person ID
+-   survey variables asked on a person level
+-   person_weight: person weight
+
+#### day
+
+Day dataset
+
+-   hh_id: 8 digit household ID
+-   person_id: 10 digit person ID
+-   day_id: 12 digit day ID
+-   survey variable asked on a day level
+-   day_weight: day weight
+
+#### trip
+
+Trip dataset
+
+-   hh_id: 8 digit household ID
+-   person_id: 10 digit person ID
+-   day_id: 12 digit day ID
+-   trip_id: 13 digit trip ID
+-   survey variables asked on a trip level
+-   trip_weight: trip weight
+
+#### vehicle
+
+Vehicle dataset
+
+-   hh_id: 8 digit household ID
+-   vehicle_id: 10 digit vehicle ID
+-   survey responses asked on a vehicle level
+-   hh_weight: household weight
+
+### Codebook
+
+In addition to data from the household travel survey. The codebook is also required. The codebook is assumed to be in two parts:
+
+#### variable_list
+
+A dataset containing information about all variables existing in the hh, person, day, trip, and vehicle tables. The variables are as follows:
+
+-   variable: Name of the variable
+-   is_checkbox: The variable is a 'Select all that Apply' question
+-   hh: The variable exists in the hh table
+-   person: The variable exists in the person table
+-   day: The variable exists in the day table
+-   trip: The variable exists in the trip table
+-   vehicle: The variable exists in the vehicle table
+-   location: The variable exists in the location table
+-   data_type: Data type of the variable
+-   description: A description of the variable
+-   logic: Conditions where the variable should have a value
+-   shared_name: the shared name of checkbox variable or the variable name for non-checkbox variables
+
+#### value_labels
+
+A dataset containing the values for all variables found in variable_list The variables are as follows:
+
+-   variable: Name of the variable
+-   value: The numeric value of the variable
+-   label: What the numeric value of the variable represents
+-   label_value: value concatenated with the label (e.g., 11 85 or older)
+-   val_order: order for each variable label to appear in
+
+## Using travelSurveyTools
+
+We can use `hts_summary()` to create summaries. For example let's summarize `mode_type`.
+
+This will return weighted/unweighted summaries, variable description, variable counts, etc.
+
+```{r, mode_type_example, echo=TRUE, eval=TRUE, warning=FALSE}
+
+library(travelSurveyTools)
+
+# Load data
+data("test_data")
+data("variable_list")
+data("value_labels")
+
+# Create summary
+hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'mode_type')
+
+```
+
+### Calculating Standard Errors
+
+Additionally, by specifying `se = TRUE` we can calculate standard errors.
+
+```{r, mode_type_se_example, echo=TRUE, eval=TRUE}
+
+mode_type_w_se = hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'mode_type',
+            se = TRUE)
+
+mode_type_w_se$cat_summary$wtd
+
+```
+
+### Summarizing by Two Variable
+
+If we want summarize a variable by another variable (e.g., mode type by a person's race) we can use the `summarize_by` argument.
+
+```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
+
+two_way_summary = hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'mode_type',
+            summarize_by = 'race')
+
+head(two_way_summary$cat_summary$wtd, 20)
+
+```
+
+### Creating Summaries of Numeric Variables
+
+`hts_summary` will create numeric summaries for variables with a numeric data_type specified in the `variable_list`. Numeric variables will be binned and then return a categorical summary using those categories.
+
+```{r, speed_mph_example, echo=TRUE, eval=TRUE}
+
+numeric_summary = hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'speed_mph')
+
+numeric_summary$cat_summary$wtd
+
+```
+
+Additionally, numeric variables will return summary statistics.
+
+```{r, speed_mph_example_num_summary, echo=TRUE, eval=TRUE}
+
+numeric_summary$num_summary$wtd
+
+```
+
+<!-- ### Calculating trip rates -->
+
+<!-- `hts_summary` can also be used to calculate trip rates.  -->
+
+<!-- ```{r, trip_rates_example} -->
+
+<!-- trip_rates_by_employment = hts_summary(hts_data = test_data, -->
+
+<!--             variables_dt = variable_list, -->
+
+<!--             values_dt = value_labels, -->
+
+<!--             summarize_var = 'num_trips', -->
+
+<!--             summarize_by = 'employment') -->
+
+<!-- trip_rates_by_employment$cat_summary$wtd -->
+
+<!-- ``` -->
+
+### Creating Visuals using hts_summary output
+
+`hts_summary` creates outputs that can easily be used to create visuals.
+
+```{r, ggplot_example, echo=TRUE, eval=TRUE}
+
+library(ggplot2)
+
+age_summary = hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'age')
+
+p = ggplot(age_summary$cat_summary$wtd, 
+       aes(x = prop, y = age)) +
+  geom_bar(stat = 'identity')+
+      scale_y_discrete(limits = rev)
+
+print(p)
+
+```

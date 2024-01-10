@@ -67,7 +67,7 @@ hts_bin_var = function(prepped_dt,
   binlabels[[1]] =
     ifelse(q05 == 0,
            "Exactly 0",
-           paste0(str_split_i(
+           paste0(stringr::str_split_i(
              binlabels[[1]], i = 2, pattern = ","
            ), " or less"))
   
