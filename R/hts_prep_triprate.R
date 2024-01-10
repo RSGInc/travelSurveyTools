@@ -44,10 +44,10 @@ hts_prep_triprate = function(summarize_by = NULL,
     stop("Trip/Day weight not found - are these data weighted?")
   }
   
-  day_control = daydat[, ..day_subset_cols]
+  day_control = daydat[, day_subset_cols, with=FALSE]
   
   trip_control = merge(day_control,
-                       tripdat[, ..trip_subset_cols],
+                       tripdat[, trip_subset_cols, with=FALSE],
                        all.x = TRUE)
   
   if (length(summarize_by) == 0) {
@@ -203,3 +203,6 @@ hts_prep_triprate = function(summarize_by = NULL,
   return(prepped_dt_ls)
   
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("trip_weight", "num_trips", "trip_rate", "day_weight"))

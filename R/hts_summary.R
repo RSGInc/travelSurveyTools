@@ -229,3 +229,7 @@ hts_summary = function(
   return(summary_ls)
 
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("value_labels"))
+

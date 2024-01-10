@@ -54,7 +54,7 @@ before proceding.")
                   as.numeric(paste0(
                     hh_id,
                     stringr::str_pad(
-                      paste0(str_extract_all(mode_1, pattern = "[:digit:]")[[1]],
+                      paste0(stringr::str_extract_all(mode_1, pattern = "[:digit:]")[[1]],
                              collapse = ""),
                       width = 2,
                       side = "left",
@@ -64,7 +64,11 @@ before proceding.")
                   default = NA)),
           by = row.names(trip_dt)]
   if (class(vehicle_table$vehicle_id) == "integer64") {
-    trip_dt[, vehicle_id := as.integer64(vehicle_id)]
+    trip_dt[, vehicle_id := bit64::as.integer64(vehicle_id)]
   }
   return(trip_dt[])
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("value_labels", "vehicle_id", "mode_1", "mode_type"))
+

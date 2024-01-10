@@ -24,7 +24,7 @@ Filter datasets to only keep specified ids
 \examples{
 
 require(data.table)
-hts_filter_data(data = list('hh' = hh,
+hts_filter_data(hts_data = list('hh' = hh,
                             'person' = person,
                             'day' = day,
                             'trip' = trip,

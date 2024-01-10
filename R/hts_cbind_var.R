@@ -49,7 +49,7 @@ hts_cbind_var = function(lhs_table,
                                   ids = TRUE,
                                   weights = return_weight_cols), rhs_var)
   
-  rhs_table = rhs_table[, ..selected_cols]
+  rhs_table = rhs_table[, selected_cols, with = FALSE]
   
   # Merge lhs_table to table with rhs_var:
   common_cols = intersect(names(lhs_table), names(rhs_table))

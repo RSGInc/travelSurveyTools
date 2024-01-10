@@ -20,7 +20,7 @@ hts_get_ns = function(prepped_dt,
                              ids = TRUE,
                              weights = FALSE)
   
-  ndt_ids = prepped_dt[, ..n_idcols]
+  ndt_ids = prepped_dt[, n_idcols, with=FALSE]
   
   ns_unwtd = lapply(ndt_ids, function(x) uniqueN(x))
   
@@ -65,7 +65,7 @@ hts_get_ns = function(prepped_dt,
                                ids = FALSE,
                                weights = TRUE)
     
-    ndt_wts = prepped_dt[, ..n_wtcols]
+    ndt_wts = prepped_dt[, n_wtcols, with=FALSE]
     
     ns_wtd = lapply(ndt_wts, function(x) sum(x))
     
