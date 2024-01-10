@@ -154,6 +154,18 @@ hts_prep_data = function(summarize_var = NULL,
                              nbins = 7)
 
   }
+  
+  # FIXME Using strata?
+  if (!is.null(strataname)) {
+    prepped_dt = hts_cbind_var(lhs_table = prepped_dt,
+                               rhs_var = strataname,
+                               variable_list = variable_list)
+  }
+  
+  if (!strataname %in% names(wso)) {
+    
+    wso = hts_cbind_var(wso, strataname, variable_list = variable_list)
+  }
 
   # Summarize-by variables:
   if (length(summarize_by) == 0) {

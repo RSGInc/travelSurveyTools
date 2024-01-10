@@ -19,38 +19,35 @@ hts_to_so = function(prepped_dt,
                      wtname = NULL,
                      strataname = NULL) {
   
-  
-  wtcols = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight')
-  
+  # FIXME: Do I really need to copy prepped_dt here?
   wso = data.table::copy(prepped_dt)
   
-  if (weighted == TRUE) {
+  if (!weighted) {
+    
+    so = srvyr::as_survey_design(wso, w = NULL)
+    
+  } else if (weighted) {
     
     if (!wtname %in% names(wso)) {
-      stop(
-        "Weights not found. Is this unweighted data? If so, specify weighted = FALSE in hts_prop_table."
-      )
+      
+      stop(paste0(wtname, " weight column not found."))
+      
+    }
+    
+    if (weighted &
+        !is.null(strataname) & 
+        !strataname %in% names(wso)) {
+      
+      stop(paste0(wtname, " strata column not found."))
+      
     }
     
     data.table::setnames(wso, wtname, "weight")
     
-    # remove extra weight columns:
-    if (length(wtnames[wtnames %in% names(wso)]) != 0) {
-      wso[, (wtnames[wtnames %in% names(wso)]) := NULL]
-    }
-    
     # filter to where weight > 0 (for appropriate counts):
     wso = wso[weight > 0]
-  
-  # Weighted survey design object, w/ or w/o strata:
-  if (weighted == TRUE) {
     
     if (!is.null(strataname)) {
-      
-      if (!strataname %in% names(wso)) {
-        
-        wso = hts_cbind_var(wso, strataname, variable_list = variable_list)
-      }
       
       so = srvyr::as_survey_design(wso, w = weight, strata = strataname)
       
@@ -62,4 +59,5 @@ hts_to_so = function(prepped_dt,
   }
   
   return(so)
+  
 }

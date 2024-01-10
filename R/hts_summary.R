@@ -7,9 +7,9 @@
 #' @param summarize_by Name of the variable to summarize the summarize_var by.
 #'  Default is NULL.
 #' @param summarize_vartype String; one of either 'categorical' (when the 
-#' variable being summarized is categorical) or 'numeric', when 
-#' the variable being summarized is numeric. Using the 'categorical' flag
-#' will summarize 
+#' variable being summarized is categorical), 'checkbox' (when the variable being
+#' summarized is derived from a multiple response, aka select-all-that-apply question) 
+#' or 'numeric', when the variable being summarized is numeric. 
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set 
 #' to FALSE if weighted is FALSE.
@@ -32,11 +32,13 @@ hts_summary = function(
     se = FALSE,
     wtname = NULL,
     strataname = NULL) {
+  
+  # FIXME consider a labels = T/F argument here
 
   # For instances where num obs is singular inside a sub-strata, adjust:
   options(survey.lonely.psu = "adjust")
   
-  if ( weighted == TRUE & wtname = NULL){
+  if ( weighted & is.null(wtname)) {
     
     message("Weight not specified; setting weighted = FALSE")
     
@@ -44,7 +46,7 @@ hts_summary = function(
     
   }
 
-  if ( weighted == FALSE & se == TRUE){
+  if ( !weighted & se ){
 
     message("Standard errors require weighted data; setting se = FALSE. 
             Set weighted = TRUE and specify a wtname if standard errors are desired.")
@@ -58,7 +60,7 @@ hts_summary = function(
   # and summarize_vartype is categorical
   
   # if the variable to summarize is categorical, use cat_summary
-  if (summarize_vartype == 'categorical') {
+  if (summarize_vartype %in% c('categorical', 'checkbox')) {
     summary = hts_summary_cat(
       prepped_dt = prepped_dt,
       summarize_var = summarize_var,
@@ -66,7 +68,8 @@ hts_summary = function(
       weighted = weighted,
       se = se,
       wtname = wtname,
-      strataname = strataname
+      strataname = strataname, 
+      checkbox_value_colname = checkbox_value_colname
     )
   }
 

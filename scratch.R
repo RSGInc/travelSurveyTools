@@ -1,5 +1,8 @@
 # Example walk-through: income_detailed x education
 
+
+hts_summary(hts_data = test_data, summarize_var = 'employment', summarize_by = 'age')
+
 # load data ================================================================
 devtools::load_all()
 library(data.table)
