@@ -17,16 +17,6 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
 The `travelSurveyTools` package provides tools for R users to aid use of data from household travel surveys. Some possible uses include creating custom cross tabs, labeling data, and calculating trip rates.
 
-## Installing travelSurveyTools
-
-Installing `travelSurveyTools` can be accomplished with the following:
-
-<!-- #FIXME: Should this address the fact that the repo is currently private or leave with the assumption is will eventually be public -->
-
-```{r, echo=TRUE, eval=FALSE}
-devtools::install_github('RSGInc/travelSurveyTools')
-```
-
 ## Data Assumptions
 
 `travelSurveyTools` assumes the the data have the structure shown below. If this does not reflect the structure of your data
