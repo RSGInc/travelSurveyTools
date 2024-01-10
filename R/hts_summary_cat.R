@@ -254,3 +254,7 @@ hts_summary_cat = function(prepped_dt,
   return(cat_summary_ls)
 
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("value_labels", "prop", "est"))
+

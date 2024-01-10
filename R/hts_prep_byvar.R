@@ -72,7 +72,7 @@ hts_prep_byvar = function(summarize_by = NULL,
     if (!byvar_is_shared) {
       byvar_cols = c(hts_get_keycols(byvar_dt_v), byvar)
 
-      byvar_dt_v = byvar_dt_v[, ..byvar_cols]
+      byvar_dt_v = byvar_dt_v[, byvar_cols, with=FALSE]
 
     }
 
@@ -86,3 +86,7 @@ hts_prep_byvar = function(summarize_by = NULL,
 
   return(byvar_dt[])
 }
+
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("variables_list", "is_checkbox", "data_type"))

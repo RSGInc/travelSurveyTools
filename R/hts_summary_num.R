@@ -98,3 +98,6 @@ hts_summary_num = function(prepped_dt,
   return(num_summary_ls)
   
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("value_labels"))

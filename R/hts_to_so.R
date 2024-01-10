@@ -72,3 +72,7 @@ hts_to_so = function(prepped_dt,
   
   return(so)
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("weight"))
+

@@ -79,3 +79,6 @@ hts_filter_data = function(hts_data,
 
   return(hts_data)
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("hh_id", "person_id", "day_id", "trip_id"))
