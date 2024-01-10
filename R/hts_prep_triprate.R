@@ -33,7 +33,8 @@ hts_prep_triprate = function(summarize_by = NULL,
                              daydat = day,
                              remove_outliers = TRUE,
                              threshold = 0.975,
-                             weighted = TRUE) {
+                             weighted = TRUE,
+                             hts_data) {
   
   tripratekeys = c("hh_id", "person_id", "day_id")
   trip_subset_cols = hts_get_keycols(tripdat)
@@ -88,7 +89,7 @@ hts_prep_triprate = function(summarize_by = NULL,
   
   if (length(summarize_by) > 0) {
     
-    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt)
+    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt, hts_data = hts_data)
     
     merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
     

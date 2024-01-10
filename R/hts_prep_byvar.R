@@ -28,7 +28,7 @@
 #'
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
-                          hts_data = hts_data,
+                          hts_data,
                           ...) {
 
   # For each variables in trip table:

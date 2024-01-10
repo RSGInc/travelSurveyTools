@@ -126,7 +126,8 @@ hts_summary = function(
       remove_outliers = remove_outliers,
       threshold = threshold,
       trip = hts_data$trip,
-      day = hts_data$day
+      day = hts_data$day,
+      hts_data = hts_data
     )
 
   }
