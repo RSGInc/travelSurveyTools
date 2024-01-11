@@ -11,7 +11,8 @@ hts_prep_triprate(
   daydat = day,
   remove_outliers = TRUE,
   threshold = 0.975,
-  weighted = TRUE
+  weighted = TRUE,
+  hts_data
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ Default is TRUE.}
 \item{threshold}{Threshold to define outliers. Default is 0.975.}
 
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
+
+\item{hts_data}{List containing household, person, day, trip, and vehicle
+datasets in data.table format.}
 }
 \value{
 List of binned number of trips with key columns and summarize by variable,
@@ -46,9 +50,19 @@ require(data.table)
 require(stringr)
 hts_prep_triprate(variables_dt = variable_list,
                   tripdat = trip,
-                  daydat = day)
+                  daydat = day,
+                  hts_data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle))
 hts_prep_triprate(summarize_by = 'age',
                   variables_dt = variable_list,
                   tripdat = trip,
-                  daydat = day)
+                  daydat = day,
+                  hts_data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle))
 }

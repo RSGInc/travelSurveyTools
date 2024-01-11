@@ -7,11 +7,14 @@
 #' @return Inputted dataset with the specified variable binned in data.table format.
 #' @export
 #'
+#'  
+#' @import stats
+#'  
 #' @examples
 #' 
 #' require(data.table)
 #' require(stringr)
-#' hts_bin_var(prepped_dt = hh, numvar = 'num_people')
+#' hts_bin_var(prepped_dt = trip, numvar = 'speed_mph')
 #'
 hts_bin_var = function(prepped_dt,
                        numvar,
@@ -23,8 +26,8 @@ hts_bin_var = function(prepped_dt,
   data.table::setnames(prepped_dt_binned, old = numvar, new = "numvar")
   
   # Reclassify outliers:
-  q05 = round(quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.025))
-  q95 = round(quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.975))
+  q05 = round(stats::quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.025))
+  q95 = round(stats::quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.975))
   
   prepped_dt_binned[, binned := ifelse(numvar >= q95, q95, numvar)]
   prepped_dt_binned[, binned := ifelse(numvar <= q05, q05, numvar)]
@@ -101,3 +104,5 @@ hts_bin_var = function(prepped_dt,
   
 }
 
+## quiets concerns of R CMD check
+utils::globalVariables(c("binned", "str_split_i"))

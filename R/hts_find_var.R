@@ -70,3 +70,8 @@ hts_find_var = function(var, variables_dt = variable_list) {
 
   return(var_location)
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c(".", "variable_list", "variable", "shared_name",
+                         "hh", "person","day", "trip", "vehicle"))
+

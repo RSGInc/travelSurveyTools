@@ -1,6 +1,6 @@
 #' Filter datasets to only keep specified ids
 #'
-#' @param data List of containing household, person, day, trip, and vehicle
+#' @param hts_data List of containing household, person, day, trip, and vehicle
 #'  tables in data.table format
 #' @param ids List of ids to keep in all of the tables
 #' @param id_type Type of id being used for filtering. Options are 'hh', 'person',
@@ -79,3 +79,6 @@ hts_filter_data = function(hts_data,
 
   return(hts_data)
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("hh_id", "person_id", "day_id", "trip_id"))

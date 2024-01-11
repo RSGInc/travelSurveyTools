@@ -14,8 +14,8 @@ hts_data = list()
 hts_data = lapply(tbl_names, function(t) {
   query = stringr::str_glue('select * from psrc_2023.d_ex_{t}')
   db_tab = tmrtools::read_from_db(con = connect_to_pops(dbname = 'psrc'),
-                        query,
-                        disconnect = TRUE)
+                                  query,
+                                  disconnect = TRUE)
 })
 
 names(hts_data) = tbl_names
@@ -34,14 +34,14 @@ keep_cols = c(
   'day_id',
   'trip_id',
   'vehicle_id',
-
+  
   # Household variables:
   'sample_segment',
   'income_detailed',
   'income_followup',
   'num_people',
   'residence_type',
-
+  
   # Person variables:
   'race_1',
   'race_2',
@@ -54,7 +54,7 @@ keep_cols = c(
   'gender',
   'employment',
   'education',
-
+  
   # Day variables:
   'day_id',
   'delivery_2',
@@ -67,7 +67,7 @@ keep_cols = c(
   'delivery_996',
   'begin_day',
   'end_day',
-
+  
   # Trip variables:
   'travel_date',
   'mode_type',
@@ -77,7 +77,7 @@ keep_cols = c(
 
   # Vehicle variables:
   'fuel_type',
-
+  
   # Weights
   'hh_weight',
   'person_weight',
@@ -155,13 +155,13 @@ hts_data$person[, person_weight :=
                          size = nrow(hts_data$person),
                          replace = TRUE)]
 hts_data$day[, day_weight :=
-              sample(10:1000,
-                     size = nrow(hts_data$day),
-                     replace = TRUE)]
+               sample(10:1000,
+                      size = nrow(hts_data$day),
+                      replace = TRUE)]
 hts_data$trip[, trip_weight :=
-              sample(10:1000,
-                     size = nrow(hts_data$trip),
-                     replace = TRUE)]
+                sample(10:1000,
+                       size = nrow(hts_data$trip),
+                       replace = TRUE)]
 hts_data$vehicle = merge(hts_data$vehicle,
                          hts_data$hh[, c('hh_id', 'hh_weight')],
                          by = 'hh_id', all.x = TRUE)

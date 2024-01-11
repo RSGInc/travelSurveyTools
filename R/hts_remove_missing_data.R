@@ -24,7 +24,7 @@
 #'                                         'trip' = trip,
 #'                                         'vehicle' = vehicle),
 #'                         variables_dt = variable_list,
-#'                         summarize_var = 'num_people',
+#'                         summarize_var = 'speed_mph',
 #'                         summarize_by = 'mode_type')
 #'
 hts_remove_missing_data = function(hts_data,

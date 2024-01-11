@@ -145,3 +145,8 @@ hts_melt_vars = function(shared_name = NULL,
   return(melted_dt[])
 
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("variable", "value", "description", "i.description",
+                         "num_checked"))
+
