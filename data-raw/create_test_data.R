@@ -74,7 +74,7 @@ keep_cols = c(
   'd_purpose_category',
   'num_trips',
   'speed_mph',
-  
+
   # Vehicle variables:
   'fuel_type',
   
