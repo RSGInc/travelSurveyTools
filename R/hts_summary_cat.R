@@ -127,15 +127,15 @@ hts_summary_cat = function(prepped_dt,
       cat_summary_w[, checkbox_valname := NULL]
 
       # recalculate prop without value == 0
-      if (is.null(summarize_by)){
-
-        cat_summary_w[, prop := count/ sum(count)]
-
-      } else {
-
-        cat_summary_w[, prop := count/ sum(count), summarize_by]
-
-      }
+      # if (is.null(summarize_by)){
+      # 
+      #   cat_summary_w[, prop := count/ sum(count)]
+      # 
+      # } else {
+      # 
+      #   cat_summary_w[, prop := count/ sum(count), summarize_by]
+      # 
+      # }
 
     } else{
 
@@ -143,16 +143,16 @@ hts_summary_cat = function(prepped_dt,
 
     }
 
-    cat_summary_w = factorize_df(
-      df = cat_summary_w,
-      vals_df = values_dt,
-      variable_colname = "variable",
-      value_colname = "value",
-      value_label_colname = "label",
-      value_order_colname = "val_order",
-      verbose = FALSE,
-      extra_labels = extra_labels
-    )
+    # cat_summary_w = factorize_df(
+    #   df = cat_summary_w,
+    #   vals_df = values_dt,
+    #   variable_colname = "variable",
+    #   value_colname = "value",
+    #   value_label_colname = "label",
+    #   value_order_colname = "val_order",
+    #   verbose = FALSE,
+    #   extra_labels = extra_labels
+    # )
 
     # Skip reordering if var is a checkbox
     if(!is_checkbox){
