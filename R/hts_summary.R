@@ -68,8 +68,7 @@ hts_summary = function(
       weighted = weighted,
       se = se,
       wtname = wtname,
-      strataname = strataname, 
-      checkbox_value_colname = checkbox_value_colname
+      strataname = strataname
     )
   }
 

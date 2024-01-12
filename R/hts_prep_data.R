@@ -43,7 +43,10 @@ hts_prep_data = function(summarize_var = NULL,
                          data = hts_data,
                          weighted = TRUE,
                          remove_outliers = TRUE,
-                         threshold = 0.975) {
+                         threshold = 0.975,
+                         remove_missing = TRUE,
+                         missing_value = 995,
+                         not_imputable = -1) {
   # tictoc::tic("Total Time")
   # Message:
   msg_pt1 = paste0("Creating a summary of ",
@@ -154,18 +157,6 @@ hts_prep_data = function(summarize_var = NULL,
                              nbins = 7)
 
   }
-  
-  # FIXME Using strata?
-  if (!is.null(strataname)) {
-    prepped_dt = hts_cbind_var(lhs_table = prepped_dt,
-                               rhs_var = strataname,
-                               variable_list = variable_list)
-  }
-  
-  if (!strataname %in% names(wso)) {
-    
-    wso = hts_cbind_var(wso, strataname, variable_list = variable_list)
-  }
 
   # Summarize-by variables:
   if (length(summarize_by) == 0) {
@@ -209,49 +200,13 @@ hts_prep_data = function(summarize_var = NULL,
   }
   if (remove_missing){
     
-    hts_data = hts_remove_missing_data(hts_data = hts_data,
+    hts_data = hts_remove_missing_data(hts_data = data,
                                        variables_dt = variables_dt,
                                        summarize_var = summarize_var,
                                        summarize_by = summarize_by,
                                        missing_value = missing_value,
                                        not_imputable = not_imputable)
   }
-  
-  # tictoc::tic("!num_trips -> hts_prep_data")
-  
-  if(summarize_var == "num_trips"){
-    
-    prepped_dt_ls = hts_prep_triprate(
-      summarize_by = summarize_by,
-      remove_outliers = remove_outliers,
-      threshold = threshold,
-      trip = hts_data$trip,
-      day = hts_data$day
-    )
-    
-  }
-  
-  if(!summarize_var == "num_trips"){
-    
-    prepped_dt_ls = hts_prep_data(
-      summarize_var = summarize_var,
-      summarize_by = summarize_by,
-      remove_outliers = remove_outliers,
-      threshold = threshold,
-      data = hts_data,
-      variables_dt = variables_dt
-    )
-    
-  }
-  
-  
-  # tictoc::toc(log = TRUE)
-  
-  # Counts:
-  cat_ns =  hts_get_ns(
-    prepped_dt_ls[["cat"]],
-    weighted = weighted
-  )
 
 
   prepped_dt_ls = list("cat" = cat_res,

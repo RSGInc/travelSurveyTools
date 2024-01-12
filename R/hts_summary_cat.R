@@ -117,7 +117,8 @@ hts_summary_cat = function(prepped_dt,
   }
   
   # Only get "selected" rows:
-    if(checkbox_value_colname %in% groupbyvars){
+  if(!is.null(checkbox_valname)){
+    if(checkbox_valname %in% groupbyvars){
       
       is_checkbox = TRUE
       
@@ -186,7 +187,7 @@ hts_summary_cat = function(prepped_dt,
       cat_summary_ls$weight_name = weight_name
 
     }
-
+    
   }
 
   return(cat_summary_ls)
