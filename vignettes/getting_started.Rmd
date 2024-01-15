@@ -142,19 +142,31 @@ mode_type_w_se$cat_summary$wtd
 
 ```
 
-### Summarizing by Two Variable
+### Summarizing Two Variables
 
-If we want summarize a variable by another variable (e.g., mode type by a person's race) we can use the `summarize_by` argument.
+If we want summarize a variable by another variable (e.g., mode type by a person's race, mode_type by a person's ethnicity) we can use the `summarize_by` argument.
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
-two_way_summary = hts_summary(hts_data = test_data,
+two_way_race_summary = hts_summary(hts_data = test_data,
             variables_dt = variable_list,
             values_dt = value_labels,
             summarize_var = 'mode_type',
             summarize_by = 'race')
 
-head(two_way_summary$cat_summary$wtd, 20)
+head(two_way_race_summary$cat_summary$wtd, 20)
+
+```
+
+```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
+
+two_way_ethnicity_summary = hts_summary(hts_data = test_data,
+            variables_dt = variable_list,
+            values_dt = value_labels,
+            summarize_var = 'mode_type',
+            summarize_by = 'ethnicity')
+
+head(two_way_ethnicity_summary$cat_summary$wtd, 20)
 
 ```
 
