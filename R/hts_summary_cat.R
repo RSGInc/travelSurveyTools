@@ -75,6 +75,11 @@ hts_summary_cat = function(prepped_dt,
 
 
   if (weighted == TRUE & se == TRUE) {
+    
+    if (!is.null(summarize_by) & 'value' %in% names(prepped_dt)){
+      prepped_dt = prepped_dt[value == 1]
+    }
+    
     cat_so_ls[["wtd"]] = hts_to_so(
       prepped_dt,
       strata = strataname,
