@@ -11,7 +11,7 @@
 #' @examples
 #' 
 #' require(data.table)
-#' hts_remove_outliers(var_dt = hh, numvar = 'num_people')
+#' hts_remove_outliers(var_dt = trip, numvar = 'speed_mph')
 #'
 hts_remove_outliers = function (var_dt, numvar = NULL,
                                 threshold = 0.975){

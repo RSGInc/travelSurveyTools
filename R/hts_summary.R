@@ -22,6 +22,26 @@
 #'
 #' @examples
 #'
+#' require(data.table)
+#' require(stringr)
+#' require(dplyr)
+#' require(srvyr)
+#' hts_summary(hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle),
+#'             summarize_var = 'age',
+#'             summarize_by =  'employment',
+#'             variables_dt = variable_list)
+#' hts_summary(hts_data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle),
+#'             summarize_var = 'speed_mph',
+#'             summarize_by =  'age',
+#'             variables_dt = variable_list)
 
 hts_summary = function(
     prepped_dt, 
@@ -47,14 +67,19 @@ hts_summary = function(
   }
 
   if ( !weighted & se ){
-
+    
     message("Standard errors require weighted data; setting se = FALSE. 
             Set weighted = TRUE and specify a wtname if standard errors are desired.")
 
     se = FALSE
 
+    
   }
 
+  cat_ns =  hts_get_ns(
+    prepped_dt_ls[["cat"]],
+    weighted = weighted
+  )
   
   # something here to check if the number of unique values is more than 20
   # and summarize_vartype is categorical
@@ -87,3 +112,7 @@ hts_summary = function(
   return(summary)
 
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("value_labels"))
+

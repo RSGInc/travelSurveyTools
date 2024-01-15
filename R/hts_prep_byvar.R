@@ -3,6 +3,8 @@
 #' @param summarize_by Name of the variable to be prepped. Default is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
+#' @param hts_data List containing household, person, day, trip, and vehicle
+#'  datasets in data.table format.
 #' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
 #'
 #' @return Data table containing the variable to be summarized and other key
@@ -28,7 +30,7 @@
 #'
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
-                          hts_data = hts_data,
+                          hts_data,
                           ...) {
 
   # For each variables in trip table:
@@ -72,7 +74,7 @@ hts_prep_byvar = function(summarize_by = NULL,
     if (!byvar_is_shared) {
       byvar_cols = c(hts_get_keycols(byvar_dt_v), byvar)
 
-      byvar_dt_v = byvar_dt_v[, ..byvar_cols]
+      byvar_dt_v = byvar_dt_v[, byvar_cols, with=FALSE]
 
     }
 
@@ -86,3 +88,7 @@ hts_prep_byvar = function(summarize_by = NULL,
 
   return(byvar_dt[])
 }
+
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("variables_list", "is_checkbox", "data_type"))

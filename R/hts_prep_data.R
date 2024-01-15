@@ -29,7 +29,7 @@
 #'                             'day' = day,
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle))
-#' hts_prep_data(summarize_var = 'num_people',
+#' hts_prep_data(summarize_var = 'speed_mph',
 #'               summarize_by = 'age',
 #'               variables_dt = variable_list,
 #'               data = list('hh' = hh,
@@ -93,7 +93,7 @@ hts_prep_data = function(summarize_var = NULL,
   # Subset table to these column(s):
   subset_cols = c(hts_get_keycols(var_dt), summarize_var)
 
-  var_dt = var_dt[, ..subset_cols]
+  var_dt = var_dt[, subset_cols, with=FALSE]
 
   # If shared variable, melt var_dt:
   if (var_is_shared) {
@@ -225,3 +225,7 @@ hts_prep_data = function(summarize_var = NULL,
   return(prepped_dt_ls)
 
 }
+
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("hts_data", "is_checkbox", "data_type"))

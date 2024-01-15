@@ -7,7 +7,7 @@ Authors@R:
     person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = c("aut", "cre"))
     person("James", "Clark", , "james.clark@rsginc.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
-License: none
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -18,8 +18,13 @@ Imports:
     stats,
     stringr
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr (>= 1.45),
+    rmarkdown (>= 2.25),
+    ggplot2 (>= 3.4.4)
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
+vignetteBuilder: knitr
+VignetteBuilder: knitr
