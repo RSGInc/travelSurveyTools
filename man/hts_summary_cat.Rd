@@ -12,9 +12,8 @@ hts_summary_cat(
   se = FALSE,
   wtname = NULL,
   strataname = NULL,
-  variable_list = NULL,
-  values_dt = value_labels,
-  extra_labels = extra_labels
+  checkbox_valname = NULL,
+  checkbox_yesval = 1
 )
 }
 \arguments{
@@ -33,17 +32,6 @@ Default is NULL.}
 \item{wtname}{Name of the weight column to use. Default is NULL.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
-
-\item{variable_list}{Dataset of variable locations and descriptions in
-data.table format.}
-
-\item{values_dt}{Dataset of values and value labels for all variables in
-data.table format.}
-
-\item{extra_labels}{Pass a vector of the names of other variables in the
-values dataframe to use when labeling. Common uses include missing values,
-universal values (e.g., "Total" or "Subtotal" row), or similar variables
-(e.g., "mode_1" to reuse the mode_1 labels for mode_2). Default is NULL.}
 }
 \value{
 List of unweighted and weighted categorical summaries including counts
@@ -81,4 +69,5 @@ hts_summary_cat(prepped_dt = DT,
                 summarize_by = 'employment',
                 values_dt = value_labels,
                 extra_labels = 'Missing')
+                
 }

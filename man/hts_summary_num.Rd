@@ -9,26 +9,28 @@ hts_summary_num(
   summarize_var = NULL,
   summarize_by = NULL,
   weighted = TRUE,
-  values_dt = value_labels,
+  se = FALSE,
   wtname = NULL,
   strataname = NULL
 )
 }
 \arguments{
-\item{prepped_dt}{Dataset containing the summary variables and key columns in
-data.table format.}
+\item{prepped_dt}{A prepared dataset in data.table format with
+the variable to summarize, the variable to summarize by, and the weights,
+if used.}
 
-\item{summarize_var}{Name of the numeric variable to summarize. Default is NULL.}
+\item{summarize_var}{Name of the variable to summarize. Default is NULL.}
 
 \item{summarize_by}{Name of the variable to summarize the summarize_var by.
 Default is NULL.}
 
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
 
-\item{values_dt}{Dataset of values and value labels for all variables in
-data.table format.}
+\item{se}{Whether to calculate standard error. Default is FALSE. Will be set
+to FALSE if weighted is FALSE.}
 
-\item{wtname}{Name of the weight column to use. Default is NULL.}
+\item{wtname}{Name of the weight column to use. Default is NULL. Must be specified
+when weighted = TRUE.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 }

@@ -37,6 +37,16 @@
 #'                             'day' = day,
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle))
+#'                             
+#'                             
+#' hts_prep_data(summarize_var = 'employment',
+#'               summarize_by = c('age', 'race'),
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,
