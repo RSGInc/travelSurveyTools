@@ -9,6 +9,10 @@
 #' @param se Whether to calculate standard error. Default is FALSE.
 #' @param wtname Name of the weight column to use. Default is NULL.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param checkbox_valname Name of the column with the checkbox value. Default is NULL.
+#'  Must be provided if summarize_var is a checkbox variable.
+#' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
+#'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
 #' 
 #' @import dplyr
 #' @import srvyr
@@ -32,7 +36,8 @@
 #'                                'vehicle' = vehicle))$cat
 #' hts_summary_cat(prepped_dt = DT,
 #'                 summarize_var = 'age',
-#'                 values_dt = value_labels)
+#'                 values_dt = value_labels,
+#'                 wtname = 'person_weight')
 #' DT = hts_prep_data(summarize_var = 'age',
 #'                    summarize_by = 'employment',
 #'                    variables_dt = variable_list,
@@ -45,7 +50,8 @@
 #'                 summarize_var = 'age',
 #'                 summarize_by = 'employment',
 #'                 values_dt = value_labels,
-#'                 extra_labels = 'Missing')
+#'                 extra_labels = 'Missing',
+#'                 wtname = 'person_weight')
 #'                 
 hts_summary_cat = function(prepped_dt,
                            summarize_var = NULL,
@@ -55,7 +61,7 @@ hts_summary_cat = function(prepped_dt,
                            wtname = NULL,
                            strataname = NULL, 
                            checkbox_valname = NULL,
-                           checkbox_yesval = 1) {
+                           checkbox_yesval = NULL) {
   
   groupbyvars = c(
     summarize_by,
@@ -66,29 +72,31 @@ hts_summary_cat = function(prepped_dt,
   groupbyvars = groupbyvars[groupbyvars %in% names(prepped_dt)]
   
   unwtd_summary = copy(prepped_dt)
-  unwtd_summary = unwtd_summary[, .(count = .N), groupbyvars]
+  unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
     
   if (is.null(summarize_by)){
     
-    unwtd_summary[, unprop := count/ sum(count)]
+    unwtd_summary[, prop := count/ sum(count)]
     
   } else {
     
-    unwtd_summary[, prop := count/ sum(count), summarize_by]
+    unwtd_summary[, prop := count/ sum(count), keyby = summarize_by]
     
   }
   
   setcolorder(unwtd_summary, c(groupbyvars, 'count', 'prop'))
 
+  cat_summary_ls = list()
+  
   if (weighted) {
     
-    so = hts_to_so(
-      prepped_dt = prepped_dt,
-      weighted = weighted,
-      wtname = wtname,
-      strataname = strataname)
-    
     if (se) {
+      
+      so = hts_to_so(
+        prepped_dt = prepped_dt,
+        weighted = weighted,
+        wtname = wtname,
+        strataname = strataname)
       
       wtd_summary =
         so %>%
@@ -104,14 +112,28 @@ hts_summary_cat = function(prepped_dt,
     } else if (!se) {
       
       wtd_summary =
-        so %>%
-        group_by_at(unlist(groupbyvars)) %>%
-        summarize(
-          count = length(get(summarize_var)),
-          prop =  srvyr::survey_prop(proportion = FALSE),
-          est = survey_total()
-        ) %>%
-        setDT()
+        prepped_dt[,.(
+          count = .N,
+          est = 
+            sum(
+              get(wtname)
+            )
+        ),
+        groupbyvars
+        ]
+      
+      if (is.null(summarize_by)){
+        
+        wtd_summary[, prop := est/ sum(est)]
+        
+      } else {
+        
+        wtd_summary[, prop := est/ sum(est), summarize_by]
+        
+      }
+      
+      setcolorder(wtd_summary, c(groupbyvars, 'count', 'prop', 'est'))
+      
     }
     
   }
@@ -122,72 +144,84 @@ hts_summary_cat = function(prepped_dt,
       
       is_checkbox = TRUE
       
-      setnames(cat_summary_w, old = checkbox_valname, new = 'checkbox_valname')
+      setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
 
-      cat_summary_w = cat_summary_w[checkbox_valname == checkbox_yesval]
-      cat_summary_w[, checkbox_valname := NULL]
+      wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
+      wtd_summary[, checkbox_valname := NULL]
 
       # recalculate prop without value == 0
-      # if (is.null(summarize_by)){
-      # 
-      #   cat_summary_w[, prop := count/ sum(count)]
-      # 
-      # } else {
-      # 
-      #   cat_summary_w[, prop := count/ sum(count), summarize_by]
-      # 
-      # }
-
-    } else{
-
-      is_checkbox = FALSE
-
-    }
-
-    # cat_summary_w = factorize_df(
-    #   df = cat_summary_w,
-    #   vals_df = values_dt,
-    #   variable_colname = "variable",
-    #   value_colname = "value",
-    #   value_label_colname = "label",
-    #   value_order_colname = "val_order",
-    #   verbose = FALSE,
-    #   extra_labels = extra_labels
-    # )
-
-    # Skip reordering if var is a checkbox
-    if(!is_checkbox){
-
       if (is.null(summarize_by)){
 
-        cat_summary_w = cat_summary_w[order(get(groupbyvars[1]))]
+        wtd_summary[, prop := count/ sum(count)]
 
       } else {
 
-        cat_summary_w = cat_summary_w[order(
-          get(groupbyvars[1]),
-          get(groupbyvars[2])
-          )
-        ]
+        wtd_summary[, prop := count/ sum(count), summarize_by]
 
       }
-    }
+      
+      setnames(unwtd_summary, old = checkbox_valname, new = 'checkbox_valname')
+      
+      unwtd_summary = unwtd_summary[checkbox_valname == checkbox_yesval]
+      unwtd_summary[, checkbox_valname := NULL]
+      
+      # recalculate prop without value == 0
+      if (is.null(summarize_by)){
+        
+        unwtd_summary[, prop := count/ sum(count)]
+        
+      } else {
+        
+        unwtd_summary[, prop := count/ sum(count), summarize_by]
+        
+      }
 
-    if(is_checkbox & !is.null(summarize_by)){
-
-      cat_summary_w = cat_summary_w[order(get(groupbyvars[1]),
-                                          get(groupbyvars[2]))]
-
-    }
-
-    cat_summary_ls[[wt_type]] = cat_summary_w[]
-
-    if (wt_type == 'wtd'){
-
-      cat_summary_ls$weight_name = weight_name
-
+    } else {
+      
+      stop('Only provide checkbox_valname and checkbox_yesval if summarize_var is
+           a checkbox variable.')
+      
     }
     
+  } else{
+    
+    is_checkbox = FALSE
+    
+  }
+
+  # Skip reordering if var is a checkbox
+  if(!is_checkbox){
+
+    if (is.null(summarize_by)){
+
+      wtd_summary = wtd_summary[order(get(groupbyvars[1]))]
+
+    } else {
+
+      wtd_summary = wtd_summary[order(
+        get(groupbyvars[1]),
+        get(groupbyvars[2])
+        )
+      ]
+
+    }
+  }
+
+  if(is_checkbox & !is.null(summarize_by)){
+
+    wtd_summary = wtd_summary[order(get(groupbyvars[1]),
+                                        get(groupbyvars[2]))]
+
+  }
+
+  cat_summary_ls[['unwtd']] = unwtd_summary[]
+  
+  cat_summary_ls[['wtd']] = wtd_summary[]
+
+  if (weighted){
+
+    cat_summary_ls$weight_name = wtname
+
   }
 
   return(cat_summary_ls)
