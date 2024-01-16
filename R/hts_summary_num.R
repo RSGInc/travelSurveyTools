@@ -32,7 +32,7 @@
 #'                                'vehicle' = vehicle))$num
 #' hts_summary_num(prepped_dt = DT,
 #'                 summarize_var = 'speed_mph',
-#'                 values_dt = value_labels)
+#'                 wtname = 'trip_weight')
 #' DT = hts_prep_data(summarize_var = 'speed_mph',
 #'                    summarize_by = 'age', 
 #'                    variables_dt = variable_list,
@@ -44,7 +44,7 @@
 #' hts_summary_num(prepped_dt = DT,
 #'                 summarize_var = 'speed_mph',
 #'                 summarize_by = 'age',
-#'                 values_dt = value_labels)
+#'                 wtname = 'trip_weight')
 
 hts_summary_num = function(prepped_dt,
                            summarize_var = NULL,
@@ -58,7 +58,7 @@ hts_summary_num = function(prepped_dt,
   num_so_ls[["unwtd"]] = srvyr::as_survey_design(prepped_dt, w = NULL)
   
   if (weighted == TRUE) {
-    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strata = strataname)
+    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strata = strataname, wtname = wtname)
   }
   
   
@@ -82,16 +82,6 @@ hts_summary_num = function(prepped_dt,
         median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
       ) %>%
       setDT()
-    
-    num_summary_wttype = factorize_df(
-      df = num_summary_wttype,
-      vals_df = values_dt,
-      variable_colname = "variable",
-      value_colname = "value",
-      value_label_colname = "label",
-      value_order_colname = "val_order",
-      verbose = FALSE
-    )
     
     num_summary_ls[[wt_type]] = num_summary_wttype
     

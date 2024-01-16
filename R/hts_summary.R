@@ -77,7 +77,7 @@ hts_summary = function(
   }
 
   cat_ns =  hts_get_ns(
-    prepped_dt_ls[["cat"]],
+    prepped_dt = prepped_dt,
     weighted = weighted
   )
   
@@ -109,7 +109,11 @@ hts_summary = function(
     )
   }
   
-  return(summary)
+  summary_ls = list(
+    'n_ls' = cat_ns,
+    'summary' = summary
+  )
+  return(summary_ls)
 
 }
 
