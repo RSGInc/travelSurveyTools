@@ -26,22 +26,33 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' hts_summary(hts_data = list('hh' = hh,
-#'                             'person' = person,
-#'                             'day' = day,
-#'                             'trip' = trip,
-#'                             'vehicle' = vehicle),
+#' DT = hts_prep_data(summarize_var = 'age',
+#'                    summarize_by = 'employment',
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$cat
+#' hts_summary(prepped_dt = DT,
 #'             summarize_var = 'age',
-#'             summarize_by =  'employment',
-#'             variables_dt = variable_list)
-#' hts_summary(hts_data = list('hh' = hh,
-#'                             'person' = person,
-#'                             'day' = day,
-#'                             'trip' = trip,
-#'                             'vehicle' = vehicle),
+#'             summarize_by = 'employment',
+#'             summarize_vartype = 'categorical',
+#'             wtname = 'person_weight')
+#'
+#' DT = hts_prep_data(summarize_var = 'speed_mph',
+#'                    summarize_by = 'age', 
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$num
+#' hts_summary(prepped_dt = DT,
 #'             summarize_var = 'speed_mph',
-#'             summarize_by =  'age',
-#'             variables_dt = variable_list)
+#'             summarize_by = 'age',
+#'             summarize_vartype = 'numeric',
+#'             wtname = 'trip_weight')
 
 hts_summary = function(
     prepped_dt, 
