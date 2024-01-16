@@ -53,6 +53,20 @@
 #'                 extra_labels = 'Missing',
 #'                 wtname = 'person_weight')
 #'                 
+#' DT = hts_prep_data(summarize_var = 'employment',
+#'                 summarize_by = c('race', 'income_detailed', 'gender'),
+#'                 variables_dt = variable_list,
+#'                 data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))$cat
+#'
+#' hts_summary_cat(prepped_dt = DT,
+#' summarize_var = 'employment',
+#' summarize_by = c('race', 'income_detailed', 'gender'),
+#' wtname = 'person_weight')$unwtd
+
 hts_summary_cat = function(prepped_dt,
                            summarize_var = NULL,
                            summarize_by = NULL,
@@ -62,7 +76,7 @@ hts_summary_cat = function(prepped_dt,
                            strataname = NULL, 
                            checkbox_valname = NULL,
                            checkbox_yesval = NULL) {
-  
+
   groupbyvars = c(
     summarize_by,
     summarize_var,
