@@ -53,6 +53,17 @@ hts_summary_num = function(prepped_dt,
                            se = FALSE,
                            wtname = NULL,
                            strataname = NULL) {
+  
+  if ( !weighted & se ){
+    
+    message("Standard errors require weighted data; setting se = FALSE. 
+            Set weighted = TRUE and specify a wtname if standard errors are desired.")
+    
+    se = FALSE
+    
+    
+  }
+  
   num_so_ls = list()
   
   num_so_ls[["unwtd"]] = srvyr::as_survey_design(prepped_dt, w = NULL)
@@ -70,20 +81,42 @@ hts_summary_num = function(prepped_dt,
     # Set the variance type:
     variance_type = "se"
     
-    # Calculate survey proportions:
-    num_summary_wttype =
-      num_so_ls[[wt_type]] %>%
-      group_by_at(unlist(summarize_by)) %>%
-      summarize(
-        count =   length(get(summarize_var)),
-        min =     min(get(summarize_var), na.rm = TRUE),
-        max =     max(get(summarize_var), na.rm = TRUE),
-        mean =    survey_mean(get(summarize_var), vartype = variance_type, na.rm = TRUE),
-        median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
-      ) %>%
-      setDT()
+    if (se){
     
-    num_summary_ls[[wt_type]] = num_summary_wttype
+      # Calculate survey proportions:
+      num_summary_wttype =
+        num_so_ls[[wt_type]] %>%
+        group_by_at(unlist(summarize_by)) %>%
+        summarize(
+          count =   length(get(summarize_var)),
+          min =     min(get(summarize_var), na.rm = TRUE),
+          max =     max(get(summarize_var), na.rm = TRUE),
+          mean =    survey_mean(get(summarize_var), vartype = variance_type, na.rm = TRUE),
+          median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
+        ) %>%
+        setDT()
+      
+      num_summary_ls[[wt_type]] = num_summary_wttype
+      
+    } else{
+      
+      # Calculate survey proportions:
+      num_summary_wttype =
+        num_so_ls[[wt_type]] %>%
+        group_by_at(unlist(summarize_by)) %>%
+        summarize(
+          count =   length(get(summarize_var)),
+          min =     min(get(summarize_var), na.rm = TRUE),
+          max =     max(get(summarize_var), na.rm = TRUE),
+          mean =    survey_mean(get(summarize_var), vartype = NULL, na.rm = TRUE),
+          median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
+        ) %>%
+        setDT()
+      
+      num_summary_ls[[wt_type]] = num_summary_wttype
+        
+      
+    }
     
 
   }

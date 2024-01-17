@@ -63,6 +63,16 @@ hts_summary_cat = function(prepped_dt,
                            checkbox_valname = NULL,
                            checkbox_yesval = NULL) {
   
+  if ( !weighted & se ){
+    
+    message("Standard errors require weighted data; setting se = FALSE. 
+            Set weighted = TRUE and specify a wtname if standard errors are desired.")
+    
+    se = FALSE
+    
+    
+  }
+  
   groupbyvars = c(
     summarize_by,
     summarize_var,
@@ -91,6 +101,10 @@ hts_summary_cat = function(prepped_dt,
   if (weighted) {
     
     if (se) {
+      
+      if (!is.null(summarize_by) & checkbox_valname %in% names(prepped_dt)){
+        prepped_dt = prepped_dt[get(checkbox_valname) == 1]
+      }
       
       so = hts_to_so(
         prepped_dt = prepped_dt,
@@ -144,20 +158,24 @@ hts_summary_cat = function(prepped_dt,
       
       is_checkbox = TRUE
       
-      setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
-
-      wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
-      wtd_summary[, checkbox_valname := NULL]
-
-      # recalculate prop without value == 0
-      if (is.null(summarize_by)){
-
-        wtd_summary[, prop := count/ sum(count)]
-
-      } else {
-
-        wtd_summary[, prop := count/ sum(count), summarize_by]
-
+      if (weighted){
+        
+        setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
+  
+        wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
+        wtd_summary[, checkbox_valname := NULL]
+  
+        # recalculate prop without value == 0
+        if (is.null(summarize_by)){
+  
+          wtd_summary[, prop := est/ sum(est)]
+  
+        } else {
+  
+          wtd_summary[, prop := est/ sum(est), summarize_by]
+  
+        }
+        
       }
       
       setnames(unwtd_summary, old = checkbox_valname, new = 'checkbox_valname')
@@ -194,11 +212,11 @@ hts_summary_cat = function(prepped_dt,
 
     if (is.null(summarize_by)){
 
-      wtd_summary = wtd_summary[order(get(groupbyvars[1]))]
+      unwtd_summary = unwtd_summary[order(get(groupbyvars[1]))]
 
     } else {
 
-      wtd_summary = wtd_summary[order(
+      unwtd_summary = unwtd_summary[order(
         get(groupbyvars[1]),
         get(groupbyvars[2])
         )
@@ -209,16 +227,41 @@ hts_summary_cat = function(prepped_dt,
 
   if(is_checkbox & !is.null(summarize_by)){
 
-    wtd_summary = wtd_summary[order(get(groupbyvars[1]),
+    unwtd_summary = unwtd_summary[order(get(groupbyvars[1]),
                                         get(groupbyvars[2]))]
 
   }
 
   cat_summary_ls[['unwtd']] = unwtd_summary[]
-  
-  cat_summary_ls[['wtd']] = wtd_summary[]
 
   if (weighted){
+    
+    # Skip reordering if var is a checkbox
+    if(!is_checkbox){
+      
+      if (is.null(summarize_by)){
+        
+        wtd_summary = wtd_summary[order(get(groupbyvars[1]))]
+        
+      } else {
+        
+        wtd_summary = wtd_summary[order(
+          get(groupbyvars[1]),
+          get(groupbyvars[2])
+        )
+        ]
+        
+      }
+    }
+    
+    if(is_checkbox & !is.null(summarize_by)){
+      
+      wtd_summary = wtd_summary[order(get(groupbyvars[1]),
+                                      get(groupbyvars[2]))]
+      
+    }
+    
+    cat_summary_ls[['wtd']] = wtd_summary[]
 
     cat_summary_ls$weight_name = wtname
 
