@@ -13,7 +13,7 @@ hts_summary_cat(
   wtname = NULL,
   strataname = NULL,
   checkbox_valname = NULL,
-  checkbox_yesval = 1
+  checkbox_yesval = NULL
 )
 }
 \arguments{
@@ -32,6 +32,12 @@ Default is NULL.}
 \item{wtname}{Name of the weight column to use. Default is NULL.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
+
+\item{checkbox_valname}{Name of the column with the checkbox value. Default is NULL.
+Must be provided if summarize_var is a checkbox variable.}
+
+\item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
+Default is NULL. Must be provided if summarize_var is a checkbox variable.}
 }
 \value{
 List of unweighted and weighted categorical summaries including counts
@@ -55,7 +61,8 @@ DT = hts_prep_data(summarize_var = 'age',
                                'vehicle' = vehicle))$cat
 hts_summary_cat(prepped_dt = DT,
                 summarize_var = 'age',
-                values_dt = value_labels)
+                values_dt = value_labels,
+                wtname = 'person_weight')
 DT = hts_prep_data(summarize_var = 'age',
                    summarize_by = 'employment',
                    variables_dt = variable_list,
@@ -68,6 +75,20 @@ hts_summary_cat(prepped_dt = DT,
                 summarize_var = 'age',
                 summarize_by = 'employment',
                 values_dt = value_labels,
-                extra_labels = 'Missing')
+                extra_labels = 'Missing',
+                wtname = 'person_weight')
                 
+DT = hts_prep_data(summarize_var = 'employment',
+                summarize_by = c('race', 'income_detailed', 'gender'),
+                variables_dt = variable_list,
+                data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle))$cat
+
+hts_summary_cat(prepped_dt = DT,
+summarize_var = 'employment',
+summarize_by = c('race', 'income_detailed', 'gender'),
+wtname = 'person_weight')$unwtd
 }

@@ -56,7 +56,7 @@ DT = hts_prep_data(summarize_var = 'speed_mph',
                                'vehicle' = vehicle))$num
 hts_summary_num(prepped_dt = DT,
                 summarize_var = 'speed_mph',
-                values_dt = value_labels)
+                wtname = 'trip_weight')
 DT = hts_prep_data(summarize_var = 'speed_mph',
                    summarize_by = 'age', 
                    variables_dt = variable_list,
@@ -68,5 +68,5 @@ DT = hts_prep_data(summarize_var = 'speed_mph',
 hts_summary_num(prepped_dt = DT,
                 summarize_var = 'speed_mph',
                 summarize_by = 'age',
-                values_dt = value_labels)
+                wtname = 'trip_weight')
 }

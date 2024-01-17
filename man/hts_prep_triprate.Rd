@@ -7,8 +7,8 @@
 hts_prep_triprate(
   summarize_by = NULL,
   variables_dt = variable_list,
-  tripdat = trip,
-  daydat = day,
+  trip_name = "trip",
+  day_name = "day",
   remove_outliers = TRUE,
   threshold = 0.975,
   weighted = TRUE,
@@ -22,9 +22,9 @@ is NULL.}
 \item{variables_dt}{List of variable locations and descriptions in data.table
 format.}
 
-\item{tripdat}{Dataset of trips in data.table format.}
+\item{trip_name}{Name of the trip dataset in hts_data.}
 
-\item{daydat}{Dataset of days in data.table format.}
+\item{day_name}{Name of the day dataset in hts_data.}
 
 \item{remove_outliers}{Boolean whether or not to remove outliers from dataset.
 Default is TRUE.}
@@ -49,8 +49,8 @@ Prepare datasets for trip rate calculations
 require(data.table)
 require(stringr)
 hts_prep_triprate(variables_dt = variable_list,
-                  tripdat = trip,
-                  daydat = day,
+                  trip_name = 'trip',
+                  day_name = 'day',
                   hts_data = list('hh' = hh,
                             'person' = person,
                             'day' = day,
@@ -58,8 +58,8 @@ hts_prep_triprate(variables_dt = variable_list,
                             'vehicle' = vehicle))
 hts_prep_triprate(summarize_by = 'age',
                   variables_dt = variable_list,
-                  tripdat = trip,
-                  daydat = day,
+                  trip_name = 'trip',
+                  day_name = 'day',
                   hts_data = list('hh' = hh,
                             'person' = person,
                             'day' = day,

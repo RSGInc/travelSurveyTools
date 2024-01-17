@@ -76,7 +76,7 @@ hts_summary_cat = function(prepped_dt,
                            strataname = NULL, 
                            checkbox_valname = NULL,
                            checkbox_yesval = NULL) {
-
+  
   groupbyvars = c(
     summarize_by,
     summarize_var,
@@ -87,7 +87,7 @@ hts_summary_cat = function(prepped_dt,
   
   unwtd_summary = copy(prepped_dt)
   unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
-    
+  
   if (is.null(summarize_by)){
     
     unwtd_summary[, prop := count/ sum(count)]
@@ -99,7 +99,7 @@ hts_summary_cat = function(prepped_dt,
   }
   
   setcolorder(unwtd_summary, c(groupbyvars, 'count', 'prop'))
-
+  
   cat_summary_ls = list()
   
   if (weighted) {
@@ -158,20 +158,23 @@ hts_summary_cat = function(prepped_dt,
       
       is_checkbox = TRUE
       
-      setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
-
-      wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
-      wtd_summary[, checkbox_valname := NULL]
-
-      # recalculate prop without value == 0
-      if (is.null(summarize_by)){
-
-        wtd_summary[, prop := count/ sum(count)]
-
-      } else {
-
-        wtd_summary[, prop := count/ sum(count), summarize_by]
-
+      if (weighted){
+        
+        setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
+        
+        wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
+        wtd_summary[, checkbox_valname := NULL]
+        
+        # recalculate prop without value == 0
+        if (is.null(summarize_by)){
+          
+          wtd_summary[, prop := count/ sum(count)]
+          
+        } else {
+          
+          wtd_summary[, prop := count/ sum(count), summarize_by]
+          
+        }
       }
       
       setnames(unwtd_summary, old = checkbox_valname, new = 'checkbox_valname')
@@ -189,7 +192,7 @@ hts_summary_cat = function(prepped_dt,
         unwtd_summary[, prop := count/ sum(count), summarize_by]
         
       }
-
+      
     } else {
       
       stop('Only provide checkbox_valname and checkbox_yesval if summarize_var is
@@ -202,44 +205,45 @@ hts_summary_cat = function(prepped_dt,
     is_checkbox = FALSE
     
   }
-
-  # Skip reordering if var is a checkbox
-  if(!is_checkbox){
-
-    if (is.null(summarize_by)){
-
-      wtd_summary = wtd_summary[order(get(groupbyvars[1]))]
-
-    } else {
-
-      wtd_summary = wtd_summary[order(
-        get(groupbyvars[1]),
-        get(groupbyvars[2])
-        )
-      ]
-
-    }
-  }
-
-  if(is_checkbox & !is.null(summarize_by)){
-
-    wtd_summary = wtd_summary[order(get(groupbyvars[1]),
-                                        get(groupbyvars[2]))]
-
-  }
-
+  
+  
   cat_summary_ls[['unwtd']] = unwtd_summary[]
   
-  cat_summary_ls[['wtd']] = wtd_summary[]
-
   if (weighted){
-
+    
+    # Skip reordering if var is a checkbox
+    if(!is_checkbox){
+      
+      if (is.null(summarize_by)){
+        
+        wtd_summary = wtd_summary[order(get(groupbyvars[1]))]
+        
+      } else {
+        
+        wtd_summary = wtd_summary[order(
+          get(groupbyvars[1]),
+          get(groupbyvars[2])
+        )
+        ]
+        
+      }
+    }
+    
+    if(is_checkbox & !is.null(summarize_by)){
+      
+      wtd_summary = wtd_summary[order(get(groupbyvars[1]),
+                                      get(groupbyvars[2]))]
+      
+    }
+    
+    cat_summary_ls[['wtd']] = wtd_summary[]
+    
     cat_summary_ls$weight_name = wtname
-
+    
   }
-
+  
   return(cat_summary_ls)
-
+  
 }
 
 ## quiets concerns of R CMD check
