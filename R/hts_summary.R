@@ -16,6 +16,10 @@
 #' @param wtname Name of the weight column to use. Default is NULL. Must be specified
 #' when weighted = TRUE.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param checkbox_valname Name of the column with the checkbox value. Default is NULL.
+#'  Must be provided if summarize_var is a checkbox variable.
+#' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
+#'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
 #'  
 #' @return A data.table containing 
 #' @export
@@ -26,37 +30,56 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' hts_summary(hts_data = list('hh' = hh,
-#'                             'person' = person,
-#'                             'day' = day,
-#'                             'trip' = trip,
-#'                             'vehicle' = vehicle),
+#' DT = hts_prep_data(summarize_var = 'age',
+#'                    summarize_by = 'employment',
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$cat
+#' hts_summary(prepped_dt = DT,
 #'             summarize_var = 'age',
-#'             summarize_by =  'employment',
-#'             variables_dt = variable_list)
-#' hts_summary(hts_data = list('hh' = hh,
-#'                             'person' = person,
-#'                             'day' = day,
-#'                             'trip' = trip,
-#'                             'vehicle' = vehicle),
+#'             summarize_by = 'employment',
+#'             summarize_vartype = 'categorical',
+#'             wtname = 'person_weight')
+#'
+#' DT = hts_prep_data(summarize_var = 'speed_mph',
+#'                    summarize_by = 'age', 
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$num
+#' hts_summary(prepped_dt = DT,
 #'             summarize_var = 'speed_mph',
-#'             summarize_by =  'age',
-#'             variables_dt = variable_list)
+#'             summarize_by = 'age',
+#'             summarize_vartype = 'numeric',
+#'             wtname = 'trip_weight')
 
 hts_summary = function(
     prepped_dt, 
     summarize_var,
-    summarize_by,
+    summarize_by = NULL,
     summarize_vartype = 'categorical',
     weighted = TRUE,
     se = FALSE,
     wtname = NULL,
-    strataname = NULL) {
+    strataname = NULL, 
+    checkbox_valname = NULL,
+    checkbox_yesval = NULL) {
   
   # FIXME consider a labels = T/F argument here
 
   # For instances where num obs is singular inside a sub-strata, adjust:
   options(survey.lonely.psu = "adjust")
+  
+  if ( summarize_vartype == 'checkbox' & 
+       (is.null(checkbox_valname) | is.null(checkbox_yesval))) {
+    
+    stop("Must provide checkbox_valname and checkbox_yesval if summarize_vartype is checkbox.")
+  }
   
   if ( weighted & is.null(wtname)) {
     
@@ -66,15 +89,16 @@ hts_summary = function(
     
   }
 
-  if ( !weighted & se ){
-    
-    message("Standard errors require weighted data; setting se = FALSE. 
-            Set weighted = TRUE and specify a wtname if standard errors are desired.")
-
-    se = FALSE
-
-    
-  }
+  # Think we should put in hts_summary_num and hts_summary_cat instead
+  # if ( !weighted & se ){
+  #   
+  #   message("Standard errors require weighted data; setting se = FALSE. 
+  #           Set weighted = TRUE and specify a wtname if standard errors are desired.")
+  # 
+  #   se = FALSE
+  # 
+  #   
+  # }
 
   cat_ns =  hts_get_ns(
     prepped_dt = prepped_dt,
@@ -93,7 +117,9 @@ hts_summary = function(
       weighted = weighted,
       se = se,
       wtname = wtname,
-      strataname = strataname
+      strataname = strataname, 
+      checkbox_valname = checkbox_valname,
+      checkbox_yesval = checkbox_yesval
     )
   }
 
