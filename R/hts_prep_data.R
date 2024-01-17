@@ -11,6 +11,7 @@
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
+#' @param strataname  Name of strata name to bring in. Default is NULL.
 #'
 #' @return List containing the categorical and numeric datasets of the summary
 #' variables and key columns, and either whether the summarize variable is shared
@@ -46,7 +47,8 @@ hts_prep_data = function(summarize_var = NULL,
                          threshold = 0.975,
                          remove_missing = TRUE,
                          missing_value = 995,
-                         not_imputable = -1) {
+                         not_imputable = -1,
+                         strataname = NULL) {
   # tictoc::tic("Total Time")
   # Message:
   msg_pt1 = paste0("Creating a summary of ",
@@ -208,6 +210,24 @@ hts_prep_data = function(summarize_var = NULL,
                                        not_imputable = not_imputable)
   }
 
+  if (!is.null(strataname)) {
+    
+    if(!is.null(cat_res)){
+      
+      cat_res = hts_cbind_var(lhs_table = cat_res,
+                              rhs_var = strataname,
+                              variable_list = variables_dt)
+      
+    }
+    
+    if(!is.null(num_res)){
+      
+      num_res = hts_cbind_var(lhs_table = num_res,
+                              rhs_var = strataname,
+                              variable_list = variables_dt)
+      
+    }
+  }
 
   prepped_dt_ls = list("cat" = cat_res,
                        "num" = num_res,

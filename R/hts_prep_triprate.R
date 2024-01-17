@@ -75,7 +75,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     
     # FIXME: rename triprate_binned to num_trips?
     if (!weighted) {
-      triprate_dt = tripdat[, .(triprate_binned = .N),
+      triprate_dt = tripdat[, .(num_trips = .N),
                             by = tripratekeys]
     }
     
@@ -123,7 +123,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     }
     
     if (!weighted) {
-      triprate_dt = triprate_dt[, .(triprate_binned = .N),
+      triprate_dt = triprate_dt[, .(num_trips = .N),
                                 by = triprate_cols_all]
     }
     

@@ -73,6 +73,16 @@ hts_summary_cat = function(prepped_dt,
     
   }
   
+  if ( !se & weighted & !is.null(strataname)){
+    
+    message("Stratanames are only used in calculating standard errors; setting se = TRUE 
+            Set se = FALSE and remove the strataname if standard errors are not desired.")
+    
+    se = TRUE
+    
+    
+  }
+  
   groupbyvars = c(
     summarize_by,
     summarize_var,
@@ -101,10 +111,6 @@ hts_summary_cat = function(prepped_dt,
   if (weighted) {
     
     if (se) {
-      
-      if (!is.null(summarize_by) & checkbox_valname %in% names(prepped_dt)){
-        prepped_dt = prepped_dt[get(checkbox_valname) == 1]
-      }
       
       so = hts_to_so(
         prepped_dt = prepped_dt,
