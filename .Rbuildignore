@@ -3,3 +3,7 @@
 ^\.github$
 ^doc$
 ^Meta$
+^data-raw
+^CONTRIBUTING.md$
+^LICENSE.md$
+^scratch.R

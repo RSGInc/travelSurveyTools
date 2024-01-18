@@ -11,6 +11,11 @@
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
+#' @param remove_missing Whether to remove missing values from the summary.
+#'  Default is TRUE.
+#' @param missing_value Missing value to remove. Default is 995.
+#' @param not_imputable Value representing 'Not imputable' to remove. Default
+#'  is -1.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
 #'
 #' @return List containing the categorical and numeric datasets of the summary
