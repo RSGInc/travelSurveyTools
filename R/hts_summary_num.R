@@ -69,7 +69,7 @@ hts_summary_num = function(prepped_dt,
   num_so_ls[["unwtd"]] = srvyr::as_survey_design(prepped_dt, w = NULL)
   
   if (weighted == TRUE) {
-    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strata = strataname, wtname = wtname)
+    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strataname = strataname, wtname = wtname)
   }
   
   

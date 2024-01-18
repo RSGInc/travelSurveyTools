@@ -63,7 +63,7 @@ before proceding.")
                   ),
                   default = NA)),
           by = row.names(trip_dt)]
-  if (class(vehicle_table$vehicle_id) == "integer64") {
+  if (inherits(vehicle_table$vehicle_id, "integer64")) {
     trip_dt[, vehicle_id := bit64::as.integer64(vehicle_id)]
   }
   return(trip_dt[])
