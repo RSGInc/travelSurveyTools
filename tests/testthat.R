@@ -6,6 +6,8 @@
 # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
 # * https://testthat.r-lib.org/articles/special-files.html
 
+# be sure to set the wd to the test folder when testing locally
+
 library(testthat)
 library(travelSurveyTools)
 
