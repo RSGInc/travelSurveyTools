@@ -1,5 +1,5 @@
 context("factorize_column")
-library(tmrtools)
+library(travelSurveyTools)
 library(data.table)
 
 x = sample(5, replace=TRUE, size=10)
