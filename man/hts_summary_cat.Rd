@@ -12,9 +12,8 @@ hts_summary_cat(
   se = FALSE,
   wtname = NULL,
   strataname = NULL,
-  variable_list = NULL,
-  values_dt = value_labels,
-  extra_labels = extra_labels
+  checkbox_valname = NULL,
+  checkbox_yesval = NULL
 )
 }
 \arguments{
@@ -34,16 +33,11 @@ Default is NULL.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 
-\item{variable_list}{Dataset of variable locations and descriptions in
-data.table format.}
+\item{checkbox_valname}{Name of the column with the checkbox value. Default is NULL.
+Must be provided if summarize_var is a checkbox variable.}
 
-\item{values_dt}{Dataset of values and value labels for all variables in
-data.table format.}
-
-\item{extra_labels}{Pass a vector of the names of other variables in the
-values dataframe to use when labeling. Common uses include missing values,
-universal values (e.g., "Total" or "Subtotal" row), or similar variables
-(e.g., "mode_1" to reuse the mode_1 labels for mode_2). Default is NULL.}
+\item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
+Default is NULL. Must be provided if summarize_var is a checkbox variable.}
 }
 \value{
 List of unweighted and weighted categorical summaries including counts
@@ -67,7 +61,7 @@ DT = hts_prep_data(summarize_var = 'age',
                                'vehicle' = vehicle))$cat
 hts_summary_cat(prepped_dt = DT,
                 summarize_var = 'age',
-                values_dt = value_labels)
+                wtname = 'person_weight')
 DT = hts_prep_data(summarize_var = 'age',
                    summarize_by = 'employment',
                    variables_dt = variable_list,
@@ -79,6 +73,19 @@ DT = hts_prep_data(summarize_var = 'age',
 hts_summary_cat(prepped_dt = DT,
                 summarize_var = 'age',
                 summarize_by = 'employment',
-                values_dt = value_labels,
-                extra_labels = 'Missing')
+                wtname = 'person_weight')
+                
+DT = hts_prep_data(summarize_var = 'employment',
+                summarize_by = c('race', 'income_detailed', 'gender'),
+                variables_dt = variable_list,
+                data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle))$cat
+
+hts_summary_cat(prepped_dt = DT,
+                summarize_var = 'employment',
+                summarize_by = c('race', 'income_detailed', 'gender'),
+                wtname = 'person_weight')$unwtd
 }

@@ -5,67 +5,51 @@
 \title{Make household travel survey summaries}
 \usage{
 hts_summary(
-  hts_data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle,
-    location = location),
-  summarize_var = NULL,
+  prepped_dt,
+  summarize_var,
   summarize_by = NULL,
-  variables_dt = variable_list,
-  var_description_sep = ":",
-  values_dt = value_labels,
+  summarize_vartype = "categorical",
   weighted = TRUE,
+  se = FALSE,
   wtname = NULL,
   strataname = NULL,
-  remove_outliers = TRUE,
-  se = FALSE,
-  threshold = 0.975,
-  remove_missing = TRUE,
-  missing_value = 995,
-  not_imputable = -1
+  checkbox_valname = NULL,
+  checkbox_yesval = NULL
 )
 }
 \arguments{
-\item{hts_data}{List containing household, person, day, trip, and vehicle
-datasets in data.table format.}
+\item{prepped_dt}{A prepared dataset in data.table format with
+the variable to summarize, the variable to summarize by, and the weights,
+if used.}
 
 \item{summarize_var}{Name of the variable to summarize. Default is NULL.}
 
 \item{summarize_by}{Name of the variable to summarize the summarize_var by.
 Default is NULL.}
 
-\item{variables_dt}{Dataset of variable locations and descriptions in
-data.table format.}
-
-\item{var_description_sep}{Character used in the description of the variable
-list to separate the name from the description. Default is ':'.}
-
-\item{values_dt}{Dataset of values and value labels for all variables in
-data.table format.}
+\item{summarize_vartype}{String; one of either 'categorical' (when the
+variable being summarized is categorical), 'checkbox' (when the variable being
+summarized is derived from a multiple response, aka select-all-that-apply question)
+or 'numeric', when the variable being summarized is numeric.}
 
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
 
-\item{wtname}{Name of the weight column to use. Default is NULL.}
+\item{se}{Whether to calculate standard error. Default is FALSE. Will be set
+to FALSE if weighted is FALSE.}
+
+\item{wtname}{Name of the weight column to use. Default is NULL. Must be specified
+when weighted = TRUE.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 
-\item{remove_outliers}{Whether to remove outliers from the data. Default is
-TRUE.}
+\item{checkbox_valname}{Name of the column with the checkbox value. Default is NULL.
+Must be provided if summarize_var is a checkbox variable.}
 
-\item{se}{Whether to calculate standard error. Default is FALSE.}
-
-\item{threshold}{Threshold to define an outlier. Default is 0.975.}
-
-\item{remove_missing}{Whether to remove missing values from the summary.
-Default is TRUE.}
-
-\item{missing_value}{Missing value to remove. Default is 995.}
-
-\item{not_imputable}{Value representing 'Not imputable' to remove. Default
-is -1.}
+\item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
+Default is NULL. Must be provided if summarize_var is a checkbox variable.}
 }
 \value{
-List containing sample sizes, categorical summary, numeric summary,
-outlier breakdown, whether or not the summarized variable is a checkbox,
-and the summary variables and their descriptions.
+A data.table containing
 }
 \description{
 Make household travel survey summaries
@@ -76,20 +60,31 @@ require(data.table)
 require(stringr)
 require(dplyr)
 require(srvyr)
-hts_summary(hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle),
+DT = hts_prep_data(summarize_var = 'age',
+                   summarize_by = 'employment',
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))$cat
+hts_summary(prepped_dt = DT,
             summarize_var = 'age',
-            summarize_by =  'employment',
-            variables_dt = variable_list)
-hts_summary(hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle),
+            summarize_by = 'employment',
+            summarize_vartype = 'categorical',
+            wtname = 'person_weight')
+
+DT = hts_prep_data(summarize_var = 'speed_mph',
+                   summarize_by = 'age', 
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))$num
+hts_summary(prepped_dt = DT,
             summarize_var = 'speed_mph',
-            summarize_by =  'age',
-            variables_dt = variable_list)
+            summarize_by = 'age',
+            summarize_vartype = 'numeric',
+            wtname = 'trip_weight')
 }

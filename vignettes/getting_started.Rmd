@@ -1,7 +1,6 @@
 ---
 title: "Getting Started"
 description: >
-  Learn what travelSurveyTools is for and how to get set up for it
 output: html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting Started}
@@ -105,24 +104,73 @@ A dataset containing the values for all variables found in variable_list The var
 
 ## Using travelSurveyTools
 
-We can use `hts_summary()` to create summaries. For example let's summarize `mode_type`.
+### Prepping the Data
 
-This will return weighted/unweighted summaries, variable description, variable counts, etc.
+In order to create summaries of our data we first need to prepare our data. We can do this by using `hts_prep_data`. This will return a categorical (cat) and numeric (num) (if applicable) prepped data table that can be used to create summaries. 
 
-```{r, mode_type_example, echo=TRUE, eval=TRUE, warning=FALSE}
+```{r, hts_prep_data, eval=TRUE, echo=TRUE }
 
 library(travelSurveyTools)
 
 # Load data
 data("test_data")
 data("variable_list")
-data("value_labels")
 
-# Create summary
-hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'mode_type')
+DT = hts_prep_data(summarize_var = 'speed_mph',
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))
+
+```
+
+Numeric variables will be automatically binned in `hts_prep_data` to create categorical summaries. Here we can make a categorical summary of a numeric variable using `hts_summary`. 
+
+```{r, hts_summary_cat, eval=TRUE, echo=TRUE}
+
+speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
+                                summarize_var = 'speed_mph',
+                                summarize_by = NULL,
+                                summarize_vartype = 'categorical',
+                                weighted = FALSE)
+
+speed_cat_summary$summary
+
+
+```
+
+Additionally, for numeric variables we can create numeric summaries. 
+
+```{r, hts_summary_num, eval=TRUE, echo=TRUE}
+
+speed_num_summary = hts_summary(prepped_dt = DT$num, 
+                                summarize_var = 'speed_mph',
+                                summarize_by = NULL,
+                                summarize_vartype = 'numeric',
+                                weighted = FALSE)
+
+speed_num_summary$summary
+
+```
+
+
+### Using Weighted Data
+
+Additionally, we can use weighted data by setting `weighted = TRUE` and specifying the name of the weight to be used (`wtname`).
+
+
+```{r, weighted_example, eval=TRUE, echo=TRUE}
+
+speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
+                                summarize_var = 'speed_mph',
+                                summarize_by = NULL,
+                                summarize_vartype = 'categorical',
+                                weighted = TRUE,
+                                wtname = 'trip_weight')
+
+speed_cat_summary$summary
 
 ```
 
@@ -132,13 +180,15 @@ Additionally, by specifying `se = TRUE` we can calculate standard errors.
 
 ```{r, mode_type_se_example, echo=TRUE, eval=TRUE}
 
-mode_type_w_se = hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'mode_type',
-            se = TRUE)
+speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
+                                summarize_var = 'speed_mph',
+                                summarize_by = NULL,
+                                summarize_vartype = 'categorical',
+                                weighted = TRUE,
+                                wtname = 'trip_weight',
+                                se = TRUE)
 
-mode_type_w_se$cat_summary$wtd
+speed_cat_summary$summary
 
 ```
 
@@ -148,70 +198,104 @@ If we want summarize a variable by another variable (e.g., mode type by a person
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
-two_way_race_summary = hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'mode_type',
-            summarize_by = 'race')
+DT = hts_prep_data(summarize_var = 'mode_type',
+                   summarize_by = 'race',
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))
 
-head(two_way_race_summary$cat_summary$wtd, 20)
+mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
+                                   summarize_var = 'mode_type',
+                                   summarize_by = 'race',
+                                   summarize_vartype = 'categorical',
+                                   weighted = TRUE,
+                                   wtname = 'trip_weight',
+                                   se = TRUE)
+
+
+mode_by_race_summary$summary
 
 ```
+
+`summarize_by` can be used with an unlimited amount of variables. To use more than one `summarize_by` variable pass a list to the argument. 
 
 ```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
 
-two_way_ethnicity_summary = hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'mode_type',
-            summarize_by = 'ethnicity')
+DT = hts_prep_data(summarize_var = 'mode_type',
+                   summarize_by = c('race', 'ethnicity'),
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))
 
-head(two_way_ethnicity_summary$cat_summary$wtd, 20)
+mode_by_race_ethnicity_summary = hts_summary(prepped_dt = DT$cat, 
+                                             summarize_var = 'mode_type',
+                                             summarize_by = c('race', 'ethnicity'),
+                                             summarize_vartype = 'categorical',
+                                             weighted = TRUE,
+                                             wtname = 'trip_weight',
+                                             se = TRUE)
 
-```
 
-### Creating Summaries of Numeric Variables
-
-`hts_summary` will create numeric summaries for variables with a numeric data_type specified in the `variable_list`. Numeric variables will be binned and then return a categorical summary using those categories.
-
-```{r, speed_mph_example, echo=TRUE, eval=TRUE}
-
-numeric_summary = hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'speed_mph')
-
-numeric_summary$cat_summary$wtd
+head(mode_by_race_ethnicity_summary$summary$wtd, 10)
 
 ```
 
-Additionally, numeric variables will return summary statistics.
 
-```{r, speed_mph_example_num_summary, echo=TRUE, eval=TRUE}
+### Calculating trip rates
 
-numeric_summary$num_summary$wtd
+`hts_summary` can also be used to calculate trip rates.
+
+```{r, trip_rates_example}
+
+DT = hts_prep_triprate(summarize_by = 'employment',
+                       variables_dt = variable_list,
+                       trip_name = 'trip',
+                       day_name = 'day',
+                       hts_data = list('hh' = hh,
+                                       'person' = person,
+                                       'day' = day,
+                                       'trip' = trip,
+                                       'vehicle' = vehicle))
+
+trip_rate_by_employment_summary = hts_summary(prepped_dt = DT$num, 
+                                              summarize_var = 'num_trips',
+                                              summarize_by = 'employment',
+                                              summarize_vartype = 'numeric',
+                                              weighted = TRUE,
+                                              wtname = 'day_weight',
+                                              se = TRUE)
+
+head(trip_rate_by_employment_summary$summary$wtd, 10)
 
 ```
 
-<!-- ### Calculating trip rates -->
+### Labeling Values
 
-<!-- `hts_summary` can also be used to calculate trip rates.  -->
+To label values we can use `factorize_column`.
 
-<!-- ```{r, trip_rates_example} -->
+```{r, factorize_column}
 
-<!-- trip_rates_by_employment = hts_summary(hts_data = test_data, -->
+trip_rate_by_employment_summary$summary$wtd$employment =  factorize_column(
+  trip_rate_by_employment_summary$summary$wtd$employment,
+  'employment',
+  value_labels,
+  variable_colname = 'variable',
+  value_colname = 'value',
+  value_label_colname = 'label',
+  value_order_colname = 'val_order'
+)
 
-<!--             variables_dt = variable_list, -->
 
-<!--             values_dt = value_labels, -->
+trip_rate_by_employment_summary$summary$wtd
 
-<!--             summarize_var = 'num_trips', -->
+```
 
-<!--             summarize_by = 'employment') -->
-
-<!-- trip_rates_by_employment$cat_summary$wtd -->
-
-<!-- ``` -->
 
 ### Creating Visuals using hts_summary output
 
@@ -221,16 +305,20 @@ numeric_summary$num_summary$wtd
 
 library(ggplot2)
 
-age_summary = hts_summary(hts_data = test_data,
-            variables_dt = variable_list,
-            values_dt = value_labels,
-            summarize_var = 'age')
-
-p = ggplot(age_summary$cat_summary$wtd, 
-       aes(x = prop, y = age)) +
-  geom_bar(stat = 'identity')+
-      scale_y_discrete(limits = rev)
-
-print(p)
+p = ggplot(
+  trip_rate_by_employment_summary$summary$wtd, 
+  aes(x = mean, y = employment)) +
+  geom_bar(stat = 'identity') + 
+  geom_errorbar(
+    aes(xmin = (mean - mean_se), 
+        xmax = (mean + mean_se),
+        width = .2)
+  ) + 
+  labs(x = 'Mean Trip Rate',
+       y = 'Employment')  +
+  scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = 50),
+                   limits = rev)
+  
+  print(p)
 
 ```

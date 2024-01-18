@@ -4,8 +4,8 @@
 #'  is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
-#' @param tripdat Dataset of trips in data.table format.
-#' @param daydat Dataset of days in data.table format.
+#' @param trip_name Name of the trip dataset in hts_data.
+#' @param day_name Name of the day dataset in hts_data.
 #' @param remove_outliers Boolean whether or not to remove outliers from dataset.
 #'  Default is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
@@ -23,8 +23,8 @@
 #' require(data.table)
 #' require(stringr)
 #' hts_prep_triprate(variables_dt = variable_list,
-#'                   tripdat = trip,
-#'                   daydat = day,
+#'                   trip_name = 'trip',
+#'                   day_name = 'day',
 #'                   hts_data = list('hh' = hh,
 #'                             'person' = person,
 #'                             'day' = day,
@@ -32,8 +32,8 @@
 #'                             'vehicle' = vehicle))
 #' hts_prep_triprate(summarize_by = 'age',
 #'                   variables_dt = variable_list,
-#'                   tripdat = trip,
-#'                   daydat = day,
+#'                   trip_name = 'trip',
+#'                   day_name = 'day',
 #'                   hts_data = list('hh' = hh,
 #'                             'person' = person,
 #'                             'day' = day,
@@ -41,12 +41,15 @@
 #'                             'vehicle' = vehicle))
 hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
-                             tripdat = trip,
-                             daydat = day,
+                             trip_name = 'trip',
+                             day_name = 'day',
                              remove_outliers = TRUE,
                              threshold = 0.975,
                              weighted = TRUE,
                              hts_data) {
+  
+  tripdat = hts_data[[trip_name]]
+  daydat = hts_data[[day_name]]
   
   tripratekeys = c("hh_id", "person_id", "day_id")
   trip_subset_cols = hts_get_keycols(tripdat)
@@ -70,8 +73,9 @@ hts_prep_triprate = function(summarize_by = NULL,
                             by = tripratekeys]
     }
     
+    # FIXME: rename triprate_binned to num_trips?
     if (!weighted) {
-      triprate_dt = tripdat[, .(triprate_binned = .N),
+      triprate_dt = tripdat[, .(num_trips = .N),
                             by = tripratekeys]
     }
     
@@ -119,7 +123,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     }
     
     if (!weighted) {
-      triprate_dt = triprate_dt[, .(triprate_binned = .N),
+      triprate_dt = triprate_dt[, .(num_trips = .N),
                                 by = triprate_cols_all]
     }
     
