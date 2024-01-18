@@ -9,8 +9,8 @@ library(srvyr)
 
 test_that("hts_to_so should return counts and units", {
   
-  results = hts_to_so(test_data$day)
+  results = hts_to_so(prepped_dt = test_data$day, wtname = 'day_weight')
   
-  expect_is(results, "survey.design", info = "hts_to_so should return a list")
+  expect_is(results, "survey.design", info = "hts_to_so should return a survey object")
   
 })
