@@ -70,5 +70,5 @@ before proceding.")
 }
 
 ## quiets concerns of R CMD check
-utils::globalVariables(c("value_labels", "vehicle_id", "mode_1", "mode_type"))
+utils::globalVariables(c("value_labels", "vehicle_id", "mode_1", "mode_type", "hh_id"))
 

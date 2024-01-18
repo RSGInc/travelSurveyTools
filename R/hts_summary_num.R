@@ -13,6 +13,11 @@
 #' when weighted = TRUE.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
 #' 
+#' @importFrom srvyr survey_mean
+#' @importFrom srvyr survey_median
+#' @importFrom dplyr summarize
+#' @importFrom dplyr group_by_at
+#' 
 #' @return List of unweighted and weighted numeric summaries including count, min,
 #'  max, mean, se, and median.
 #' @export

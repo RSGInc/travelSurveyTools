@@ -4,6 +4,7 @@ context("Test suite for hts_summary_num function")
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
+library(srvyr)
 
 
 DT = hts_prep_data(summarize_var = 'speed_mph',

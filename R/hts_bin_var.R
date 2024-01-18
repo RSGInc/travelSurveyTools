@@ -8,7 +8,7 @@
 #' @export
 #'
 #'  
-#' @import stats
+#' @importFrom stats quantile
 #'  
 #' @examples
 #' 

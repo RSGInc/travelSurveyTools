@@ -14,6 +14,7 @@ RoxygenNote: 7.2.3
 Imports: 
     data.table,
     dplyr,
+    magrittr,
     srvyr,
     stats,
     stringr

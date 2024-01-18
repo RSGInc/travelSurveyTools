@@ -3,7 +3,7 @@
 #' @param var searchable variable in string format
 #' @param variables_dt codebook variable list in data table format
 #'
-#' @import data.table
+#' @importFrom data.table melt
 #'
 #' @return variable location in string format
 #' @export
