@@ -1,10 +1,8 @@
 #' Filter datasets to only keep specified ids
 #'
-#' @param hts_data List of containing household, person, day, trip, and vehicle
-#'  tables in data.table format
+#' @param hts_data List of containing household travel data tables.
 #' @param ids List of ids to keep in all of the tables
-#' @param id_type Type of id being used for filtering. Options are 'hh', 'person',
-#'  'day', and 'trip'. Defaults to 'hh'.
+#' @param id_name Name of id being used for filtering (e.g., hh_id, person_id)
 #'
 #' @return Inputted list of tables filtered to the specified ids.
 #' @export
@@ -12,73 +10,42 @@
 #' @examples
 #'
 #' require(data.table)
-#' hts_filter_data(hts_data = list('hh' = hh,
-#'                             'person' = person,
-#'                             'day' = day,
-#'                             'trip' = trip,
-#'                             'vehicle' = vehicle),
+#' 
+#' data(test_data)
+#' 
+#' hts_filter_data(hts_data = test_data,
 #'                 ids = hh[num_people > 5, hh_id],
-#'                 id_type = 'hh')
+#'                 id_name = 'hh_id')
 #'
 
 hts_filter_data = function(hts_data,
                            ids,
-                           id_type = 'hh'){
-
-  list2env(hts_data, envir = environment())
-
-  if (id_type == 'hh'){
-
-    hts_data[['hh']] = hts_data[['hh']][hh_id %in% ids]
-
-    person = person[hh_id %in% ids]
-
-    day = day[hh_id %in% ids]
-
-    vehicle = vehicle[hh_id %in% ids]
-
-    trip = trip[hh_id %in% ids]
-
-  } else if (id_type == 'person'){
-
-    person = person[person_id %in% ids]
-
-    day = day[person_id %in% ids]
-
-    trip = trip[person_id %in% ids]
-
-    hh = hh[hh_id %in% person[, unique(hh_id)]]
-
-    vehicle = vehicle[hh_id %in% hh$hh_id]
-
-  } else if (id_type == 'day'){
-
-    day = day[day_id %in% ids]
-
-    trip = trip[day_id %in% ids]
-
-    hh = hh[hh_id %in% day[, unique(hh_id)]]
-
-    person = person[hh_id %in% hh$hh_id]
-
-    vehicle = vehicle[hh_id %in% hh$hh_id]
-
-  } else if (id_type == 'trip'){
-
-    trip = trip[trip_id %in% ids]
-
-    hh = hh[hh_id %in% trip[, unique(hh_id)]]
-
-    person = person[hh_id %in% hh$hh_id]
-
-    day = day[hh_id %in% hh$hh_id]
-
-    vehicle = vehicle[hh_id %in% hh$hh_id]
-
+                           id_name){
+  
+  tbl_names = names(hts_data)
+  
+  filtered_tbls = list()
+  
+  for (i in 1:length(hts_data)){
+    
+    tbl = hts_data[[i]]
+    
+    if (id_name %in% names(tbl)){
+      
+      filtered_tbl = tbl[get(id_name) %in% ids]
+      
+    } else {
+      
+      filtered_tbl = tbl
+      
+    }
+    
+    filtered_tbls[[i]] = filtered_tbl
+    
   }
+  
+  names(filtered_tbls) = tbl_names
 
-  return(hts_data)
+
+  return(filtered_tbls)
 }
-
-## quiets concerns of R CMD check
-utils::globalVariables(c("hh_id", "person_id", "day_id", "trip_id"))
