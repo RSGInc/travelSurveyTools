@@ -53,6 +53,20 @@
 #'                 extra_labels = 'Missing',
 #'                 wtname = 'person_weight')
 #'                 
+#' DT = hts_prep_data(summarize_var = 'employment',
+#'                 summarize_by = c('race', 'income_detailed', 'gender'),
+#'                 variables_dt = variable_list,
+#'                 data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))$cat
+#'
+#' hts_summary_cat(prepped_dt = DT,
+#' summarize_var = 'employment',
+#' summarize_by = c('race', 'income_detailed', 'gender'),
+#' wtname = 'person_weight')$unwtd
+
 hts_summary_cat = function(prepped_dt,
                            summarize_var = NULL,
                            summarize_by = NULL,
@@ -93,7 +107,7 @@ hts_summary_cat = function(prepped_dt,
   
   unwtd_summary = copy(prepped_dt)
   unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
-    
+  
   if (is.null(summarize_by)){
     
     unwtd_summary[, prop := count/ sum(count)]
@@ -105,7 +119,7 @@ hts_summary_cat = function(prepped_dt,
   }
   
   setcolorder(unwtd_summary, c(groupbyvars, 'count', 'prop'))
-
+  
   cat_summary_ls = list()
   
   if (weighted) {
@@ -167,7 +181,7 @@ hts_summary_cat = function(prepped_dt,
       if (weighted){
         
         setnames(wtd_summary, old = checkbox_valname, new = 'checkbox_valname')
-  
+
         wtd_summary = wtd_summary[checkbox_valname == checkbox_yesval]
         wtd_summary[, checkbox_valname := NULL]
   
@@ -199,7 +213,7 @@ hts_summary_cat = function(prepped_dt,
         unwtd_summary[, prop := count/ sum(count), summarize_by]
         
       }
-
+      
     } else {
       
       stop('Only provide checkbox_valname and checkbox_yesval if summarize_var is
@@ -212,6 +226,7 @@ hts_summary_cat = function(prepped_dt,
     is_checkbox = FALSE
     
   }
+
 
   # Skip reordering if var is a checkbox
   if(!is_checkbox){
@@ -270,11 +285,11 @@ hts_summary_cat = function(prepped_dt,
     cat_summary_ls[['wtd']] = wtd_summary[]
 
     cat_summary_ls$weight_name = wtname
-
+    
   }
-
+  
   return(cat_summary_ls)
-
+  
 }
 
 ## quiets concerns of R CMD check
