@@ -11,6 +11,7 @@
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
+#' @param strataname  Name of strata name to bring in. Default is NULL.
 #'
 #' @return List containing the categorical and numeric datasets of the summary
 #' variables and key columns, and either whether the summarize variable is shared
@@ -37,14 +38,51 @@
 #'                             'day' = day,
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle))
+#'                             
+#'                             
+#' hts_prep_data(summarize_var = 'employment',
+#'               summarize_by = c('age', 'race'),
+#'               variables_dt = variable_list,
+#'               data = list('hh' = hh,
+#'                             'person' = person,
+#'                             'day' = day,
+#'                             'trip' = trip,
+#'                             'vehicle' = vehicle))
 hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,
                          data = hts_data,
                          weighted = TRUE,
                          remove_outliers = TRUE,
-                         threshold = 0.975) {
-
+                         threshold = 0.975,
+                         remove_missing = TRUE,
+                         missing_value = 995,
+                         not_imputable = -1,
+                         strataname = NULL) {
+  # tictoc::tic("Total Time")
+  # Message:
+  msg_pt1 = paste0("Creating a summary of ",
+                   hts_find_var(summarize_var, variables_dt = variables_dt), " ", summarize_var)
+  
+  
+  if (!is.null(summarize_by)){
+    
+    byvarlocs = lapply(summarize_by, hts_find_var)
+    
+    for(b in 1:length(byvarlocs)) {
+      byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
+    }
+    
+    byvarlocs = unlist(byvarlocs)
+    
+    msg_pt2 = ifelse(length(summarize_by) > 0,
+                     paste0("broken down by ",
+                            paste0(byvarlocs, collapse = " and ")),
+                     "")
+  } else {
+    msg_pt2 = NULL
+  }
+  message(paste0(msg_pt1, " ", msg_pt2))
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
 
@@ -172,7 +210,34 @@ hts_prep_data = function(summarize_var = NULL,
 
 
   }
+  if (remove_missing){
+    
+    hts_data = hts_remove_missing_data(hts_data = data,
+                                       variables_dt = variables_dt,
+                                       summarize_var = summarize_var,
+                                       summarize_by = summarize_by,
+                                       missing_value = missing_value,
+                                       not_imputable = not_imputable)
+  }
 
+  if (!is.null(strataname)) {
+    
+    if(!is.null(cat_res)){
+      
+      cat_res = hts_cbind_var(lhs_table = cat_res,
+                              rhs_var = strataname,
+                              variable_list = variables_dt)
+      
+    }
+    
+    if(!is.null(num_res)){
+      
+      num_res = hts_cbind_var(lhs_table = num_res,
+                              rhs_var = strataname,
+                              variable_list = variables_dt)
+      
+    }
+  }
 
   prepped_dt_ls = list("cat" = cat_res,
                        "num" = num_res,

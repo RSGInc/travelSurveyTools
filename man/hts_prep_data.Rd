@@ -11,7 +11,11 @@ hts_prep_data(
   data = hts_data,
   weighted = TRUE,
   remove_outliers = TRUE,
-  threshold = 0.975
+  threshold = 0.975,
+  remove_missing = TRUE,
+  missing_value = 995,
+  not_imputable = -1,
+  strataname = NULL
 )
 }
 \arguments{
@@ -32,6 +36,8 @@ data.table format.}
 is TRUE.}
 
 \item{threshold}{Threshold to define outliers. Default is 0.975.}
+
+\item{strataname}{Name of strata name to bring in. Default is NULL.}
 }
 \value{
 List containing the categorical and numeric datasets of the summary
@@ -55,6 +61,16 @@ hts_prep_data(summarize_var = 'age',
                             'vehicle' = vehicle))
 hts_prep_data(summarize_var = 'speed_mph',
               summarize_by = 'age',
+              variables_dt = variable_list,
+              data = list('hh' = hh,
+                            'person' = person,
+                            'day' = day,
+                            'trip' = trip,
+                            'vehicle' = vehicle))
+                            
+                            
+hts_prep_data(summarize_var = 'employment',
+              summarize_by = c('age', 'race'),
               variables_dt = variable_list,
               data = list('hh' = hh,
                             'person' = person,
