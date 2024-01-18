@@ -205,6 +205,17 @@ hts_prep_triprate = function(summarize_by = NULL,
                                 numvar = "num_trips",
                                 nbins = 7)
   
+  if (weighted){
+    
+    setnames(triprate_dt, 'num_trips', 'num_trips_wtd', skip_absent = TRUE)
+    setnames(triprate_binned, 'num_trips', 'num_trips_wtd', skip_absent = TRUE)
+    
+  } else {
+    
+    setnames(triprate_dt, 'num_trips', 'num_trips_unwtd', skip_absent = TRUE)
+    setnames(triprate_binned, 'num_trips', 'num_trips_unwtd', skip_absent = TRUE)
+    
+  }
   prepped_dt_ls = list("num" = triprate_dt,
                        "cat" = triprate_binned)
   
