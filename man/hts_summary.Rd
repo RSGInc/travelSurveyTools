@@ -7,12 +7,14 @@
 hts_summary(
   prepped_dt,
   summarize_var,
-  summarize_by,
+  summarize_by = NULL,
   summarize_vartype = "categorical",
   weighted = TRUE,
   se = FALSE,
   wtname = NULL,
-  strataname = NULL
+  strataname = NULL,
+  checkbox_valname = NULL,
+  checkbox_yesval = NULL
 )
 }
 \arguments{
@@ -39,6 +41,12 @@ to FALSE if weighted is FALSE.}
 when weighted = TRUE.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
+
+\item{checkbox_valname}{Name of the column with the checkbox value. Default is NULL.
+Must be provided if summarize_var is a checkbox variable.}
+
+\item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
+Default is NULL. Must be provided if summarize_var is a checkbox variable.}
 }
 \value{
 A data.table containing
@@ -52,20 +60,31 @@ require(data.table)
 require(stringr)
 require(dplyr)
 require(srvyr)
-hts_summary(hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle),
+DT = hts_prep_data(summarize_var = 'age',
+                   summarize_by = 'employment',
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))$cat
+hts_summary(prepped_dt = DT,
             summarize_var = 'age',
-            summarize_by =  'employment',
-            variables_dt = variable_list)
-hts_summary(hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle),
+            summarize_by = 'employment',
+            summarize_vartype = 'categorical',
+            wtname = 'person_weight')
+
+DT = hts_prep_data(summarize_var = 'speed_mph',
+                   summarize_by = 'age', 
+                   variables_dt = variable_list,
+                   data = list('hh' = hh,
+                               'person' = person,
+                               'day' = day,
+                               'trip' = trip,
+                               'vehicle' = vehicle))$num
+hts_summary(prepped_dt = DT,
             summarize_var = 'speed_mph',
-            summarize_by =  'age',
-            variables_dt = variable_list)
+            summarize_by = 'age',
+            summarize_vartype = 'numeric',
+            wtname = 'trip_weight')
 }

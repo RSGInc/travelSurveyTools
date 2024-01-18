@@ -14,7 +14,8 @@ hts_prep_data(
   threshold = 0.975,
   remove_missing = TRUE,
   missing_value = 995,
-  not_imputable = -1
+  not_imputable = -1,
+  strataname = NULL
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ data.table format.}
 is TRUE.}
 
 \item{threshold}{Threshold to define outliers. Default is 0.975.}
+
+\item{strataname}{Name of strata name to bring in. Default is NULL.}
 }
 \value{
 List containing the categorical and numeric datasets of the summary

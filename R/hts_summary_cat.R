@@ -36,7 +36,6 @@
 #'                                'vehicle' = vehicle))$cat
 #' hts_summary_cat(prepped_dt = DT,
 #'                 summarize_var = 'age',
-#'                 values_dt = value_labels,
 #'                 wtname = 'person_weight')
 #' DT = hts_prep_data(summarize_var = 'age',
 #'                    summarize_by = 'employment',
@@ -49,8 +48,6 @@
 #' hts_summary_cat(prepped_dt = DT,
 #'                 summarize_var = 'age',
 #'                 summarize_by = 'employment',
-#'                 values_dt = value_labels,
-#'                 extra_labels = 'Missing',
 #'                 wtname = 'person_weight')
 #'                 
 #' DT = hts_prep_data(summarize_var = 'employment',
@@ -63,9 +60,9 @@
 #'                             'vehicle' = vehicle))$cat
 #'
 #' hts_summary_cat(prepped_dt = DT,
-#' summarize_var = 'employment',
-#' summarize_by = c('race', 'income_detailed', 'gender'),
-#' wtname = 'person_weight')$unwtd
+#'                 summarize_var = 'employment',
+#'                 summarize_by = c('race', 'income_detailed', 'gender'),
+#'                 wtname = 'person_weight')$unwtd
 
 hts_summary_cat = function(prepped_dt,
                            summarize_var = NULL,
