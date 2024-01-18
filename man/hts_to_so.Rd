@@ -11,8 +11,8 @@ hts_to_so(prepped_dt, weighted = TRUE, wtname = NULL, strataname = NULL)
 
 \item{weighted}{If true creates a weighted survey object. Default is TRUE.}
 
-\item{wtname}{Name of the weight column in the dataframe. If NULL searches for
-one of hh_weight, person_weight, day_weight, or trip_weight.}
+\item{wtname}{Name of the weight column in the dataframe. Defaults to NULL,
+but must exist if weighted is true.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 }
@@ -25,6 +25,6 @@ Transform travel survey data.table to a survey object
 \examples{
 
 require(data.table)
-hts_to_so(prepped_dt = trip)
+hts_to_so(prepped_dt = trip, wtname = 'trip_weight')
 
 }
