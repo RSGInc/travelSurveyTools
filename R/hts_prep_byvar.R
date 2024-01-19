@@ -57,6 +57,7 @@ hts_prep_byvar = function(summarize_by = NULL,
           wide_dt = byvar_dt_v,
           shared_name_vars = NULL,
           variables_dt = variables_dt,
+          to_single_row = TRUE,
           ...
         )
       

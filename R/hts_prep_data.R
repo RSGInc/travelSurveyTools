@@ -200,20 +200,22 @@ hts_prep_data = function(summarize_var = NULL,
 
     for (i in 1:length(summarize_by)){
       
-      byvar_location = hts_find_var(summarize_by[i], variables_dt = variables_dt)
+      var = summarize_by[i]
+      
+      byvar_location = hts_find_var(var, variables_dt = variables_dt)
       
       # Select table where this variable lives:
       byvar_table = data[[byvar_location]]
       
-      byvar_is_shared = variables_dt[shared_name == summarize_by[i], is_checkbox][1] == 1
+      byvar_is_shared = variables_dt[shared_name == var, is_checkbox][1] == 1
       
       if (byvar_is_shared) {
         
-        summarize_by[i] = variables_dt[shared_name == summarize_by[i], variable][1]
+        var = variables_dt[shared_name == var, variable][1]
         
       }
       
-      if(byvar_table[,class(get(summarize_by[i]))] != 'integer'){
+      if(byvar_table[,class(get(var))] != 'integer'){
         
         message("Checkbox variables must have integer values")
         
