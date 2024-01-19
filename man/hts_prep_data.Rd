@@ -37,6 +37,14 @@ is TRUE.}
 
 \item{threshold}{Threshold to define outliers. Default is 0.975.}
 
+\item{remove_missing}{Whether to remove missing values from the summary.
+Default is TRUE.}
+
+\item{missing_value}{Missing value to remove. Default is 995.}
+
+\item{not_imputable}{Value representing 'Not imputable' to remove. Default
+is -1.}
+
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 }
 \value{

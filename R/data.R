@@ -3,6 +3,8 @@
 #' @format ## `test_data`
 #' A list containing the following datasets:
 #' 
+#' @source A list of export tables compiled from internal RSG database on 11/22/2023
+"test_data"
 #' Test household dataset
 #'
 #' A dataset containing household level attributes of 1,000 households from the

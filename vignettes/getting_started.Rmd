@@ -111,6 +111,8 @@ In order to create summaries of our data we first need to prepare our data. We c
 ```{r, hts_prep_data, eval=TRUE, echo=TRUE }
 
 library(travelSurveyTools)
+library(data.table)
+library(srvyr)
 
 # Load data
 data("test_data")
@@ -264,7 +266,7 @@ DT = hts_prep_triprate(summarize_by = 'employment',
                                        'vehicle' = vehicle))
 
 trip_rate_by_employment_summary = hts_summary(prepped_dt = DT$num, 
-                                              summarize_var = 'num_trips',
+                                              summarize_var = 'num_trips_wtd',
                                               summarize_by = 'employment',
                                               summarize_vartype = 'numeric',
                                               weighted = TRUE,

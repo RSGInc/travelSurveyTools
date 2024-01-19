@@ -14,8 +14,11 @@
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
 #'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
 #' 
-#' @import dplyr
-#' @import srvyr
+#' 
+#' @importFrom srvyr survey_prop
+#' @importFrom srvyr survey_total
+#' @importFrom dplyr summarize
+#' @importFrom dplyr group_by_at
 #'
 #' @return List of unweighted and weighted categorical summaries including counts
 #' and proportions.
@@ -290,5 +293,5 @@ hts_summary_cat = function(prepped_dt,
 }
 
 ## quiets concerns of R CMD check
-utils::globalVariables(c("value_labels", "prop", "est"))
+utils::globalVariables(c("value_labels", "prop", "est", "count"))
 

@@ -4,16 +4,14 @@
 \alias{hts_filter_data}
 \title{Filter datasets to only keep specified ids}
 \usage{
-hts_filter_data(hts_data, ids, id_type = "hh")
+hts_filter_data(hts_data, ids, id_name)
 }
 \arguments{
-\item{hts_data}{List of containing household, person, day, trip, and vehicle
-tables in data.table format}
+\item{hts_data}{List of containing household travel data tables.}
 
 \item{ids}{List of ids to keep in all of the tables}
 
-\item{id_type}{Type of id being used for filtering. Options are 'hh', 'person',
-'day', and 'trip'. Defaults to 'hh'.}
+\item{id_name}{Name of id being used for filtering (e.g., hh_id, person_id)}
 }
 \value{
 Inputted list of tables filtered to the specified ids.
@@ -24,12 +22,11 @@ Filter datasets to only keep specified ids
 \examples{
 
 require(data.table)
-hts_filter_data(hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle),
+
+data(test_data)
+
+hts_filter_data(hts_data = test_data,
                 ids = hh[num_people > 5, hh_id],
-                id_type = 'hh')
+                id_name = 'hh_id')
 
 }

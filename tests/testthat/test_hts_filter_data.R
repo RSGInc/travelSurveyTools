@@ -12,7 +12,7 @@ library(data.table)
     hts_data = test_data
     
     # Call the function to filter based on hh_id
-    result_hh = hts_filter_data(hts_data, hh[num_people > 5, hh_id], id_type = 'hh')
+    result_hh = hts_filter_data(hts_data, hh[num_people > 5, hh_id], id_name = 'hh')
     
     # Check if the result is a list
     expect_is(result_hh, "list", 

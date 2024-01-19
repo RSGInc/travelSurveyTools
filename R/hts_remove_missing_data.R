@@ -52,7 +52,7 @@ hts_remove_missing_data = function(hts_data,
   hts_data = hts_filter_data(
     hts_data = hts_data,
     ids = summarize_var_tbl[, get(summarize_var_id)],
-    id_type = stringr::str_remove(summarize_var_id, '_id')
+    id_name = summarize_var_id
   )
   
   if (!is.null(summarize_by)){
@@ -77,7 +77,7 @@ hts_remove_missing_data = function(hts_data,
       hts_data = hts_filter_data(
         hts_data = hts_data,
         ids = summarize_by_tbl[, get(summarize_by_id)],
-        id_type = stringr::str_remove(summarize_by_id, '_id')
+        id_name = summarize_by_id
       )
     }
   }

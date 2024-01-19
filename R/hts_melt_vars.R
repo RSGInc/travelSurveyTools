@@ -19,6 +19,8 @@
 #' @param to_single_row Boolean if treating multiple checkbox selections as 'Two
 #'  or more'. Defaults to FALSE.
 #'
+#' @import data.table
+#'  
 #' @return Inputted data table with checkbox variables melted into a single variable,
 #' with a 'variable' column to indicate original variable names and a 'value' column
 #' with the original value of the checkbox variable.
