@@ -30,6 +30,7 @@
 hts_remove_missing_data = function(hts_data,
                                    variables_dt,
                                    summarize_var,
+                                   ids = NULL,
                                    summarize_by = NULL,
                                    missing_value = 995,
                                    not_imputable = -1){
@@ -43,10 +44,18 @@ hts_remove_missing_data = function(hts_data,
     !get(summarize_var_name) %in% c(missing_value, not_imputable) |
       is.na(get(summarize_var_name))]
   
-  summarize_var_id = hts_get_keycols(summarize_var_tbl,
-                                     ids = TRUE,
-                                     weights = FALSE,
-                                     priority = TRUE)
+  # get id with the most unique counts to filter on
+  max_index = which.max(
+    sapply(summarize_var_tbl[, ..ids], function(x) length(unique(x)))
+  )
+  
+  summarize_var_id = ids[max_index]
+  
+  
+  # summarize_var_id = hts_get_keycols(summarize_var_tbl,
+  #                                    ids = TRUE,
+  #                                    weights = FALSE,
+  #                                    priority = TRUE)
   
   hts_data = hts_filter_data(
     hts_data = hts_data,
@@ -68,10 +77,18 @@ hts_remove_missing_data = function(hts_data,
         !get(summarize_by_name) %in% c(missing_value, not_imputable) |
           is.na(get(summarize_by_name))]
       
-      summarize_by_id = hts_get_keycols(summarize_by_tbl,
-                                        ids = TRUE,
-                                        weights = FALSE,
-                                        priority = TRUE)
+      # get id with the most unique counts to filter on
+      max_index = which.max(
+        sapply(summarize_by_tbl[, ..ids], function(x) length(unique(x)))
+      )
+      
+      summarize_by_id = ids[max_index]
+      
+      
+      # summarize_by_id = hts_get_keycols(summarize_by_tbl,
+      #                                   ids = TRUE,
+      #                                   weights = FALSE,
+      #                                   priority = TRUE)
       
       hts_data = hts_filter_data(
         hts_data = hts_data,

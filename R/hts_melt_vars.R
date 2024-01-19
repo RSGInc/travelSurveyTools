@@ -43,6 +43,7 @@ hts_melt_vars = function(shared_name = NULL,
                          shared_name_vars = NULL,
                          variables_dt = variable_list,
                          hts_data = hts_data,
+                         ids = NULL,
                          remove_missing = TRUE,
                          missing_values = c("Missing Response", "995"),
                          checkbox_label_sep = ":",
@@ -67,7 +68,7 @@ hts_melt_vars = function(shared_name = NULL,
 
   melted_dt = data.table::melt(
     wide_dt,
-    id.vars = hts_get_keycols(wide_dt),
+    id.vars = ids,
     measure.vars = shared_name_vars,
     variable.name = "variable",
     value.name = "value"
@@ -96,7 +97,7 @@ hts_melt_vars = function(shared_name = NULL,
 
     # two or more checked:
     melted_dt[, num_checked := sum(value),
-             by =  c(hts_get_keycols(wide_dt))]
+             by =  ids]
 
     # make factor levels
     melted_dt$description = factor(melted_dt$description, levels = unique(melted_dt$description))

@@ -44,6 +44,8 @@ hts_cbind_var = function(lhs_table,
                                vehicle_table = lhs_table)
   }
   
+  browser()
+  
   # Subset table to ID columns, weight columns (if desired), rhs_var:
   selected_cols = c(hts_get_keycols(rhs_table,
                                   ids = TRUE,

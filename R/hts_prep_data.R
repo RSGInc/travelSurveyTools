@@ -57,6 +57,7 @@ hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,
                          data = hts_data,
+                         id_cols = NULL,
                          weighted = TRUE,
                          remove_outliers = TRUE,
                          threshold = 0.975,
@@ -108,7 +109,7 @@ hts_prep_data = function(summarize_var = NULL,
   }
 
   # Subset table to these column(s):
-  subset_cols = c(hts_get_keycols(var_dt), summarize_var)
+  subset_cols = c(id_cols, summarize_var)
 
   var_dt = var_dt[, subset_cols, with=FALSE]
 
@@ -123,6 +124,7 @@ hts_prep_data = function(summarize_var = NULL,
       wide_dt = var_dt,
       variables_dt = variables_dt,
       shared_name_vars = summarize_var,
+      ids = id_cols,
       remove_missing = TRUE,
       checkbox_label_sep = ":",
       missing_values = c("Missing Response", "995"),
@@ -187,7 +189,8 @@ hts_prep_data = function(summarize_var = NULL,
 
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
-                              hts_data = data)
+                              hts_data = data,
+                              ids = id_cols)
 
     # Merge by var and summarize var:
     allow_cartesian_setting = FALSE
@@ -221,6 +224,7 @@ hts_prep_data = function(summarize_var = NULL,
                                        variables_dt = variables_dt,
                                        summarize_var = summarize_var,
                                        summarize_by = summarize_by,
+                                       ids = id_cols,
                                        missing_value = missing_value,
                                        not_imputable = not_imputable)
   }

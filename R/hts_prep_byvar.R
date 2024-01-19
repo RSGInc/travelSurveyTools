@@ -31,6 +31,7 @@
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
                           hts_data,
+                          ids = NULL,
                           ...) {
   
   # For each variables in trip table:
@@ -72,16 +73,11 @@ hts_prep_byvar = function(summarize_by = NULL,
     }
     
     if (!byvar_is_shared) {
-      byvar_cols = c(hts_get_keycols(byvar_dt_v), byvar)
+      byvar_cols = c(ids, byvar)
       
       byvar_dt_v = byvar_dt_v[, byvar_cols, with=FALSE]
       
     }
-    
-    # Set keys for merging
-    # keycols = hts_get_keycols(byvar_dt_v)
-    # 
-    # setkeyv(byvar_dt_v, keycols)
     
     byvar_dt_ls[[b]] = byvar_dt_v
     
