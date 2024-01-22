@@ -8,6 +8,10 @@
 #' @param radius Radius of the sphere to use for haversine calculation (Defaults to meters)
 #' @return A vector of distances in meters
 #' @export get_distance_meters
+#' 
+#' @example 
+#' get_distance_meters(c(38.8734, -75.2394), c(40.3497, -76.2314))
+#' 
 get_distance_meters =
   function(
     location_1,
