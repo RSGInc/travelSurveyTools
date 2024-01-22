@@ -17,6 +17,7 @@ Imports:
     magrittr,
     srvyr,
     stats,
+    sf,
     stringr
 Suggests: 
     testthat (>= 3.0.0),
