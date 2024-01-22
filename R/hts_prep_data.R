@@ -13,7 +13,7 @@
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' @param remove_missing Whether to remove missing values from the summary.
 #'  Default is TRUE.
-#' @param missing_value Missing value to remove. Default is 995.
+#' @param missing_values Missing values to remove. Default is 995.
 #' @param not_imputable Value representing 'Not imputable' to remove. Default
 #'  is -1.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
@@ -106,15 +106,15 @@ hts_prep_data = function(summarize_var = NULL,
 
     summarize_var = variables_dt[shared_name == summarize_var, variable]
 
-  }
-
-  for(i in 1:length(summarize_var)){
-    
-    if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
+    for(i in 1:length(summarize_var)){
       
-      message("Checkbox variables must have integer values")
-      
-      stop()
+      if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
+        
+        message("Checkbox variables must have integer values")
+        
+        stop()
+        
+      }
       
     }
     
@@ -215,7 +215,7 @@ hts_prep_data = function(summarize_var = NULL,
         
       }
       
-      if(byvar_table[,class(get(var))] != 'integer'){
+      if(byvar_is_shared & byvar_table[,class(get(var))] != 'integer'){
         
         message("Checkbox variables must have integer values")
         
