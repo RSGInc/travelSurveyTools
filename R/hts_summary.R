@@ -21,7 +21,9 @@
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
 #'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
 #'  
-#' @return A data.table containing 
+#' @return A list containing (if applicable) categorical and numeric summaries of the
+#'  specified variable(s), as well as sample sizes and whether or not the summarized
+#'  variable is a shared checkbox variable.
 #' @export
 #'
 #' @examples

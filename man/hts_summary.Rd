@@ -49,7 +49,9 @@ Must be provided if summarize_var is a checkbox variable.}
 Default is NULL. Must be provided if summarize_var is a checkbox variable.}
 }
 \value{
-A data.table containing
+A list containing (if applicable) categorical and numeric summaries of the
+specified variable(s), as well as sample sizes and whether or not the summarized
+variable is a shared checkbox variable.
 }
 \description{
 Make household travel survey summaries
