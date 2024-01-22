@@ -63,12 +63,13 @@ hts_summary = function(
     summarize_var,
     summarize_by = NULL,
     summarize_vartype = 'categorical',
+    id_cols,
     weighted = TRUE,
     se = FALSE,
     wtname = NULL,
     strataname = NULL, 
-    checkbox_valname = NULL,
-    checkbox_yesval = NULL) {
+    checkbox_valname = "value",
+    checkbox_yesval = 1) {
   
   # FIXME consider a labels = T/F argument here
 
@@ -102,7 +103,9 @@ hts_summary = function(
 
   cat_ns =  hts_get_ns(
     prepped_dt = prepped_dt,
-    weighted = weighted
+    weighted = weighted,
+    ids = id_cols,
+    wt_col = wtname
   )
   
   # something here to check if the number of unique values is more than 20

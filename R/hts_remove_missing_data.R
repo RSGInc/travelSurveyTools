@@ -78,8 +78,13 @@ hts_remove_missing_data = function(hts_data,
           is.na(get(summarize_by_name))]
       
       # get id with the most unique counts to filter on
+      
+      
+      # get ids that are in this table
+      ids_in_table = intersect(ids, names(summarize_by_tbl))
+      
       max_index = which.max(
-        sapply(summarize_by_tbl[, ..ids], function(x) length(unique(x)))
+        sapply(summarize_by_tbl[, ..ids_in_table], function(x) length(unique(x)))
       )
       
       summarize_by_id = ids[max_index]
