@@ -43,6 +43,8 @@ hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
                              trip_name = 'trip',
                              day_name = 'day',
+                             ids = NULL,
+                             wts = NULL,
                              remove_outliers = TRUE,
                              threshold = 0.975,
                              weighted = TRUE,
@@ -51,12 +53,23 @@ hts_prep_triprate = function(summarize_by = NULL,
   tripdat = hts_data[[trip_name]]
   daydat = hts_data[[day_name]]
   
-  tripratekeys = c("hh_id", "person_id", "day_id")
-  trip_subset_cols = hts_get_keycols(tripdat)
-  day_subset_cols = hts_get_keycols(daydat)
+  trip_index = which(names(hts_data) == trip_name)
+  day_index = which(names(hts_data) == day_name)
   
-  if (weighted & (!"trip_weight" %in% trip_subset_cols |
-                  !"day_weight" %in% day_subset_cols)) {
+  # Get ids
+  trip_id = ids[trip_index]
+  day_id = ids[day_index]
+  
+  # Get weights
+  trip_wt = wts[trip_index]
+  day_wt = wts[day_index]
+  
+  tripratekeys = intersect(names(tripdat), ids[-trip_index])
+  trip_subset_cols = intersect(names(tripdat), c(ids, wts))
+  day_subset_cols = intersect(names(daydat), c(ids, wts))
+  
+  if (weighted & (!trip_wt %in% trip_subset_cols |
+                  !day_wt %in% day_subset_cols)) {
     stop("Trip/Day weight not found - are these data weighted?")
   }
   
@@ -69,7 +82,7 @@ hts_prep_triprate = function(summarize_by = NULL,
   if (length(summarize_by) == 0) {
     
     if (weighted) {
-      triprate_dt = tripdat[, .(num_trips = sum(trip_weight)),
+      triprate_dt = tripdat[, .(num_trips = sum(get(trip_wt))),
                             by = tripratekeys]
     }
     
@@ -95,7 +108,7 @@ hts_prep_triprate = function(summarize_by = NULL,
       
       # calculate trip rate
       triprate_dt[, trip_rate := 
-                    ifelse(num_trips == 0, 0, num_trips / day_weight)]
+                    ifelse(num_trips == 0, 0, num_trips / get(day_wt))]
       
       triprate_dt[, num_trips := NULL]
       
@@ -105,20 +118,23 @@ hts_prep_triprate = function(summarize_by = NULL,
   
   if (length(summarize_by) > 0) {
     
-    byvar_dt = hts_prep_byvar(summarize_by, variables_dt = variables_dt, hts_data = hts_data)
+    byvar_dt = hts_prep_byvar(summarize_by,
+                              variables_dt = variables_dt,
+                              hts_data = hts_data,
+                              byvar_ids = ids)
     
     merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
     
     triprate_dt = merge(trip_control, byvar_dt, by = merge_cols)
     
-    triprate_cols = hts_get_keycols(triprate_dt)
+    triprate_cols = intersect(names(triprate_dt), c(ids, wts))
     
-    triprate_cols = triprate_cols[!triprate_cols %in% c("trip_id", "trip_weight")]
+    triprate_cols = triprate_cols[!triprate_cols %in% c(trip_id, trip_wt)]
     
     triprate_cols_all = c(triprate_cols, summarize_by)
     
     if (weighted) {
-      triprate_dt = triprate_dt[, .(num_trips = sum(trip_weight)),
+      triprate_dt = triprate_dt[, .(num_trips = sum(get(trip_wt))),
                                 by = triprate_cols_all]
     }
     
@@ -134,7 +150,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     
     # If one of the by-variables is in trip table, need to expand to
     # include all levels of the variable for every trip, and fill with zeros:
-    if ("trip_id" %in% names(byvar_dt)) {
+    if (trip_id %in% names(byvar_dt)) {
       # fill in with zeros for zero trips for a given level of xt_var using dcast:
       dcast_formula =
         paste0(paste0(triprate_cols, collapse = " + "),
@@ -178,7 +194,7 @@ hts_prep_triprate = function(summarize_by = NULL,
       
       # calculate trip rate
       triprate_dt[, trip_rate := 
-                    ifelse(num_trips == 0, 0, num_trips / day_weight)]
+                    ifelse(num_trips == 0, 0, num_trips / get(day_wt))]
       
       triprate_dt[, num_trips := NULL]
       

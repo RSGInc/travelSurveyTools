@@ -52,11 +52,6 @@ hts_remove_missing_data = function(hts_data,
   summarize_var_id = ids[max_index]
   
   
-  # summarize_var_id = hts_get_keycols(summarize_var_tbl,
-  #                                    ids = TRUE,
-  #                                    weights = FALSE,
-  #                                    priority = TRUE)
-  
   hts_data = hts_filter_data(
     hts_data = hts_data,
     ids = summarize_var_tbl[, get(summarize_var_id)],
@@ -87,13 +82,8 @@ hts_remove_missing_data = function(hts_data,
         sapply(summarize_by_tbl[, ..ids_in_table], function(x) length(unique(x)))
       )
       
-      summarize_by_id = ids[max_index]
+      summarize_by_id = ids_in_table[max_index]
       
-      
-      # summarize_by_id = hts_get_keycols(summarize_by_tbl,
-      #                                   ids = TRUE,
-      #                                   weights = FALSE,
-      #                                   priority = TRUE)
       
       hts_data = hts_filter_data(
         hts_data = hts_data,

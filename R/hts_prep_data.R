@@ -109,6 +109,9 @@ hts_prep_data = function(summarize_var = NULL,
     
   }
   
+  # only keep ids that are in var_dt 
+  id_cols = intersect(id_cols, names(var_dt))
+  
   # Subset table to these column(s):
   if (weighted){
     
@@ -217,7 +220,7 @@ hts_prep_data = function(summarize_var = NULL,
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = data,
-                              ids = id_cols)
+                              byvar_ids = id_cols)
     
     # Merge by var and summarize var:
     allow_cartesian_setting = FALSE

@@ -68,8 +68,8 @@ hts_summary = function(
     se = FALSE,
     wtname = NULL,
     strataname = NULL, 
-    checkbox_valname = "value",
-    checkbox_yesval = 1) {
+    checkbox_valname = NULL,
+    checkbox_yesval = NULL) {
   
   # FIXME consider a labels = T/F argument here
 
