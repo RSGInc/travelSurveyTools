@@ -9,6 +9,8 @@ hts_prep_triprate(
   variables_dt = variable_list,
   trip_name = "trip",
   day_name = "day",
+  ids = NULL,
+  wts = NULL,
   remove_outliers = TRUE,
   threshold = 0.975,
   weighted = TRUE,

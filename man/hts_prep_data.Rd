@@ -9,6 +9,8 @@ hts_prep_data(
   summarize_by = NULL,
   variables_dt = variable_list,
   data = hts_data,
+  id_cols = NULL,
+  wt_cols = NULL,
   weighted = TRUE,
   remove_outliers = TRUE,
   threshold = 0.975,

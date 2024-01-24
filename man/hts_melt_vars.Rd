@@ -10,6 +10,7 @@ hts_melt_vars(
   shared_name_vars = NULL,
   variables_dt = variable_list,
   hts_data = hts_data,
+  ids = NULL,
   remove_missing = TRUE,
   missing_values = c("Missing Response", "995"),
   checkbox_label_sep = ":",

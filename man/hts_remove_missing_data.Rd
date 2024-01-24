@@ -8,6 +8,7 @@ hts_remove_missing_data(
   hts_data,
   variables_dt,
   summarize_var,
+  ids = NULL,
   summarize_by = NULL,
   missing_value = 995,
   not_imputable = -1

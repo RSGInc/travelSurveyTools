@@ -8,6 +8,8 @@ hts_prep_byvar(
   summarize_by = NULL,
   variables_dt = variables_list,
   hts_data,
+  byvar_ids = NULL,
+  byvar_wts = NULL,
   ...
 )
 }

@@ -9,6 +9,7 @@ hts_summary(
   summarize_var,
   summarize_by = NULL,
   summarize_vartype = "categorical",
+  id_cols,
   weighted = TRUE,
   se = FALSE,
   wtname = NULL,

@@ -4,7 +4,7 @@
 \alias{hts_get_ns}
 \title{Get counts from dataset}
 \usage{
-hts_get_ns(prepped_dt, weighted)
+hts_get_ns(prepped_dt, weighted, ids, wt_col)
 }
 \arguments{
 \item{prepped_dt}{Dataset to pull counts from.}

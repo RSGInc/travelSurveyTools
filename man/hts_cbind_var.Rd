@@ -7,8 +7,11 @@
 hts_cbind_var(
   lhs_table,
   rhs_var,
+  hts_data,
   variable_list = variable_list,
   return_weight_cols = FALSE,
+  cbind_ids = NULL,
+  cbind_wts = NULL,
   ...
 )
 }

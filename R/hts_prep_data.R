@@ -239,11 +239,15 @@ hts_prep_data = function(summarize_var = NULL,
                     all.x = FALSE, all.y = FALSE,
                     allow.cartesian = allow_cartesian_setting)
     
+    setcolorder(cat_res, intersect(c(id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
+    
     if (v_class %in% c("integer", "numeric")) {
       num_res = merge(var_dt_num,
                       byvar_dt,
                       all.x = FALSE, all.y = FALSE,
                       allow.cartesian = allow_cartesian_setting)
+      
+      setcolorder(num_res, intersect(c(id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
       
     }
     
