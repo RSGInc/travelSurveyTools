@@ -17,11 +17,14 @@ hts_get_ns = function(prepped_dt,
                       wt_col
 ) {
   
-  ndt_ids = prepped_dt[, ids, with=FALSE]
+  # Get ids that are in prepped_dt
+  present_ids = intersect(names(prepped_dt), ids)
+  
+  ndt_ids = prepped_dt[, present_ids, with=FALSE]
   
   ns_unwtd = lapply(ndt_ids, function(x) uniqueN(x))
 
-  n_names = paste('Count of unique', ids)
+  n_names = paste('Count of unique', present_ids)
   
   names(ns_unwtd) = n_names
   

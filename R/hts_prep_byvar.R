@@ -32,6 +32,7 @@ hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
                           hts_data,
                           byvar_ids = NULL,
+                          byvar_wts = NULL,
                           ...) {
   
   # For each variables in trip table:
@@ -72,8 +73,18 @@ hts_prep_byvar = function(summarize_by = NULL,
                                nbins = 7)
     }
     
+    if (!is.null(byvar_wts)){
+      
+      table_idx = which(names(hts_data) == byvar_loc)
+      wtname = byvar_wts[table_idx]
+      
+    } else {
+      wtname = NULL
+    }
+    
+    
     if (!byvar_is_shared) {
-      byvar_cols = c(intersect(byvar_ids, names(byvar_dt_v)), byvar)
+      byvar_cols = c(intersect(c(byvar_ids, wtname), names(byvar_dt_v)), byvar)
       
       byvar_dt_v = byvar_dt_v[, byvar_cols, with=FALSE]
       

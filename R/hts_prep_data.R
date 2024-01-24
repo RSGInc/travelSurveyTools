@@ -58,8 +58,8 @@ hts_prep_data = function(summarize_var = NULL,
                          variables_dt = variable_list,
                          data = hts_data,
                          id_cols = NULL,
+                         wt_cols = NULL,
                          weighted = TRUE,
-                         wtname = NULL,
                          remove_outliers = TRUE,
                          threshold = 0.975,
                          remove_missing = TRUE,
@@ -96,6 +96,8 @@ hts_prep_data = function(summarize_var = NULL,
   # Find location of summary variable:
   var_location = hts_find_var(summarize_var, variables_dt = variables_dt)
   
+  tbl_idx = which(names(data) == var_location)
+  
   # Select table where this variable lives:
   var_dt = data[[var_location]]
   
@@ -113,6 +115,8 @@ hts_prep_data = function(summarize_var = NULL,
   id_cols = intersect(id_cols, names(var_dt))
   
   # Subset table to these column(s):
+  wtname = wt_cols[tbl_idx]
+  
   if (weighted){
     
     subset_cols = c(id_cols, summarize_var, wtname)
@@ -220,7 +224,8 @@ hts_prep_data = function(summarize_var = NULL,
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = data,
-                              byvar_ids = id_cols)
+                              byvar_ids = id_cols,
+                              byvar_wts = wt_cols)
     
     # Merge by var and summarize var:
     allow_cartesian_setting = FALSE
@@ -265,7 +270,10 @@ hts_prep_data = function(summarize_var = NULL,
       
       cat_res = hts_cbind_var(lhs_table = cat_res,
                               rhs_var = strataname,
-                              variable_list = variables_dt)
+                              hts_data = data,
+                              variable_list = variables_dt,
+                              cbind_ids = id_cols,
+                              cbind_wts = wt_cols)
       
     }
     
@@ -273,7 +281,10 @@ hts_prep_data = function(summarize_var = NULL,
       
       num_res = hts_cbind_var(lhs_table = num_res,
                               rhs_var = strataname,
-                              variable_list = variables_dt)
+                              hts_data = data,
+                              variable_list = variables_dt,
+                              cbind_ids = id_cols,
+                              cbind_wts = wt_cols)
       
     }
   }

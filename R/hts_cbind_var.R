@@ -20,14 +20,17 @@
 #'
 hts_cbind_var = function(lhs_table,
                          rhs_var,
+                         hts_data,
                          variable_list = variable_list,
                          return_weight_cols = FALSE,
+                         cbind_ids = NULL,
+                         cbind_wts = NULL,
                          ...) {
   
   var_location =
     hts_find_var(rhs_var, variables_dt = variable_list)
   
-  rhs_table =data.table::copy(get(as.character(var_location)))
+  rhs_table = hts_data[[var_location]]
   
   # If joining trip to vehicle or vice versa, need vehicle ID:
   if ("trip_id" %in% names(lhs_table) &
@@ -44,12 +47,12 @@ hts_cbind_var = function(lhs_table,
                                vehicle_table = lhs_table)
   }
   
-  browser()
-  
   # Subset table to ID columns, weight columns (if desired), rhs_var:
-  selected_cols = c(hts_get_keycols(rhs_table,
-                                  ids = TRUE,
-                                  weights = return_weight_cols), rhs_var)
+  selected_cols = c(intersect(
+    names(rhs_table),
+    c(cbind_ids, cbind_wts)
+  ),
+  rhs_var)
   
   rhs_table = rhs_table[, selected_cols, with = FALSE]
   
