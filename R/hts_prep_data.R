@@ -15,7 +15,7 @@
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' @param remove_missing Whether to remove missing values from the summary.
 #'  Default is TRUE.
-#' @param missing_value Missing value to remove. Default is 995.
+#' @param missing_values Missing values to remove. Default is 995.
 #' @param not_imputable Value representing 'Not imputable' to remove. Default
 #'  is -1.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
@@ -65,10 +65,11 @@ hts_prep_data = function(summarize_var = NULL,
                          remove_outliers = TRUE,
                          threshold = 0.975,
                          remove_missing = TRUE,
-                         missing_value = 995,
+                         missing_values = c("Missing Response", "995"),
                          not_imputable = -1,
                          strataname = NULL) {
   # tictoc::tic("Total Time")
+  
   # Message:
   msg_pt1 = paste0("Creating a summary of ",
                    hts_find_var(summarize_var, variables_dt = variables_dt), " ", summarize_var)
@@ -105,17 +106,35 @@ hts_prep_data = function(summarize_var = NULL,
   
   # Is this a shared variable?
   var_is_shared = variables_dt[shared_name == summarize_var, is_checkbox][1] == 1
-  
+
   # If yes, expand summarize_var:
   if (var_is_shared) {
     
     summarize_var = variables_dt[shared_name == summarize_var, variable]
+
     
   }
   
   # only keep ids that are in var_dt 
   id_cols = intersect(id_cols, names(var_dt))
   
+
+
+    for(i in 1:length(summarize_var)){
+      
+      if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
+        
+        message("Checkbox variables must have integer values")
+        
+        stop()
+        
+      }
+      
+    }
+    
+  }
+  
+
   # Subset table to these column(s):
   wtname = wt_cols[tbl_idx]
   
@@ -166,6 +185,7 @@ hts_prep_data = function(summarize_var = NULL,
       ) 
       
     }
+
 
     summarize_var = shared_name
     
@@ -222,7 +242,35 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   if (length(summarize_by) > 0) {
-    
+
+
+    for (i in 1:length(summarize_by)){
+      
+      var = summarize_by[i]
+      
+      byvar_location = hts_find_var(var, variables_dt = variables_dt)
+      
+      # Select table where this variable lives:
+      byvar_table = data[[byvar_location]]
+      
+      byvar_is_shared = variables_dt[shared_name == var, is_checkbox][1] == 1
+      
+      if (byvar_is_shared) {
+        
+        var = variables_dt[shared_name == var, variable][1]
+        
+      }
+      
+      if(byvar_is_shared & byvar_table[,class(get(var))] != 'integer'){
+        
+        message("Checkbox variables must have integer values")
+        
+        stop()
+        
+      }
+      
+    }
+
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = data,
@@ -267,6 +315,7 @@ hts_prep_data = function(summarize_var = NULL,
                                        summarize_by = summarize_by,
                                        ids = id_cols,
                                        missing_value = missing_value,
+
                                        not_imputable = not_imputable)
   }
   

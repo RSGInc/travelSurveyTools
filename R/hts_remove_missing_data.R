@@ -9,7 +9,8 @@
 #' @param ids names of unique identifiers for each table in hts_data
 #' @param summarize_by Variable being summarized by that has it's missing data
 #'  removed. Default is NULL.
-#' @param missing_value Missing value that will be removed. Default is 995.
+#' @param missing_values Missing values that will be removed. Defaults are 995 and
+#'  'Missing Response'.
 #' @param not_imputable Value meaning not_imputable that will be removed. Default
 #'  is -1.
 #'
@@ -33,7 +34,7 @@ hts_remove_missing_data = function(hts_data,
                                    summarize_var,
                                    ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
                                    summarize_by = NULL,
-                                   missing_value = 995,
+                                   missing_values = c("Missing Response", "995"),
                                    not_imputable = -1){
   
   summarize_var_loc = hts_find_var(summarize_var)
@@ -42,7 +43,7 @@ hts_remove_missing_data = function(hts_data,
   summarize_var_name = variables_dt[shared_name == summarize_var, variable][1]
   
   summarize_var_tbl = hts_data[[summarize_var_loc]][
-    !get(summarize_var_name) %in% c(missing_value, not_imputable) |
+    !get(summarize_var_name) %in% c(missing_values, not_imputable) |
       is.na(get(summarize_var_name))]
   
   # get ids that are in this table
@@ -73,7 +74,7 @@ hts_remove_missing_data = function(hts_data,
       summarize_by_name = variables_dt[shared_name == summarize_by[i], variable][1]
       
       summarize_by_tbl = hts_data[[summarize_by_loc]][
-        !get(summarize_by_name) %in% c(missing_value, not_imputable) |
+        !get(summarize_by_name) %in% c(missing_values, not_imputable) |
           is.na(get(summarize_by_name))]
       
       # get id with the most unique counts to filter on

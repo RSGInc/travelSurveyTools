@@ -15,7 +15,7 @@ hts_prep_data(
   remove_outliers = TRUE,
   threshold = 0.975,
   remove_missing = TRUE,
-  missing_value = 995,
+  missing_values = c("Missing Response", "995"),
   not_imputable = -1,
   strataname = NULL
 )
@@ -46,7 +46,7 @@ is TRUE.}
 \item{remove_missing}{Whether to remove missing values from the summary.
 Default is TRUE.}
 
-\item{missing_value}{Missing value to remove. Default is 995.}
+\item{missing_values}{Missing values to remove. Default is 995.}
 
 \item{not_imputable}{Value representing 'Not imputable' to remove. Default
 is -1.}

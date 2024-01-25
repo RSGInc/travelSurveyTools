@@ -61,11 +61,9 @@ hts_prep_byvar = function(summarize_by = NULL,
           wide_dt = byvar_dt_v,
           ids = byvar_ids,
           shared_name_vars = NULL,
-          variables_dt = variable_list,
-          remove_missing = TRUE,
-          missing_values = c("Missing Response", "995"),
-          checkbox_label_sep = ":",
-          to_single_row = TRUE
+          variables_dt = variables_dt,
+          to_single_row = TRUE,
+          ...
         )
       
     }

@@ -10,7 +10,7 @@ hts_remove_missing_data(
   summarize_var,
   ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   summarize_by = NULL,
-  missing_value = 995,
+  missing_values = c("Missing Response", "995"),
   not_imputable = -1
 )
 }
@@ -29,7 +29,8 @@ removed.}
 \item{summarize_by}{Variable being summarized by that has it's missing data
 removed. Default is NULL.}
 
-\item{missing_value}{Missing value that will be removed. Default is 995.}
+\item{missing_values}{Missing values that will be removed. Defaults are 995 and
+'Missing Response'.}
 
 \item{not_imputable}{Value meaning not_imputable that will be removed. Default
 is -1.}
