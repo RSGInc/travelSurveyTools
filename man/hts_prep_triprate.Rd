@@ -9,8 +9,8 @@ hts_prep_triprate(
   variables_dt = variable_list,
   trip_name = "trip",
   day_name = "day",
-  ids = NULL,
-  wts = NULL,
+  ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
+  wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
   remove_outliers = TRUE,
   threshold = 0.975,
   weighted = TRUE,
@@ -27,6 +27,10 @@ format.}
 \item{trip_name}{Name of the trip dataset in hts_data.}
 
 \item{day_name}{Name of the day dataset in hts_data.}
+
+\item{ids}{name of unique identifier in each table in hts_data}
+
+\item{wts}{name of weight column in each table in hts_data}
 
 \item{remove_outliers}{Boolean whether or not to remove outliers from dataset.
 Default is TRUE.}

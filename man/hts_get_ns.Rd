@@ -4,12 +4,21 @@
 \alias{hts_get_ns}
 \title{Get counts from dataset}
 \usage{
-hts_get_ns(prepped_dt, weighted, ids, wt_col)
+hts_get_ns(
+  prepped_dt,
+  weighted,
+  ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
+  wt_col
+)
 }
 \arguments{
 \item{prepped_dt}{Dataset to pull counts from.}
 
 \item{weighted}{Boolean whether to pull weighted estimates.}
+
+\item{ids}{list of possible ids to return counts for}
+
+\item{wt_col}{weight column to return sum of}
 }
 \value{
 List of unweighted counts, weighted counts, and highest level unit.
@@ -20,6 +29,5 @@ Get counts from dataset
 \examples{
 
 require(data.table)
-hts_get_ns(prepped_dt = day, weighted = TRUE)
 
 }

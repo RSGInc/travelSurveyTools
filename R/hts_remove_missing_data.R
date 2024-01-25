@@ -6,6 +6,7 @@
 #'  of variables.
 #' @param summarize_var Variable to be summarized that has it's missing data
 #'  removed.
+#' @param ids names of unique identifiers for each table in hts_data
 #' @param summarize_by Variable being summarized by that has it's missing data
 #'  removed. Default is NULL.
 #' @param missing_value Missing value that will be removed. Default is 995.
@@ -30,7 +31,7 @@
 hts_remove_missing_data = function(hts_data,
                                    variables_dt,
                                    summarize_var,
-                                   ids = NULL,
+                                   ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
                                    summarize_by = NULL,
                                    missing_value = 995,
                                    not_imputable = -1){
@@ -44,12 +45,15 @@ hts_remove_missing_data = function(hts_data,
     !get(summarize_var_name) %in% c(missing_value, not_imputable) |
       is.na(get(summarize_var_name))]
   
+  # get ids that are in this table
+  ids_in_table = intersect(ids, names(summarize_var_tbl))
+  
   # get id with the most unique counts to filter on
   max_index = which.max(
-    sapply(summarize_var_tbl[, ..ids], function(x) length(unique(x)))
+    sapply(summarize_var_tbl[, ..ids_in_table], function(x) length(unique(x)))
   )
   
-  summarize_var_id = ids[max_index]
+  summarize_var_id = ids_in_table[max_index]
   
   
   hts_data = hts_filter_data(
@@ -96,3 +100,6 @@ hts_remove_missing_data = function(hts_data,
   return(hts_data)
   
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("ids", "ids_in_table"))

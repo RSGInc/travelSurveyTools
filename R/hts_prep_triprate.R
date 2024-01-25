@@ -6,6 +6,8 @@
 #'  format.
 #' @param trip_name Name of the trip dataset in hts_data.
 #' @param day_name Name of the day dataset in hts_data.
+#' @param ids name of unique identifier in each table in hts_data
+#' @param wts name of weight column in each table in hts_data
 #' @param remove_outliers Boolean whether or not to remove outliers from dataset.
 #'  Default is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
@@ -43,8 +45,8 @@ hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
                              trip_name = 'trip',
                              day_name = 'day',
-                             ids = NULL,
-                             wts = NULL,
+                             ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
+                             wts = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
                              remove_outliers = TRUE,
                              threshold = 0.975,
                              weighted = TRUE,

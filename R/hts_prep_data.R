@@ -7,7 +7,9 @@
 #'  format.
 #' @param data List of household, person, vehicle, day, and trip tables in
 #'  data.table format.
+#' @param id_cols name of unique identifier for each table in hts_data
 #' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param wt_cols weight name for each table in hts_data
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
@@ -57,9 +59,9 @@ hts_prep_data = function(summarize_var = NULL,
                          summarize_by = NULL,
                          variables_dt = variable_list,
                          data = hts_data,
-                         id_cols = NULL,
-                         wt_cols = NULL,
+                         id_cols = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
                          weighted = TRUE,
+                         wt_cols = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
                          remove_outliers = TRUE,
                          threshold = 0.975,
                          remove_missing = TRUE,

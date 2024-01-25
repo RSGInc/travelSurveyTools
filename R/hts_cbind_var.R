@@ -2,11 +2,14 @@
 #'
 #' @param lhs_table Table to bind a column to in data.table format
 #' @param rhs_var Variable to bind to the lhs_table.
+#' @param hts_data List of household, person, vehicle, day, and trip tables in
+#'  data.table format.
 #' @param variable_list A variable list with descriptions and table locations
 #'  of variables.
+#' @param cbind_ids list of unique identifiers for each table in hts_data
+#' @param cbind_wts list of weight for each table in hts_data 
 #' @param return_weight_cols If true binds weight variable along with rhs_var
 #'  to lhs_table. Default is FALSE.
-#' @param ... Additional arguments passed to \code{link{hts_get_keycols}}
 #' 
 #' @return Inputted table with inputted variable binded.
 #' @export
@@ -14,18 +17,23 @@
 #' @examples
 #' 
 #' require(data.table)
-#' hts_cbind_var(lhs_table = trip, rhs_var = 'speed_mph', variable_list = variable_list)
-#' hts_cbind_var(lhs_table = trip, rhs_var = 'speed_mph', 
-#' variable_list = variable_list, return_weight_cols = TRUE)
+#' hts_cbind_var(lhs_table = trip,
+#'  rhs_var = 'speed_mph',
+#'  hts_data = test_data,
+#'   variable_list = variable_list)
+#' hts_cbind_var(lhs_table = trip,
+#'  rhs_var = 'speed_mph',
+#'   hts_data = test_data,
+#' variable_list = variable_list,
+#'  return_weight_cols = TRUE)
 #'
 hts_cbind_var = function(lhs_table,
                          rhs_var,
                          hts_data,
                          variable_list = variable_list,
                          return_weight_cols = FALSE,
-                         cbind_ids = NULL,
-                         cbind_wts = NULL,
-                         ...) {
+                         cbind_ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
+                         cbind_wts = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight')) {
   
   var_location =
     hts_find_var(rhs_var, variables_dt = variable_list)

@@ -9,8 +9,8 @@ hts_melt_vars(
   wide_dt = NULL,
   shared_name_vars = NULL,
   variables_dt = variable_list,
-  hts_data = hts_data,
-  ids = NULL,
+  data = hts_data,
+  ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   remove_missing = TRUE,
   missing_values = c("Missing Response", "995"),
   checkbox_label_sep = ":",
@@ -30,8 +30,10 @@ Defaults to NULL.}
 \item{variables_dt}{List of variable locations and descriptions in data.table
 format.}
 
-\item{hts_data}{List containing household, person, day, trip, and vehicle
+\item{data}{List containing household, person, day, trip, and vehicle
 datasets in data.table format.}
+
+\item{ids}{unique identifiers appearing in wide_dt}
 
 \item{remove_missing}{Boolean to remove rows with missing values. Defaults to
 TRUE.}
@@ -59,7 +61,7 @@ require(data.table)
 require(stringr)
 hts_melt_vars(shared_name = 'race',
               wide_dt = person,
-              hts_data = list('hh' = hh,
+              data = list('hh' = hh,
                               'person' = person,
                               'day' = day,
                               'trip' = trip,
