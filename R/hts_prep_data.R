@@ -103,8 +103,7 @@ hts_prep_data = function(summarize_var = NULL,
                                    summarize_var = summarize_var,
                                    summarize_by = summarize_by,
                                    ids = id_cols,
-                                   missing_value = missing_value,
-                                   
+                                   missing_value = missing_values,
                                    not_imputable = not_imputable)
   }
   
