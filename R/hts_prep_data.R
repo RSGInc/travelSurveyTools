@@ -96,6 +96,18 @@ hts_prep_data = function(summarize_var = NULL,
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
   
+  if (remove_missing){
+    
+    data = hts_remove_missing_data(hts_data = data,
+                                   variables_dt = variables_dt,
+                                   summarize_var = summarize_var,
+                                   summarize_by = summarize_by,
+                                   ids = id_cols,
+                                   missing_value = missing_value,
+                                   
+                                   not_imputable = not_imputable)
+  }
+  
   # Find location of summary variable:
   var_location = hts_find_var(summarize_var, variables_dt = variables_dt)
   
@@ -132,7 +144,6 @@ hts_prep_data = function(summarize_var = NULL,
       
     }
     
-  }
   
 
   # Subset table to these column(s):
@@ -307,18 +318,7 @@ hts_prep_data = function(summarize_var = NULL,
     
     
   }
-  if (remove_missing){
-    
-    hts_data = hts_remove_missing_data(hts_data = data,
-                                       variables_dt = variables_dt,
-                                       summarize_var = summarize_var,
-                                       summarize_by = summarize_by,
-                                       ids = id_cols,
-                                       missing_value = missing_value,
 
-                                       not_imputable = not_imputable)
-  }
-  
   if (!is.null(strataname)) {
     
     if(!is.null(cat_res)){
@@ -358,7 +358,6 @@ hts_prep_data = function(summarize_var = NULL,
   
   
   return(prepped_dt_ls)
-  
 }
 
 
