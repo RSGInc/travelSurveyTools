@@ -9,6 +9,7 @@ hts_summary(
   summarize_var,
   summarize_by = NULL,
   summarize_vartype = "categorical",
+  id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   weighted = TRUE,
   se = FALSE,
   wtname = NULL,
@@ -31,6 +32,8 @@ Default is NULL.}
 variable being summarized is categorical), 'checkbox' (when the variable being
 summarized is derived from a multiple response, aka select-all-that-apply question)
 or 'numeric', when the variable being summarized is numeric.}
+
+\item{id_cols}{names of possible ids in prepped_dt to return unique counts of}
 
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
 
