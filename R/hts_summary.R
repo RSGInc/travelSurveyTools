@@ -66,7 +66,22 @@
 #'               summarize_by = 'age',
 #'               summarize_vartype = 'numeric',
 #'               wtname = 'trip_weight')
-#'             
+#'
+#' DT = hts_prep_data(summarize_var = 'race',
+#'                    summarize_by = 'age', 
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$cat
+#' output = hts_summary(prepped_dt = DT,
+#'               summarize_var = 'race',
+#'               summarize_by = 'age',
+#'               summarize_vartype = 'categorical',
+#'               wtname = 'person_weight',
+#'               checkbox_valname = 'value',
+#'               checkbox_yesval = 1)             
 
 
 hts_summary = function(
