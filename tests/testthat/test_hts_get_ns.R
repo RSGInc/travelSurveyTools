@@ -7,7 +7,7 @@ library(data.table)
 
 sample_dt = test_data$person
 
-test_that("hts_get_ns should return counts and units", {
+test_that("hts_get_ns should return counts", {
   
   results = hts_get_ns(sample_dt, weighted = FALSE)
   
@@ -16,8 +16,6 @@ test_that("hts_get_ns should return counts and units", {
   expect_is(results$unwtd, "list", info = "unwtd should return a list")
   
   expect_null(results$wtd, info = "'wtd' component should be NULL for unweighted counts")
-  
-  expect_is(results$units, "character", info = "units component should be a character")
   
   # expect_equal()
 })
