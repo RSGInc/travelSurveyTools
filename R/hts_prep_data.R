@@ -103,7 +103,7 @@ hts_prep_data = function(summarize_var = NULL,
                                    summarize_var = summarize_var,
                                    summarize_by = summarize_by,
                                    ids = id_cols,
-                                   missing_value = missing_values,
+                                   missing_values = missing_values,
                                    not_imputable = not_imputable)
   }
   
@@ -123,14 +123,6 @@ hts_prep_data = function(summarize_var = NULL,
     
     summarize_var = variables_dt[shared_name == summarize_var, variable]
 
-    
-  }
-  
-  # only keep ids that are in var_dt 
-  id_cols = intersect(id_cols, names(var_dt))
-  
-
-
     for(i in 1:length(summarize_var)){
       
       if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
@@ -143,7 +135,11 @@ hts_prep_data = function(summarize_var = NULL,
       
     }
     
+    
+  }
   
+  # only keep ids that are in var_dt 
+  id_cols = intersect(id_cols, names(var_dt))
 
   # Subset table to these column(s):
   wtname = wt_cols[tbl_idx]
