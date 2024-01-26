@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/404.html</loc>
   </url>
   <url>
-    <loc>/articles/getting_started.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/articles/getting_started.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/authors.html</loc>
   </url>
   <url>
-    <loc>/CONTRIBUTING.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/reference/day.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/day.html</loc>
   </url>
   <url>
-    <loc>/reference/factorize_column.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/factorize_column.html</loc>
   </url>
   <url>
-    <loc>/reference/factorize_df.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/factorize_df.html</loc>
   </url>
   <url>
-    <loc>/reference/get_distance_meters.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/get_distance_meters.html</loc>
   </url>
   <url>
-    <loc>/reference/hh.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hh.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_bin_var.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_bin_var.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_cbind_var.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_cbind_var.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_filter_data.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_filter_data.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_find_var.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_find_var.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_get_keycols.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_get_keycols.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_get_ns.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_get_ns.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_melt_vars.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_melt_vars.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_prep_byvar.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_prep_byvar.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_prep_data.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_prep_data.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_prep_triprate.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_prep_triprate.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_remove_missing_data.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_remove_missing_data.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_remove_outliers.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_remove_outliers.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_summary.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_summary_cat.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_summary_cat.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_summary_num.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_summary_num.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_to_so.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_to_so.html</loc>
   </url>
   <url>
-    <loc>/reference/hts_trip_vehid.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/hts_trip_vehid.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/join_spatial.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/join_spatial.html</loc>
   </url>
   <url>
-    <loc>/reference/person.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/person.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/test_data.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/test_data.html</loc>
   </url>
   <url>
-    <loc>/reference/trip.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/trip.html</loc>
   </url>
   <url>
-    <loc>/reference/value_labels.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/value_labels.html</loc>
   </url>
   <url>
-    <loc>/reference/variable_list.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/variable_list.html</loc>
   </url>
   <url>
-    <loc>/reference/vehicle.html</loc>
+    <loc>https://rsginc.github.io/travelSurveyTools/reference/vehicle.html</loc>
   </url>
 </urlset>
