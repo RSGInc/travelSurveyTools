@@ -7,9 +7,11 @@
 hts_cbind_var(
   lhs_table,
   rhs_var,
+  hts_data,
   variable_list = variable_list,
   return_weight_cols = FALSE,
-  ...
+  cbind_ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
+  cbind_wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight")
 )
 }
 \arguments{
@@ -17,13 +19,18 @@ hts_cbind_var(
 
 \item{rhs_var}{Variable to bind to the lhs_table.}
 
+\item{hts_data}{List of household, person, vehicle, day, and trip tables in
+data.table format.}
+
 \item{variable_list}{A variable list with descriptions and table locations
 of variables.}
 
 \item{return_weight_cols}{If true binds weight variable along with rhs_var
 to lhs_table. Default is FALSE.}
 
-\item{...}{Additional arguments passed to \code{link{hts_get_keycols}}}
+\item{cbind_ids}{list of unique identifiers for each table in hts_data}
+
+\item{cbind_wts}{list of weight for each table in hts_data}
 }
 \value{
 Inputted table with inputted variable binded.
@@ -34,8 +41,14 @@ Bind a column from one table to another
 \examples{
 
 require(data.table)
-hts_cbind_var(lhs_table = trip, rhs_var = 'speed_mph', variable_list = variable_list)
-hts_cbind_var(lhs_table = trip, rhs_var = 'speed_mph', 
-variable_list = variable_list, return_weight_cols = TRUE)
+hts_cbind_var(lhs_table = trip,
+ rhs_var = 'speed_mph',
+ hts_data = test_data,
+  variable_list = variable_list)
+hts_cbind_var(lhs_table = trip,
+ rhs_var = 'speed_mph',
+  hts_data = test_data,
+variable_list = variable_list,
+ return_weight_cols = TRUE)
 
 }
