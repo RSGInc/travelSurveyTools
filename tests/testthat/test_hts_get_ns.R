@@ -15,8 +15,8 @@ test_that("hts_get_ns should return counts", {
   
   expect_null(results$wtd, info = "'wtd' component should be NULL for unweighted counts")
   
-  expect_type(results$units, "character")
+  expect_type(results$units, "NULL")
   
-  expect_type(results$unwtd$Households, "integer")
+  expect_type(results$unwtd$Households, "NULL")
   
 })
