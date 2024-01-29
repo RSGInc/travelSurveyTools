@@ -1,6 +1,5 @@
 
 
-context("get_distance_meters")
 library(travelSurveyTools)
 
 test_that("Returns appropriate distance",{

@@ -1,6 +1,4 @@
 
-context("Test suite for hts_summary_num function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
@@ -9,11 +7,7 @@ library(srvyr)
 
 DT = hts_prep_data(summarize_var = 'speed_mph',
                    variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$num
+                   data = test_data)$num
 
 
 test_that("hts_summary_num should return counts and units", {
@@ -22,6 +16,8 @@ test_that("hts_summary_num should return counts and units", {
                              summarize_var = 'speed_mph',
                              wtname = 'trip_weight')
   
-  expect_is(results, "list", info = "hts_summary_num should return a list")
+  expect_type(results, "list")
+  
+  expect_true('max' %in% names(results$wtd))
   
 })

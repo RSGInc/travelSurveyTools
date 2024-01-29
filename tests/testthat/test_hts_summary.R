@@ -1,17 +1,11 @@
 
-context("Test suite for hts_summary function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
 
 DT = hts_prep_data(summarize_var = 'age',
                    variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$cat
+                   data = test_data)$cat
 
 
 test_that("hts_summary should return counts and units", {
@@ -22,6 +16,7 @@ test_that("hts_summary should return counts and units", {
     summarize_vartype = 'categorical',
     wtname = 'person_weight')
   
-  expect_is(results, "list", info = "hts_summary should return a list")
+  expect_type(results, "list")
   
+  expect_true(results$summary$weight_name == 'person_weight')
 })

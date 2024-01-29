@@ -1,6 +1,4 @@
 
-context("Test suite for hts_summary_cat function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
@@ -8,11 +6,8 @@ library(data.table)
 DT = hts_prep_data(summarize_var = 'age',
                    summarize_by = 'employment',
                    variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$cat
+                   missing_values = 995,
+                   data = test_data)$cat
 
 
 
@@ -23,6 +18,10 @@ test_that("hts_summary_cat should return counts and units", {
                             summarize_by = 'employment',
                             wtname = 'person_weight')
   
-  expect_is(results, "list", info = "hts_summary_cat should return a list")
+  expect_type(results, "list")
+  
+  expect_true('age' %in% names(results$wtd))
+  
+  # FIXME: expect_true(!('995' %in% results$wtd$employment))
   
 })
