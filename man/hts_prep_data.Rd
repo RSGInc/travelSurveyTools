@@ -9,7 +9,9 @@ hts_prep_data(
   summarize_by = NULL,
   variables_dt = variable_list,
   data = hts_data,
+  id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   weighted = TRUE,
+  wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
   remove_outliers = TRUE,
   threshold = 0.975,
   remove_missing = TRUE,
@@ -30,7 +32,11 @@ format.}
 \item{data}{List of household, person, vehicle, day, and trip tables in
 data.table format.}
 
+\item{id_cols}{name of unique identifier for each table in hts_data}
+
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
+
+\item{wt_cols}{weight name for each table in hts_data}
 
 \item{remove_outliers}{Whether to remove outliers for numeric variable. Default
 is TRUE.}

@@ -10,6 +10,7 @@
 #' variable being summarized is categorical), 'checkbox' (when the variable being
 #' summarized is derived from a multiple response, aka select-all-that-apply question) 
 #' or 'numeric', when the variable being summarized is numeric. 
+#' @param id_cols names of possible ids in prepped_dt to return unique counts of
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set 
 #' to FALSE if weighted is FALSE.
@@ -66,7 +67,22 @@
 #'               summarize_by = 'age',
 #'               summarize_vartype = 'numeric',
 #'               wtname = 'trip_weight')
-#'             
+#'
+#' DT = hts_prep_data(summarize_var = 'race',
+#'                    summarize_by = 'age', 
+#'                    variables_dt = variable_list,
+#'                    data = list('hh' = hh,
+#'                                'person' = person,
+#'                                'day' = day,
+#'                                'trip' = trip,
+#'                                'vehicle' = vehicle))$cat
+#' output = hts_summary(prepped_dt = DT,
+#'               summarize_var = 'race',
+#'               summarize_by = 'age',
+#'               summarize_vartype = 'categorical',
+#'               wtname = 'person_weight',
+#'               checkbox_valname = 'value',
+#'               checkbox_yesval = 1)             
 
 
 hts_summary = function(
@@ -74,6 +90,7 @@ hts_summary = function(
     summarize_var,
     summarize_by = NULL,
     summarize_vartype = 'categorical',
+    id_cols = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
     weighted = TRUE,
     se = FALSE,
     wtname = NULL,
@@ -113,7 +130,9 @@ hts_summary = function(
 
   cat_ns =  hts_get_ns(
     prepped_dt = prepped_dt,
-    weighted = weighted
+    weighted = weighted,
+    ids = id_cols,
+    wt_col = wtname
   )
   
   # something here to check if the number of unique values is more than 20
