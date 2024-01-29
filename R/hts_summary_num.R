@@ -126,6 +126,12 @@ hts_summary_num = function(prepped_dt,
 
   }
   
+  if (weighted){
+    
+    num_summary_ls$weight_name = wtname 
+  
+  }
+  
   return(num_summary_ls)
   
 }

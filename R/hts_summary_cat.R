@@ -40,7 +40,8 @@
 #' hts_summary_cat(prepped_dt = DT,
 #'                 summarize_var = 'age',
 #'                 wtname = 'person_weight')
-#' DT = hts_prep_data(summarize_var = 'age',
+#'                 
+#' DT = hts_prep_data(summarize_var = 'race',
 #'                    summarize_by = 'employment',
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,
@@ -49,9 +50,11 @@
 #'                                'trip' = trip,
 #'                                'vehicle' = vehicle))$cat
 #' hts_summary_cat(prepped_dt = DT,
-#'                 summarize_var = 'age',
+#'                 summarize_var = 'race',
 #'                 summarize_by = 'employment',
-#'                 wtname = 'person_weight')
+#'                 wtname = 'person_weight',
+#'                 checkbox_valname = 'value',
+#'                 checkbox_yesval = 1)
 #'                 
 #' DT = hts_prep_data(summarize_var = 'employment',
 #'                 summarize_by = c('race', 'income_detailed', 'gender'),

@@ -8,6 +8,7 @@ hts_remove_missing_data(
   hts_data,
   variables_dt,
   summarize_var,
+  ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   summarize_by = NULL,
   missing_values = c("Missing Response", "995"),
   not_imputable = -1
@@ -22,6 +23,8 @@ of variables.}
 
 \item{summarize_var}{Variable to be summarized that has it's missing data
 removed.}
+
+\item{ids}{names of unique identifiers for each table in hts_data}
 
 \item{summarize_by}{Variable being summarized by that has it's missing data
 removed. Default is NULL.}

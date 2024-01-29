@@ -120,11 +120,7 @@ data("variable_list")
 
 DT = hts_prep_data(summarize_var = 'speed_mph',
                    variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))
+                   data = test_data)
 
 ```
 
@@ -203,11 +199,7 @@ If we want summarize a variable by another variable (e.g., mode type by a person
 DT = hts_prep_data(summarize_var = 'mode_type',
                    summarize_by = 'race',
                    variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))
+                   data = test_data)
 
 mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
                                    summarize_var = 'mode_type',

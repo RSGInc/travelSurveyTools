@@ -20,3 +20,7 @@ A vector of distances in meters
 Function to get haversine distance in meters between two points
 Based on calculation from the geosphere package
 }
+\examples{
+get_distance_meters(c(38.8734, -75.2394), c(40.3497, -76.2314))
+
+}
