@@ -9,8 +9,11 @@ lhs_table = test_data$trip
 
 test_that("hts_cbind_var should bind a column to another table", {
   
+  # Create a sample hts_data
+  data("test_data")
+  
   # Call the function
-  result = hts_cbind_var(lhs_table, rhs_var = 'speed_mph', variable_list = variable_list)
+  result = hts_cbind_var(lhs_table, rhs_var = 'speed_mph', hts_data = test_data, variable_list = variable_list)
   
   # Check if the result is a list
   expect_type(result, "list")

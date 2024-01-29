@@ -5,7 +5,7 @@ library(data.table)
 
 sample_dt = test_data$person
 
-test_that("hts_get_ns should return counts and units", {
+test_that("hts_get_ns should return counts", {
   
   results = hts_get_ns(sample_dt, weighted = FALSE)
   

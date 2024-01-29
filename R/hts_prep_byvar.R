@@ -5,6 +5,8 @@
 #'  format.
 #' @param hts_data List containing household, person, day, trip, and vehicle
 #'  datasets in data.table format.
+#' @param byvar_ids unique identifiers for each table in hts_data
+#' @param byvar_wts weight column for each table in hts_data 
 #' @param ... Additional parameters to pass to \code{link{hts_melt_vars}}
 #'
 #' @return Data table containing the variable to be summarized and other key
@@ -31,6 +33,8 @@
 hts_prep_byvar = function(summarize_by = NULL,
                           variables_dt = variables_list,
                           hts_data,
+                          byvar_ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
+                          byvar_wts = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
                           ...) {
   
   # For each variables in trip table:
@@ -55,6 +59,7 @@ hts_prep_byvar = function(summarize_by = NULL,
         hts_melt_vars(
           shared_name = summarize_by[[b]],
           wide_dt = byvar_dt_v,
+          ids = byvar_ids,
           shared_name_vars = NULL,
           variables_dt = variables_dt,
           to_single_row = TRUE,
@@ -69,17 +74,22 @@ hts_prep_byvar = function(summarize_by = NULL,
                                nbins = 7)
     }
     
+    if (!is.null(byvar_wts)){
+      
+      table_idx = which(names(hts_data) == byvar_loc)
+      wtname = byvar_wts[table_idx]
+      
+    } else {
+      wtname = NULL
+    }
+    
+    
     if (!byvar_is_shared) {
-      byvar_cols = c(hts_get_keycols(byvar_dt_v), byvar)
+      byvar_cols = c(intersect(c(byvar_ids, wtname), names(byvar_dt_v)), byvar)
       
       byvar_dt_v = byvar_dt_v[, byvar_cols, with=FALSE]
       
     }
-    
-    # Set keys for merging
-    # keycols = hts_get_keycols(byvar_dt_v)
-    # 
-    # setkeyv(byvar_dt_v, keycols)
     
     byvar_dt_ls[[b]] = byvar_dt_v
     

@@ -8,8 +8,9 @@
 #'  Defaults to NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
-#' @param hts_data List containing household, person, day, trip, and vehicle
+#' @param data List containing household, person, day, trip, and vehicle
 #'  datasets in data.table format.
+#' @param ids unique identifiers appearing in wide_dt
 #' @param remove_missing Boolean to remove rows with missing values. Defaults to
 #'  TRUE.
 #' @param missing_values Missing values to remove. Defaults to 'Missing Response'
@@ -32,7 +33,7 @@
 #' require(stringr)
 #' hts_melt_vars(shared_name = 'race',
 #'               wide_dt = person,
-#'               hts_data = list('hh' = hh,
+#'               data = list('hh' = hh,
 #'                               'person' = person,
 #'                               'day' = day,
 #'                               'trip' = trip,
@@ -42,7 +43,8 @@ hts_melt_vars = function(shared_name = NULL,
                          wide_dt = NULL,
                          shared_name_vars = NULL,
                          variables_dt = variable_list,
-                         hts_data = hts_data,
+                         data = hts_data,
+                         ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
                          remove_missing = TRUE,
                          missing_values = c("Missing Response", "995"),
                          checkbox_label_sep = ":",
@@ -54,7 +56,7 @@ hts_melt_vars = function(shared_name = NULL,
     var_location = hts_find_var(shared_name, variables_dt = variables_dt)
 
     # Select table where this variable lives:
-    wide_dt = hts_data[[var_location]]
+    wide_dt = data[[var_location]]
 
   }
 
@@ -67,7 +69,7 @@ hts_melt_vars = function(shared_name = NULL,
 
   melted_dt = data.table::melt(
     wide_dt,
-    id.vars = hts_get_keycols(wide_dt),
+    id.vars = intersect(names(wide_dt),ids),
     measure.vars = shared_name_vars,
     variable.name = "variable",
     value.name = "value"
@@ -96,7 +98,7 @@ hts_melt_vars = function(shared_name = NULL,
 
     # two or more checked:
     melted_dt[, num_checked := sum(value),
-             by =  c(hts_get_keycols(wide_dt))]
+             by =  intersect(names(melted_dt), ids)]
 
     # make factor levels
     melted_dt$description = factor(melted_dt$description, levels = unique(melted_dt$description))
