@@ -77,7 +77,7 @@ hts_prep_data = function(summarize_var = NULL,
   
   if (!is.null(summarize_by)){
     
-    byvarlocs = lapply(summarize_by, hts_find_var)
+    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt)
     
     for(b in 1:length(byvarlocs)) {
       byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
@@ -93,6 +93,21 @@ hts_prep_data = function(summarize_var = NULL,
     msg_pt2 = NULL
   }
   message(paste0(msg_pt1, " ", msg_pt2))
+  
+  # Check that there is a id and weight for every table
+  if (length(data) != length(id_cols)){
+    
+    stop('Each table in data must have a corresponding id in id_cols')
+    
+  }
+  
+  if (weighted){
+    
+    if (length(data) != length(wt_cols)){
+      stop('Each table in data must have a corresponding weight in wt_cols')
+    }
+  }
+  
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
   
@@ -117,12 +132,12 @@ hts_prep_data = function(summarize_var = NULL,
   
   # Is this a shared variable?
   var_is_shared = variables_dt[shared_name == summarize_var, is_checkbox][1] == 1
-
+  
   # If yes, expand summarize_var:
   if (var_is_shared) {
     
     summarize_var = variables_dt[shared_name == summarize_var, variable]
-
+    
     for(i in 1:length(summarize_var)){
       
       if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
@@ -140,7 +155,7 @@ hts_prep_data = function(summarize_var = NULL,
   
   # only keep ids that are in var_dt 
   id_cols = intersect(id_cols, names(var_dt))
-
+  
   # Subset table to these column(s):
   wtname = wt_cols[tbl_idx]
   
@@ -191,8 +206,8 @@ hts_prep_data = function(summarize_var = NULL,
       ) 
       
     }
-
-
+    
+    
     summarize_var = shared_name
     
     setnames(var_dt, shared_name, 'shared_name')
@@ -248,8 +263,8 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   if (length(summarize_by) > 0) {
-
-
+    
+    
     for (i in 1:length(summarize_by)){
       
       var = summarize_by[i]
@@ -276,7 +291,7 @@ hts_prep_data = function(summarize_var = NULL,
       }
       
     }
-
+    
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = data,
@@ -313,7 +328,7 @@ hts_prep_data = function(summarize_var = NULL,
     
     
   }
-
+  
   if (!is.null(strataname)) {
     
     if(!is.null(cat_res)){
