@@ -1,4 +1,4 @@
-context("factorize_column")
+
 library(travelSurveyTools)
 library(data.table)
 
