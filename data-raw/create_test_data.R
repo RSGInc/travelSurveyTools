@@ -77,9 +77,13 @@ keep_cols = c(
   # Trip variables:
   'travel_date',
   'mode_type',
+  'mode_1',
+  'mode_2',
   'd_purpose_category',
   'num_trips',
   'speed_mph',
+  'distance_miles',
+  'num_travelers',
 
   # Vehicle variables:
   'fuel_type',
