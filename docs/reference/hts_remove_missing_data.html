@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,7 @@
 <span>  <span class="va">hts_data</span>,</span>
 <span>  <span class="va">variables_dt</span>,</span>
 <span>  <span class="va">summarize_var</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  missing_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Missing Response"</span>, <span class="st">"995"</span><span class="op">)</span>,</span>
 <span>  not_imputable <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
@@ -73,6 +74,10 @@ of variables.</p></dd>
 <dt>summarize_var</dt>
 <dd><p>Variable to be summarized that has it's missing data
 removed.</p></dd>
+
+
+<dt>ids</dt>
+<dd><p>names of unique identifiers for each table in hts_data</p></dd>
 
 
 <dt>summarize_by</dt>

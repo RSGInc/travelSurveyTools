@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,8 @@
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variables_list</span>,</span>
 <span>  <span class="va">hts_data</span>,</span>
+<span>  byvar_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
+<span>  byvar_wts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_weight"</span>, <span class="st">"person_weight"</span>, <span class="st">"day_weight"</span>, <span class="st">"trip_weight"</span>, <span class="st">"hh_weight"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -70,6 +72,14 @@ format.</p></dd>
 <dt>hts_data</dt>
 <dd><p>List containing household, person, day, trip, and vehicle
 datasets in data.table format.</p></dd>
+
+
+<dt>byvar_ids</dt>
+<dd><p>unique identifiers for each table in hts_data</p></dd>
+
+
+<dt>byvar_wts</dt>
+<dd><p>weight column for each table in hts_data</p></dd>
 
 
 <dt>...</dt>
@@ -113,18 +123,18 @@ columns.</p>
 <span class="r-in"><span>                            <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight                      race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23025240 2302524001           243 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23029096 2302909601           772 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23033218 2303321802           170 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23034871 2303487101           977 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23035194 2303519401           630 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1665: 23411086 2341108601           311      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1666: 23411086 2341108602           827      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1667: 23413086 2341308603           514      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1668: 23413585 2341358501           288      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1669: 23413585 2341358502           603      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id                      race</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23025240 2302524001 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23029096 2302909601 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23033218 2303321802 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23034871 2303487101 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23035194 2303519401 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1665: 23411086 2341108601      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1666: 23411086 2341108602      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1667: 23413086 2341308603      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1668: 23413585 2341358501      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1669: 23413585 2341358502      Prefer not to answer</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

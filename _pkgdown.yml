@@ -1,4 +1,10 @@
+title: travelSurveyTools
 url: https://rsginc.github.io/travelSurveyTools/
 template:
   bootstrap: 5
+development:
+  mode: auto
+navbar:
+  type: inverse
+
 

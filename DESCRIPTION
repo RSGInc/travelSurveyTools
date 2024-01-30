@@ -1,12 +1,12 @@
 Package: travelSurveyTools
-Title: What the Package Does (One Line, Title Case)
+Title: travelSurveyTools
 Version: 0.0.0.9000
 Authors@R: 
     person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = c("aut", "cre"))
     person("Erika", "Redding", , "erika.redding@rsginc.com", role = c("aut", "cre"))
     person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = c("aut", "cre"))
     person("James", "Clark", , "james.clark@rsginc.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: An R Package To Make Working With And Summarizing Household Travel Survey Data Easier.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -29,5 +29,4 @@ Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
-vignetteBuilder: knitr
 VignetteBuilder: knitr

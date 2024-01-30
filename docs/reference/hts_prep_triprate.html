@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,8 @@
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  trip_name <span class="op">=</span> <span class="st">"trip"</span>,</span>
 <span>  day_name <span class="op">=</span> <span class="st">"day"</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
+<span>  wts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_weight"</span>, <span class="st">"person_weight"</span>, <span class="st">"day_weight"</span>, <span class="st">"trip_weight"</span>, <span class="st">"hh_weight"</span><span class="op">)</span>,</span>
 <span>  remove_outliers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">0.975</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -78,6 +80,14 @@ format.</p></dd>
 
 <dt>day_name</dt>
 <dd><p>Name of the day dataset in hts_data.</p></dd>
+
+
+<dt>ids</dt>
+<dd><p>name of unique identifier in each table in hts_data</p></dd>
+
+
+<dt>wts</dt>
+<dd><p>name of weight column in each table in hts_data</p></dd>
 
 
 <dt>remove_outliers</dt>

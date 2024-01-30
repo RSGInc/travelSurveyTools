@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@
 <span>  wide_dt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  shared_name_vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
-<span>  hts_data <span class="op">=</span> <span class="va">hts_data</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">hts_data</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
 <span>  remove_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  missing_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Missing Response"</span>, <span class="st">"995"</span><span class="op">)</span>,</span>
 <span>  checkbox_label_sep <span class="op">=</span> <span class="st">":"</span>,</span>
@@ -83,9 +84,13 @@ Defaults to NULL.</p></dd>
 format.</p></dd>
 
 
-<dt>hts_data</dt>
+<dt>data</dt>
 <dd><p>List containing household, person, day, trip, and vehicle
 datasets in data.table format.</p></dd>
+
+
+<dt>ids</dt>
+<dd><p>unique identifiers appearing in wide_dt</p></dd>
 
 
 <dt>remove_missing</dt>
@@ -124,35 +129,23 @@ with the original value of the checkbox variable.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">hts_melt_vars</span><span class="op">(</span>shared_name <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>              wide_dt <span class="op">=</span> <span class="va">person</span>,</span></span>
-<span class="r-in"><span>              hts_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>              data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                              <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id person_weight variable value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301           139   race_1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017304           747   race_1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000738 2300073801           298   race_1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000858 2300085801           865   race_1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000858 2300085802            87   race_1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11679: 23416563 2341656302           889 race_999     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11680: 23418712 2341871201           476 race_999     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11681: 23419141 2341914101           136 race_999     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11682: 23419141 2341914102           170 race_999     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11683: 23419703 2341970301           645 race_999     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                             race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11679:      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11680:      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11681:      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11682:      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11683:      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id variable value                      race</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301   race_1     0 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017304   race_1     0 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000738 2300073801   race_1     0 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000858 2300085801   race_1     0 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000858 2300085802   race_1     0 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11679: 23416563 2341656302 race_999     0      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11680: 23418712 2341871201 race_999     0      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11681: 23419141 2341914101 race_999     0      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11682: 23419141 2341914102 race_999     0      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11683: 23419703 2341970301 race_999     0      Prefer not to answer</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

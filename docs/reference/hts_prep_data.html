@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,9 @@
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">hts_data</span>,</span>
+<span>  id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  wt_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_weight"</span>, <span class="st">"person_weight"</span>, <span class="st">"day_weight"</span>, <span class="st">"trip_weight"</span>, <span class="st">"hh_weight"</span><span class="op">)</span>,</span>
 <span>  remove_outliers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">0.975</span>,</span>
 <span>  remove_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -84,8 +86,16 @@ format.</p></dd>
 data.table format.</p></dd>
 
 
+<dt>id_cols</dt>
+<dd><p>name of unique identifier for each table in hts_data</p></dd>
+
+
 <dt>weighted</dt>
 <dd><p>Whether the data is weighted. Default is TRUE.</p></dd>
+
+
+<dt>wt_cols</dt>
+<dd><p>weight name for each table in hts_data</p></dd>
 
 
 <dt>remove_outliers</dt>
@@ -139,18 +149,18 @@ categorical or numeric.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person age </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302            17   3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303           400   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304           747   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000738 2300073801           298   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id age person_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301   7           139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302   3            17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303   2           400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304   6           747</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000738 2300073801   8           298</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2038: 23418712 2341871203           809   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2039: 23419141 2341914101           136   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2040: 23419141 2341914102           170   5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2041: 23419141 2341914103           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2042: 23419703 2341970301           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2038: 23418712 2341871203   2           809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2039: 23419141 2341914101   6           136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2040: 23419141 2341914102   5           170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2041: 23419141 2341914103   1           490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2042: 23419703 2341970301   9           645</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -168,56 +178,56 @@ categorical or numeric.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of trip speed_mph broken down by person age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id trip_weight  speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12         356      17-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12         679      17-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12         758        1-9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12         314        1-9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12         883      33-41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031: 23419141 2341914103 234191410301 2.341914e+12         950        1-9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 23419141 2341914103 234191410301 2.341914e+12         123 43 or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 23419141 2341914103 234191410301 2.341914e+12         720      25-33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 23419703 2341970301 234197030101 2.341970e+12         523       9-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 23419703 2341970301 234197030101 2.341970e+12         298       9-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034:           645   9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035:           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id person_weight trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12           139         356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12           139         679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12           139         758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12           139         314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12           139         883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15031: 23419141 2341914103 234191410301 2.341914e+12           490         950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 23419141 2341914103 234191410301 2.341914e+12           490         123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 23419141 2341914103 234191410301 2.341914e+12           490         720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 23419703 2341970301 234197030101 2.341970e+12           645         523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 23419703 2341970301 234197030101 2.341970e+12           645         298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         speed_mph age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      17-25   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      17-25   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:        1-9   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:        1-9   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      33-41   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15031:        1-9   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 43 or more   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15033:      25-33   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15034:       9-17   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15035:       9-17   9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id trip_weight speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12         356 21.480572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12         679 23.720178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12         758  6.927242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12         314  6.146634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12         883 34.657421</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031: 23419141 2341914103 234191410301 2.341914e+12         950  8.904454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 23419141 2341914103 234191410301 2.341914e+12         123 43.284089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 23419141 2341914103 234191410301 2.341914e+12         720 25.518845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 23419703 2341970301 234197030101 2.341970e+12         523 13.131100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 23419703 2341970301 234197030101 2.341970e+12         298 16.413875</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033:           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034:           645   9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035:           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id person_weight trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12           139         356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12           139         679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12           139         758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12           139         314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12           139         883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15031: 23419141 2341914103 234191410301 2.341914e+12           490         950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 23419141 2341914103 234191410301 2.341914e+12           490         123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 23419141 2341914103 234191410301 2.341914e+12           490         720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 23419703 2341970301 234197030101 2.341970e+12           645         523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 23419703 2341970301 234197030101 2.341970e+12           645         298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        speed_mph age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 21.480572   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23.720178   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  6.927242   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:  6.146634   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 34.657421   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15031:  8.904454   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 43.284089   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 25.518845   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 13.131100   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 16.413875   9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
