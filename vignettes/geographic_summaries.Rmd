@@ -42,6 +42,5 @@ hh = join_spatial(
     lat_col = 'home_lat',
     largest = TRUE)
 
-factorize_df(hh, vals_df = value_labels, value_label_colname = 'label')
-hh[, .N, keyby = c('home_county', 'home_state')]
+hh[, .N, home_state]
 ```
