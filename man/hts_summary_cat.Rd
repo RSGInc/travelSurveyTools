@@ -12,8 +12,9 @@ hts_summary_cat(
   se = FALSE,
   wtname = NULL,
   strataname = NULL,
-  checkbox_valname = NULL,
-  checkbox_yesval = NULL
+  checkbox_valname = "value",
+  checkbox_yesval = 1,
+  summarize_vartype = "categorical"
 )
 }
 \arguments{
@@ -33,11 +34,15 @@ Default is NULL.}
 
 \item{strataname}{Name of strata name to bring in. Default is NULL.}
 
-\item{checkbox_valname}{Name of the column with the checkbox value. Default is NULL.
+\item{checkbox_valname}{Name of the column with the checkbox value. Default is 'value'.
 Must be provided if summarize_var is a checkbox variable.}
 
 \item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
-Default is NULL. Must be provided if summarize_var is a checkbox variable.}
+Default is 1. Must be provided if summarize_var is a checkbox variable.}
+
+\item{summarize_vartype}{String; one of either 'categorical' (when the
+variable being summarized is categorical) or 'checkbox' (when the variable being
+summarized is derived from a multiple response, aka select-all-that-apply question).}
 }
 \value{
 List of unweighted and weighted categorical summaries including counts
@@ -75,8 +80,7 @@ hts_summary_cat(prepped_dt = DT,
                 summarize_var = 'race',
                 summarize_by = 'employment',
                 wtname = 'person_weight',
-                checkbox_valname = 'value',
-                checkbox_yesval = 1)
+                summarize_vartype = 'checkbox')
                 
 DT = hts_prep_data(summarize_var = 'employment',
                 summarize_by = c('race', 'income_detailed', 'gender'),

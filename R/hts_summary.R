@@ -17,10 +17,10 @@
 #' @param wtname Name of the weight column to use. Default is NULL. Must be specified
 #' when weighted = TRUE.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
-#' @param checkbox_valname Name of the column with the checkbox value. Default is NULL.
+#' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
-#'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
+#'  Default is 1. Must be provided if summarize_var is a checkbox variable.
 #'  
 #' @return A list containing (if applicable) categorical and numeric summaries of the
 #'  specified variable(s), as well as sample sizes and whether or not the summarized
@@ -79,10 +79,8 @@
 #' output = hts_summary(prepped_dt = DT,
 #'               summarize_var = 'race',
 #'               summarize_by = 'age',
-#'               summarize_vartype = 'categorical',
-#'               wtname = 'person_weight',
-#'               checkbox_valname = 'value',
-#'               checkbox_yesval = 1)             
+#'               summarize_vartype = 'checkbox',
+#'               wtname = 'person_weight')             
 
 
 hts_summary = function(
@@ -95,17 +93,17 @@ hts_summary = function(
     se = FALSE,
     wtname = NULL,
     strataname = NULL, 
-    checkbox_valname = NULL,
-    checkbox_yesval = NULL) {
+    checkbox_valname = 'value',
+    checkbox_yesval = 1) {
   
   # FIXME consider a labels = T/F argument here
 
   # For instances where num obs is singular inside a sub-strata, adjust:
   options(survey.lonely.psu = "adjust")
   
-  if ( summarize_vartype == 'checkbox' & 
+  if ( summarize_vartype == 'checkbox' &
        (is.null(checkbox_valname) | is.null(checkbox_yesval))) {
-    
+
     stop("Must provide checkbox_valname and checkbox_yesval if summarize_vartype is checkbox.")
   }
   
@@ -149,7 +147,8 @@ hts_summary = function(
       wtname = wtname,
       strataname = strataname, 
       checkbox_valname = checkbox_valname,
-      checkbox_yesval = checkbox_yesval
+      checkbox_yesval = checkbox_yesval,
+      summarize_vartype = summarize_vartype
     )
   }
 

@@ -9,10 +9,13 @@
 #' @param se Whether to calculate standard error. Default is FALSE.
 #' @param wtname Name of the weight column to use. Default is NULL.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
-#' @param checkbox_valname Name of the column with the checkbox value. Default is NULL.
+#' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
-#'  Default is NULL. Must be provided if summarize_var is a checkbox variable.
+#'  Default is 1. Must be provided if summarize_var is a checkbox variable.
+#' @param summarize_vartype String; one of either 'categorical' (when the 
+#'  variable being summarized is categorical) or 'checkbox' (when the variable being
+#'  summarized is derived from a multiple response, aka select-all-that-apply question).
 #' 
 #' 
 #' @importFrom srvyr survey_prop
@@ -53,8 +56,7 @@
 #'                 summarize_var = 'race',
 #'                 summarize_by = 'employment',
 #'                 wtname = 'person_weight',
-#'                 checkbox_valname = 'value',
-#'                 checkbox_yesval = 1)
+#'                 summarize_vartype = 'checkbox')
 #'                 
 #' DT = hts_prep_data(summarize_var = 'employment',
 #'                 summarize_by = c('race', 'income_detailed', 'gender'),
@@ -77,8 +79,9 @@ hts_summary_cat = function(prepped_dt,
                            se = FALSE,
                            wtname = NULL,
                            strataname = NULL, 
-                           checkbox_valname = NULL,
-                           checkbox_yesval = NULL) {
+                           checkbox_valname = 'value',
+                           checkbox_yesval = 1,
+                           summarize_vartype = 'categorical') {
   
   if ( !weighted & se ){
     
@@ -97,6 +100,13 @@ hts_summary_cat = function(prepped_dt,
     
     se = TRUE
     
+    
+  }
+  
+  if ( summarize_vartype != 'checkbox'){
+    
+    checkbox_valname = NULL
+    checkbox_yesval = NULL
     
   }
   
