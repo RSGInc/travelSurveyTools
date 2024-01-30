@@ -18,5 +18,8 @@ test_that("hts_filter_data should filter data based on id_type", {
   expect_true('hh_id' %in% names(result_hh$hh),
                info = "hh data should be filtered correctly")
   
+  # Check that no hhs with 5 or less people remain
+  expect_true(min(result_hh$hh$num_people) > 5)
+  
 })
 

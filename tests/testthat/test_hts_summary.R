@@ -19,4 +19,6 @@ test_that("hts_summary should return counts and units", {
   expect_type(results, "list")
   
   expect_true(results$summary$weight_name == 'person_weight')
+  
+  expect_true(sum(results$summary$wtd$est) == sum(results$n_ls$wtd))
 })

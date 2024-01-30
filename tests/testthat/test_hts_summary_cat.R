@@ -22,6 +22,7 @@ test_that("hts_summary_cat should return counts and units", {
   
   expect_true('age' %in% names(results$wtd))
   
+  expect_true(sum(results$unwtd$count) == sum(results$wtd$count))
   # FIXME: expect_true(!('995' %in% results$wtd$employment))
   
 })

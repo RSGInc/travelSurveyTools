@@ -17,6 +17,8 @@ test_that("hts_prep_data should return counts and units", {
   
   expect_true('mode_type' %in% names(results$cat))
   
+  expect_true('trip_weight' %in% names(results$cat))
+  
   # FIXME: expect_false('995' %in% results$cat$mode_type)
   
 })

@@ -20,4 +20,6 @@ test_that("hts_summary_num should return counts and units", {
   
   expect_true('max' %in% names(results$wtd))
   
+  expect_true(results$unwtd$max == results$wtd$max)
+  
 })

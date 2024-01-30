@@ -21,6 +21,6 @@ test_that("hts_bin_var should bin numeric variables", {
               info = "Result should have a column named 'speed_mph'")
   
   # Check if the binned column is a factor
-  expect_type(result$speed_mph, "integer")
+  expect_true(is.factor(result$speed_mph))
   
 })
