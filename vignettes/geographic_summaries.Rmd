@@ -13,11 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
 ```
 
-### Creating summaries by geographic variables using hts_summary
-
-`hts_summary` can summarize geographic variables.
-
-```{r, county_income, echo=TRUE, eval=TRUE}
+```{r, load_data, echo=TRUE, eval=TRUE, results = 'hide'}
 
 library(travelSurveyTools)
 library(data.table)
@@ -27,11 +23,19 @@ library(tigris)
 data("test_data")
 data("variable_list")
 
+states = states()
+```
+
+### Creating summaries by geographic variables using hts_summary
+
+`hts_summary` can summarize geographic variables.
+
+```{r, county_income, echo=TRUE, eval=TRUE}
 DT = hts_prep_data(summarize_var = 'income_detailed', summarize_by = 'home_county', data = test_data)
 
 output = hts_summary(prepped_dt = DT$cat, summarize_var = 'income_detailed', summarize_by = 'home_county')
 
-output_unwtd = factorize_df(output$summary$unwtd, vals_df = value_labels, value_label_colname = 'label')
+factorize_df(output$summary$unwtd, vals_df = value_labels, value_label_colname = 'label')
 
 ```
 
@@ -39,9 +43,7 @@ output_unwtd = factorize_df(output$summary$unwtd, vals_df = value_labels, value_
 
 `spatial_join` can link together multiple geographies.
 
-```{r, spatial_join, echo=TRUE, eval=TRUE}
-
-states = states()
+```{r, spatial_join, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 
 hh = join_spatial(
     hh,
