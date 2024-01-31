@@ -2,10 +2,11 @@ Package: travelSurveyTools
 Title: travelSurveyTools
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = c("aut", "cre")),
-    person("Erika", "Redding", , "erika.redding@rsginc.com", role = c("aut", "cre")),
-    person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = c("aut", "cre")),
-    person("James", "Clark", , "james.clark@rsginc.com", role = c("aut", "cre"))
+    person("RSG", "Inc.", , "rsg@rsginc.com", role = c("aut", "cre")),
+    person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = "aut"),
+    person("Erika", "Redding", , "erika.redding@rsginc.com", role = "aut"),
+    person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = "aut"),
+    person("James", "Clark", , "james.clark@rsginc.com", role = "aut")
     )
 Description: An R Package To Make Working With And Summarizing Household Travel Survey Data Easier.
 License: GPL (>= 3)
