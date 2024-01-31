@@ -31,7 +31,7 @@
 #'                             'vehicle' = vehicle))
 #'
 hts_prep_byvar = function(summarize_by = NULL,
-                          variables_dt = variables_list,
+                          variables_dt = variable_list,
                           hts_data,
                           byvar_ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
                           byvar_wts = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
@@ -45,7 +45,13 @@ hts_prep_byvar = function(summarize_by = NULL,
     
     byvar_loc = hts_find_var(byvar, variables_dt = variables_dt)
     
+    tbl_idx = which(names(hts_data) == byvar_loc)
+    
     byvar_dt_v = data.table::copy(hts_data[[byvar_loc]])
+    
+    # Check that specified id column exists in var_dt
+    stopifnot("table id not in byvar_dt_v, make id_cols ordered list of ids in each table of data" =
+                byvar_ids[[tbl_idx]] %in% names(byvar_dt_v))
     
     # Is this a shared variable?
     byvar_is_shared = variables_dt[shared_name == byvar, is_checkbox][1] == 1
