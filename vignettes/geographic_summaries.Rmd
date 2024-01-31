@@ -3,13 +3,17 @@ title: "Creating user-specified geographic summaries"
 description: >
 output: html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Creating user-specified geographic summaries}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+library(travelSurveyTools)
+library(data.table)
+library(tigris)
 ```
 
 ### Creating summaries by geographic variables using hts_summary
@@ -32,7 +36,7 @@ factorize_df(output$summary$unwtd, vals_df = value_labels, value_label_colname =
 
 ```{r, spatial_join, echo=TRUE, eval=TRUE}
 
-states = tigris::states()
+states = states()
 
 hh = join_spatial(
     hh,
