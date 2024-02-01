@@ -4,10 +4,13 @@
 \alias{hts_find_var}
 \title{Find table location of a variable}
 \usage{
-hts_find_var(var, variables_dt = variable_list)
+hts_find_var(var, data, variables_dt = variable_list)
 }
 \arguments{
 \item{var}{searchable variable in string format}
+
+\item{data}{List of household, person, vehicle, day, and trip tables in
+data.table format.}
 
 \item{variables_dt}{codebook variable list in data table format}
 }
@@ -19,6 +22,6 @@ Find table location of a variable
 }
 \examples{
 
-hts_find_var('income_detailed')
+hts_find_var('income_detailed', data = test_data)
 
 }

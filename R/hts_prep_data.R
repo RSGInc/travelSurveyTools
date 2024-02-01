@@ -72,12 +72,12 @@ hts_prep_data = function(summarize_var = NULL,
   
   # Message:
   msg_pt1 = paste0("Creating a summary of ",
-                   hts_find_var(summarize_var, variables_dt = variables_dt), " ", summarize_var)
+                   hts_find_var(summarize_var, data = data, variables_dt = variables_dt), " ", summarize_var)
   
   
   if (!is.null(summarize_by)){
     
-    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt)
+    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt, data = data)
     
     for(b in 1:length(byvarlocs)) {
       byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
@@ -123,7 +123,7 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   # Find location of summary variable:
-  var_location = hts_find_var(summarize_var, variables_dt = variables_dt)
+  var_location = hts_find_var(summarize_var, data = data, variables_dt = variables_dt)
   
   tbl_idx = which(names(data) == var_location)
   
@@ -274,7 +274,7 @@ hts_prep_data = function(summarize_var = NULL,
       
       var = summarize_by[i]
       
-      byvar_location = hts_find_var(var, variables_dt = variables_dt)
+      byvar_location = hts_find_var(var, data = data, variables_dt = variables_dt)
       
       # Select table where this variable lives:
       byvar_table = data[[byvar_location]]

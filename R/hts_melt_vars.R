@@ -53,7 +53,7 @@ hts_melt_vars = function(shared_name = NULL,
   if(is.null(wide_dt)){
 
     # Find location of summary variable:
-    var_location = hts_find_var(shared_name, variables_dt = variables_dt)
+    var_location = hts_find_var(shared_name, data = data, variables_dt = variables_dt)
 
     # Select table where this variable lives:
     wide_dt = data[[var_location]]
