@@ -360,8 +360,7 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   prepped_dt_ls = list("cat" = cat_res,
-                       "num" = num_res,
-                       "var_is_shared" = var_is_shared)
+                       "num" = num_res)
   
   # Append outliers:
   if (v_class %in% c("integer", 'numeric') & remove_outliers) {
