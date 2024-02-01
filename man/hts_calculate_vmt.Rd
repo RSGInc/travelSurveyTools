@@ -5,7 +5,10 @@
 \title{Calculate vmt for each trip}
 \usage{
 hts_calculate_vmt(
-  trip_dt,
+  data,
+  trip_name = "trip",
+  ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
+  agg_tbl = "trip",
   mode_cols,
   miles_col,
   vehicle_modes,
@@ -13,7 +16,13 @@ hts_calculate_vmt(
 )
 }
 \arguments{
-\item{trip_dt}{Data table of trip data}
+\item{data}{List of data tables}
+
+\item{trip_name}{Name of trip table in data}
+
+\item{ids}{Unique id in order for each table in data}
+
+\item{agg_tbl}{Table to append vmt to}
 
 \item{mode_cols}{Column(s) in trip_dt containing trip mode}
 
@@ -31,21 +40,23 @@ Calculate vmt for each trip
 }
 \examples{
 
-test_data$trip[, vmt := 
  hts_calculate_vmt(
-  trip_dt = test_data$trip,
+  trip_name = 'trip',
+  data = test_data,
+  agg_tbl = 'day',
   mode_cols = c('mode_1', 'mode_2'),
   miles_col = 'distance_miles',
   vehicle_modes = c(6, 7, 10)
  )
-]
-test_data$trip[, vmt := 
+
+
  hts_calculate_vmt(
-  trip_dt = test_data$trip,
+  data = test_data,
+  trip_name = 'trip',
+  agg_tbl = 'trip',
   mode_cols = 'mode_type',
   miles_col = 'distance_miles',
   vehicle_modes = 8,
   occupancy_var = 'num_travelers'
  )
-]
 }

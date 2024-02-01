@@ -1,6 +1,9 @@
 #' Calculate vmt for each trip
 #'
-#' @param trip_dt Data table of trip data
+#' @param data List of data tables
+#' @param trip_name Name of trip table in data
+#' @param ids Unique id in order for each table in data
+#' @param agg_tbl Table to append vmt to
 #' @param mode_cols Column(s) in trip_dt containing trip mode
 #' @param miles_col Column in trip_dt containing miles per trip
 #' @param vehicle_modes List of modes that are considered vehicle
@@ -11,36 +14,39 @@
 #'
 #' @examples
 #' 
-#' test_data$trip[, vmt := 
 #'  hts_calculate_vmt(
-#'   trip_dt = test_data$trip,
+#'   trip_name = 'trip',
+#'   data = test_data,
+#'   agg_tbl = 'day',
 #'   mode_cols = c('mode_1', 'mode_2'),
 #'   miles_col = 'distance_miles',
 #'   vehicle_modes = c(6, 7, 10)
 #'  )
-#' ]
-#' test_data$trip[, vmt := 
+#'
+#'
 #'  hts_calculate_vmt(
-#'   trip_dt = test_data$trip,
+#'   data = test_data,
+#'   trip_name = 'trip',
+#'   agg_tbl = 'trip',
 #'   mode_cols = 'mode_type',
 #'   miles_col = 'distance_miles',
 #'   vehicle_modes = 8,
 #'   occupancy_var = 'num_travelers'
 #'  )
-#' ]
 
 
-hts_calculate_vmt = function(trip_dt,
+
+hts_calculate_vmt = function(data,
+                             trip_name = 'trip',
+                             ids = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
+                             agg_tbl = 'trip',
                              mode_cols,
                              miles_col,
                              vehicle_modes,
                              occupancy_var = NULL){
   
   
-  dt = copy(trip_dt)
-  
-  #TODO: allow for multiple mode columns
-  
+  dt = data[[trip_name]]
   
   if (length(mode_cols) > 1){
     
@@ -66,15 +72,41 @@ hts_calculate_vmt = function(trip_dt,
   
   if (!is.null(occupancy_var)){
     
-    vmt = dt[, in_vehicle_modes * (get(miles_col) / get(occupancy_var))]
+     dt[, vmt := in_vehicle_modes * (get(miles_col) / get(occupancy_var))]
     
   }else{
     
-    vmt = dt[, in_vehicle_modes] * dt[, get(miles_col)]
+    dt[, vmt := in_vehicle_modes * get(miles_col)]
     
     
   }
   
-  return(vmt[])
+  # Fill any na values with 0
+  dt[is.na(vmt), vmt := 0]
+  
+  # Get id to aggregate on
+  id_index = which(names(data) == agg_tbl)
+  
+  id = ids[id_index]
+  
+  vmt_crosswalk = dt[, .(vmt = sum(vmt)) , .(id = get(id))]
+  
+  setnames(vmt_crosswalk, 'id', id)
+  
+  vmt_tbl = copy(get(agg_tbl))
+  
+  vmt_tbl[
+    vmt_crosswalk,
+    vmt := i.vmt,
+    on = id
+  ]
+  
+  # Fill in NA values (no trips on agg id) with 0
+  vmt_tbl[is.na(vmt), vmt := 0]
+  
+  return(vmt_tbl[])
   
 }
+
+## quiets concerns of R CMD check
+utils::globalVariables(c("vmt", "i.vmt", "in_vehicle_modes"))
