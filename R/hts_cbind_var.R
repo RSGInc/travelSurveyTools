@@ -36,7 +36,7 @@ hts_cbind_var = function(lhs_table,
                          cbind_wts = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight')) {
   
   var_location =
-    hts_find_var(rhs_var, variables_dt = variable_list)
+    hts_find_var(rhs_var, data = hts_data, variables_dt = variable_list)
   
   rhs_table = hts_data[[var_location]]
   

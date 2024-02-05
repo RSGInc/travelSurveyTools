@@ -1,6 +1,8 @@
 #' Find table location of a variable
 #'
 #' @param var searchable variable in string format
+#' @param data List of household, person, vehicle, day, and trip tables in
+#'  data.table format.
 #' @param variables_dt codebook variable list in data table format
 #'
 #' @importFrom data.table melt
@@ -10,22 +12,22 @@
 #'
 #' @examples
 #'
-#' hts_find_var('income_detailed')
+#' hts_find_var('income_detailed', data = test_data)
 #'
-hts_find_var = function(var, variables_dt = variable_list) {
+hts_find_var = function(var, 
+                        data, 
+                        variables_dt = variable_list) {
 
   varlist = data.table::copy(variables_dt)
   varlist = varlist[, .SD[1], keyby = .(shared_name)]
   data.table::setDT(varlist)
 
+  table_names = names(data)
+  
   # Find the locations of the variable:
   var_location = data.table::melt(varlist[shared_name == var,
-                              .(variable,
-                                hh,
-                                person,
-                                vehicle,
-                                trip,
-                                day)],
+                              c('variable',
+                                table_names), with = FALSE],
                       id.vars = c("variable"),
                       variable.name = "table")
 
@@ -45,28 +47,13 @@ hts_find_var = function(var, variables_dt = variable_list) {
     stop(msg)
   }
 
-  if (nrow(var_location) > 0) {
-
-
-  # choose finest level of dis-aggregation for this variable:
-  var_location =
-    ifelse(var_location[table == "trip", "value"] == 1,
-           "trip",
-           ifelse(
-             var_location[table == "day", "value"] == 1,
-             "day",
-             ifelse(
-               var_location[table == "person", "value"] == 1,
-               "person",
-               ifelse(var_location[table == "vehicle", "value"] == 1,
-                      "vehicle",
-                      "hh")
-             )
-           ))
-
-  var_location = var_location[1,][["value"]]
-
-  }
+  table_locs = var_location[value == 1, table]
+  
+  max_index = which.max(
+    lapply(data[table_locs], nrow)
+  )
+  
+  var_location = as.character(table_locs[[max_index]])
 
   return(var_location)
 }
