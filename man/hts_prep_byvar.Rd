@@ -6,7 +6,7 @@
 \usage{
 hts_prep_byvar(
   summarize_by = NULL,
-  variables_dt = variables_list,
+  variables_dt = variable_list,
   hts_data,
   byvar_ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   byvar_wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),

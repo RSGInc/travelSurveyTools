@@ -77,7 +77,7 @@ hts_prep_data = function(summarize_var = NULL,
   
   if (!is.null(summarize_by)){
     
-    byvarlocs = lapply(summarize_by, hts_find_var)
+    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt)
     
     for(b in 1:length(byvarlocs)) {
       byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
@@ -93,6 +93,21 @@ hts_prep_data = function(summarize_var = NULL,
     msg_pt2 = NULL
   }
   message(paste0(msg_pt1, " ", msg_pt2))
+  
+  # Check that there is a id and weight for every table
+  if (length(data) != length(id_cols)){
+    
+    stop('Each table in data must have a corresponding id in id_cols')
+    
+  }
+  
+  if (weighted){
+    
+    if (length(data) != length(wt_cols)){
+      stop('Each table in data must have a corresponding weight in wt_cols')
+    }
+  }
+
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
   
@@ -115,14 +130,19 @@ hts_prep_data = function(summarize_var = NULL,
   # Select table where this variable lives:
   var_dt = data[[var_location]]
   
+  
+  # Check that specified id column exists in var_dt
+  stopifnot("table id not in var_dt, make id_cols ordered list of ids in each table of data" =
+              id_cols[[tbl_idx]] %in% names(var_dt))
+  
   # Is this a shared variable?
   var_is_shared = variables_dt[shared_name == summarize_var, is_checkbox][1] == 1
-
+  
   # If yes, expand summarize_var:
   if (var_is_shared) {
     
     summarize_var = variables_dt[shared_name == summarize_var, variable]
-
+    
     for(i in 1:length(summarize_var)){
       
       if(var_dt[,class(get(summarize_var[i]))] != 'integer'){
@@ -139,18 +159,18 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   # only keep ids that are in var_dt 
-  id_cols = intersect(id_cols, names(var_dt))
-
+  sum_vars_id_cols = intersect(id_cols, names(var_dt))
+  
   # Subset table to these column(s):
   wtname = wt_cols[tbl_idx]
   
   if (weighted){
     
-    subset_cols = c(id_cols, summarize_var, wtname)
+    subset_cols = c(sum_vars_id_cols, summarize_var, wtname)
     
   } else {
     
-    subset_cols = c(id_cols, summarize_var)
+    subset_cols = c(sum_vars_id_cols, summarize_var)
     
   }
   
@@ -169,7 +189,7 @@ hts_prep_data = function(summarize_var = NULL,
         wide_dt = var_dt,
         variables_dt = variables_dt,
         shared_name_vars = summarize_var,
-        ids = c(id_cols, wtname),
+        ids = c(sum_vars_id_cols, wtname),
         remove_missing = TRUE,
         checkbox_label_sep = ":",
         missing_values = c("Missing Response", "995"),
@@ -183,7 +203,7 @@ hts_prep_data = function(summarize_var = NULL,
         wide_dt = var_dt,
         variables_dt = variables_dt,
         shared_name_vars = summarize_var,
-        ids = id_cols,
+        ids = sum_vars_id_cols,
         remove_missing = TRUE,
         checkbox_label_sep = ":",
         missing_values = c("Missing Response", "995"),
@@ -191,8 +211,8 @@ hts_prep_data = function(summarize_var = NULL,
       ) 
       
     }
-
-
+    
+    
     summarize_var = shared_name
     
     setnames(var_dt, shared_name, 'shared_name')
@@ -248,8 +268,8 @@ hts_prep_data = function(summarize_var = NULL,
   }
   
   if (length(summarize_by) > 0) {
-
-
+    
+    
     for (i in 1:length(summarize_by)){
       
       var = summarize_by[i]
@@ -276,7 +296,7 @@ hts_prep_data = function(summarize_var = NULL,
       }
       
     }
-
+    
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = data,
@@ -295,7 +315,7 @@ hts_prep_data = function(summarize_var = NULL,
                     all.x = FALSE, all.y = FALSE,
                     allow.cartesian = allow_cartesian_setting)
     
-    setcolorder(cat_res, intersect(c(id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
+    setcolorder(cat_res, intersect(c(sum_vars_id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
     
     if (v_class %in% c("integer", "numeric")) {
       num_res = merge(var_dt_num,
@@ -303,7 +323,7 @@ hts_prep_data = function(summarize_var = NULL,
                       all.x = FALSE, all.y = FALSE,
                       allow.cartesian = allow_cartesian_setting)
       
-      setcolorder(num_res, intersect(c(id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
+      setcolorder(num_res, intersect(c(sum_vars_id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
       
     }
     
@@ -313,7 +333,7 @@ hts_prep_data = function(summarize_var = NULL,
     
     
   }
-
+  
   if (!is.null(strataname)) {
     
     if(!is.null(cat_res)){
@@ -322,7 +342,7 @@ hts_prep_data = function(summarize_var = NULL,
                               rhs_var = strataname,
                               hts_data = data,
                               variable_list = variables_dt,
-                              cbind_ids = id_cols,
+                              cbind_ids = sum_vars_id_cols,
                               cbind_wts = wt_cols)
       
     }
@@ -333,15 +353,14 @@ hts_prep_data = function(summarize_var = NULL,
                               rhs_var = strataname,
                               hts_data = data,
                               variable_list = variables_dt,
-                              cbind_ids = id_cols,
+                              cbind_ids = sum_vars_id_cols,
                               cbind_wts = wt_cols)
       
     }
   }
   
   prepped_dt_ls = list("cat" = cat_res,
-                       "num" = num_res,
-                       "var_is_shared" = var_is_shared)
+                       "num" = num_res)
   
   # Append outliers:
   if (v_class %in% c("integer", 'numeric') & remove_outliers) {

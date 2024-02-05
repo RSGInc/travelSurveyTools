@@ -26,6 +26,16 @@ ids_to_keep = sample(hts_data$hh$hh_id, size = 1000)
 
 hts_data = lapply(hts_data, function(dt) dt[hh_id %in% ids_to_keep])
 
+# Create fake home counties and lat/lng for geographic analysis
+hts_data$hh[, home_county := sample(1:3, size = nrow(hts_data$hh), replace = TRUE)]
+
+hts_data$hh[, home_lat := sample(seq(from = 33.00000, to = 40.00000,
+                                     length.out = nrow(hts_data$hh)),
+                                 size = nrow(hts_data$hh), replace = TRUE)]
+
+hts_data$hh[, home_lon := sample(seq(from = -100.00000, to =-80.00000,
+                                     length.out = nrow(hts_data$hh)),
+                                 size = nrow(hts_data$hh), replace = TRUE)]
 
 ## Choose a subset of columns --------------------------------------------------
 keep_cols = c(
@@ -41,6 +51,9 @@ keep_cols = c(
   'income_followup',
   'num_people',
   'residence_type',
+  'home_county',
+  'home_lat',
+  'home_lon',
   
   # Person variables:
   'race_1',
@@ -129,7 +142,13 @@ setDT(value_labels)
 variable_list = variable_list[variable %in% keep_cols]
 value_labels = value_labels[variable %in% keep_cols]
 
+# add fake home_county labels to value_labels and remove real ones
+value_labels = value_labels[variable != 'home_county']
 
+county_labels = data.frame(variable = rep('home_county', 3), value = 1:3,
+                            label = c('Arike County', 'Clark County', 'Moore County'))
+
+value_labels = rbind(value_labels, county_labels, fill = TRUE)
 ## Subset to minimum required columns ------------------------------------------
 variable_list = variable_list[, c(
   'variable',

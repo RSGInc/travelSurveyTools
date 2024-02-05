@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Prepare variable to be summarized</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_prep_byvar.R" class="external-link"><code>R/hts_prep_byvar.R</code></a></small>
       <div class="d-none name"><code>hts_prep_byvar.Rd</code></div>
     </div>
 
@@ -52,6 +59,8 @@
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variables_list</span>,</span>
 <span>  <span class="va">hts_data</span>,</span>
+<span>  byvar_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
+<span>  byvar_wts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_weight"</span>, <span class="st">"person_weight"</span>, <span class="st">"day_weight"</span>, <span class="st">"trip_weight"</span>, <span class="st">"hh_weight"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -70,6 +79,14 @@ format.</p></dd>
 <dt>hts_data</dt>
 <dd><p>List containing household, person, day, trip, and vehicle
 datasets in data.table format.</p></dd>
+
+
+<dt>byvar_ids</dt>
+<dd><p>unique identifiers for each table in hts_data</p></dd>
+
+
+<dt>byvar_wts</dt>
+<dd><p>weight column for each table in hts_data</p></dd>
 
 
 <dt>...</dt>
@@ -95,17 +112,17 @@ columns.</p>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302            17   3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303           400   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304           747   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000738 2300073801           298   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000137 2300013701           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000137 2300013702           827   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000185 2300018501           315   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000185 2300018502           933   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000738 2300073801           489   8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2038: 23418712 2341871203           809   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2039: 23419141 2341914101           136   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2040: 23419141 2341914102           170   5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2041: 23419141 2341914103           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2042: 23419703 2341970301           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2026: 23421077 2342107701           813   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2027: 23422853 2342285301           980   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2028: 23422853 2342285302           679   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2029: 23422853 2342285303           882   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2030: 23422853 2342285304           525   2</span>
 <span class="r-in"><span><span class="fu">hts_prep_byvar</span><span class="op">(</span>summarize_by <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>               variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>               hts_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -113,18 +130,18 @@ columns.</p>
 <span class="r-in"><span>                            <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight                      race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23025240 2302524001           243 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23029096 2302909601           772 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23033218 2303321802           170 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23034871 2303487101           977 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23035194 2303519401           630 African American or Black</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1665: 23411086 2341108601           311      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1666: 23411086 2341108602           827      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1667: 23413086 2341308603           514      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1668: 23413585 2341358501           288      Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1669: 23413585 2341358502           603      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id                      race</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23012105 2301210501 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23034611 2303461101 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23042140 2304214001 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23050669 2305066901 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23058306 2305830601 African American or Black</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1657: 23396628 2339662802      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1658: 23399186 2339918601      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1659: 23412082 2341208201      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1660: 23412082 2341208202      Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1661: 23413086 2341308603      Prefer not to answer</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -133,7 +150,7 @@ columns.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

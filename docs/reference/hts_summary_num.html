@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Summarize a numeric variable</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_summary_num.R" class="external-link"><code>R/hts_summary_num.R</code></a></small>
       <div class="d-none name"><code>hts_summary_num.Rd</code></div>
     </div>
 
@@ -122,11 +129,11 @@ max, mean, se, and median.</p>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    count min      max     mean   median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 15035   0 109.2184 12.89507 9.728796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 16283   0 123.3683 12.71216 9.213738</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    count min      max     mean   median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 15035   0 109.2184 12.84671 9.760141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 16283   0 123.3683 12.77496 9.335348</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trip_weight"</span>
@@ -145,32 +152,32 @@ max, mean, se, and median.</p>
 <span class="r-in"><span>                summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        min       max     mean    median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   311 0.35959216 101.19362 14.55031 10.280068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   844 0.00000000  82.89088 12.26536 10.190479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    89 0.00000000  98.43097 12.02007  9.323293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   984 0.00000000 109.21842 11.97881  7.763898</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  3704 0.00000000 108.02176 12.21873  8.234977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3685 0.00000000 101.19362 12.50943  9.558940</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1940 0.01815516 106.72662 13.84846 10.808561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1644 0.02554711 104.77523 14.14443 11.208044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1379 0.00000000 105.10755 13.40606 11.036031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   433 0.07317172  76.07189 13.43742 11.760465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    22 0.15677999  88.79454 16.50646 11.099190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count         min       max      mean    median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   431 0.114271649 119.93525 12.881785 10.088685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   855 0.000000000  99.06068 12.598717  9.111278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    71 0.339308169  98.43097 13.007454  8.185791</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4  1042 0.000000000 121.10244 13.917912 10.286320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  4814 0.000000000 119.93525 11.756395  7.844880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3556 0.008117147 123.36831 12.788130  9.499362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1811 0.000000000 106.72662 13.441124 10.112949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1923 0.015928992 120.84837 13.803242 10.340619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1241 0.000000000 118.12607 12.298467  9.393039</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   511 0.024460902 122.43479 13.380015 12.028255</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    28 0.000000000  33.39149  6.683246  1.347399</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        min       max     mean    median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   311 0.35959216 101.19362 14.06340  9.556707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   844 0.00000000  82.89088 12.69728 10.496980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    89 0.00000000  98.43097 13.16383 12.224664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   984 0.00000000 109.21842 11.79167  7.763898</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  3704 0.00000000 108.02176 12.04057  8.095823</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3685 0.00000000 101.19362 12.47361  9.474190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1940 0.01815516 106.72662 13.84666 10.899718</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1644 0.02554711 104.77523 14.20364 11.197504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1379 0.00000000 105.10755 13.34549 11.127732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   433 0.07317172  76.07189 13.44185 12.035237</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    22 0.15677999  88.79454 14.11659 11.099190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count         min       max      mean     median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   431 0.114271649 119.93525 13.472854 10.5119474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   855 0.000000000  99.06068 13.063057  9.1689195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    71 0.339308169  98.43097 14.671470  8.1857913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4  1042 0.000000000 121.10244 13.992131 10.3692066</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  4814 0.000000000 119.93525 11.800110  7.9223551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3556 0.008117147 123.36831 12.863970  9.6812125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1811 0.000000000 106.72662 13.225017 10.1207500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1923 0.015928992 120.84837 13.844358 10.3730573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1241 0.000000000 118.12607 12.211063  9.4153208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   511 0.024460902 122.43479 13.446605 11.9591687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    28 0.000000000  33.39149  7.170318  0.9284994</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trip_weight"</span>
@@ -182,7 +189,7 @@ max, mean, se, and median.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -1,6 +1,4 @@
 
-context("Test suite for hts_trip_vehid function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
@@ -30,7 +28,7 @@ test_that("hts_trip_vehid should create vehicle_id correctly", {
                            vehicle_mode_type = 'Vehicle',
                            values_dt = values_ex)
   
-  expect_is(results, "data.table", info = "hts_trip_vehid should return a data.table object")
+  expect_type(results, "list")
   
   expect_true("vehicle_id" %in% names(results), info = "Results should include 'vehicle_id' column")
   

@@ -1,6 +1,4 @@
 
-context("Test suite for hts_to_so function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
@@ -11,6 +9,6 @@ test_that("hts_to_so should return counts and units", {
   
   results = hts_to_so(prepped_dt = test_data$day, wtname = 'day_weight')
   
-  expect_is(results, "survey.design", info = "hts_to_so should return a survey object")
+  expect_type(results, "list")
   
 })

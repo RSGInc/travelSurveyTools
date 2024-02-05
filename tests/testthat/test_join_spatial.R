@@ -1,5 +1,5 @@
 
-context("join_spatial")
+# Load necessary libraries and setup environment
 library(travelSurveyTools)
 library(sf)
 
@@ -25,8 +25,8 @@ test_result =
 
 setkey(test_result, 'id')
 
-testthat::test_that("Returns spatial id columns properly",{
-  testthat::expect_equal(
+test_that("Returns spatial id columns properly",{
+  expect_equal(
     join_spatial(
       test_dt,
       test_geog,

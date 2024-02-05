@@ -1,4 +1,57 @@
+title: travelSurveyTools
 url: https://rsginc.github.io/travelSurveyTools/
+
 template:
   bootstrap: 5
+  bootswatch: spacelab
+
+development:
+  mode: auto
+  
+reference:
+- title: Summarizing data sets
+
+- subtitle: Test datasets
+  contents:
+  - hh
+  - person
+  - day
+  - trip
+  - vehicle
+  - test_data
+  - value_labels
+  - variable_list
+  
+- subtitle: Prepping data frames
+  contents:
+  - hts_prep_data
+  - hts_prep_triprate
+  - hts_prep_byvar
+  
+- subtitle: Summarizing variables
+  contents:
+  - hts_summary
+  - hts_summary_cat
+  - hts_summary_num
+  - hts_to_so
+
+- subtitle: Helper functions
+  contents:
+  - factorize_column
+  - factorize_df
+  - hts_bin_var
+  - hts_cbind_var
+  - hts_filter_data
+  - hts_find_var
+  - hts_get_ns
+  - hts_melt_vars
+  - hts_remove_missing_data
+  - hts_remove_outliers
+  - hts_trip_vehid
+  - join_spatial
+  - get_distance_meters
+
+navbar:
+  type: inverse
+
 

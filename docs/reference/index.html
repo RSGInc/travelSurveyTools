@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -41,8 +48,14 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="summarizing-data-sets">Summarizing data sets<a class="anchor" aria-label="anchor" href="#summarizing-data-sets"></a></h2>
       
+      
+
+      
+    </div><div class="section level2">
+      
+      <h3 id="test-datasets">Test datasets<a class="anchor" aria-label="anchor" href="#test-datasets"></a></h3>
       
 
       
@@ -53,10 +66,113 @@
 
       <dl><dt>
           
+          <code><a href="hh.html">hh</a></code> 
+        </dt>
+        <dd>Test household dataset</dd>
+      </dl><dl><dt>
+          
+          <code><a href="person.html">person</a></code> 
+        </dt>
+        <dd>Test person dataset</dd>
+      </dl><dl><dt>
+          
           <code><a href="day.html">day</a></code> 
         </dt>
         <dd>Test day dataset</dd>
       </dl><dl><dt>
+          
+          <code><a href="trip.html">trip</a></code> 
+        </dt>
+        <dd>Test trip dataset</dd>
+      </dl><dl><dt>
+          
+          <code><a href="vehicle.html">vehicle</a></code> 
+        </dt>
+        <dd>Test vehicle dataset</dd>
+      </dl><dl><dt>
+          
+          <code><a href="test_data.html">test_data</a></code> 
+        </dt>
+        <dd>Test household travel survey dataset</dd>
+      </dl><dl><dt>
+          
+          <code><a href="value_labels.html">value_labels</a></code> 
+        </dt>
+        <dd>List of values and their labels</dd>
+      </dl><dl><dt>
+          
+          <code><a href="variable_list.html">variable_list</a></code> 
+        </dt>
+        <dd>List of variables</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="prepping-data-frames">Prepping data frames<a class="anchor" aria-label="anchor" href="#prepping-data-frames"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="hts_prep_data.html">hts_prep_data()</a></code> 
+        </dt>
+        <dd>Prepare datasets to make summaries</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hts_prep_triprate.html">hts_prep_triprate()</a></code> 
+        </dt>
+        <dd>Prepare datasets for trip rate calculations</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hts_prep_byvar.html">hts_prep_byvar()</a></code> 
+        </dt>
+        <dd>Prepare variable to be summarized</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="summarizing-variables">Summarizing variables<a class="anchor" aria-label="anchor" href="#summarizing-variables"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="hts_summary.html">hts_summary()</a></code> 
+        </dt>
+        <dd>Make household travel survey summaries</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hts_summary_cat.html">hts_summary_cat()</a></code> 
+        </dt>
+        <dd>Summarize a categorical variable</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hts_summary_num.html">hts_summary_num()</a></code> 
+        </dt>
+        <dd>Summarize a numeric variable</dd>
+      </dl><dl><dt>
+          
+          <code><a href="hts_to_so.html">hts_to_so()</a></code> 
+        </dt>
+        <dd>Transform travel survey data.table to a survey object</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="factorize_column.html">factorize_column()</a></code> 
         </dt>
@@ -66,16 +182,6 @@
           <code><a href="factorize_df.html">factorize_df()</a></code> 
         </dt>
         <dd>Factorize a dataframe</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_distance_meters.html">get_distance_meters()</a></code> 
-        </dt>
-        <dd>Get distance between points</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hh.html">hh</a></code> 
-        </dt>
-        <dd>Test household dataset</dd>
       </dl><dl><dt>
           
           <code><a href="hts_bin_var.html">hts_bin_var()</a></code> 
@@ -98,11 +204,6 @@
         <dd>Find table location of a variable</dd>
       </dl><dl><dt>
           
-          <code><a href="hts_get_keycols.html">hts_get_keycols()</a></code> 
-        </dt>
-        <dd>Find key columns in table</dd>
-      </dl><dl><dt>
-          
           <code><a href="hts_get_ns.html">hts_get_ns()</a></code> 
         </dt>
         <dd>Get counts from dataset</dd>
@@ -111,21 +212,6 @@
           <code><a href="hts_melt_vars.html">hts_melt_vars()</a></code> 
         </dt>
         <dd>Melts checkbox variables into a single variable</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_prep_byvar.html">hts_prep_byvar()</a></code> 
-        </dt>
-        <dd>Prepare variable to be summarized</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_prep_data.html">hts_prep_data()</a></code> 
-        </dt>
-        <dd>Prepare datasets to make summaries</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_prep_triprate.html">hts_prep_triprate()</a></code> 
-        </dt>
-        <dd>Prepare datasets for trip rate calculations</dd>
       </dl><dl><dt>
           
           <code><a href="hts_remove_missing_data.html">hts_remove_missing_data()</a></code> 
@@ -138,26 +224,6 @@
         <dd>Remove outliers from a numeric variable</dd>
       </dl><dl><dt>
           
-          <code><a href="hts_summary.html">hts_summary()</a></code> 
-        </dt>
-        <dd>Make household travel survey summaries</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_summary_cat.html">hts_summary_cat()</a></code> 
-        </dt>
-        <dd>Summarize a categorical variable</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_summary_num.html">hts_summary_num()</a></code> 
-        </dt>
-        <dd>Summarize a numeric variable</dd>
-      </dl><dl><dt>
-          
-          <code><a href="hts_to_so.html">hts_to_so()</a></code> 
-        </dt>
-        <dd>Transform travel survey data.table to a survey object</dd>
-      </dl><dl><dt>
-          
           <code><a href="hts_trip_vehid.html">hts_trip_vehid()</a></code> 
         </dt>
         <dd>Add vehicle_id to trip table</dd>
@@ -168,40 +234,16 @@
         <dd>Join spatial data to points</dd>
       </dl><dl><dt>
           
-          <code><a href="person.html">person</a></code> 
+          <code><a href="get_distance_meters.html">get_distance_meters()</a></code> 
         </dt>
-        <dd>Test person dataset</dd>
-      </dl><dl><dt>
-          
-          <code><a href="test_data.html">test_data</a></code> 
-        </dt>
-        <dd>Test household travel survey dataset</dd>
-      </dl><dl><dt>
-          
-          <code><a href="trip.html">trip</a></code> 
-        </dt>
-        <dd>Test trip dataset</dd>
-      </dl><dl><dt>
-          
-          <code><a href="value_labels.html">value_labels</a></code> 
-        </dt>
-        <dd>List of values and their labels</dd>
-      </dl><dl><dt>
-          
-          <code><a href="variable_list.html">variable_list</a></code> 
-        </dt>
-        <dd>List of variables</dd>
-      </dl><dl><dt>
-          
-          <code><a href="vehicle.html">vehicle</a></code> 
-        </dt>
-        <dd>Test vehicle dataset</dd>
+        <dd>Get distance between points</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

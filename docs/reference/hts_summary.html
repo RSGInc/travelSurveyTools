@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Make household travel survey summaries</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_summary.R" class="external-link"><code>R/hts_summary.R</code></a></small>
       <div class="d-none name"><code>hts_summary.Rd</code></div>
     </div>
 
@@ -53,12 +60,13 @@
 <span>  <span class="va">summarize_var</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  summarize_vartype <span class="op">=</span> <span class="st">"categorical"</span>,</span>
+<span>  id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  wtname <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strataname <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  checkbox_valname <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  checkbox_yesval <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  checkbox_valname <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>  checkbox_yesval <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -86,6 +94,10 @@ summarized is derived from a multiple response, aka select-all-that-apply questi
 or 'numeric', when the variable being summarized is numeric.</p></dd>
 
 
+<dt>id_cols</dt>
+<dd><p>names of possible ids in prepped_dt to return unique counts of</p></dd>
+
+
 <dt>weighted</dt>
 <dd><p>Whether the data is weighted. Default is TRUE.</p></dd>
 
@@ -105,13 +117,13 @@ when weighted = TRUE.</p></dd>
 
 
 <dt>checkbox_valname</dt>
-<dd><p>Name of the column with the checkbox value. Default is NULL.
+<dd><p>Name of the column with the checkbox value. Default is 'value'.
 Must be provided if summarize_var is a checkbox variable.</p></dd>
 
 
 <dt>checkbox_yesval</dt>
 <dd><p>Value of checkbox_valname that indicates it was selected.
-Default is NULL. Must be provided if summarize_var is a checkbox variable.</p></dd>
+Default is 1. Must be provided if summarize_var is a checkbox variable.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -136,7 +148,25 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: dplyr</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'dplyr'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:data.table':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     between, first, last</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:stats':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:base':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: srvyr</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'srvyr'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:stats':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
 <span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
@@ -166,7 +196,21 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'numeric'</span>,</span></span>
 <span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
-<span class="r-in"><span>            </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
+<span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'age'</span>, </span></span>
+<span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
+<span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>                               <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
+<span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
+<span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
+<span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person race broken down by person age</span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
+<span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
+<span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
+<span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'checkbox'</span>,</span></span>
+<span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span>             </span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -174,7 +218,7 @@ and output$n_ls$unwtd.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

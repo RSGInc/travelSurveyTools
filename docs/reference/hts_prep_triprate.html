@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Prepare datasets for trip rate calculations</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_prep_triprate.R" class="external-link"><code>R/hts_prep_triprate.R</code></a></small>
       <div class="d-none name"><code>hts_prep_triprate.Rd</code></div>
     </div>
 
@@ -53,6 +60,8 @@
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  trip_name <span class="op">=</span> <span class="st">"trip"</span>,</span>
 <span>  day_name <span class="op">=</span> <span class="st">"day"</span>,</span>
+<span>  ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
+<span>  wts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_weight"</span>, <span class="st">"person_weight"</span>, <span class="st">"day_weight"</span>, <span class="st">"trip_weight"</span>, <span class="st">"hh_weight"</span><span class="op">)</span>,</span>
 <span>  remove_outliers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">0.975</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -78,6 +87,14 @@ format.</p></dd>
 
 <dt>day_name</dt>
 <dd><p>Name of the day dataset in hts_data.</p></dd>
+
+
+<dt>ids</dt>
+<dd><p>name of unique identifier in each table in hts_data</p></dd>
+
+
+<dt>wts</dt>
+<dd><p>name of weight column in each table in hts_data</p></dd>
 
 
 <dt>remove_outliers</dt>
@@ -122,35 +139,35 @@ breakdown of outliers if removed.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight num_trips_wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        775     Exactly 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        244          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103         77    36 or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104         91           0-7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730106         55    36 or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000137 2300013701 230001370101        861          7-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000137 2300013701 230001370102        489           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000137 2300013701 230001370103        119         28-35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000137 2300013701 230001370104         47    36 or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000137 2300013701 230001370105        740           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213: 23418712 2341871203 234187120301        119          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214: 23419141 2341914101 234191410101        626          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215: 23419141 2341914102 234191410201        595           0-7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216: 23419141 2341914103 234191410301         49    36 or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217: 23419703 2341970301 234197030101         69          7-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302: 23421077 2342107701 234210770101        574     Exactly 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303: 23422853 2342285301 234228530101        262           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304: 23422853 2342285302 234228530201        737     Exactly 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305: 23422853 2342285303 234228530301        367           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306: 23422853 2342285304 234228530401        169           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight num_trips_wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        775      0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        244      8.635246</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103         77     39.935065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104         91      4.681319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730106         55     51.763636</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000137 2300013701 230001370101        861      7.634146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000137 2300013701 230001370102        489      1.560327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000137 2300013701 230001370103        119     33.008403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000137 2300013701 230001370104         47     61.638298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000137 2300013701 230001370105        740      6.168919</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213: 23418712 2341871203 234187120301        119     11.235294</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214: 23419141 2341914101 234191410101        626      8.731629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215: 23419141 2341914102 234191410201        595      5.848739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216: 23419141 2341914103 234191410301         49     58.387755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217: 23419703 2341970301 234197030101         69     11.898551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302: 23421077 2342107701 234210770101        574      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303: 23422853 2342285301 234228530101        262      3.652672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304: 23422853 2342285302 234228530201        737      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305: 23422853 2342285303 234228530301        367      4.217984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306: 23422853 2342285304 234228530401        169      4.011834</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         109     59.2663       469.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         111    65.57778      802.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">hts_prep_triprate</span><span class="op">(</span>summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
@@ -163,59 +180,59 @@ breakdown of outliers if removed.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        775           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        244           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103         77           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104         91           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730106         55           139   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000137 2300013701 230001370101        861           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000137 2300013701 230001370102        489           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000137 2300013701 230001370103        119           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000137 2300013701 230001370104         47           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000137 2300013701 230001370105        740           320   5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213: 23418712 2341871203 234187120301        119           809   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214: 23419141 2341914101 234191410101        626           136   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215: 23419141 2341914102 234191410201        595           170   5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216: 23419141 2341914103 234191410301         49           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217: 23419703 2341970301 234197030101         69           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302: 23421077 2342107701 234210770101        574           813   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303: 23422853 2342285301 234228530101        262           980   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304: 23422853 2342285302 234228530201        737           679   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305: 23422853 2342285303 234228530301        367           882   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306: 23422853 2342285304 234228530401        169           525   2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     Exactly 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:    36 or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:           0-7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:    36 or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:          7-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:         28-35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:    36 or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213:          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214:          7-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215:           0-7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216:    36 or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217:          7-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302:     Exactly 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304:     Exactly 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306:           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        775           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        244           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103         77           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104         91           139   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730106         55           139   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000137 2300013701 230001370101        861           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000137 2300013701 230001370102        489           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000137 2300013701 230001370103        119           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000137 2300013701 230001370104         47           320   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000137 2300013701 230001370105        740           320   5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213: 23418712 2341871203 234187120301        119           809   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214: 23419141 2341914101 234191410101        626           136   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215: 23419141 2341914102 234191410201        595           170   5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216: 23419141 2341914103 234191410301         49           490   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217: 23419703 2341970301 234197030101         69           645   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302: 23421077 2342107701 234210770101        574           813   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303: 23422853 2342285301 234228530101        262           980   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304: 23422853 2342285302 234228530201        737           679   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305: 23422853 2342285303 234228530301        367           882   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306: 23422853 2342285304 234228530401        169           525   2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:      0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:      8.635246</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     39.935065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:      4.681319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     51.763636</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:      7.634146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:      1.560327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     33.008403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     61.638298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:      6.168919</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4213:     11.235294</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4214:      8.731629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4215:      5.848739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4216:     58.387755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4217:     11.898551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4302:      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4303:      3.652672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4304:      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4305:      4.217984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4306:      4.011834</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         109     59.2663       469.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         111    65.57778      802.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -224,7 +241,7 @@ breakdown of outliers if removed.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

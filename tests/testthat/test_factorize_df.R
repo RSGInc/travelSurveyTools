@@ -1,4 +1,4 @@
-context("factorize_df")
+
 library(travelSurveyTools)
 library(data.table)
 
@@ -13,15 +13,15 @@ vals_df =   data.table(
   stringsAsFactors = FALSE)
 
 
-#todo: make this quiet - capture.output?
-
 test_that("Returns the same structure as the input",{
-  expect_equal(class(factorize_df(dt, vals_df, add_na = TRUE)), class(dt))
-  expect_equal(ncol(factorize_df(dt, vals_df, add_na = TRUE)), ncol(dt))
-  expect_equal(nrow(factorize_df(dt, vals_df, add_na = TRUE)), nrow(dt))
-})
+
+    suppressMessages(expect_equal(class(factorize_df(dt, vals_df, add_na = TRUE)), class(dt)))
+    suppressMessages(expect_equal(ncol(factorize_df(dt, vals_df, add_na = TRUE)), ncol(dt)))
+    suppressMessages(expect_equal(nrow(factorize_df(dt, vals_df, add_na = TRUE)), nrow(dt)))
+
+  })
 
 test_that("Works when add_na is false",{
-  expect_equal(class(factorize_df(dt, vals_df, add_na = F)),class(dt))
+  suppressMessages(expect_equal(class(factorize_df(dt, vals_df, add_na = F)),class(dt)))
 })
 

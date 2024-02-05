@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Remove outliers from a numeric variable</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_remove_outliers.R" class="external-link"><code>R/hts_remove_outliers.R</code></a></small>
       <div class="d-none name"><code>hts_remove_outliers.Rd</code></div>
     </div>
 
@@ -80,33 +87,33 @@ in data.table format.</p></dd>
 <span class="r-in"><span><span class="fu">hts_remove_outliers</span><span class="op">(</span>var_dt <span class="op">=</span> <span class="va">trip</span>, numvar <span class="op">=</span> <span class="st">'speed_mph'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outlier_description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         386    110.2297    228233.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         418    123.5646    466317.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id travel_date      trip_id speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 21.480572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 23.720178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.927242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.146634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103  2023-04-21 2.300017e+12 34.657421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  4.764584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  7.425306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  5.372348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  3.232303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  3.106531</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031: 23419141 2341914103 234191410301  2023-05-31 2.341914e+12  8.904454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032: 23419141 2341914103 234191410301  2023-05-31 2.341914e+12 43.284089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033: 23419141 2341914103 234191410301  2023-05-31 2.341914e+12 25.518845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034: 23419703 2341970301 234197030101  2023-05-31 2.341970e+12 13.131100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035: 23419703 2341970301 234197030101  2023-05-31 2.341970e+12 16.413875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16279: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  8.094207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16280: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  7.888320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16281: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  6.378893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16282: 23422853 2342285304 234228530401  2023-06-05 2.342285e+12  8.094207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16283: 23422853 2342285304 234228530401  2023-06-05 2.342285e+12  7.888320</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        mode_type d_purpose_category trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         8                  9         356</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:         8                  1         679</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         1                  9         758</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         1                  1         314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         8                  3         883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         1                 11         890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:        13                 11         663</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         1                 10         892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         1                  1         146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         1                 11         630</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15031:         8                  1         950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15032:         8                  6         123</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15033:         8                  1         720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15034:         8                 13         523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15035:         8                  1         298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16279:         8                  6         935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16280:        10                  4         234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16281:        10                  1         379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16282:         8                  4         210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16283:        10                  4         468</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -116,7 +123,7 @@ in data.table format.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">

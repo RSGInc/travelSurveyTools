@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-inverse navbar-expand-lg bg-light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,20 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/RSGInc/travelSurveyTools/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -38,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Filter datasets to only keep specified ids</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/RSGInc/travelSurveyTools/blob/HEAD/R/hts_filter_data.R" class="external-link"><code>R/hts_filter_data.R</code></a></small>
       <div class="d-none name"><code>hts_filter_data.Rd</code></div>
     </div>
 
@@ -84,421 +91,480 @@
 <span class="r-in"><span>                id_name <span class="op">=</span> <span class="st">'hh_id'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hh</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id sample_segment num_trips num_people income_detailed income_followup</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 23016029              8        20          7               5             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 23121381             14       101          6               9             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 23122159             21         5          6               2             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 23150818             16         3          6               1             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 23233061             21        10          6               8             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 23233651             21        20          8               6             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7: 23240801             21         2          6               6             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8: 23411644             14        24          6               9             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9: 23416563             14        16          6               7             995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    residence_type hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:              2       974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:              1       826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:              1       938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:              1       602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:              1        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:              1       345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7:              1       783</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8:              1       154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9:              2       928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 23077623              2        25          7               9             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 23214339              3        20         13               6             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 23225402             21         6          9               6             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 23230310             10        13          6               6             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 23238765             21         3          6               5             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 23242420             21        37          6               7             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7: 23275913              4        12          6               7             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8: 23293124              4        21          6              10             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9: 23411644             14        24          6               9             995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     home_lon home_lat home_county residence_type hh_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: -82.74274 35.80280           2              2       737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: -95.55556 37.30230           2              4       337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: -97.03704 39.67768           2              5       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4: -91.41141 33.21722           3              1        55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: -92.23223 37.64565           2              1       807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: -83.38338 38.75976           1              1       376</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7: -98.15816 39.72673           1              1       351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8: -91.71171 39.95796           3              1       163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9: -83.12312 38.17117           2              1       747</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $person</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ethnicity_1 ethnicity_2 ethnicity_3 ethnicity_4 ethnicity_997 ethnicity_999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:           0           1           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:           0           0           1           0             0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:           1           0           0           0             0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  8:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:           0           1           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:           0           0           0           0             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:           0           0           1           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:           0           1           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:           0           0           1           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:           0           0           1           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:           0           0           0           1             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:           0           0           1           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:           0           0           0           0             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:           0           0           1           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:           0           0           0           0             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:           1           0           0           0             0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:         995         995         995         995           995           995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:           1           0           0           0             0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 39:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:           0           0           0           0             0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:         995         995         995         995           995           995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 41:         995         995         995         995           995           995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 42:           0           0           0           0             0             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:           0           0           0           0             0             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44:         995         995         995         995           995           995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45:         995         995         995         995           995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:           1           0           0           0             0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:           1           0           0           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:         995         995         995         995           995           995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ethnicity_1 ethnicity_2 ethnicity_3 ethnicity_4 ethnicity_997 ethnicity_999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     race_1 race_2 race_3 race_4 race_5 race_997 race_999    hh_id num_trips</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:      0      0      0      0      1        0        0 23016029         5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:      0      0      0      0      1        0        0 23016029         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:    995    995    995    995    995      995      995 23016029         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:    995    995    995    995    995      995      995 23016029         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:    995    995    995    995    995      995      995 23016029         5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:      0      0      0      0      1        0        0 23016029         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:    995    995    995    995    995      995      995 23016029         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:      0      0      0      0      1        0        0 23121381        45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:      0      0      0      0      1        0        0 23121381        15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    995    995    995    995    995      995      995 23121381         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    995    995    995    995    995      995      995 23121381        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:    995    995    995    995    995      995      995 23121381        12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:    995    995    995    995    995      995      995 23121381        16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:      0      0      0      0      1        0        0 23122159         5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:    995    995    995    995    995      995      995 23122159         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:    995    995    995    995    995      995      995 23122159         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:    995    995    995    995    995      995      995 23122159         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:    995    995    995    995    995      995      995 23122159         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:    995    995    995    995    995      995      995 23122159         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:      1      0      0      0      0        0        0 23150818         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:    995    995    995    995    995      995      995 23150818         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:    995    995    995    995    995      995      995 23150818         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:    995    995    995    995    995      995      995 23150818         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:    995    995    995    995    995      995      995 23150818         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:    995    995    995    995    995      995      995 23150818         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:      0      0      0      0      1        0        0 23233061         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:      0      0      0      0      1        0        0 23233061         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:      0      0      1      0      0        0        0 23233061         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:    995    995    995    995    995      995      995 23233061         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:    995    995    995    995    995      995      995 23233061         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:    995    995    995    995    995      995      995 23233061         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:      0      0      0      0      1        0        0 23233651         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:      0      1      0      0      0        0        0 23233651         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:      0      0      0      0      1        0        0 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:      0      0      0      0      1        0        0 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:    995    995    995    995    995      995      995 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:    995    995    995    995    995      995      995 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:    995    995    995    995    995      995      995 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:    995    995    995    995    995      995      995 23233651         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:      0      0      0      0      1        0        0 23240801         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:    995    995    995    995    995      995      995 23240801         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:      0      0      0      0      1        0        0 23240801         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:    995    995    995    995    995      995      995 23240801         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:    995    995    995    995    995      995      995 23240801         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:    995    995    995    995    995      995      995 23240801         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:      0      0      0      0      1        0        0 23411644         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:      0      0      0      0      1        0        0 23411644         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:      0      0      0      0      1        0        0 23077623         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:    995    995    995    995    995      995      995 23077623         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:      0      0      0      0      1        0        0 23077623         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:      0      0      0      1      0        0        0 23077623         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:      0      0      0      1      0        0        0 23077623         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:      0      0      0      0      1        0        0 23077623         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:      0      0      1      0      0        0        0 23077623         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:      0      0      0      0      0        0        1 23214339         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:      0      0      0      0      0        0        1 23214339         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:      0      0      0      0      0        1        0 23214339         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:      1      0      0      0      0        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:      0      0      0      0      0        0        1 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:      0      0      0      0      1        0        0 23214339         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:      0      0      0      0      1        0        0 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:      0      0      0      0      1        0        0 23225402         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:      0      0      0      0      1        0        0 23225402         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:      0      0      0      0      1        0        0 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:      0      0      0      0      1        0        0 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:      0      0      0      0      1        0        0 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:    995    995    995    995    995      995      995 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:    995    995    995    995    995      995      995 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:    995    995    995    995    995      995      995 23225402         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:      0      0      0      0      1        0        0 23230310         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:      0      0      0      0      1        0        0 23230310         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:    995    995    995    995    995      995      995 23230310         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:    995    995    995    995    995      995      995 23230310         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:    995    995    995    995    995      995      995 23230310         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:    995    995    995    995    995      995      995 23230310         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:      0      0      0      0      1        0        0 23238765         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:      0      0      0      0      1        0        0 23238765         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:      0      0      0      0      1        0        0 23238765         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:    995    995    995    995    995      995      995 23238765         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:    995    995    995    995    995      995      995 23238765         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:    995    995    995    995    995      995      995 23238765         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:      0      0      0      0      0        0        1 23242420         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:      0      0      0      0      0        0        1 23242420         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:    995    995    995    995    995      995      995 23242420         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:    995    995    995    995    995      995      995 23242420         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:    995    995    995    995    995      995      995 23242420         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:    995    995    995    995    995      995      995 23242420         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:      0      0      1      0      0        0        0 23275913         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:      0      0      1      0      0        0        0 23275913         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:    995    995    995    995    995      995      995 23275913         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:    995    995    995    995    995      995      995 23275913         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:    995    995    995    995    995      995      995 23275913         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:      0      0      1      0      0        0        0 23275913         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:      0      0      0      0      1        0        0 23293124         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:      0      0      0      0      1        0        0 23293124         5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:    995    995    995    995    995      995      995 23293124         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:    995    995    995    995    995      995      995 23293124         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:    995    995    995    995    995      995      995 23293124         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:    995    995    995    995    995      995      995 23293124         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:      0      0      0      0      1        0        0 23411644         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:      0      0      0      0      1        0        0 23411644         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:    995    995    995    995    995      995      995 23411644         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:    995    995    995    995    995      995      995 23411644         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:    995    995    995    995    995      995      995 23411644         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:    995    995    995    995    995      995      995 23411644         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     race_1 race_2 race_3 race_4 race_5 race_997 race_999    hh_id num_trips</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      person_id age gender employment education person_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 2301602901   5      1          5         2           411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 2301602902   6      2          1         2           578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 2301602903   2      1        995       995            17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 2301602904   2      1        995       995           490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 2301602905   1      1        995       995           342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 2301602906   7      1          1         2           754</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 2301602907   2      1        995       995           249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 2312138101   6      1          5         6           186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 2312138102   6      2          1         7           296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: 2312138103   3      1          2       995           369</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11: 2312138104   2      2        995       995           499</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: 2312138105   2      1        995       995           226</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13: 2312138106   2      2        995       995           823</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: 2312215901   5      1          1         3           859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: 2312215902   2    995        995       995           280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: 2312215903   2    995        995       995           685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: 2312215904   2    995        995       995           592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18: 2312215905   5    995          1       995           240</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19: 2312215906   5    995          1       995           710</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20: 2315081801   4      2          8         7           231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21: 2315081802   4    995          5       995           331</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22: 2315081803   4    995          5       995           214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23: 2315081804   4    995          2       995           105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24: 2315081805   4    995          2       995           317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25: 2315081806   4    995          5       995           825</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26: 2323306101  10      1          5         6           114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27: 2323306102   7      2          1         4           297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28: 2323306103   6      1          1         2           861</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29: 2323306104   2      1        995       995           161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30: 2323306105   2      2        995       995           817</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31: 2323306106  10    995          5       995           193</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32: 2323365101   7      1          1         3           207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33: 2323365102   8      2          1         2           178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34: 2323365103   5      2          6         2           211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35: 2323365104   5      1          6         2           590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36: 2323365105   2      2        995       995           626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37: 2323365106   2      1        995       995           433</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38: 2323365107   2      1        995       995           447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39: 2323365108   1      1        995       995           404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40: 2324080101   8      2          1         6           801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41: 2324080102   2    999        995       995           894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42: 2324080103   7      1          5         3           330</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43: 2324080104   2    999        995       995           983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44: 2324080105   2    999        995       995           327</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45: 2324080106   2    999        995       995            66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46: 2341164401   6      1          1         5           950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47: 2341164402   6      2          1         6           785</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [ reached getOption("max.print") -- omitted 11 rows ]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 2307762301   7      2          1         7           697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 2307762302   2      2        995       995           752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 2307762303   7      1          1         7           793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 2307762304   9      1          5         6           801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 2307762305   4      1          6         3           840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 2307762306  10      2          5         7           527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 2307762307  11      1          5         7            94</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 2321433901   5      2          1         7            98</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 2321433902   5      1          1         5           129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: 2321433903   5      1          1         7           681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: 2321433904   9      2          5         3           665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: 2321433905   8      1          5         2           362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: 2321433906   5    999          2         1           405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: 2321433907   4    999          7         5           860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: 2321433908   4    999          7         7           631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: 2321433909   5    999          2         5           535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: 2321433910   5    999          2         6            85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: 2321433911   6    999          1         5           602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: 2321433912   6    999          2         4           664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20: 2321433913   6    999          2         6           903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21: 2322540201   7      2          5         3           617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22: 2322540202   5      1          5         3           419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23: 2322540203   7      1          1         6           671</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24: 2322540204   5      2          5         6           212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25: 2322540205   4      2          5         2           492</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26: 2322540206  10      1          5         3           578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27: 2322540207   1    999        995       995           918</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28: 2322540208   5    995          1       995           801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29: 2322540209   1    995        995       995           903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30: 2323031001   6      1          1         6           802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31: 2323031002   5      2          1         2           824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32: 2323031003   2      2        995       995           561</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33: 2323031004   2      1        995       995           261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34: 2323031005   2      2        995       995           617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35: 2323031006   2      1        995       995           100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36: 2323876501   7      1          1         6           669</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37: 2323876502   8      2          5         3           505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38: 2323876503   4      2          6         3           104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39: 2323876504   2      1        995       995           813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40: 2323876505   2      1        995       995           279</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41: 2323876506   2      1        995       995           410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42: 2324242001   6    999          5         2           401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43: 2324242002   6    999          1         2           999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44: 2324242003   3    999          5       995           602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45: 2324242004   2    999        995       995           236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46: 2324242005   2    999        995       995           426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47: 2324242006   1    999        995       995           346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48: 2327591301   7      2          1         7           498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49: 2327591302   9      1          5         2           389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50: 2327591303   2      2        995       995           100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51: 2327591304   2      2        995       995           320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52: 2327591305   1      1        995       995           672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53: 2327591306   6      1          1         2           526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54: 2329312401   6      2          1         7           122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55: 2329312402   6      1          5         7           647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56: 2329312403   2      1        995       995            66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57: 2329312404   2      2        995       995           698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58: 2329312405   1      1        995       995           470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59: 2329312406   1      2        995       995           641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60: 2341164401   6      1          1         5           657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61: 2341164402   6      2          1         6           689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62: 2341164403   2      1        995       995           191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63: 2341164404   2      1        995       995           707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64: 2341164405   2      2        995       995           226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65: 2341164406   2      1        995       995           556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      person_id age gender employment education person_weight</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $day</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     delivery_2 delivery_3 delivery_4 delivery_5 delivery_6 delivery_7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          0          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          0          0          1          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          0          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          0          0          0          1          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          0          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          0          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21:          0          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          1          0          0          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          0          0          0          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 37:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          0          1          0          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 41:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 42:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 43:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:          0          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:          0          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:          0          1          1          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 53:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 54:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 55:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 56:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:          0          0          0          1          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 59:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 60:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 61:        995        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 62:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:        995        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     delivery_2 delivery_3 delivery_4 delivery_5 delivery_6 delivery_7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     delivery_8 delivery_996    hh_id num_trips  person_id       day_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          0            1 23016029         5 2301602901 230160290101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:        995          995 23016029         0 2301602902 230160290201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:        995          995 23016029         2 2301602903 230160290301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:        995          995 23016029         2 2301602904 230160290401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:        995          995 23016029         5 2301602905 230160290501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:        995          995 23016029         2 2301602906 230160290601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:        995          995 23016029         4 2301602907 230160290701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          0            1 23121381        11 2312138101 231213810101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          0            1 23121381         0 2312138102 231213810201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:        995          995 23121381        NA 2312138103 231213810301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:        995          995 23121381         3 2312138104 231213810401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:        995          995 23121381         4 2312138105 231213810501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:        995          995 23121381         3 2312138106 231213810601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          0            1 23121381         5 2312138101 231213810102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          0            1 23121381         0 2312138102 231213810202</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:        995          995 23121381        NA 2312138103 231213810302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:        995          995 23121381        NA 2312138104 231213810402</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:        995          995 23121381        NA 2312138105 231213810502</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:        995          995 23121381        NA 2312138106 231213810602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          0            1 23121381         2 2312138101 231213810103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          0            1 23121381         4 2312138102 231213810203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:        995          995 23121381        NA 2312138103 231213810303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:        995          995 23121381         2 2312138104 231213810403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:        995          995 23121381         2 2312138105 231213810503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:        995          995 23121381         2 2312138106 231213810603</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          0            0 23121381         7 2312138101 231213810104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          0            1 23121381         3 2312138102 231213810204</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:        995          995 23121381        NA 2312138103 231213810304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:        995          995 23121381         4 2312138104 231213810404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:        995          995 23121381        NA 2312138105 231213810504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:        995          995 23121381         1 2312138106 231213810604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          0            0 23121381        12 2312138101 231213810105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          0            1 23121381         3 2312138102 231213810205</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:        995          995 23121381         0 2312138103 231213810305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:        995          995 23121381         1 2312138104 231213810405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:        995          995 23121381         5 2312138105 231213810505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:        995          995 23121381         8 2312138106 231213810605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          0            0 23121381         5 2312138101 231213810106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          0            0 23121381         3 2312138102 231213810206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:        995          995 23121381        NA 2312138103 231213810306</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:        995          995 23121381         1 2312138104 231213810406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:        995          995 23121381         1 2312138105 231213810506</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:        995          995 23121381         1 2312138106 231213810606</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:          0            1 23121381         3 2312138101 231213810107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:          0            1 23121381         2 2312138102 231213810207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:        995          995 23121381        NA 2312138103 231213810307</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:        995          995 23121381         2 2312138104 231213810407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:        995          995 23121381        NA 2312138105 231213810507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:        995          995 23121381         1 2312138106 231213810607</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:          0            0 23122159         5 2312215901 231221590101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:          0            0 23150818         3 2315081801 231508180101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:          0            1 23233061         0 2323306101 232330610101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:        995          995 23233061         2 2323306102 232330610201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:        995          995 23233061         4 2323306103 232330610301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:        995          995 23233061         2 2323306104 232330610401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:        995          995 23233061         2 2323306105 232330610501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:          0            1 23233651         0 2323365101 232336510101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:        995          995 23233651         2 2323365102 232336510201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:        995          995 23233651         3 2323365103 232336510301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:        995          995 23233651         3 2323365104 232336510401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:        995          995 23233651         3 2323365105 232336510501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:        995          995 23233651         3 2323365106 232336510601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          0            0 23077623         6 2307762301 230776230101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:        995          995 23077623         0 2307762302 230776230201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:        995          995 23077623         1 2307762303 230776230301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:        995          995 23077623         6 2307762304 230776230401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:        995          995 23077623         0 2307762305 230776230501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:        995          995 23077623         6 2307762306 230776230601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:        995          995 23077623         6 2307762307 230776230701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          0            0 23214339         6 2321433901 232143390101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        995          995 23214339         2 2321433902 232143390201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:        995          995 23214339         2 2321433903 232143390301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:        995          995 23214339         1 2321433904 232143390401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:        995          995 23214339         1 2321433905 232143390501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:        995          995 23214339         1 2321433906 232143390601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        995          995 23214339         1 2321433907 232143390701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:        995          995 23214339         1 2321433908 232143390801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:        995          995 23214339         1 2321433909 232143390901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:        995          995 23214339         1 2321433910 232143391001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:        995          995 23214339         1 2321433911 232143391101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:        995          995 23214339         1 2321433912 232143391201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:        995          995 23214339         1 2321433913 232143391301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          0            1 23225402         0 2322540201 232254020101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:        995          995 23225402         3 2322540202 232254020201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:        995          995 23225402         3 2322540203 232254020301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:        995          995 23225402         0 2322540204 232254020401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:        995          995 23225402         0 2322540205 232254020501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:        995          995 23225402         0 2322540206 232254020601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:        995          995 23225402         0 2322540207 232254020701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          0            0 23230310         4 2323031001 232303100101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:        995          995 23230310         0 2323031002 232303100201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:        995          995 23230310         3 2323031003 232303100301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:        995          995 23230310         2 2323031004 232303100401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:        995          995 23230310         2 2323031005 232303100501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:        995          995 23230310         2 2323031006 232303100601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          0            0 23238765         3 2323876501 232387650101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:        995          995 23238765         0 2323876502 232387650201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:        995          995 23238765         0 2323876503 232387650301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:        995          995 23238765         0 2323876504 232387650401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:        995          995 23238765         0 2323876505 232387650501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:        995          995 23238765         0 2323876506 232387650601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          0            0 23242420         6 2324242001 232424200101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:        995          995 23242420         7 2324242002 232424200201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:        995          995 23242420         6 2324242003 232424200301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:        995          995 23242420         6 2324242004 232424200401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:        995          995 23242420         6 2324242005 232424200501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:        995          995 23242420         6 2324242006 232424200601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:          0            1 23275913         4 2327591301 232759130101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:        995          995 23275913         0 2327591302 232759130201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:        995          995 23275913         2 2327591303 232759130301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:        995          995 23275913         2 2327591304 232759130401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:        995          995 23275913         2 2327591305 232759130501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:        995          995 23275913         2 2327591306 232759130601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:          0            0 23293124         4 2329312401 232931240101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:        995          995 23293124         5 2329312402 232931240201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:        995          995 23293124         3 2329312403 232931240301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:        995          995 23293124         3 2329312404 232931240401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:        995          995 23293124         6 2329312405 232931240501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:        995          995 23293124         0 2329312406 232931240601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:          0            0 23411644         4 2341164401 234116440101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:        995          995 23411644         6 2341164402 234116440201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:        995          995 23411644         4 2341164403 234116440301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:        995          995 23411644         2 2341164404 234116440401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:        995          995 23411644         2 2341164405 234116440501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:        995          995 23411644         6 2341164406 234116440601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     delivery_8 delivery_996    hh_id num_trips  person_id       day_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     travel_date begin_day end_day day_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  2023-04-27         1       1        504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  2023-04-27         1       1        376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:  2023-04-27         1       1        115</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  2023-04-27         1       1        306</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  2023-04-27         1       1        358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  2023-04-27         1       1        197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  2023-04-27         1       1        546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:  2023-05-05         1       1        896</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  2023-05-05         1       1        662</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  2023-05-05       995     995        228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  2023-05-05       995     995        580</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  2023-05-05       995     995        541</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  2023-05-05       995     995        909</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:  2023-05-06         1       1        159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:  2023-05-06         1       1        464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  2023-05-06       995     995        518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  2023-05-06       995     995        838</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  2023-05-06       995     995        916</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  2023-05-06       995     995        368</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  2023-05-07         1       1        442</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:  2023-05-07         1       1        362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:  2023-05-07       995     995        904</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:  2023-05-07       995     995        243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  2023-05-07       995     995        820</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:  2023-05-07       995     995        827</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:  2023-05-08         1       1        169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  2023-05-08         1       1        169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:  2023-05-08       995     995        495</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  2023-05-08       995     995        813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:  2023-05-08       995     995        436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:  2023-05-08       995     995        177</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  2023-05-09         1       1        388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:  2023-05-09         1       1        688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:  2023-05-09         1       1        497</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:  2023-05-09         1       1        934</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:  2023-05-09         1       1        614</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:  2023-05-09         1       1        414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:  2023-05-10         1       1        384</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:  2023-05-10         1       1        620</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:  2023-05-10         1     995        748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:  2023-05-10         1     995        695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:  2023-05-10         1     995        397</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:  2023-05-10         1     995        544</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:  2023-05-11         1       1         50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:  2023-05-11         1       1        385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:  2023-05-11       995     995        247</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:  2023-05-11       995     995        740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:  2023-05-11       995     995        496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:  2023-05-11       995     995        713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:  2023-05-03         1       1        768</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:  2023-05-24         1       1        659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:  2023-05-25         1       1        111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:  2023-05-25         1       1        695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:  2023-05-25         1       1        279</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:  2023-05-25         1       1        661</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:  2023-05-25         1       1        708</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:  2023-05-29         1       1        631</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:  2023-05-29         1       1        167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:  2023-05-29         1       1        641</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:  2023-05-29         1       1        574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:  2023-05-29         1       1        543</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:  2023-05-29         1       1         96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [ reached getOption("max.print") -- omitted 21 rows ]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  2023-05-03         1       1         29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  2023-05-03         1       1        229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:  2023-05-03         3       1        599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  2023-05-03         1       1        228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  2023-05-03       997     997        935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  2023-05-03         1       1        813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  2023-05-03         1       1        453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:  2023-05-29         1       1         90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  2023-05-29         1       1        309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  2023-05-29         1       1        338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  2023-05-29         4       7        168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  2023-05-29         4       7        634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  2023-05-29         4       7         66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:  2023-05-29         4       7         91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:  2023-05-29         4       7        646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  2023-05-29         1       7        355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  2023-05-29         1       7        242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  2023-05-29         1       7        853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  2023-05-29         1       7        840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  2023-05-29         1       7        796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:  2023-05-29         1       1        251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:  2023-05-29         1       1        485</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:  2023-05-29         1       1        377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  2023-05-29         1       1        780</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:  2023-05-29         1       1        227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:  2023-05-29         1       1        799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  2023-05-29         1       1        540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:  2023-05-31         1       1        240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  2023-05-31       997     997        742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:  2023-05-31         1       1        943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:  2023-05-31         1       1        417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  2023-05-31         1       1        582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:  2023-05-31         1       1        651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:  2023-05-29         1       1        755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:  2023-05-29         1       1        711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:  2023-05-29         1       1        986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:  2023-05-29         1       1         70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:  2023-05-29         1       1        599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:  2023-05-29         1       1        866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:  2023-05-24         1       1        788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:  2023-05-24         1       1        401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:  2023-05-24         1       1        752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:  2023-05-24         1       1        534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:  2023-05-24         1       1        353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:  2023-05-24         1       1         27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:  2023-06-08         1       1        997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:  2023-06-08         1       1        896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:  2023-06-08         1       1        670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:  2023-06-08         1       1        639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:  2023-06-08         1       1        264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:  2023-06-08         1       1        374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:  2023-06-08         1       1        639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:  2023-06-08         1       1        606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:  2023-06-08         1       1        118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:  2023-06-08         1       1        146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:  2023-06-08         1       1        374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:  2023-06-08         1       1        938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:  2023-05-31         1       3        322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:  2023-05-31         1       1        785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:  2023-05-31         1       1        518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:  2023-05-31         1       1        381</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:  2023-05-31         1       1        715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:  2023-05-31         1       1        597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     travel_date begin_day end_day day_weight</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $trip</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         hh_id  person_id       day_id travel_date      trip_id  speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 23016029 2301602901 230160290101  2023-04-27 2.301603e+12  5.9952706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 23016029 2301602901 230160290101  2023-04-27 2.301603e+12 21.5112706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23016029 2301602901 230160290101  2023-04-27 2.301603e+12  3.5931191</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 23016029 2301602901 230160290101  2023-04-27 2.301603e+12 11.9905413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 23016029 2301602901 230160290101  2023-04-27 2.301603e+12  5.9952706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 23077623 2307762301 230776230101  2023-05-03 2.307762e+12         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 23077623 2307762301 230776230101  2023-05-03 2.307762e+12  2.6685051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23077623 2307762301 230776230101  2023-05-03 2.307762e+12         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 23077623 2307762301 230776230101  2023-05-03 2.307762e+12         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 23077623 2307762301 230776230101  2023-05-03 2.307762e+12  0.3321791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 197: 23416563 2341656304 234165630401  2023-06-05 2.341656e+12  2.4496880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 198: 23416563 2341656305 234165630501  2023-06-05 2.341656e+12  1.5417278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199: 23416563 2341656305 234165630501  2023-06-05 2.341656e+12  2.5695464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 200: 23416563 2341656306 234165630601  2023-06-05 2.341656e+12  0.8465739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 201: 23416563 2341656306 234165630601  2023-06-05 2.341656e+12  4.2869540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157: 23411644 2341164406 234116440601  2023-05-31 2.341164e+12  7.6175542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158: 23411644 2341164406 234116440601  2023-05-31 2.341164e+12         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159: 23411644 2341164406 234116440601  2023-05-31 2.341164e+12  6.3479618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160: 23411644 2341164406 234116440601  2023-05-31 2.341164e+12 17.7310895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161: 23411644 2341164406 234116440601  2023-05-31 2.341164e+12 17.7310895</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      mode_type d_purpose_category trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:         8                  6         804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:         8                 10         523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:         8                  1         622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:         8                  6         633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:         8                  1         413</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:         1                 11         610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:        13                 11         560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:         1                  6         708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:         1                 11         422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:        13                 11         277</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 197:        10                  1         649</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 198:         1                  4         503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199:         1                  1         338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 200:         8                  6         302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 201:         8                  1         599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157:        13                 11         594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158:         1                  4         900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159:        10                  1         448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160:         8                  9         836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161:         8                  1         819</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vehicle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id vehicle_id fuel_type hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 23016029 2301602901         1       974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 23016029 2301602902         1       974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 23016029 2301602903         1       974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 23121381 2312138101         1       826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 23121381 2312138102         1       826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 23121381 2312138103         1       826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 23122159 2312215901         1       938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 23122159 2312215902         1       938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 23122159 2312215903         1       938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: 23150818 2315081801         1       602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11: 23150818 2315081802         1       602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: 23150818 2315081803         4       602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13: 23233061 2323306101         1        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: 23233061 2323306102         1        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: 23233061 2323306103         5        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: 23233061 2323306104         1        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: 23233061 2323306105         1        39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18: 23233651 2323365101         1       345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19: 23233651 2323365102         1       345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20: 23233651 2323365103         1       345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21: 23240801 2324080101         1       783</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22: 23240801 2324080102         1       783</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23: 23240801 2324080103         1       783</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24: 23411644 2341164401         1       154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25: 23411644 2341164402         1       154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26: 23411644 2341164403         5       154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27: 23416563 2341656301         1       928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28: 23416563 2341656302         1       928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 23077623 2307762301         1       737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 23077623 2307762302         1       737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 23077623 2307762303         1       737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 23214339 2321433901         1       337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 23225402 2322540201         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 23225402 2322540202         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 23225402 2322540203         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: 23225402 2322540204         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: 23225402 2322540205         5       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: 23225402 2322540206         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: 23225402 2322540207         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: 23225402 2322540208         1       830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: 23230310 2323031001         2        55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: 23230310 2323031002         1        55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: 23230310 2323031003         1        55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: 23238765 2323876501         1       807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: 23238765 2323876502         2       807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: 23238765 2323876503         1       807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: 23242420 2324242001         1       376</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20: 23275913 2327591301         1       351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21: 23275913 2327591302         1       351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22: 23293124 2329312401         1       163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23: 23293124 2329312402         3       163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24: 23411644 2341164401         1       747</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25: 23411644 2341164402         1       747</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26: 23411644 2341164403         5       747</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id vehicle_id fuel_type hh_weight</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -509,7 +575,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
 </div>
 
 <div class="pkgdown-footer-right">
