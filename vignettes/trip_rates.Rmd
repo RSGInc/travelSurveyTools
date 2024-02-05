@@ -46,17 +46,17 @@ hts_summary(
 
 We can also summarize trip rates by one or more variables. 
 
-```{r, trip_rate_age, echo=TRUE, fig.width=8, fig.height=6, warning=FALSE}
+```{r, trip_rate_job_type, echo=TRUE, fig.width=8, fig.height=6, warning=FALSE}
 
 DT = hts_prep_triprate(variables_dt = variable_list,
-                       summarize_by = 'employment',
+                       summarize_by = 'job_type',
                    trip_name = 'trip',
                    day_name = 'day',
                    hts_data = test_data)
 
-num_trips_employment = hts_summary(
+num_trips_job_type = hts_summary(
   prepped_dt = DT$num,
-  summarize_by = 'employment',
+  summarize_by = 'job_type',
   summarize_var = 'num_trips_wtd',
   summarize_vartype = 'numeric',
   wtname = 'day_weight',
@@ -65,20 +65,20 @@ num_trips_employment = hts_summary(
 
 library(ggplot2)
 
-# Label employment
-num_trips_employment_labeled = factorize_df(num_trips_employment,
+# Label job_type
+num_trips_job_type_labeled = factorize_df(num_trips_job_type,
                                             value_labels,
                                             value_label_colname = 'label')
 
 
 # Create a plot
-ggplot(num_trips_employment_labeled, 
-       aes(x = median, y = employment)) + 
+ggplot(num_trips_job_type_labeled, 
+       aes(x = median, y = job_type)) + 
   geom_bar(stat = 'identity') +
   scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = 50),
                    limits = rev) + 
   labs(x = 'Median number of trips',
-       y = 'Employment')
+       y = 'Job Type')
 
 ```
 
@@ -117,11 +117,13 @@ ggplot(num_trips_race_ethnicity_labeled,
         xmax = (mean + mean_se)),
     position = position_dodge2(preserve = 'single', width = 0)
   ) +
-  labs(x = 'Median number of trips',
+  labs(x = 'Mean number of trips',
        y = 'Race',
        fill = 'Ethnicity') 
 
 
 
 ```
+
+
 

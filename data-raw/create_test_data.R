@@ -73,6 +73,7 @@ keep_cols = c(
   'gender',
   'employment',
   'education',
+  'job_type',
   
   # Day variables:
   'day_id',
