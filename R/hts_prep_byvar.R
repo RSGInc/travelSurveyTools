@@ -43,7 +43,7 @@ hts_prep_byvar = function(summarize_by = NULL,
   for (b in seq_along(summarize_by)) {
     byvar = summarize_by[[b]]
     
-    byvar_loc = hts_find_var(byvar, variables_dt = variables_dt)
+    byvar_loc = hts_find_var(byvar, data = hts_data, variables_dt = variables_dt)
     
     tbl_idx = which(names(hts_data) == byvar_loc)
     

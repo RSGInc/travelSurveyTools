@@ -37,7 +37,7 @@ hts_remove_missing_data = function(hts_data,
                                    missing_values = c("Missing Response", "995"),
                                    not_imputable = -1){
   
-  summarize_var_loc = hts_find_var(summarize_var, variables_dt = variables_dt)
+  summarize_var_loc = hts_find_var(summarize_var, data = hts_data, variables_dt = variables_dt)
   
   #get variable or first occurrence for checkbox
   summarize_var_name = variables_dt[shared_name == summarize_var, variable][1]
@@ -68,7 +68,7 @@ hts_remove_missing_data = function(hts_data,
     
     for (i in 1:length(summarize_by)){
       
-      summarize_by_loc = hts_find_var(summarize_by[i], variables_dt = variables_dt)
+      summarize_by_loc = hts_find_var(summarize_by[i], data = hts_data, variables_dt = variables_dt)
       
       #get variable or first occurrence for checkbox
       summarize_by_name = variables_dt[shared_name == summarize_by[i], variable][1]
