@@ -7,7 +7,7 @@ library(data.table)
 
 
 
-test_that("hts_calculate_vmt should a data table", {
+test_that("hts_calculate_vmt should return a data table", {
   
   results = hts_calculate_vmt(
       trip_name = 'trip',
@@ -18,6 +18,8 @@ test_that("hts_calculate_vmt should a data table", {
       vehicle_modes = 6:10
      )
   
-  expect_is(results, "data.table", info = "hts_prep_data should return a data table")
+  expect_type(results, "list", info = "hts_prep_data should return a data table")
+  
+  expect_true(vmt %in% names(results), info = "vmt is in returned table")
   
 })
