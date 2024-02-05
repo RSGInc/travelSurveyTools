@@ -1,10 +1,7 @@
 
-context("Test suite for hts_calculate_vmt function")
-
 # Load necessary libraries and setup environment
 library(testthat)
 library(data.table)
-
 
 
 test_that("hts_calculate_vmt should return a data table", {
@@ -18,8 +15,8 @@ test_that("hts_calculate_vmt should return a data table", {
       vehicle_modes = 6:10
      )
   
-  expect_type(results, "list", info = "hts_prep_data should return a data table")
+  expect_type(results, "list")
   
-  expect_true(vmt %in% names(results), info = "vmt is in returned table")
+  expect_true('vmt' %in% names(results), info = "vmt is in returned table")
   
 })
