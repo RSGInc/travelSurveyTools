@@ -43,6 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
     <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
+    <a class="dropdown-item" href="../articles/trip_rates.html">Creating summaries of trip rates</a>
   </div>
 </li>
       </ul>
@@ -209,10 +210,13 @@ return a categorical (cat) and numeric (num) (if applicable) prepped
 data table that can be used to create summaries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RSGInc/travelSurveyTools" class="external-link">travelSurveyTools</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Load data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'data.table' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'srvyr' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"test_data"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"variable_list"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"value_labels"</span><span class="op">)</span></span>
@@ -224,7 +228,7 @@ data table that can be used to create summaries.</p>
 <code>hts_prep_data</code> to create categorical summaries. Here we can
 make a categorical summary of a numeric variable using
 <code>hts_summary</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">cat</span>, </span>
 <span>                                summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span>
 <span>                                summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -233,17 +237,19 @@ make a categorical summary of a numeric variable using
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
+<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">## 1:  1 or less   668 0.04102438</span></span>
-<span><span class="co">## 2:       1-10  7935 0.48731806</span></span>
-<span><span class="co">## 3:      10-19  3994 0.24528650</span></span>
-<span><span class="co">## 4:      19-28  2027 0.12448566</span></span>
-<span><span class="co">## 5:      28-37   852 0.05232451</span></span>
-<span><span class="co">## 6:      37-45   394 0.02419702</span></span>
-<span><span class="co">## 7: 45 or more   413 0.02536388</span></span></code></pre>
+<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
+<span><span class="co">## 1:  1 or less   720 0.04902962</span></span>
+<span><span class="co">## 2:        1-9  6825 0.46475996</span></span>
+<span><span class="co">## 3:       9-17  3494 0.23792986</span></span>
+<span><span class="co">## 4:      17-25  1995 0.13585291</span></span>
+<span><span class="co">## 5:      25-33   868 0.05910793</span></span>
+<span><span class="co">## 6:      33-41   414 0.02819203</span></span>
+<span><span class="co">## 7: 41 or more   369 0.02512768</span></span></code></pre>
 <p>Additionally, for numeric variables we can create numeric
 summaries.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_num_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">num</span>, </span>
 <span>                                summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span>
 <span>                                summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -252,8 +258,9 @@ summaries.</p>
 <span></span>
 <span><span class="va">speed_num_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">##    count min      max     mean   median</span></span>
-<span><span class="co">## 1: 16283   0 123.3683 12.71216 9.213738</span></span></code></pre>
+<span><span class="co">##    count   min      max     mean  median</span></span>
+<span><span class="co">##    &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;   &lt;num&gt;</span></span>
+<span><span class="co">## 1: 14685     0 112.9918 11.83172 8.63421</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="using-weighted-data">Using Weighted Data<a class="anchor" aria-label="anchor" href="#using-weighted-data"></a>
@@ -261,7 +268,7 @@ summaries.</p>
 <p>Additionally, we can use weighted data by setting
 <code>weighted = TRUE</code> and specifying the name of the weight to be
 used (<code>wtname</code>).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">cat</span>, </span>
 <span>                                summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span>
 <span>                                summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -271,24 +278,27 @@ used (<code>wtname</code>).</p>
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
+<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">## 1:  1 or less   668 0.04102438</span></span>
-<span><span class="co">## 2:       1-10  7935 0.48731806</span></span>
-<span><span class="co">## 3:      10-19  3994 0.24528650</span></span>
-<span><span class="co">## 4:      19-28  2027 0.12448566</span></span>
-<span><span class="co">## 5:      28-37   852 0.05232451</span></span>
-<span><span class="co">## 6:      37-45   394 0.02419702</span></span>
-<span><span class="co">## 7: 45 or more   413 0.02536388</span></span>
+<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
+<span><span class="co">## 1:  1 or less   720 0.04902962</span></span>
+<span><span class="co">## 2:        1-9  6825 0.46475996</span></span>
+<span><span class="co">## 3:       9-17  3494 0.23792986</span></span>
+<span><span class="co">## 4:      17-25  1995 0.13585291</span></span>
+<span><span class="co">## 5:      25-33   868 0.05910793</span></span>
+<span><span class="co">## 6:      33-41   414 0.02819203</span></span>
+<span><span class="co">## 7: 41 or more   369 0.02512768</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##     speed_mph count       prop     est</span></span>
-<span><span class="co">## 1:  1 or less   668 0.04149956  340717</span></span>
-<span><span class="co">## 2:       1-10  7935 0.48393869 3973202</span></span>
-<span><span class="co">## 3:      10-19  3994 0.24742090 2031359</span></span>
-<span><span class="co">## 4:      19-28  2027 0.12361892 1014928</span></span>
-<span><span class="co">## 5:      28-37   852 0.05391032  442611</span></span>
-<span><span class="co">## 6:      37-45   394 0.02359705  193735</span></span>
-<span><span class="co">## 7: 45 or more   413 0.02601455  213583</span></span>
+<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;   &lt;int&gt;</span></span>
+<span><span class="co">## 1:  1 or less   720 0.05017047  370818</span></span>
+<span><span class="co">## 2:        1-9  6825 0.46380595 3428064</span></span>
+<span><span class="co">## 3:       9-17  3494 0.23966211 1771381</span></span>
+<span><span class="co">## 4:      17-25  1995 0.13432492  992817</span></span>
+<span><span class="co">## 5:      25-33   868 0.05766713  426227</span></span>
+<span><span class="co">## 6:      33-41   414 0.02801374  207054</span></span>
+<span><span class="co">## 7: 41 or more   369 0.02635567  194799</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $weight_name</span></span>
 <span><span class="co">## [1] "trip_weight"</span></span></code></pre>
@@ -298,7 +308,7 @@ used (<code>wtname</code>).</p>
 </h3>
 <p>Additionally, by specifying <code>se = TRUE</code> we can calculate
 standard errors.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">cat</span>, </span>
 <span>                                summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span>
 <span>                                summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -309,24 +319,27 @@ standard errors.</p>
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
+<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">## 1:  1 or less   668 0.04102438</span></span>
-<span><span class="co">## 2:       1-10  7935 0.48731806</span></span>
-<span><span class="co">## 3:      10-19  3994 0.24528650</span></span>
-<span><span class="co">## 4:      19-28  2027 0.12448566</span></span>
-<span><span class="co">## 5:      28-37   852 0.05232451</span></span>
-<span><span class="co">## 6:      37-45   394 0.02419702</span></span>
-<span><span class="co">## 7: 45 or more   413 0.02536388</span></span>
+<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
+<span><span class="co">## 1:  1 or less   720 0.04902962</span></span>
+<span><span class="co">## 2:        1-9  6825 0.46475996</span></span>
+<span><span class="co">## 3:       9-17  3494 0.23792986</span></span>
+<span><span class="co">## 4:      17-25  1995 0.13585291</span></span>
+<span><span class="co">## 5:      25-33   868 0.05910793</span></span>
+<span><span class="co">## 6:      33-41   414 0.02819203</span></span>
+<span><span class="co">## 7: 41 or more   369 0.02512768</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##     speed_mph count       prop     prop_se     est   est_se</span></span>
-<span><span class="co">## 1:  1 or less   668 0.04149956 0.001798998  340717 14849.96</span></span>
-<span><span class="co">## 2:       1-10  7935 0.48393869 0.004495601 3973202 40737.10</span></span>
-<span><span class="co">## 3:      10-19  3994 0.24742090 0.003889055 2031359 33219.42</span></span>
-<span><span class="co">## 4:      19-28  2027 0.12361892 0.002952873 1014928 24632.37</span></span>
-<span><span class="co">## 5:      28-37   852 0.05391032 0.002048576  442611 16948.80</span></span>
-<span><span class="co">## 6:      37-45   394 0.02359705 0.001377395  193735 11345.70</span></span>
-<span><span class="co">## 7: 45 or more   413 0.02601455 0.001433973  213583 11811.71</span></span>
+<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;       &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">## 1:  1 or less   720 0.05017047 0.002079083  370818 15469.78</span></span>
+<span><span class="co">## 2:        1-9  6825 0.46380595 0.004737688 3428064 38508.63</span></span>
+<span><span class="co">## 3:       9-17  3494 0.23966211 0.004069031 1771381 31295.73</span></span>
+<span><span class="co">## 4:      17-25  1995 0.13432492 0.003228756  992817 24287.87</span></span>
+<span><span class="co">## 5:      25-33   868 0.05766713 0.002192303  426227 16305.76</span></span>
+<span><span class="co">## 6:      33-41   414 0.02801374 0.001560836  207054 11574.44</span></span>
+<span><span class="co">## 7: 41 or more   369 0.02635567 0.001548421  194799 11492.05</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $weight_name</span></span>
 <span><span class="co">## [1] "trip_weight"</span></span></code></pre>
@@ -337,7 +350,7 @@ standard errors.</p>
 <p>If we want to summarize a variable by another variable (e.g., mode
 type by a person’s race, mode_type by a person’s ethnicity, income by
 study year) we can use the <code>summarize_by</code> argument.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>                   summarize_by <span class="op">=</span> <span class="st">'race'</span>,</span>
 <span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -354,221 +367,210 @@ study year) we can use the <code>summarize_by</code> argument.</p>
 <span></span>
 <span><span class="va">mode_by_race_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
+<span><span class="co">## Key: &lt;race&gt;</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
-<span><span class="co">##  1:                 African American or Black         1   209 3.965844e-01</span></span>
-<span><span class="co">##  2:                 African American or Black         3     2 3.795066e-03</span></span>
-<span><span class="co">##  3:                 African American or Black         4     3 5.692600e-03</span></span>
-<span><span class="co">##  4:                 African American or Black         6     4 7.590133e-03</span></span>
-<span><span class="co">##  5:                 African American or Black         7     3 5.692600e-03</span></span>
-<span><span class="co">##  6:                 African American or Black         8   215 4.079696e-01</span></span>
-<span><span class="co">##  7:                 African American or Black        11     3 5.692600e-03</span></span>
-<span><span class="co">##  8:                 African American or Black        13    88 1.669829e-01</span></span>
-<span><span class="co">##  9:          American Indian or Alaska Native         1    16 2.424242e-01</span></span>
-<span><span class="co">## 10:          American Indian or Alaska Native         2     6 9.090909e-02</span></span>
-<span><span class="co">## 11:          American Indian or Alaska Native         3     1 1.515152e-02</span></span>
-<span><span class="co">## 12:          American Indian or Alaska Native         4     3 4.545455e-02</span></span>
-<span><span class="co">## 13:          American Indian or Alaska Native         5     1 1.515152e-02</span></span>
-<span><span class="co">## 14:          American Indian or Alaska Native         6     1 1.515152e-02</span></span>
-<span><span class="co">## 15:          American Indian or Alaska Native         8    33 5.000000e-01</span></span>
-<span><span class="co">## 16:          American Indian or Alaska Native        13     5 7.575758e-02</span></span>
-<span><span class="co">## 17:                                     Asian         1   600 2.946955e-01</span></span>
-<span><span class="co">## 18:                                     Asian         2    23 1.129666e-02</span></span>
-<span><span class="co">## 19:                                     Asian         3     1 4.911591e-04</span></span>
-<span><span class="co">## 20:                                     Asian         6    18 8.840864e-03</span></span>
-<span><span class="co">## 21:                                     Asian         7    34 1.669941e-02</span></span>
-<span><span class="co">## 22:                                     Asian         8  1212 5.952849e-01</span></span>
-<span><span class="co">## 23:                                     Asian        11    17 8.349705e-03</span></span>
-<span><span class="co">## 24:                                     Asian        12     5 2.455796e-03</span></span>
-<span><span class="co">## 25:                                     Asian        13   126 6.188605e-02</span></span>
-<span><span class="co">## 26: Native Hawaiian or other Pacific Islander         1     8 1.311475e-01</span></span>
-<span><span class="co">## 27: Native Hawaiian or other Pacific Islander         7     1 1.639344e-02</span></span>
-<span><span class="co">## 28: Native Hawaiian or other Pacific Islander         8    50 8.196721e-01</span></span>
-<span><span class="co">## 29: Native Hawaiian or other Pacific Islander        13     2 3.278689e-02</span></span>
-<span><span class="co">## 30:                                     White         1  3126 2.874747e-01</span></span>
-<span><span class="co">## 31:                                     White         2   280 2.574949e-02</span></span>
-<span><span class="co">## 32:                                     White         3     5 4.598124e-04</span></span>
-<span><span class="co">## 33:                                     White         4    12 1.103550e-03</span></span>
-<span><span class="co">## 34:                                     White         5     1 9.196248e-05</span></span>
-<span><span class="co">## 35:                                     White         6    66 6.069524e-03</span></span>
-<span><span class="co">## 36:                                     White         7    27 2.482987e-03</span></span>
-<span><span class="co">## 37:                                     White         8  6782 6.236895e-01</span></span>
-<span><span class="co">## 38:                                     White        10     1 9.196248e-05</span></span>
-<span><span class="co">## 39:                                     White        11    15 1.379437e-03</span></span>
-<span><span class="co">## 40:                                     White        12     2 1.839250e-04</span></span>
-<span><span class="co">## 41:                                     White        13   540 4.965974e-02</span></span>
-<span><span class="co">## 42:                                     White        14    17 1.563362e-03</span></span>
-<span><span class="co">## 43:                               Two or more         1   268 3.549669e-01</span></span>
-<span><span class="co">## 44:                               Two or more         2    27 3.576159e-02</span></span>
-<span><span class="co">## 45:                               Two or more         4    12 1.589404e-02</span></span>
-<span><span class="co">## 46:                               Two or more         5     1 1.324503e-03</span></span>
-<span><span class="co">## 47:                               Two or more         6    10 1.324503e-02</span></span>
-<span><span class="co">## 48:                               Two or more         7     2 2.649007e-03</span></span>
-<span><span class="co">## 49:                               Two or more         8   386 5.112583e-01</span></span>
-<span><span class="co">## 50:                               Two or more        11     2 2.649007e-03</span></span>
-<span><span class="co">## 51:                               Two or more        13    44 5.827815e-02</span></span>
-<span><span class="co">## 52:                               Two or more        14     3 3.973510e-03</span></span>
-<span><span class="co">## 53:                                Other race         1   113 5.824742e-01</span></span>
-<span><span class="co">## 54:                                Other race         7     1 5.154639e-03</span></span>
-<span><span class="co">## 55:                                Other race         8    43 2.216495e-01</span></span>
-<span><span class="co">## 56:                                Other race        13    37 1.907216e-01</span></span>
-<span><span class="co">## 57:                      Prefer not to answer         1   303 2.953216e-01</span></span>
-<span><span class="co">## 58:                      Prefer not to answer         2    11 1.072125e-02</span></span>
-<span><span class="co">## 59:                      Prefer not to answer         4     5 4.873294e-03</span></span>
-<span><span class="co">## 60:                      Prefer not to answer         5     1 9.746589e-04</span></span>
-<span><span class="co">## 61:                      Prefer not to answer         6    11 1.072125e-02</span></span>
-<span><span class="co">## 62:                      Prefer not to answer         7    13 1.267057e-02</span></span>
-<span><span class="co">## 63:                      Prefer not to answer         8   610 5.945419e-01</span></span>
-<span><span class="co">## 64:                      Prefer not to answer        10     1 9.746589e-04</span></span>
-<span><span class="co">## 65:                      Prefer not to answer        11     9 8.771930e-03</span></span>
-<span><span class="co">## 66:                      Prefer not to answer        13    58 5.653021e-02</span></span>
-<span><span class="co">## 67:                      Prefer not to answer        14     4 3.898635e-03</span></span>
+<span><span class="co">##                                        &lt;fctr&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;</span></span>
+<span><span class="co">##  1:                 African American or Black         1   146 0.3753213368</span></span>
+<span><span class="co">##  2:                 African American or Black         3     4 0.0102827763</span></span>
+<span><span class="co">##  3:                 African American or Black         4     1 0.0025706941</span></span>
+<span><span class="co">##  4:                 African American or Black         6     1 0.0025706941</span></span>
+<span><span class="co">##  5:                 African American or Black         7     1 0.0025706941</span></span>
+<span><span class="co">##  6:                 African American or Black         8   180 0.4627249357</span></span>
+<span><span class="co">##  7:                 African American or Black        11     3 0.0077120823</span></span>
+<span><span class="co">##  8:                 African American or Black        13    53 0.1362467866</span></span>
+<span><span class="co">##  9:          American Indian or Alaska Native         1     7 0.1521739130</span></span>
+<span><span class="co">## 10:          American Indian or Alaska Native         8    36 0.7826086957</span></span>
+<span><span class="co">## 11:          American Indian or Alaska Native        13     3 0.0652173913</span></span>
+<span><span class="co">## 12:                                     Asian         1   689 0.3123300091</span></span>
+<span><span class="co">## 13:                                     Asian         2    32 0.0145058930</span></span>
+<span><span class="co">## 14:                                     Asian         4     2 0.0009066183</span></span>
+<span><span class="co">## 15:                                     Asian         5     2 0.0009066183</span></span>
+<span><span class="co">## 16:                                     Asian         6    12 0.0054397099</span></span>
+<span><span class="co">## 17:                                     Asian         7    41 0.0185856754</span></span>
+<span><span class="co">## 18:                                     Asian         8  1249 0.5661831369</span></span>
+<span><span class="co">## 19:                                     Asian        11    30 0.0135992747</span></span>
+<span><span class="co">## 20:                                     Asian        12     1 0.0004533092</span></span>
+<span><span class="co">## 21:                                     Asian        13   141 0.0639165911</span></span>
+<span><span class="co">## 22:                                     Asian        14     7 0.0031731641</span></span>
+<span><span class="co">## 23: Native Hawaiian or other Pacific Islander         1    29 0.4531250000</span></span>
+<span><span class="co">## 24: Native Hawaiian or other Pacific Islander         6     1 0.0156250000</span></span>
+<span><span class="co">## 25: Native Hawaiian or other Pacific Islander         8    34 0.5312500000</span></span>
+<span><span class="co">## 26:                                     White         1  2934 0.3034753827</span></span>
+<span><span class="co">## 27:                                     White         2   242 0.0250310302</span></span>
+<span><span class="co">## 28:                                     White         3     3 0.0003103020</span></span>
+<span><span class="co">## 29:                                     White         4    26 0.0026892842</span></span>
+<span><span class="co">## 30:                                     White         5     3 0.0003103020</span></span>
+<span><span class="co">## 31:                                     White         6    36 0.0037236243</span></span>
+<span><span class="co">## 32:                                     White         7    59 0.0061026065</span></span>
+<span><span class="co">## 33:                                     White         8  5765 0.5962970625</span></span>
+<span><span class="co">## 34:                                     White        10    14 0.0014480761</span></span>
+<span><span class="co">## 35:                                     White        11    37 0.0038270583</span></span>
+<span><span class="co">## 36:                                     White        12     8 0.0008274721</span></span>
+<span><span class="co">## 37:                                     White        13   516 0.0533719487</span></span>
+<span><span class="co">## 38:                                     White        14    25 0.0025858502</span></span>
+<span><span class="co">## 39:                               Two or more         1   243 0.4111675127</span></span>
+<span><span class="co">## 40:                               Two or more         2    10 0.0169204738</span></span>
+<span><span class="co">## 41:                               Two or more         6     6 0.0101522843</span></span>
+<span><span class="co">## 42:                               Two or more         8   270 0.4568527919</span></span>
+<span><span class="co">## 43:                               Two or more        11     2 0.0033840948</span></span>
+<span><span class="co">## 44:                               Two or more        13    60 0.1015228426</span></span>
+<span><span class="co">## 45:                                Other race         1    51 0.2931034483</span></span>
+<span><span class="co">## 46:                                Other race         5     1 0.0057471264</span></span>
+<span><span class="co">## 47:                                Other race         6     1 0.0057471264</span></span>
+<span><span class="co">## 48:                                Other race         8   104 0.5977011494</span></span>
+<span><span class="co">## 49:                                Other race        11     3 0.0172413793</span></span>
+<span><span class="co">## 50:                                Other race        13    13 0.0747126437</span></span>
+<span><span class="co">## 51:                                Other race        14     1 0.0057471264</span></span>
+<span><span class="co">## 52:                      Prefer not to answer         1   358 0.3455598456</span></span>
+<span><span class="co">## 53:                      Prefer not to answer         2    39 0.0376447876</span></span>
+<span><span class="co">## 54:                      Prefer not to answer         3     3 0.0028957529</span></span>
+<span><span class="co">## 55:                      Prefer not to answer         4     5 0.0048262548</span></span>
+<span><span class="co">## 56:                      Prefer not to answer         5     1 0.0009652510</span></span>
+<span><span class="co">## 57:                      Prefer not to answer         6     6 0.0057915058</span></span>
+<span><span class="co">## 58:                      Prefer not to answer         7     2 0.0019305019</span></span>
+<span><span class="co">## 59:                      Prefer not to answer         8   548 0.5289575290</span></span>
+<span><span class="co">## 60:                      Prefer not to answer        11     4 0.0038610039</span></span>
+<span><span class="co">## 61:                      Prefer not to answer        13    69 0.0666023166</span></span>
+<span><span class="co">## 62:                      Prefer not to answer        14     1 0.0009652510</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
-<span><span class="co">##  1:                 African American or Black         1   209 3.946665e-01</span></span>
-<span><span class="co">##  2:                 African American or Black         3     2 4.464578e-03</span></span>
-<span><span class="co">##  3:                 African American or Black         4     3 4.580824e-03</span></span>
-<span><span class="co">##  4:                 African American or Black         6     4 9.761042e-03</span></span>
-<span><span class="co">##  5:                 African American or Black         7     3 6.157412e-03</span></span>
-<span><span class="co">##  6:                 African American or Black         8   215 3.938746e-01</span></span>
-<span><span class="co">##  7:                 African American or Black        11     3 5.296464e-03</span></span>
-<span><span class="co">##  8:                 African American or Black        13    88 1.811986e-01</span></span>
-<span><span class="co">##  9:          American Indian or Alaska Native         1    16 2.167640e-01</span></span>
-<span><span class="co">## 10:          American Indian or Alaska Native         2     6 5.707512e-02</span></span>
-<span><span class="co">## 11:          American Indian or Alaska Native         3     1 2.662927e-02</span></span>
-<span><span class="co">## 12:          American Indian or Alaska Native         4     3 2.090441e-02</span></span>
-<span><span class="co">## 13:          American Indian or Alaska Native         5     1 2.868213e-02</span></span>
-<span><span class="co">## 14:          American Indian or Alaska Native         6     1 9.830567e-03</span></span>
-<span><span class="co">## 15:          American Indian or Alaska Native         8    33 5.441219e-01</span></span>
-<span><span class="co">## 16:          American Indian or Alaska Native        13     5 9.599260e-02</span></span>
-<span><span class="co">## 17:                                     Asian         1   600 2.912739e-01</span></span>
-<span><span class="co">## 18:                                     Asian         2    23 1.217458e-02</span></span>
-<span><span class="co">## 19:                                     Asian         3     1 2.699081e-04</span></span>
-<span><span class="co">## 20:                                     Asian         6    18 9.918645e-03</span></span>
-<span><span class="co">## 21:                                     Asian         7    34 1.536275e-02</span></span>
-<span><span class="co">## 22:                                     Asian         8  1212 5.949273e-01</span></span>
-<span><span class="co">## 23:                                     Asian        11    17 8.523162e-03</span></span>
-<span><span class="co">## 24:                                     Asian        12     5 1.901799e-03</span></span>
-<span><span class="co">## 25:                                     Asian        13   126 6.564797e-02</span></span>
-<span><span class="co">## 26: Native Hawaiian or other Pacific Islander         1     8 1.488617e-01</span></span>
-<span><span class="co">## 27: Native Hawaiian or other Pacific Islander         7     1 1.700903e-02</span></span>
-<span><span class="co">## 28: Native Hawaiian or other Pacific Islander         8    50 8.222557e-01</span></span>
-<span><span class="co">## 29: Native Hawaiian or other Pacific Islander        13     2 1.187361e-02</span></span>
-<span><span class="co">## 30:                                     White         1  3126 2.871490e-01</span></span>
-<span><span class="co">## 31:                                     White         2   280 2.565400e-02</span></span>
-<span><span class="co">## 32:                                     White         3     5 2.205304e-04</span></span>
-<span><span class="co">## 33:                                     White         4    12 1.117842e-03</span></span>
-<span><span class="co">## 34:                                     White         5     1 1.658096e-04</span></span>
-<span><span class="co">## 35:                                     White         6    66 5.297853e-03</span></span>
-<span><span class="co">## 36:                                     White         7    27 2.342929e-03</span></span>
-<span><span class="co">## 37:                                     White         8  6782 6.239571e-01</span></span>
-<span><span class="co">## 38:                                     White        10     1 9.260445e-05</span></span>
-<span><span class="co">## 39:                                     White        11    15 1.676031e-03</span></span>
-<span><span class="co">## 40:                                     White        12     2 2.029611e-04</span></span>
-<span><span class="co">## 41:                                     White        13   540 5.053367e-02</span></span>
-<span><span class="co">## 42:                                     White        14    17 1.589649e-03</span></span>
-<span><span class="co">## 43:                               Two or more         1   268 3.492208e-01</span></span>
-<span><span class="co">## 44:                               Two or more         2    27 4.201683e-02</span></span>
-<span><span class="co">## 45:                               Two or more         4    12 1.217126e-02</span></span>
-<span><span class="co">## 46:                               Two or more         5     1 2.516058e-03</span></span>
-<span><span class="co">## 47:                               Two or more         6    10 1.236232e-02</span></span>
-<span><span class="co">## 48:                               Two or more         7     2 2.082812e-03</span></span>
-<span><span class="co">## 49:                               Two or more         8   386 5.172801e-01</span></span>
-<span><span class="co">## 50:                               Two or more        11     2 2.542968e-03</span></span>
-<span><span class="co">## 51:                               Two or more        13    44 5.595606e-02</span></span>
-<span><span class="co">## 52:                               Two or more        14     3 3.850780e-03</span></span>
-<span><span class="co">## 53:                                Other race         1   113 5.530963e-01</span></span>
-<span><span class="co">## 54:                                Other race         7     1 1.011257e-02</span></span>
-<span><span class="co">## 55:                                Other race         8    43 2.469418e-01</span></span>
-<span><span class="co">## 56:                                Other race        13    37 1.898493e-01</span></span>
-<span><span class="co">## 57:                      Prefer not to answer         1   303 2.907704e-01</span></span>
-<span><span class="co">## 58:                      Prefer not to answer         2    11 1.146677e-02</span></span>
-<span><span class="co">## 59:                      Prefer not to answer         4     5 5.028106e-03</span></span>
-<span><span class="co">## 60:                      Prefer not to answer         5     1 1.473887e-03</span></span>
-<span><span class="co">## 61:                      Prefer not to answer         6    11 9.359569e-03</span></span>
-<span><span class="co">## 62:                      Prefer not to answer         7    13 1.295985e-02</span></span>
-<span><span class="co">## 63:                      Prefer not to answer         8   610 5.985288e-01</span></span>
-<span><span class="co">## 64:                      Prefer not to answer        10     1 1.312681e-03</span></span>
-<span><span class="co">## 65:                      Prefer not to answer        11     9 1.063962e-02</span></span>
-<span><span class="co">## 66:                      Prefer not to answer        13    58 5.485817e-02</span></span>
-<span><span class="co">## 67:                      Prefer not to answer        14     4 3.602196e-03</span></span>
+<span><span class="co">##                                        &lt;fctr&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;</span></span>
+<span><span class="co">##  1:                 African American or Black         1   146 0.3905712667</span></span>
+<span><span class="co">##  2:                 African American or Black         3     4 0.0126026621</span></span>
+<span><span class="co">##  3:                 African American or Black         4     1 0.0023516203</span></span>
+<span><span class="co">##  4:                 African American or Black         6     1 0.0043795768</span></span>
+<span><span class="co">##  5:                 African American or Black         7     1 0.0023566776</span></span>
+<span><span class="co">##  6:                 African American or Black         8   180 0.4284500546</span></span>
+<span><span class="co">##  7:                 African American or Black        11     3 0.0044149775</span></span>
+<span><span class="co">##  8:                 African American or Black        13    53 0.1548731642</span></span>
+<span><span class="co">##  9:          American Indian or Alaska Native         1     7 0.1450820029</span></span>
+<span><span class="co">## 10:          American Indian or Alaska Native         8    36 0.7467699134</span></span>
+<span><span class="co">## 11:          American Indian or Alaska Native        13     3 0.1081480837</span></span>
+<span><span class="co">## 12:                                     Asian         1   689 0.3051702848</span></span>
+<span><span class="co">## 13:                                     Asian         2    32 0.0166409377</span></span>
+<span><span class="co">## 14:                                     Asian         4     2 0.0007410683</span></span>
+<span><span class="co">## 15:                                     Asian         5     2 0.0009939142</span></span>
+<span><span class="co">## 16:                                     Asian         6    12 0.0064949215</span></span>
+<span><span class="co">## 17:                                     Asian         7    41 0.0190691777</span></span>
+<span><span class="co">## 18:                                     Asian         8  1249 0.5658590003</span></span>
+<span><span class="co">## 19:                                     Asian        11    30 0.0161453597</span></span>
+<span><span class="co">## 20:                                     Asian        12     1 0.0002583625</span></span>
+<span><span class="co">## 21:                                     Asian        13   141 0.0651487332</span></span>
+<span><span class="co">## 22:                                     Asian        14     7 0.0034782401</span></span>
+<span><span class="co">## 23: Native Hawaiian or other Pacific Islander         1    29 0.4204865855</span></span>
+<span><span class="co">## 24: Native Hawaiian or other Pacific Islander         6     1 0.0239513996</span></span>
+<span><span class="co">## 25: Native Hawaiian or other Pacific Islander         8    34 0.5555620149</span></span>
+<span><span class="co">## 26:                                     White         1  2934 0.3041972747</span></span>
+<span><span class="co">## 27:                                     White         2   242 0.0243721513</span></span>
+<span><span class="co">## 28:                                     White         3     3 0.0002999808</span></span>
+<span><span class="co">## 29:                                     White         4    26 0.0023771364</span></span>
+<span><span class="co">## 30:                                     White         5     3 0.0003299170</span></span>
+<span><span class="co">## 31:                                     White         6    36 0.0037343793</span></span>
+<span><span class="co">## 32:                                     White         7    59 0.0062000853</span></span>
+<span><span class="co">## 33:                                     White         8  5765 0.5978921238</span></span>
+<span><span class="co">## 34:                                     White        10    14 0.0020777749</span></span>
+<span><span class="co">## 35:                                     White        11    37 0.0035603367</span></span>
+<span><span class="co">## 36:                                     White        12     8 0.0007298226</span></span>
+<span><span class="co">## 37:                                     White        13   516 0.0518479582</span></span>
+<span><span class="co">## 38:                                     White        14    25 0.0023810590</span></span>
+<span><span class="co">## 39:                               Two or more         1   243 0.4165906782</span></span>
+<span><span class="co">## 40:                               Two or more         2    10 0.0142847408</span></span>
+<span><span class="co">## 41:                               Two or more         6     6 0.0099882853</span></span>
+<span><span class="co">## 42:                               Two or more         8   270 0.4517833211</span></span>
+<span><span class="co">## 43:                               Two or more        11     2 0.0033521438</span></span>
+<span><span class="co">## 44:                               Two or more        13    60 0.1040008307</span></span>
+<span><span class="co">## 45:                                Other race         1    51 0.2979641649</span></span>
+<span><span class="co">## 46:                                Other race         5     1 0.0100404948</span></span>
+<span><span class="co">## 47:                                Other race         6     1 0.0073445387</span></span>
+<span><span class="co">## 48:                                Other race         8   104 0.5797193099</span></span>
+<span><span class="co">## 49:                                Other race        11     3 0.0183946303</span></span>
+<span><span class="co">## 50:                                Other race        13    13 0.0852055250</span></span>
+<span><span class="co">## 51:                                Other race        14     1 0.0013313363</span></span>
+<span><span class="co">## 52:                      Prefer not to answer         1   358 0.3525751627</span></span>
+<span><span class="co">## 53:                      Prefer not to answer         2    39 0.0415813644</span></span>
+<span><span class="co">## 54:                      Prefer not to answer         3     3 0.0038718201</span></span>
+<span><span class="co">## 55:                      Prefer not to answer         4     5 0.0039204752</span></span>
+<span><span class="co">## 56:                      Prefer not to answer         5     1 0.0004790652</span></span>
+<span><span class="co">## 57:                      Prefer not to answer         6     6 0.0046241022</span></span>
+<span><span class="co">## 58:                      Prefer not to answer         7     2 0.0011302945</span></span>
+<span><span class="co">## 59:                      Prefer not to answer         8   548 0.5225422644</span></span>
+<span><span class="co">## 60:                      Prefer not to answer        11     4 0.0023429284</span></span>
+<span><span class="co">## 61:                      Prefer not to answer        13    69 0.0657105323</span></span>
+<span><span class="co">## 62:                      Prefer not to answer        14     1 0.0012219906</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
 <span><span class="co">##          prop_se     est     est_se</span></span>
-<span><span class="co">##  1: 2.429706e-02  108643  8560.3427</span></span>
-<span><span class="co">##  2: 3.283191e-03    1229   905.7243</span></span>
-<span><span class="co">##  3: 2.686792e-03    1261   740.2864</span></span>
-<span><span class="co">##  4: 4.999621e-03    2687  1383.1968</span></span>
-<span><span class="co">##  5: 3.860574e-03    1695  1065.8861</span></span>
-<span><span class="co">##  6: 2.421706e-02  108425  8479.0803</span></span>
-<span><span class="co">##  7: 3.224025e-03    1458   889.1873</span></span>
-<span><span class="co">##  8: 1.941503e-02   49880  5916.5940</span></span>
-<span><span class="co">##  9: 5.494601e-02    7497  2100.5142</span></span>
-<span><span class="co">## 10: 3.321030e-02    1974  1184.1425</span></span>
-<span><span class="co">## 11: 2.618012e-02     921   921.0000</span></span>
-<span><span class="co">## 12: 1.289936e-02     723   443.7522</span></span>
-<span><span class="co">## 13: 2.813839e-02     992   992.0000</span></span>
-<span><span class="co">## 14: 9.831307e-03     340   340.0000</span></span>
-<span><span class="co">## 15: 6.977011e-02   18819  3639.8662</span></span>
-<span><span class="co">## 16: 4.237077e-02    3320  1545.2004</span></span>
-<span><span class="co">## 17: 1.152255e-02  304323 14082.0778</span></span>
-<span><span class="co">## 18: 2.795244e-03   12720  2936.7950</span></span>
-<span><span class="co">## 19: 2.699309e-04     282   282.0000</span></span>
-<span><span class="co">## 20: 2.519370e-03   10363  2644.1278</span></span>
-<span><span class="co">## 21: 3.116633e-03   16051  3278.9512</span></span>
-<span><span class="co">## 22: 1.246723e-02  621580 19809.5298</span></span>
-<span><span class="co">## 23: 2.334265e-03    8905  2448.2679</span></span>
-<span><span class="co">## 24: 1.065326e-03    1987  1113.9160</span></span>
-<span><span class="co">## 25: 6.397536e-03   68589  6902.0999</span></span>
-<span><span class="co">## 26: 5.148319e-02    4551  1702.4167</span></span>
-<span><span class="co">## 27: 1.690099e-02     520   520.0000</span></span>
-<span><span class="co">## 28: 5.414158e-02   25138  4072.5086</span></span>
-<span><span class="co">## 29: 1.063317e-02     363   324.5971</span></span>
-<span><span class="co">## 30: 4.984702e-03 1569011 29703.8157</span></span>
-<span><span class="co">## 31: 1.726719e-03  140176  9489.7012</span></span>
-<span><span class="co">## 32: 1.286871e-04    1205   703.1226</span></span>
-<span><span class="co">## 33: 3.785269e-04    6108  2068.9487</span></span>
-<span><span class="co">## 34: 1.657975e-04     906   906.0000</span></span>
-<span><span class="co">## 35: 7.787002e-04   28948  4259.2590</span></span>
-<span><span class="co">## 36: 5.276477e-04   12802  2884.6110</span></span>
-<span><span class="co">## 37: 5.335825e-03 3409364 38909.0413</span></span>
-<span><span class="co">## 38: 9.260448e-05     506   506.0000</span></span>
-<span><span class="co">## 39: 4.836562e-04    9158  2644.2357</span></span>
-<span><span class="co">## 40: 1.556098e-04    1109   850.3061</span></span>
-<span><span class="co">## 41: 2.417239e-03  276121 13374.0340</span></span>
-<span><span class="co">## 42: 4.421815e-04    8686  2417.0707</span></span>
-<span><span class="co">## 43: 1.981278e-02  129775  9000.3551</span></span>
-<span><span class="co">## 44: 8.516278e-03   15614  3233.1708</span></span>
-<span><span class="co">## 45: 4.110224e-03    4523  1534.0176</span></span>
-<span><span class="co">## 46: 2.512005e-03     935   935.0000</span></span>
-<span><span class="co">## 47: 4.819278e-03    4594  1802.6239</span></span>
-<span><span class="co">## 48: 1.472502e-03     774   547.3488</span></span>
-<span><span class="co">## 49: 2.088633e-02  192228 11153.6480</span></span>
-<span><span class="co">## 50: 1.839233e-03     945   684.0392</span></span>
-<span><span class="co">## 51: 9.722212e-03   20794  3717.3376</span></span>
-<span><span class="co">## 52: 2.791640e-03    1431  1039.6301</span></span>
-<span><span class="co">## 53: 4.198681e-02   52178  5774.8481</span></span>
-<span><span class="co">## 54: 1.004616e-02     954   954.0000</span></span>
-<span><span class="co">## 55: 3.722673e-02   23296  4092.9694</span></span>
-<span><span class="co">## 56: 3.271727e-02   17910  3417.7254</span></span>
-<span><span class="co">## 57: 1.621253e-02  151512  9943.4628</span></span>
-<span><span class="co">## 58: 3.894104e-03    5975  2040.7973</span></span>
-<span><span class="co">## 59: 2.518591e-03    2620  1315.4777</span></span>
-<span><span class="co">## 60: 1.472705e-03     768   768.0000</span></span>
-<span><span class="co">## 61: 3.111574e-03    4877  1626.7694</span></span>
-<span><span class="co">## 62: 4.282354e-03    6753  2246.9635</span></span>
-<span><span class="co">## 63: 1.752272e-02  311876 14222.5941</span></span>
-<span><span class="co">## 64: 1.311840e-03     684   684.0000</span></span>
-<span><span class="co">## 65: 3.778042e-03    5544  1979.2913</span></span>
-<span><span class="co">## 66: 8.096318e-03   28585  4331.7748</span></span>
-<span><span class="co">## 67: 2.051498e-03    1877  1070.6232</span></span>
+<span><span class="co">##            &lt;num&gt;   &lt;num&gt;      &lt;num&gt;</span></span>
+<span><span class="co">##  1: 0.0282906311   77230  7202.7558</span></span>
+<span><span class="co">##  2: 0.0066885378    2492  1331.4537</span></span>
+<span><span class="co">##  3: 0.0023500849     465   465.0000</span></span>
+<span><span class="co">##  4: 0.0043678202     866   866.0000</span></span>
+<span><span class="co">##  5: 0.0023551269     466   466.0000</span></span>
+<span><span class="co">##  6: 0.0284115856   84720  7290.3594</span></span>
+<span><span class="co">##  7: 0.0026365365     873   521.1549</span></span>
+<span><span class="co">##  8: 0.0211938329   30624  4566.8926</span></span>
+<span><span class="co">##  9: 0.0583277190    3335  1444.1155</span></span>
+<span><span class="co">## 10: 0.0758001371   17166  3291.4253</span></span>
+<span><span class="co">## 11: 0.0588410966    2486  1452.3590</span></span>
+<span><span class="co">## 12: 0.0112751847  331909 14406.1991</span></span>
+<span><span class="co">## 13: 0.0031684441   18099  3472.2550</span></span>
+<span><span class="co">## 14: 0.0005374246     806   584.5719</span></span>
+<span><span class="co">## 15: 0.0007866950    1081   856.0153</span></span>
+<span><span class="co">## 16: 0.0020499103    7064  2236.5492</span></span>
+<span><span class="co">## 17: 0.0033706757   20740  3697.6048</span></span>
+<span><span class="co">## 18: 0.0121719999  615439 19446.9203</span></span>
+<span><span class="co">## 19: 0.0031535242   17560  3455.7525</span></span>
+<span><span class="co">## 20: 0.0002583829     281   281.0000</span></span>
+<span><span class="co">## 21: 0.0060809393   70857  6815.9100</span></span>
+<span><span class="co">## 22: 0.0015826609    3783  1724.5385</span></span>
+<span><span class="co">## 23: 0.0704335805   14466  3130.6398</span></span>
+<span><span class="co">## 24: 0.0236229664     824   824.0000</span></span>
+<span><span class="co">## 25: 0.0710921620   19113  3722.8271</span></span>
+<span><span class="co">## 26: 0.0054007054 1473423 28836.5035</span></span>
+<span><span class="co">## 27: 0.0017956576  118050  8747.8272</span></span>
+<span><span class="co">## 28: 0.0002038448    1453   987.4254</span></span>
+<span><span class="co">## 29: 0.0005430718   11514  2631.4671</span></span>
+<span><span class="co">## 30: 0.0002123764    1598  1028.7568</span></span>
+<span><span class="co">## 31: 0.0007110315   18088  3447.0041</span></span>
+<span><span class="co">## 32: 0.0009039482   30031  4384.2723</span></span>
+<span><span class="co">## 33: 0.0057494999 2895976 36610.7988</span></span>
+<span><span class="co">## 34: 0.0005799747   10064  2811.2886</span></span>
+<span><span class="co">## 35: 0.0006760499   17245  3276.7898</span></span>
+<span><span class="co">## 36: 0.0003057402    3535  1481.0996</span></span>
+<span><span class="co">## 37: 0.0025833876  251133 12671.2132</span></span>
+<span><span class="co">## 38: 0.0005582162   11533  2705.1327</span></span>
+<span><span class="co">## 39: 0.0231395983  128377  9252.3454</span></span>
+<span><span class="co">## 40: 0.0057348621    4402  1780.3574</span></span>
+<span><span class="co">## 41: 0.0043327331    3078  1340.5366</span></span>
+<span><span class="co">## 42: 0.0233781385  139222  9656.1625</span></span>
+<span><span class="co">## 43: 0.0023683811    1033   730.6294</span></span>
+<span><span class="co">## 44: 0.0146015906   32049  4757.0427</span></span>
+<span><span class="co">## 45: 0.0401920453   26857  4365.3044</span></span>
+<span><span class="co">## 46: 0.0099774410     905   905.0000</span></span>
+<span><span class="co">## 47: 0.0073183153     662   662.0000</span></span>
+<span><span class="co">## 48: 0.0429156650   52253  5852.2429</span></span>
+<span><span class="co">## 49: 0.0107967923    1658   980.6406</span></span>
+<span><span class="co">## 50: 0.0239410741    7680  2253.0918</span></span>
+<span><span class="co">## 51: 0.0013345935     120   120.0000</span></span>
+<span><span class="co">## 52: 0.0170273904  188407 11212.9544</span></span>
+<span><span class="co">## 53: 0.0072538913   22220  3958.7011</span></span>
+<span><span class="co">## 54: 0.0022959360    2069  1229.3224</span></span>
+<span><span class="co">## 55: 0.0019000907    2095  1016.4577</span></span>
+<span><span class="co">## 56: 0.0004791561     256   256.0000</span></span>
+<span><span class="co">## 57: 0.0023053628    2471  1234.3289</span></span>
+<span><span class="co">## 58: 0.0010238556     604   547.2946</span></span>
+<span><span class="co">## 59: 0.0177823597  279233 13535.4928</span></span>
+<span><span class="co">## 60: 0.0016165519    1252   864.6572</span></span>
+<span><span class="co">## 61: 0.0087882893   35114  4848.2740</span></span>
+<span><span class="co">## 62: 0.0012213144     653   653.0000</span></span>
 <span><span class="co">##          prop_se     est     est_se</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $weight_name</span></span>
 <span><span class="co">## [1] "trip_weight"</span></span></code></pre>
 <p>If we want to summarize a select all that apply variable, we can set
 <code>summarize_vartype</code> to checkbox.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span>
 <span>                   summarize_by <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -585,210 +587,202 @@ study year) we can use the <code>summarize_by</code> argument.</p>
 <span></span>
 <span><span class="va">mode_by_race_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
+<span><span class="co">## Key: &lt;mode_type&gt;</span></span>
 <span><span class="co">##     mode_type                                      race count        prop</span></span>
-<span><span class="co">##  1:         1                 African American or Black   251 0.050371262</span></span>
-<span><span class="co">##  2:         1          American Indian or Alaska Native   107 0.021473008</span></span>
-<span><span class="co">##  3:         1                                     Asian   768 0.154124022</span></span>
-<span><span class="co">##  4:         1 Native Hawaiian or other Pacific Islander    11 0.002207506</span></span>
-<span><span class="co">##  5:         1                                     White  3345 0.671282360</span></span>
-<span><span class="co">##  6:         1                                Other race   198 0.039735099</span></span>
-<span><span class="co">##  7:         1                      Prefer not to answer   303 0.060806743</span></span>
-<span><span class="co">##  8:         2          American Indian or Alaska Native     6 0.016042781</span></span>
-<span><span class="co">##  9:         2                                     Asian    48 0.128342246</span></span>
-<span><span class="co">## 10:         2                                     White   307 0.820855615</span></span>
-<span><span class="co">## 11:         2                                Other race     2 0.005347594</span></span>
-<span><span class="co">## 12:         2                      Prefer not to answer    11 0.029411765</span></span>
-<span><span class="co">## 13:         3                 African American or Black     2 0.222222222</span></span>
-<span><span class="co">## 14:         3          American Indian or Alaska Native     1 0.111111111</span></span>
-<span><span class="co">## 15:         3                                     Asian     1 0.111111111</span></span>
-<span><span class="co">## 16:         3                                     White     5 0.555555556</span></span>
-<span><span class="co">## 17:         4                 African American or Black     3 0.061224490</span></span>
-<span><span class="co">## 18:         4          American Indian or Alaska Native    15 0.306122449</span></span>
-<span><span class="co">## 19:         4                                     Asian     2 0.040816327</span></span>
-<span><span class="co">## 20:         4                                     White    24 0.489795918</span></span>
-<span><span class="co">## 21:         4                      Prefer not to answer     5 0.102040816</span></span>
-<span><span class="co">## 22:         5          American Indian or Alaska Native     1 0.200000000</span></span>
-<span><span class="co">## 23:         5                                     Asian     1 0.200000000</span></span>
-<span><span class="co">## 24:         5                                     White     2 0.400000000</span></span>
-<span><span class="co">## 25:         5                      Prefer not to answer     1 0.200000000</span></span>
-<span><span class="co">## 26:         6                 African American or Black     6 0.050000000</span></span>
-<span><span class="co">## 27:         6          American Indian or Alaska Native     1 0.008333333</span></span>
-<span><span class="co">## 28:         6                                     Asian    28 0.233333333</span></span>
-<span><span class="co">## 29:         6                                     White    73 0.608333333</span></span>
-<span><span class="co">## 30:         6                                Other race     1 0.008333333</span></span>
-<span><span class="co">## 31:         6                      Prefer not to answer    11 0.091666667</span></span>
-<span><span class="co">## 32:         7                 African American or Black     5 0.060240964</span></span>
-<span><span class="co">## 33:         7                                     Asian    34 0.409638554</span></span>
-<span><span class="co">## 34:         7 Native Hawaiian or other Pacific Islander     1 0.012048193</span></span>
-<span><span class="co">## 35:         7                                     White    29 0.349397590</span></span>
-<span><span class="co">## 36:         7                                Other race     1 0.012048193</span></span>
-<span><span class="co">## 37:         7                      Prefer not to answer    13 0.156626506</span></span>
-<span><span class="co">## 38:         8                 African American or Black   234 0.024064171</span></span>
-<span><span class="co">## 39:         8          American Indian or Alaska Native    86 0.008844097</span></span>
-<span><span class="co">## 40:         8                                     Asian  1468 0.150966680</span></span>
-<span><span class="co">## 41:         8 Native Hawaiian or other Pacific Islander   114 0.011723571</span></span>
-<span><span class="co">## 42:         8                                     White  7113 0.731489099</span></span>
-<span><span class="co">## 43:         8                                Other race    99 0.010180995</span></span>
-<span><span class="co">## 44:         8                      Prefer not to answer   610 0.062731386</span></span>
-<span><span class="co">## 45:        10                                     White     1 0.500000000</span></span>
-<span><span class="co">## 46:        10                      Prefer not to answer     1 0.500000000</span></span>
-<span><span class="co">## 47:        11                 African American or Black     5 0.100000000</span></span>
-<span><span class="co">## 48:        11          American Indian or Alaska Native     2 0.040000000</span></span>
-<span><span class="co">## 49:        11                                     Asian    17 0.340000000</span></span>
-<span><span class="co">## 50:        11                                     White    17 0.340000000</span></span>
-<span><span class="co">## 51:        11                      Prefer not to answer     9 0.180000000</span></span>
-<span><span class="co">## 52:        12                                     Asian     5 0.714285714</span></span>
-<span><span class="co">## 53:        12                                     White     2 0.285714286</span></span>
-<span><span class="co">## 54:        13                 African American or Black   100 0.103519669</span></span>
-<span><span class="co">## 55:        13          American Indian or Alaska Native    25 0.025879917</span></span>
-<span><span class="co">## 56:        13                                     Asian   149 0.154244306</span></span>
-<span><span class="co">## 57:        13 Native Hawaiian or other Pacific Islander     2 0.002070393</span></span>
-<span><span class="co">## 58:        13                                     White   576 0.596273292</span></span>
-<span><span class="co">## 59:        13                                Other race    56 0.057971014</span></span>
-<span><span class="co">## 60:        13                      Prefer not to answer    58 0.060041408</span></span>
-<span><span class="co">## 61:        14                                     Asian     3 0.111111111</span></span>
-<span><span class="co">## 62:        14                                     White    20 0.740740741</span></span>
-<span><span class="co">## 63:        14                      Prefer not to answer     4 0.148148148</span></span>
+<span><span class="co">##         &lt;int&gt;                                    &lt;fctr&gt; &lt;int&gt;       &lt;num&gt;</span></span>
+<span><span class="co">##  1:         1                 African American or Black   190 0.039840637</span></span>
+<span><span class="co">##  2:         1          American Indian or Alaska Native   100 0.020968757</span></span>
+<span><span class="co">##  3:         1                                     Asian   808 0.169427553</span></span>
+<span><span class="co">##  4:         1 Native Hawaiian or other Pacific Islander    34 0.007129377</span></span>
+<span><span class="co">##  5:         1                                     White  3174 0.665548333</span></span>
+<span><span class="co">##  6:         1                                Other race   105 0.022017194</span></span>
+<span><span class="co">##  7:         1                      Prefer not to answer   358 0.075068148</span></span>
+<span><span class="co">##  8:         2                                     Asian    38 0.114114114</span></span>
+<span><span class="co">##  9:         2                                     White   252 0.756756757</span></span>
+<span><span class="co">## 10:         2                                Other race     4 0.012012012</span></span>
+<span><span class="co">## 11:         2                      Prefer not to answer    39 0.117117117</span></span>
+<span><span class="co">## 12:         3                 African American or Black     4 0.400000000</span></span>
+<span><span class="co">## 13:         3                                     White     3 0.300000000</span></span>
+<span><span class="co">## 14:         3                      Prefer not to answer     3 0.300000000</span></span>
+<span><span class="co">## 15:         4                 African American or Black     1 0.029411765</span></span>
+<span><span class="co">## 16:         4                                     Asian     2 0.058823529</span></span>
+<span><span class="co">## 17:         4                                     White    26 0.764705882</span></span>
+<span><span class="co">## 18:         4                      Prefer not to answer     5 0.147058824</span></span>
+<span><span class="co">## 19:         5                                     Asian     2 0.285714286</span></span>
+<span><span class="co">## 20:         5                                     White     3 0.428571429</span></span>
+<span><span class="co">## 21:         5                                Other race     1 0.142857143</span></span>
+<span><span class="co">## 22:         5                      Prefer not to answer     1 0.142857143</span></span>
+<span><span class="co">## 23:         6                 African American or Black     1 0.014492754</span></span>
+<span><span class="co">## 24:         6          American Indian or Alaska Native     1 0.014492754</span></span>
+<span><span class="co">## 25:         6                                     Asian    15 0.217391304</span></span>
+<span><span class="co">## 26:         6 Native Hawaiian or other Pacific Islander     1 0.014492754</span></span>
+<span><span class="co">## 27:         6                                     White    42 0.608695652</span></span>
+<span><span class="co">## 28:         6                                Other race     3 0.043478261</span></span>
+<span><span class="co">## 29:         6                      Prefer not to answer     6 0.086956522</span></span>
+<span><span class="co">## 30:         7                 African American or Black     1 0.009708738</span></span>
+<span><span class="co">## 31:         7                                     Asian    41 0.398058252</span></span>
+<span><span class="co">## 32:         7                                     White    59 0.572815534</span></span>
+<span><span class="co">## 33:         7                      Prefer not to answer     2 0.019417476</span></span>
+<span><span class="co">## 34:         8                 African American or Black   202 0.023882715</span></span>
+<span><span class="co">## 35:         8          American Indian or Alaska Native    92 0.010877276</span></span>
+<span><span class="co">## 36:         8                                     Asian  1405 0.166114921</span></span>
+<span><span class="co">## 37:         8 Native Hawaiian or other Pacific Islander    76 0.008985576</span></span>
+<span><span class="co">## 38:         8                                     White  5991 0.708323481</span></span>
+<span><span class="co">## 39:         8                                Other race   144 0.017025301</span></span>
+<span><span class="co">## 40:         8                      Prefer not to answer   548 0.064790731</span></span>
+<span><span class="co">## 41:        10                                     White    14 1.000000000</span></span>
+<span><span class="co">## 42:        11                 African American or Black     5 0.060240964</span></span>
+<span><span class="co">## 43:        11          American Indian or Alaska Native     2 0.024096386</span></span>
+<span><span class="co">## 44:        11                                     Asian    30 0.361445783</span></span>
+<span><span class="co">## 45:        11                                     White    39 0.469879518</span></span>
+<span><span class="co">## 46:        11                                Other race     3 0.036144578</span></span>
+<span><span class="co">## 47:        11                      Prefer not to answer     4 0.048192771</span></span>
+<span><span class="co">## 48:        12                                     Asian     1 0.111111111</span></span>
+<span><span class="co">## 49:        12                                     White     8 0.888888889</span></span>
+<span><span class="co">## 50:        13                 African American or Black    70 0.074706510</span></span>
+<span><span class="co">## 51:        13          American Indian or Alaska Native    40 0.042689434</span></span>
+<span><span class="co">## 52:        13                                     Asian   153 0.163287086</span></span>
+<span><span class="co">## 53:        13                                     White   576 0.614727855</span></span>
+<span><span class="co">## 54:        13                                Other race    29 0.030949840</span></span>
+<span><span class="co">## 55:        13                      Prefer not to answer    69 0.073639274</span></span>
+<span><span class="co">## 56:        14                                     Asian     7 0.205882353</span></span>
+<span><span class="co">## 57:        14                                     White    25 0.735294118</span></span>
+<span><span class="co">## 58:        14                                Other race     1 0.029411765</span></span>
+<span><span class="co">## 59:        14                      Prefer not to answer     1 0.029411765</span></span>
 <span><span class="co">##     mode_type                                      race count        prop</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
-<span><span class="co">##     mode_type                                      race count         prop</span></span>
-<span><span class="co">##  1:         1                 African American or Black   251 0.0519512011</span></span>
-<span><span class="co">##  2:         1          American Indian or Alaska Native   107 0.0219408924</span></span>
-<span><span class="co">##  3:         1                                     Asian   768 0.1533670063</span></span>
-<span><span class="co">##  4:         1 Native Hawaiian or other Pacific Islander    11 0.0024829898</span></span>
-<span><span class="co">##  5:         1                                     White  3345 0.6718269033</span></span>
-<span><span class="co">##  6:         1                                Other race   198 0.0377041703</span></span>
-<span><span class="co">##  7:         1                      Prefer not to answer   303 0.0607268367</span></span>
-<span><span class="co">##  8:         2          American Indian or Alaska Native     6 0.0102773425</span></span>
-<span><span class="co">##  9:         2                                     Asian    48 0.1393272350</span></span>
-<span><span class="co">## 10:         2                                     White   307 0.8110978638</span></span>
-<span><span class="co">## 11:         2                                Other race     2 0.0081895946</span></span>
-<span><span class="co">## 12:         2                      Prefer not to answer    11 0.0311079642</span></span>
-<span><span class="co">## 13:         3                 African American or Black     2 0.3379158647</span></span>
-<span><span class="co">## 14:         3          American Indian or Alaska Native     1 0.2532306846</span></span>
-<span><span class="co">## 15:         3                                     Asian     1 0.0775364311</span></span>
-<span><span class="co">## 16:         3                                     White     5 0.3313170195</span></span>
-<span><span class="co">## 17:         4                 African American or Black     3 0.0604071856</span></span>
-<span><span class="co">## 18:         4          American Indian or Alaska Native    15 0.2513053892</span></span>
-<span><span class="co">## 19:         4                                     Asian     2 0.0535089820</span></span>
-<span><span class="co">## 20:         4                                     White    24 0.5092694611</span></span>
-<span><span class="co">## 21:         4                      Prefer not to answer     5 0.1255089820</span></span>
-<span><span class="co">## 22:         5          American Indian or Alaska Native     1 0.2186948854</span></span>
-<span><span class="co">## 23:         5                                     Asian     1 0.2061287478</span></span>
-<span><span class="co">## 24:         5                                     White     2 0.4058641975</span></span>
-<span><span class="co">## 25:         5                      Prefer not to answer     1 0.1693121693</span></span>
-<span><span class="co">## 26:         6                 African American or Black     6 0.0487740014</span></span>
-<span><span class="co">## 27:         6          American Indian or Alaska Native     1 0.0060280482</span></span>
-<span><span class="co">## 28:         6                                     Asian    28 0.2651809301</span></span>
-<span><span class="co">## 29:         6                                     White    73 0.5838164637</span></span>
-<span><span class="co">## 30:         6                                Other race     1 0.0097335248</span></span>
-<span><span class="co">## 31:         6                      Prefer not to answer    11 0.0864670319</span></span>
-<span><span class="co">## 32:         7                 African American or Black     5 0.0612305632</span></span>
-<span><span class="co">## 33:         7                                     Asian    34 0.3980606602</span></span>
-<span><span class="co">## 34:         7 Native Hawaiian or other Pacific Islander     1 0.0128958659</span></span>
-<span><span class="co">## 35:         7                                     White    29 0.3366812985</span></span>
-<span><span class="co">## 36:         7                                Other race     1 0.0236589539</span></span>
-<span><span class="co">## 37:         7                      Prefer not to answer    13 0.1674726583</span></span>
-<span><span class="co">## 38:         8                 African American or Black   234 0.0236711337</span></span>
-<span><span class="co">## 39:         8          American Indian or Alaska Native    86 0.0087625109</span></span>
-<span><span class="co">## 40:         8                                     Asian  1468 0.1528297944</span></span>
-<span><span class="co">## 41:         8 Native Hawaiian or other Pacific Islander   114 0.0115648346</span></span>
-<span><span class="co">## 42:         8                                     White  7113 0.7283770436</span></span>
-<span><span class="co">## 43:         8                                Other race    99 0.0112141873</span></span>
-<span><span class="co">## 44:         8                      Prefer not to answer   610 0.0635804955</span></span>
-<span><span class="co">## 45:        10                                     White     1 0.4252100840</span></span>
-<span><span class="co">## 46:        10                      Prefer not to answer     1 0.5747899160</span></span>
-<span><span class="co">## 47:        11                 African American or Black     5 0.0861290323</span></span>
-<span><span class="co">## 48:        11          American Indian or Alaska Native     2 0.0338709677</span></span>
-<span><span class="co">## 49:        11                                     Asian    17 0.3191756272</span></span>
-<span><span class="co">## 50:        11                                     White    17 0.3621146953</span></span>
-<span><span class="co">## 51:        11                      Prefer not to answer     9 0.1987096774</span></span>
-<span><span class="co">## 52:        12                                     Asian     5 0.6417958656</span></span>
-<span><span class="co">## 53:        12                                     White     2 0.3582041344</span></span>
-<span><span class="co">## 54:        13                 African American or Black   100 0.1106632274</span></span>
-<span><span class="co">## 55:        13          American Indian or Alaska Native    25 0.0260516059</span></span>
-<span><span class="co">## 56:        13                                     Asian   149 0.1600454443</span></span>
-<span><span class="co">## 57:        13 Native Hawaiian or other Pacific Islander     2 0.0007338196</span></span>
-<span><span class="co">## 58:        13                                     White   576 0.5933042501</span></span>
-<span><span class="co">## 59:        13                                Other race    56 0.0514158877</span></span>
-<span><span class="co">## 60:        13                      Prefer not to answer    58 0.0577857651</span></span>
-<span><span class="co">## 61:        14                                     Asian     3 0.1065921788</span></span>
-<span><span class="co">## 62:        14                                     White    20 0.7535940410</span></span>
-<span><span class="co">## 63:        14                      Prefer not to answer     4 0.1398137803</span></span>
-<span><span class="co">##     mode_type                                      race count         prop</span></span>
-<span><span class="co">##          prop_se     est     est_se</span></span>
-<span><span class="co">##  1: 0.0039135676  129617  9371.8975</span></span>
-<span><span class="co">##  2: 0.0025457540   54742  5993.1948</span></span>
-<span><span class="co">##  3: 0.0062380159  382647 15830.8104</span></span>
-<span><span class="co">##  4: 0.0008435027    6195  1965.6087</span></span>
-<span><span class="co">##  5: 0.0075829943 1676192 32913.0946</span></span>
-<span><span class="co">##  6: 0.0032730709   94071  7766.3382</span></span>
-<span><span class="co">##  7: 0.0041614975  151512 10006.6615</span></span>
-<span><span class="co">##  8: 0.0066705307    1974  1184.2006</span></span>
-<span><span class="co">##  9: 0.0220212114   26761  4223.5084</span></span>
-<span><span class="co">## 10: 0.0200102087  155790 10077.6666</span></span>
-<span><span class="co">## 11: 0.0063242181    1573  1121.8635</span></span>
-<span><span class="co">## 12: 0.0113591486    5975  2041.2234</span></span>
-<span><span class="co">## 13: 0.1986555603    1229   905.7454</span></span>
-<span><span class="co">## 14: 0.2062052313     921   921.0000</span></span>
-<span><span class="co">## 15: 0.0780955046     282   282.0000</span></span>
-<span><span class="co">## 16: 0.1766944428    1205   703.1601</span></span>
-<span><span class="co">## 17: 0.0473231901    1261   740.3252</span></span>
-<span><span class="co">## 18: 0.0898743324    5246  1597.2108</span></span>
-<span><span class="co">## 19: 0.0501735321    1117   792.0122</span></span>
-<span><span class="co">## 20: 0.0883485978   10631  2576.0573</span></span>
-<span><span class="co">## 21: 0.0778037247    2620  1315.5853</span></span>
-<span><span class="co">## 22: 0.2306702310     992   992.0000</span></span>
-<span><span class="co">## 23: 0.2222702184     935   935.0000</span></span>
-<span><span class="co">## 24: 0.2508999427    1841  1301.9391</span></span>
-<span><span class="co">## 25: 0.1937807326     768   768.0000</span></span>
-<span><span class="co">## 26: 0.0259368649    2751  1384.0878</span></span>
-<span><span class="co">## 27: 0.0065600158     340   340.0000</span></span>
-<span><span class="co">## 28: 0.0514001081   14957  3201.0174</span></span>
-<span><span class="co">## 29: 0.0533733744   32929  4596.8792</span></span>
-<span><span class="co">## 30: 0.0105496451     549   549.0000</span></span>
-<span><span class="co">## 31: 0.0301671848    4877  1627.1277</span></span>
-<span><span class="co">## 32: 0.0294968753    2469  1198.2454</span></span>
-<span><span class="co">## 33: 0.0641481145   16051  3281.0272</span></span>
-<span><span class="co">## 34: 0.0130877913     520   520.0000</span></span>
-<span><span class="co">## 35: 0.0612054817   13576  2937.5137</span></span>
-<span><span class="co">## 36: 0.0237436408     954   954.0000</span></span>
-<span><span class="co">## 37: 0.0512408715    6753  2247.4613</span></span>
-<span><span class="co">## 38: 0.0018366535  116112  8752.8037</span></span>
-<span><span class="co">## 39: 0.0011257140   42982  5325.5094</span></span>
-<span><span class="co">## 40: 0.0043609869  749663 22304.3628</span></span>
-<span><span class="co">## 41: 0.0012870265   56728  6096.7034</span></span>
-<span><span class="co">## 42: 0.0051034654 3572846 47455.2016</span></span>
-<span><span class="co">## 43: 0.0013132708   55008  6222.7103</span></span>
-<span><span class="co">## 44: 0.0029617241  311876 14409.5931</span></span>
-<span><span class="co">## 45: 0.3456445313     506   506.0000</span></span>
-<span><span class="co">## 46: 0.3456445313     684   684.0000</span></span>
-<span><span class="co">## 47: 0.0417857331    2403  1121.8892</span></span>
-<span><span class="co">## 48: 0.0260170786     945   684.0564</span></span>
-<span><span class="co">## 49: 0.0770995186    8905  2449.0935</span></span>
-<span><span class="co">## 50: 0.0807176332   10103  2732.0317</span></span>
-<span><span class="co">## 51: 0.0674104855    5544  1979.6650</span></span>
-<span><span class="co">## 52: 0.2183667764    1987  1113.9830</span></span>
-<span><span class="co">## 53: 0.2183667764    1109   850.3225</span></span>
-<span><span class="co">## 54: 0.0124258017   54742  6169.0586</span></span>
-<span><span class="co">## 55: 0.0062111642   12887  2931.8737</span></span>
-<span><span class="co">## 56: 0.0144840078   79170  7422.9806</span></span>
-<span><span class="co">## 57: 0.0006973119     363   324.5994</span></span>
-<span><span class="co">## 58: 0.0184312764  293491 13961.4327</span></span>
-<span><span class="co">## 59: 0.0083564884   25434  3991.8927</span></span>
-<span><span class="co">## 60: 0.0090336084   28585  4336.8548</span></span>
-<span><span class="co">## 61: 0.0807452217    1431  1039.6558</span></span>
-<span><span class="co">## 62: 0.0827610341   10117  2631.8673</span></span>
-<span><span class="co">## 63: 0.0827610341    1877  1070.6844</span></span>
-<span><span class="co">##          prop_se     est     est_se</span></span>
+<span><span class="co">##     mode_type                                      race count        prop</span></span>
+<span><span class="co">##         &lt;int&gt;                                    &lt;fctr&gt; &lt;int&gt;       &lt;num&gt;</span></span>
+<span><span class="co">##  1:         1                 African American or Black   190 0.040013489</span></span>
+<span><span class="co">##  2:         1          American Indian or Alaska Native   100 0.021076910</span></span>
+<span><span class="co">##  3:         1                                     Asian   808 0.166476198</span></span>
+<span><span class="co">##  4:         1 Native Hawaiian or other Pacific Islander    34 0.006831490</span></span>
+<span><span class="co">##  5:         1                                     White  3174 0.666577157</span></span>
+<span><span class="co">##  6:         1                                Other race   105 0.020586062</span></span>
+<span><span class="co">##  7:         1                      Prefer not to answer   358 0.078438695</span></span>
+<span><span class="co">##  8:         2                                     Asian    38 0.126072990</span></span>
+<span><span class="co">##  9:         2                                     White   252 0.732486705</span></span>
+<span><span class="co">## 10:         2                                Other race     4 0.008524104</span></span>
+<span><span class="co">## 11:         2                      Prefer not to answer    39 0.132916201</span></span>
+<span><span class="co">## 12:         3                 African American or Black     4 0.414366478</span></span>
+<span><span class="co">## 13:         3                                     White     3 0.241602927</span></span>
+<span><span class="co">## 14:         3                      Prefer not to answer     3 0.344030595</span></span>
+<span><span class="co">## 15:         4                 African American or Black     1 0.031250000</span></span>
+<span><span class="co">## 16:         4                                     Asian     2 0.054166667</span></span>
+<span><span class="co">## 17:         4                                     White    26 0.773790323</span></span>
+<span><span class="co">## 18:         4                      Prefer not to answer     5 0.140793011</span></span>
+<span><span class="co">## 19:         5                                     Asian     2 0.281510417</span></span>
+<span><span class="co">## 20:         5                                     White     3 0.416145833</span></span>
+<span><span class="co">## 21:         5                                Other race     1 0.235677083</span></span>
+<span><span class="co">## 22:         5                      Prefer not to answer     1 0.066666667</span></span>
+<span><span class="co">## 23:         6                 African American or Black     1 0.023968337</span></span>
+<span><span class="co">## 24:         6          American Indian or Alaska Native     1 0.013589438</span></span>
+<span><span class="co">## 25:         6                                     Asian    15 0.245800006</span></span>
+<span><span class="co">## 26:         6 Native Hawaiian or other Pacific Islander     1 0.022805901</span></span>
+<span><span class="co">## 27:         6                                     White    42 0.585812737</span></span>
+<span><span class="co">## 28:         6                                Other race     3 0.039633556</span></span>
+<span><span class="co">## 29:         6                      Prefer not to answer     6 0.068390025</span></span>
+<span><span class="co">## 30:         7                 African American or Black     1 0.008989024</span></span>
+<span><span class="co">## 31:         7                                     Asian    41 0.400069443</span></span>
+<span><span class="co">## 32:         7                                     White    59 0.579290523</span></span>
+<span><span class="co">## 33:         7                      Prefer not to answer     2 0.011651010</span></span>
+<span><span class="co">## 34:         8                 African American or Black   202 0.022452608</span></span>
+<span><span class="co">## 35:         8          American Indian or Alaska Native    92 0.011322711</span></span>
+<span><span class="co">## 36:         8                                     Asian  1405 0.163974235</span></span>
+<span><span class="co">## 37:         8 Native Hawaiian or other Pacific Islander    76 0.009421685</span></span>
+<span><span class="co">## 38:         8                                     White  5991 0.709942163</span></span>
+<span><span class="co">## 39:         8                                Other race   144 0.017067744</span></span>
+<span><span class="co">## 40:         8                      Prefer not to answer   548 0.065818854</span></span>
+<span><span class="co">## 41:        10                                     White    14 1.000000000</span></span>
+<span><span class="co">## 42:        11                 African American or Black     5 0.045721688</span></span>
+<span><span class="co">## 43:        11          American Indian or Alaska Native     2 0.024779907</span></span>
+<span><span class="co">## 44:        11                                     Asian    30 0.421234438</span></span>
+<span><span class="co">## 45:        11                                     White    39 0.438458032</span></span>
+<span><span class="co">## 46:        11                                Other race     3 0.039772591</span></span>
+<span><span class="co">## 47:        11                      Prefer not to answer     4 0.030033344</span></span>
+<span><span class="co">## 48:        12                                     Asian     1 0.073637317</span></span>
+<span><span class="co">## 49:        12                                     White     8 0.926362683</span></span>
+<span><span class="co">## 50:        13                 African American or Black    70 0.080582483</span></span>
+<span><span class="co">## 51:        13          American Indian or Alaska Native    40 0.045759209</span></span>
+<span><span class="co">## 52:        13                                     Asian   153 0.162498668</span></span>
+<span><span class="co">## 53:        13                                     White   576 0.603323604</span></span>
+<span><span class="co">## 54:        13                                Other race    29 0.033025119</span></span>
+<span><span class="co">## 55:        13                      Prefer not to answer    69 0.074810917</span></span>
+<span><span class="co">## 56:        14                                     Asian     7 0.235129592</span></span>
+<span><span class="co">## 57:        14                                     White    25 0.716825160</span></span>
+<span><span class="co">## 58:        14                                Other race     1 0.007458512</span></span>
+<span><span class="co">## 59:        14                      Prefer not to answer     1 0.040586736</span></span>
+<span><span class="co">##     mode_type                                      race count        prop</span></span>
+<span><span class="co">##         prop_se     est     est_se</span></span>
+<span><span class="co">##           &lt;num&gt;   &lt;num&gt;      &lt;num&gt;</span></span>
+<span><span class="co">##  1: 0.003480119   96111  7975.0422</span></span>
+<span><span class="co">##  2: 0.002542819   50626  5768.3288</span></span>
+<span><span class="co">##  3: 0.006568278  399870 16186.7733</span></span>
+<span><span class="co">##  4: 0.001479919   16409  3332.9169</span></span>
+<span><span class="co">##  5: 0.007787283 1601095 32330.8859</span></span>
+<span><span class="co">##  6: 0.002488825   49447  5643.0323</span></span>
+<span><span class="co">##  7: 0.004825536  188407 11307.9346</span></span>
+<span><span class="co">##  8: 0.021673410   21076  3786.3301</span></span>
+<span><span class="co">##  9: 0.027934367  122452  8973.4484</span></span>
+<span><span class="co">## 10: 0.005832891    1425   953.4106</span></span>
+<span><span class="co">## 11: 0.022521537   22220  3962.3508</span></span>
+<span><span class="co">## 12: 0.169167822    2492  1331.5545</span></span>
+<span><span class="co">## 13: 0.144247992    1453   987.4602</span></span>
+<span><span class="co">## 14: 0.164240660    2069  1229.3905</span></span>
+<span><span class="co">## 15: 0.030872908     465   465.0000</span></span>
+<span><span class="co">## 16: 0.038590666     806   584.5878</span></span>
+<span><span class="co">## 17: 0.076849954   11514  2632.9105</span></span>
+<span><span class="co">## 18: 0.064158837    2095  1016.5575</span></span>
+<span><span class="co">## 19: 0.189992252    1081   856.0307</span></span>
+<span><span class="co">## 20: 0.208480521    1598  1028.8007</span></span>
+<span><span class="co">## 21: 0.198601443     905   905.0000</span></span>
+<span><span class="co">## 22: 0.068252522     256   256.0000</span></span>
+<span><span class="co">## 23: 0.025775549     866   866.0000</span></span>
+<span><span class="co">## 24: 0.014784403     491   491.0000</span></span>
+<span><span class="co">## 25: 0.063926195    8881  2490.2346</span></span>
+<span><span class="co">## 26: 0.024557643     824   824.0000</span></span>
+<span><span class="co">## 27: 0.069091983   21166  3700.9843</span></span>
+<span><span class="co">## 28: 0.026555002    1432   893.3361</span></span>
+<span><span class="co">## 29: 0.036046741    2471  1234.4411</span></span>
+<span><span class="co">## 30: 0.008964261     466   466.0000</span></span>
+<span><span class="co">## 31: 0.054902198   20740  3701.0089</span></span>
+<span><span class="co">## 32: 0.055185761   30031  4390.3553</span></span>
+<span><span class="co">## 33: 0.010514366     604   547.2982</span></span>
+<span><span class="co">## 34: 0.001873969   95254  7769.5082</span></span>
+<span><span class="co">## 35: 0.001398626   48036  5771.9859</span></span>
+<span><span class="co">## 36: 0.004762250  695652 21306.4777</span></span>
+<span><span class="co">## 37: 0.001276091   39971  5261.1217</span></span>
+<span><span class="co">## 38: 0.005617560 3011892 43812.4684</span></span>
+<span><span class="co">## 39: 0.001666708   72409  6895.2034</span></span>
+<span><span class="co">## 40: 0.003230268  279233 13708.1607</span></span>
+<span><span class="co">## 41: 0.000000000   10064  2812.2928</span></span>
+<span><span class="co">## 42: 0.022381920    1906   897.4773</span></span>
+<span><span class="co">## 43: 0.018255748    1033   730.6515</span></span>
+<span><span class="co">## 44: 0.063430268   17560  3458.3451</span></span>
+<span><span class="co">## 45: 0.063068208   18278  3359.7885</span></span>
+<span><span class="co">## 46: 0.024280629    1658   980.6957</span></span>
+<span><span class="co">## 47: 0.021499876    1252   864.6859</span></span>
+<span><span class="co">## 48: 0.073962514     281   281.0000</span></span>
+<span><span class="co">## 49: 0.073962514    3535  1481.3100</span></span>
+<span><span class="co">## 50: 0.011247084   37823  5066.8771</span></span>
+<span><span class="co">## 51: 0.008727320   21478  3852.7941</span></span>
+<span><span class="co">## 52: 0.015009542   76272  7108.1562</span></span>
+<span><span class="co">## 53: 0.018695102  283182 13670.8385</span></span>
+<span><span class="co">## 54: 0.007444624   15501  3261.5427</span></span>
+<span><span class="co">## 55: 0.010821499   35114  4855.8112</span></span>
+<span><span class="co">## 56: 0.091554896    3783  1724.7373</span></span>
+<span><span class="co">## 57: 0.095130908   11533  2706.5373</span></span>
+<span><span class="co">## 58: 0.007557031     120   120.0000</span></span>
+<span><span class="co">## 59: 0.039773659     653   653.0000</span></span>
+<span><span class="co">##         prop_se     est     est_se</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $weight_name</span></span>
 <span><span class="co">## [1] "trip_weight"</span></span></code></pre>
 <p><code>summarize_by</code> can be used with an unlimited amount of
 variables. To use more than one <code>summarize_by</code> variable pass
 a list to the argument.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>                   summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'race'</span>, <span class="st">'ethnicity'</span><span class="op">)</span>,</span>
 <span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -809,6 +803,7 @@ a list to the argument.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mode_by_race_ethnicity_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                          race                                   ethnicity</span></span>
+<span><span class="co">##                        &lt;fctr&gt;                                      &lt;fctr&gt;</span></span>
 <span><span class="co">##  1: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">##  2: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">##  3: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
@@ -817,26 +812,27 @@ a list to the argument.</p>
 <span><span class="co">##  6: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">##  7: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">##  8: African American or Black  Not of Hispanic, Latino, or Spanish origin</span></span>
-<span><span class="co">##  9: African American or Black                                Puerto Rican</span></span>
+<span><span class="co">##  9: African American or Black Another Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">## 10: African American or Black Another Hispanic, Latino, or Spanish origin</span></span>
-<span><span class="co">##     mode_type count        prop     prop_se    est    est_se</span></span>
-<span><span class="co">##  1:         1   173 0.378706293 0.025556563  92766 7920.4716</span></span>
-<span><span class="co">##  2:         3     2 0.005017248 0.003688597   1229  905.7243</span></span>
-<span><span class="co">##  3:         4     2 0.003600661 0.002593898    882  635.9449</span></span>
-<span><span class="co">##  4:         6     3 0.008483191 0.005047282   2078 1241.9804</span></span>
-<span><span class="co">##  5:         7     1 0.001612541 0.001612226    395  395.0000</span></span>
-<span><span class="co">##  6:         8   207 0.423694148 0.025957360 103786 8289.1748</span></span>
-<span><span class="co">##  7:        11     3 0.005952114 0.003622216   1458  889.1873</span></span>
-<span><span class="co">##  8:        13    75 0.172933804 0.020192600  42361 5448.6115</span></span>
-<span><span class="co">##  9:         6     1 1.000000000 0.000000000    609  609.0000</span></span>
-<span><span class="co">## 10:         1    35 0.636811186 0.081696434  15393 3240.6602</span></span></code></pre>
+<span><span class="co">##     mode_type count        prop     prop_se   est    est_se</span></span>
+<span><span class="co">##         &lt;int&gt; &lt;int&gt;       &lt;num&gt;       &lt;num&gt; &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">##  1:         1   143 0.395021634 0.028786577 75777 7152.8334</span></span>
+<span><span class="co">##  2:         3     4 0.012990669 0.006892942  2492 1331.4537</span></span>
+<span><span class="co">##  3:         4     1 0.002424021 0.002422381   465  465.0000</span></span>
+<span><span class="co">##  4:         6     1 0.004514414 0.004501905   866  866.0000</span></span>
+<span><span class="co">##  5:         7     1 0.002429234 0.002427578   466  466.0000</span></span>
+<span><span class="co">##  6:         8   173 0.418427775 0.028683214 80267 7061.2787</span></span>
+<span><span class="co">##  7:        11     3 0.004550904 0.002717711   873  521.1549</span></span>
+<span><span class="co">##  8:        13    53 0.159641349 0.021778953 30624 4566.8926</span></span>
+<span><span class="co">##  9:         1     2 0.270056497 0.179646281   956  696.6059</span></span>
+<span><span class="co">## 10:         8     4 0.729943503 0.179646281  2584 1413.9469</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="calculating-trip-rates">Calculating trip rates<a class="anchor" aria-label="anchor" href="#calculating-trip-rates"></a>
 </h3>
 <p><code>hts_summary</code> can also be used to calculate trip
 rates.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_triprate.html">hts_prep_triprate</a></span><span class="op">(</span>summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span>
 <span>                       variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>                       trip_name <span class="op">=</span> <span class="st">'trip'</span>,</span>
@@ -856,21 +852,22 @@ rates.</p>
 <span>                                              se <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    employment count min      max     mean    mean_se   median</span></span>
-<span><span class="co">## 1:          1  2043   0 65.38043 4.140200 0.09026934 2.852713</span></span>
-<span><span class="co">## 2:          2   244   0 60.70732 4.183628 0.26654290 2.560976</span></span>
-<span><span class="co">## 3:          3   281   0 52.65060 5.210643 0.34255543 3.580769</span></span>
-<span><span class="co">## 4:          5   914   0 65.47059 3.429423 0.12996342 2.181070</span></span>
-<span><span class="co">## 5:          6   215   0 63.47727 3.341959 0.25411564 2.196911</span></span>
-<span><span class="co">## 6:          7    35   0 29.84018 3.432427 0.68787476 1.920398</span></span>
-<span><span class="co">## 7:          8    27   0 26.14286 4.076049 0.60438358 2.784161</span></span>
-<span><span class="co">## 8:        995   547   0 61.30769 2.419237 0.12986732 1.450284</span></span></code></pre>
+<pre><code><span><span class="co">##    employment count   min      max     mean    mean_se   median</span></span>
+<span><span class="co">##         &lt;int&gt; &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">## 1:          1  1858     0 62.56075 3.770511 0.08744228 2.562929</span></span>
+<span><span class="co">## 2:          2   333     0 49.51000 4.518665 0.26799833 3.027821</span></span>
+<span><span class="co">## 3:          3   251     0 63.59574 3.750584 0.25813849 2.478788</span></span>
+<span><span class="co">## 4:          5  1000     0 59.23973 3.394865 0.12525765 2.021469</span></span>
+<span><span class="co">## 5:          6   164     0 45.62069 3.144907 0.26774656 2.197662</span></span>
+<span><span class="co">## 6:          7    52     0 32.36364 4.070054 0.56907009 2.720099</span></span>
+<span><span class="co">## 7:          8    14     0 21.92248 2.728166 0.92991111 0.904000</span></span>
+<span><span class="co">## 8:        995   513     0 58.78947 2.098985 0.10435428 1.272311</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="labeling-values">Labeling Values<a class="anchor" aria-label="anchor" href="#labeling-values"></a>
 </h3>
 <p>To label values we can use <code>factorize_column</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span><span class="op">$</span><span class="va">employment</span> <span class="op">=</span>  <span class="fu"><a href="../reference/factorize_column.html">factorize_column</a></span><span class="op">(</span></span>
 <span>  <span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span><span class="op">$</span><span class="va">employment</span>,</span>
 <span>  <span class="st">'employment'</span>,</span>
@@ -884,6 +881,7 @@ rates.</p>
 <span></span>
 <span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                                                             employment</span></span>
+<span><span class="co">##                                                                                  &lt;ord&gt;</span></span>
 <span><span class="co">## 1:                                           Employed full-time (35+ hours/week, paid)</span></span>
 <span><span class="co">## 2:                                 Employed part-time (fewer than 35 hours/week, paid)</span></span>
 <span><span class="co">## 3:                                                                       Self-employed</span></span>
@@ -892,25 +890,27 @@ rates.</p>
 <span><span class="co">## 6:                                                          Unpaid volunteer or intern</span></span>
 <span><span class="co">## 7:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span></span>
 <span><span class="co">## 8:                                                                    Missing Response</span></span>
-<span><span class="co">##    count min      max     mean    mean_se   median</span></span>
-<span><span class="co">## 1:  2043   0 65.38043 4.140200 0.09026934 2.852713</span></span>
-<span><span class="co">## 2:   244   0 60.70732 4.183628 0.26654290 2.560976</span></span>
-<span><span class="co">## 3:   281   0 52.65060 5.210643 0.34255543 3.580769</span></span>
-<span><span class="co">## 4:   914   0 65.47059 3.429423 0.12996342 2.181070</span></span>
-<span><span class="co">## 5:   215   0 63.47727 3.341959 0.25411564 2.196911</span></span>
-<span><span class="co">## 6:    35   0 29.84018 3.432427 0.68787476 1.920398</span></span>
-<span><span class="co">## 7:    27   0 26.14286 4.076049 0.60438358 2.784161</span></span>
-<span><span class="co">## 8:   547   0 61.30769 2.419237 0.12986732 1.450284</span></span></code></pre>
+<span><span class="co">##    count   min      max     mean    mean_se   median</span></span>
+<span><span class="co">##    &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">## 1:  1858     0 62.56075 3.770511 0.08744228 2.562929</span></span>
+<span><span class="co">## 2:   333     0 49.51000 4.518665 0.26799833 3.027821</span></span>
+<span><span class="co">## 3:   251     0 63.59574 3.750584 0.25813849 2.478788</span></span>
+<span><span class="co">## 4:  1000     0 59.23973 3.394865 0.12525765 2.021469</span></span>
+<span><span class="co">## 5:   164     0 45.62069 3.144907 0.26774656 2.197662</span></span>
+<span><span class="co">## 6:    52     0 32.36364 4.070054 0.56907009 2.720099</span></span>
+<span><span class="co">## 7:    14     0 21.92248 2.728166 0.92991111 0.904000</span></span>
+<span><span class="co">## 8:   513     0 58.78947 2.098985 0.10435428 1.272311</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="creating-visuals-using-hts_summary-output">Creating Visuals using hts_summary output<a class="anchor" aria-label="anchor" href="#creating-visuals-using-hts_summary-output"></a>
 </h3>
 <p><code>hts_summary</code> creates outputs that can easily be used to
 create visuals.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'ggplot2' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  <span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean</span>, y <span class="op">=</span> <span class="va">employment</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -934,7 +934,7 @@ create visuals.</p>
 first be added to the <code>variable_list</code> and
 <code>value_labels</code>. In this example we are creating a new
 variable called <code>hh_size</code> that we want to summarize.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_data</span><span class="op">$</span><span class="va">hh</span><span class="op">[</span>, <span class="va">hh_size</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">num_people</span> <span class="op">&lt;</span> <span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">variable_list</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">variable_list</span>,</span>
@@ -969,8 +969,9 @@ variable called <code>hh_size</code> that we want to summarize.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/factorize_df.html">factorize_df</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">hh_size_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="va">value_labels</span>, value_label_colname <span class="op">=</span> <span class="st">'label'</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##            hh_size count      prop    est</span></span>
-<span><span class="co">## 1: Small household   875 0.8728126 436374</span></span>
-<span><span class="co">## 2: Large household   125 0.1271874  63589</span></span></code></pre>
+<span><span class="co">##              &lt;ord&gt; &lt;int&gt;     &lt;num&gt;  &lt;int&gt;</span></span>
+<span><span class="co">## 1: Small household   881 0.8786678 448161</span></span>
+<span><span class="co">## 2: Large household   119 0.1213322  61885</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

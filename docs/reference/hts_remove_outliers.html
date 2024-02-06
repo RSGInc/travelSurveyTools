@@ -24,8 +24,9 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/getting_started.html">Getting Started</a>
+    <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
+    <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -87,33 +88,49 @@ in data.table format.</p></dd>
 <span class="r-in"><span><span class="fu">hts_remove_outliers</span><span class="op">(</span>var_dt <span class="op">=</span> <span class="va">trip</span>, numvar <span class="op">=</span> <span class="st">'speed_mph'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outlier_description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         418    123.5646    466317.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         377    113.0093     5198308</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id travel_date      trip_id speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  4.764584</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  7.425306</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  5.372348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  3.232303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000137 2300013701 230001370101  2023-04-25 2.300014e+12  3.106531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;Date&gt;        &lt;num&gt;     &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 21.480572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 23.720178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.927242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.146634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103  2023-04-21 2.300017e+12 34.657421</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16279: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  8.094207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16280: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  7.888320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16281: 23422853 2342285303 234228530301  2023-06-05 2.342285e+12  6.378893</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16282: 23422853 2342285304 234228530401  2023-06-05 2.342285e+12  8.094207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16283: 23422853 2342285304 234228530401  2023-06-05 2.342285e+12  7.888320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mode_type d_purpose_category trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         1                 11         890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:        13                 11         663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         1                 10         892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         1                  1         146</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         1                 11         630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16279:         8                  6         935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16280:        10                  4         234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16281:        10                  1         379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16282:         8                  4         210</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16283:        10                  4         468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14681: 23422311 2342231101 234223110101  2023-06-01 2.342231e+12 25.812478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14682: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 16.040986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14683: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 26.901306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 16.720703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 25.812478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        distance_miles mode_type mode_1 mode_2 num_travelers d_purpose_category</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;         &lt;int&gt;              &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:       4.755560         8      7    995             2                  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:       4.856047         8      7    995             3                  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       1.516296         1      1    995             1                  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       1.393237         1      1    995             1                  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       8.933913         8      7    995             1                  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14681:      20.219774         8      6    995             2                  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14682:       6.683744         8      7    995             1                 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14683:      20.175979         8      7    995             1                 13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14684:       5.573568         8      6    995             2                  6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14685:      20.219774         8      6    995             2                  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:         906</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:          64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14681:         624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14682:         322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14683:          22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14684:         596</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14685:          95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

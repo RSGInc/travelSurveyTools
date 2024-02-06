@@ -18,6 +18,7 @@ To calculate trip rates we first need to prepare the data. We can do this using 
 ```{r, prep_triprate, echo=TRUE}
 
 library(travelSurveyTools)
+library(ggplot2)
 
 data("test_data")
 data("variable_list")
@@ -63,7 +64,7 @@ num_trips_job_type = hts_summary(
   weighted = TRUE
 )$summary$wtd
 
-library(ggplot2)
+
 
 # Label job_type
 num_trips_job_type_labeled = factorize_df(num_trips_job_type,
