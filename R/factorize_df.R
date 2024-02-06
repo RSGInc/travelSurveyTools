@@ -54,10 +54,10 @@ factorize_df <- function(df, vals_df, verbose = TRUE, ...) {
     labeled_vars_in_df   <- sort(colnames(df)[ (colnames(df) %in% vals_df$variable) ])
     unlabeled_vars_in_df <- sort(colnames(df)[!(colnames(df) %in% vals_df$variable) ])
 
-    message("\n Labeled vars: \n")
-    message(paste(labeled_vars_in_df, collapse=', '), '\n')
-    message("\n Unlabeled vars: \n")
-    message(paste(unlabeled_vars_in_df, collapse=', '), '\n')
+    message("\n Labeled vars: ")
+    message(paste(sprintf("- %s", labeled_vars_in_df), collapse= '\n'), '\n')
+    message("Unlabeled vars: ")
+    message(paste(sprintf("- %s",unlabeled_vars_in_df), collapse='\n'))
   }
   if ( df_is_dt ){
      df_labeled = data.table::data.table(df_labeled)
