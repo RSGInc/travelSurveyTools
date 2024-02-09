@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,9 @@ breakdown of outliers if removed.</p>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, day_id&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;int&gt;        &lt;fctr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694     Exactly 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296          7-14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352           0-7</span>
@@ -156,7 +158,9 @@ breakdown of outliers if removed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4185: 23422311 2342231102 234223110201        350           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, day_id&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;int&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694      0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296      9.949324</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352      2.906250</span>
@@ -171,6 +175,7 @@ breakdown of outliers if removed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         108    63.74286    340.3529</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">hts_prep_triprate</span><span class="op">(</span>summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
@@ -183,19 +188,21 @@ breakdown of outliers if removed.</p>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104        478           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730105        300           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4181: 23417656 2341765603 234176560301        971           878   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4182: 23418585 2341858501 234185850101        892           586   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4183: 23418585 2341858502 234185850201        268           199   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4184: 23422311 2342231101 234223110101        161           546   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4185: 23422311 2342231102 234223110201        350           617   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight   age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104        478           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730105        300           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4181: 23417656 2341765603 234176560301        971           878     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4182: 23418585 2341858501 234185850101        892           586     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4183: 23418585 2341858502 234185850201        268           199     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4184: 23422311 2342231101 234223110101        161           546     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4185: 23422311 2342231102 234223110201        350           617     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;fctr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:     Exactly 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:          7-14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:           0-7</span>
@@ -209,19 +216,21 @@ breakdown of outliers if removed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4185:           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104        478           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730105        300           196   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4181: 23417656 2341765603 234176560301        971           878   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4182: 23418585 2341858501 234185850101        892           586   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4183: 23418585 2341858502 234185850201        268           199   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4184: 23422311 2342231101 234223110101        161           546   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4185: 23422311 2342231102 234223110201        350           617   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id       day_id day_weight person_weight   age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301 230001730101        694           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017301 230001730102        296           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017301 230001730103        352           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017301 230001730104        478           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000173 2300017301 230001730105        300           196     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4181: 23417656 2341765603 234176560301        971           878     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4182: 23418585 2341858501 234185850101        892           586     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4183: 23418585 2341858502 234185850201        268           199     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4184: 23422311 2342231101 234223110101        161           546     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4185: 23422311 2342231102 234223110201        350           617     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:      0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:      9.949324</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:      2.906250</span>
@@ -236,6 +245,7 @@ breakdown of outliers if removed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         108    63.74286    340.3529</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +91,12 @@ in data.table format.</p></dd>
 <span class="r-in"><span><span class="fu">hts_remove_outliers</span><span class="op">(</span>var_dt <span class="op">=</span> <span class="va">trip</span>, numvar <span class="op">=</span> <span class="st">'speed_mph'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outlier_description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         377    113.0093     5198308</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id travel_date      trip_id speed_mph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;      &lt;Date&gt;        &lt;num&gt;     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 21.480572</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 23.720178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.927242</span>
@@ -107,6 +109,7 @@ in data.table format.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 16.720703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 25.812478</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        distance_miles mode_type mode_1 mode_2 num_travelers d_purpose_category</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;         &lt;int&gt;              &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:       4.755560         8      7    995             2                  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:       4.856047         8      7    995             3                  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:       1.516296         1      1    995             1                  9</span>
@@ -119,6 +122,7 @@ in data.table format.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14684:       5.573568         8      6    995             2                  6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14685:      20.219774         8      6    995             2                  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:         968</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:         906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:         387</span>
