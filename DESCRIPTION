@@ -1,6 +1,6 @@
 Package: travelSurveyTools
 Title: travelSurveyTools
-Version: 0.0.0.9000
+Version: 2.0.0
 Authors@R: c(
     person("RSG", "Inc.", , "rsg@rsginc.com", role = c("aut", "cre")),
     person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = "aut"),

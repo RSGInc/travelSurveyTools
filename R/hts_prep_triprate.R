@@ -51,6 +51,8 @@ hts_prep_triprate = function(summarize_by = NULL,
                              threshold = 0.975,
                              weighted = TRUE,
                              hts_data) {
+  # Check variable_list first
+  variables_dt = hts_validate_variable_list(variables_dt, hts_data)
   
   tripdat = hts_data[[trip_name]]
   daydat = hts_data[[day_name]]

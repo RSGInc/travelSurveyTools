@@ -122,14 +122,11 @@
 
 #' List of variables
 #'
-#' A dataset containing information about all variables existing in the hh, person,
-#'  day, trip, and vehicle tables. The variables are as follows:
+#' A dataset containing information about all variables in data. This must contain one binary column indicating table location for each table in the data (ie., hh, person, day, trip, vehicle).
 #'
 #' @format ## `variable_list`
-#' A data frame with 41 rows and 13 columns:
+#' A data frame with 55 rows and 10 columns:
 #' \describe{
-#'   \item{order}{The order the variables are presented in}
-#'   \item{source}{Where the variable was created}
 #'   \item{variable}{Name of the variable}
 #'   \item{is_checkbox}{The variable is a 'Select all that Apply' question}
 #'   \item{hh}{The variable exists in the hh table}
@@ -137,9 +134,9 @@
 #'   \item{day}{The variable exists in the day table}
 #'   \item{trip}{The variable exists in the trip table}
 #'   \item{vehicle}{The variable exists in the vehicle table}
-#'   \item{data_type}{Data type of the variable}
+#'   \item{data_type}{Data type of the variable ("iteger/categorical", "numeric", "character")}
 #'   \item{description}{A description of the variable}
-#'   \item{logic}{Conditions where the variable should have a value}
+#'   \item{shared_name}{Shared part of name for checkbox variable (e.g., race_1 -> race) or variable name (e.g., age -> age)}
 #' }
 "variable_list"
 
