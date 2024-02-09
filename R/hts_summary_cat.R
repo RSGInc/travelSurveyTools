@@ -16,7 +16,7 @@
 #' @param summarize_vartype String; one of either 'categorical' (when the 
 #'  variable being summarized is categorical) or 'checkbox' (when the variable being
 #'  summarized is derived from a multiple response, aka select-all-that-apply question).
-#' 
+#' @param id_cols names of possible ids in prepped_dt to return unique counts of 
 #' 
 #' @importFrom srvyr survey_prop
 #' @importFrom srvyr survey_total
@@ -81,7 +81,8 @@ hts_summary_cat = function(prepped_dt,
                            strataname = NULL, 
                            checkbox_valname = 'value',
                            checkbox_yesval = 1,
-                           summarize_vartype = 'categorical') {
+                           summarize_vartype = 'categorical',
+                           id_cols = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id')) {
   
   if ( !weighted & se ){
     
@@ -118,20 +119,101 @@ hts_summary_cat = function(prepped_dt,
   
   groupbyvars = groupbyvars[groupbyvars %in% names(prepped_dt)]
   
-  unwtd_summary = copy(prepped_dt)
-  unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
+  present_ids = intersect(names(prepped_dt), id_cols)
   
-  if (is.null(summarize_by)){
+  ndt_ids = prepped_dt[, present_ids, with=FALSE]
+  
+  ns_unwtd = lapply(ndt_ids, function(x) uniqueN(x))
+  
+  id_idx = which.max(ns_unwtd)
+  
+  id_name = id_cols[id_idx]
+  
+  if(!is.null(checkbox_valname)){
     
-    unwtd_summary[, prop := count/ sum(count)]
-    
-  } else {
-    
-    unwtd_summary[, prop := count/ sum(count), keyby = summarize_by]
-    
+    if(is.null(summarize_by)){
+      
+      if(weighted){
+        
+        wtd_group_vars = c(wtname, id_name)
+        
+        wtd_group_n = prepped_dt[, .N, wtd_group_vars][, sum(get(wtname))]
+      
+      }
+      
+    } else {
+      
+      if(weighted){
+        
+        wtd_group_vars = c(wtname, id_name, summarize_by, checkbox_valname)
+        
+        wtd_group_n = prepped_dt[, .N, wtd_group_vars][
+          ,
+          .(wtd_group_n = sum(get(wtname) * get(checkbox_valname))),
+            summarize_by]
+      }
+      
+    }
+      
   }
   
-  setcolorder(unwtd_summary, c(groupbyvars, 'count', 'prop'))
+  
+  unwtd_summary = copy(prepped_dt)
+  
+  if(is.null(checkbox_valname)){
+    
+    unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
+    
+    if (is.null(summarize_by)){
+      
+      unwtd_summary[, prop := count/ sum(count)]
+      
+    } else {
+      
+      unwtd_summary[, prop := count/ sum(count), keyby = summarize_by]
+      
+    }
+  } else{
+    
+    unwtd_summary = unwtd_summary[, .(count = .N), keyby = groupbyvars]
+    
+    setnames(unwtd_summary, old = checkbox_valname, new = 'checkbox_valname')
+    
+    unwtd_summary = unwtd_summary[checkbox_valname == checkbox_yesval]
+    unwtd_summary[, checkbox_valname := NULL]
+    
+    if (is.null(summarize_by)){
+      
+      unwtd_group_n = prepped_dt[, uniqueN(get(id_name))]
+      
+      unwtd_summary[, prop := count/ unwtd_group_n]
+      
+    } else {
+      
+      unwtd_group_n = prepped_dt[, .(unwtd_group_n = uniqueN(get(id_name))),
+                                 summarize_by]
+      
+      unwtd_summary = merge(unwtd_summary, unwtd_group_n, by = summarize_by, all.x = TRUE)
+      
+      unwtd_summary[, prop := count/ unwtd_group_n]
+      
+      unwtd_summary[, unwtd_group_n := NULL]
+      
+    }
+    
+  }
+
+  if(!is.null(checkbox_valname)){
+    
+    groupbyvars_unwtd = groupbyvars[groupbyvars != checkbox_valname]
+    
+    setcolorder(unwtd_summary, c(groupbyvars_unwtd, 'count', 'prop'))
+  
+  } else{
+    
+    setcolorder(unwtd_summary, c(groupbyvars, 'count', 'prop'))
+  
+  }
   
   cat_summary_ls = list()
   
@@ -201,31 +283,18 @@ hts_summary_cat = function(prepped_dt,
         # recalculate prop without value == 0
         if (is.null(summarize_by)){
   
-          wtd_summary[, prop := est/ sum(est)]
+          wtd_summary[, prop := est/ wtd_group_n]
   
         } else {
   
-          wtd_summary[, prop := est/ sum(est), summarize_by]
+          wtd_summary = merge(wtd_summary, wtd_group_n, by = summarize_by, all.x = TRUE)
+          
+          wtd_summary[, prop := est/ wtd_group_n]
   
         }
         
       }
       
-      setnames(unwtd_summary, old = checkbox_valname, new = 'checkbox_valname')
-      
-      unwtd_summary = unwtd_summary[checkbox_valname == checkbox_yesval]
-      unwtd_summary[, checkbox_valname := NULL]
-      
-      # recalculate prop without value == 0
-      if (is.null(summarize_by)){
-        
-        unwtd_summary[, prop := count/ sum(count)]
-        
-      } else {
-        
-        unwtd_summary[, prop := count/ sum(count), summarize_by]
-        
-      }
       
     } else {
       
