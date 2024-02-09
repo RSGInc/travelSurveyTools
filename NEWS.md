@@ -1,3 +1,5 @@
+# travelSurveyTools 2.1.0
+
 # travelSurveyTools 2.0.0
 
 - Add function to check variable_list (`hts_validate_variable_list`)
