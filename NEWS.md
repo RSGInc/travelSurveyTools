@@ -1,4 +1,4 @@
-# travelSurveyTools (development version)
+# travelSurveyTools 1.0.0
 
 # travelSurveyTools 0.9
 
