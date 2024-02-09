@@ -14,7 +14,8 @@ hts_summary_cat(
   strataname = NULL,
   checkbox_valname = "value",
   checkbox_yesval = 1,
-  summarize_vartype = "categorical"
+  summarize_vartype = "categorical",
+  id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id")
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ Default is 1. Must be provided if summarize_var is a checkbox variable.}
 \item{summarize_vartype}{String; one of either 'categorical' (when the
 variable being summarized is categorical) or 'checkbox' (when the variable being
 summarized is derived from a multiple response, aka select-all-that-apply question).}
+
+\item{id_cols}{names of possible ids in prepped_dt to return unique counts of}
 }
 \value{
 List of unweighted and weighted categorical summaries including counts

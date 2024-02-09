@@ -51,6 +51,7 @@ reference:
   - hts_trip_vehid
   - join_spatial
   - get_distance_meters
+  - hts_validate_variable_list
 
 navbar:
   type: inverse
