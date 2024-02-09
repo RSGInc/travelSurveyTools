@@ -115,19 +115,18 @@ columns.</p>
 <span class="r-in"><span>                            <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight   age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;         &lt;int&gt; &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           196     7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302           671     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303           577     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304           688     6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000405 2300040501           609     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980: 23417656 2341765603           878     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981: 23418585 2341858501           586     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982: 23418585 2341858502           199     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983: 23422311 2342231101           546     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984: 23422311 2342231102           617     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           196   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302           671   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303           577   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304           688   6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000405 2300040501           609   5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1980: 23417656 2341765603           878   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1981: 23418585 2341858501           586   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1982: 23418585 2341858502           199   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1983: 23422311 2342231101           546   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1984: 23422311 2342231102           617   8</span>
 <span class="r-in"><span><span class="fu">hts_prep_byvar</span><span class="op">(</span>summarize_by <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>               variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>               hts_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -136,7 +135,6 @@ columns.</p>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id                      race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;                    &lt;fctr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23001700 2300170002 African American or Black</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23011305 2301130503 African American or Black</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23012105 2301210501 African American or Black</span>
