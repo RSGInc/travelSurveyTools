@@ -70,6 +70,9 @@ hts_prep_data = function(summarize_var = NULL,
                          strataname = NULL) {
   # tictoc::tic("Total Time")
   
+  # Check variable_list first
+  variables_dt = hts_validate_variable_list(variables_dt, data)
+  
   # Message:
   msg_pt1 = paste0("Creating a summary of ",
                    hts_find_var(summarize_var, data = data, variables_dt = variables_dt), " ", summarize_var)
