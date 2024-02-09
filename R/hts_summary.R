@@ -148,7 +148,8 @@ hts_summary = function(
       strataname = strataname, 
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval,
-      summarize_vartype = summarize_vartype
+      summarize_vartype = summarize_vartype,
+      id_cols = id_cols
     )
   }
 

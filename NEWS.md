@@ -1,3 +1,7 @@
+# travelSurveyTools 2.1.0
+
+- Fix bug in checkbox variable proportions (`hts_summary_cat`)
+
 # travelSurveyTools 2.0.0
 
 - Add function to check variable_list (`hts_validate_variable_list`)
