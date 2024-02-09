@@ -127,18 +127,27 @@ hts_prep_data = function(summarize_var = NULL,
   
   tbl_idx = which(names(data) == var_location)
   
+  wtname = wt_cols[tbl_idx]
+  
   # Select table where this variable lives:
   var_dt = data[[var_location]]
   
-  browser()
   #check for missing weight variables
-  missing_weight_count = var_dt[is.na(ids[tbl_idx]), .N]
+  missing_weight_count = var_dt[is.na(get(wtname)), .N]
   
   if (missing_weight_count > 0){
     
-    message(missing_weight_count, ' missing weight(s) of ', ids[tbl_idx], 
+    message(missing_weight_count, ' missing observation(s) of ', wtname, 
             ' in ', var_location, ' setting equal to 0')
     
+    setnames(var_dt, wtname, 'old_weight')
+    
+    var_dt[, old_weight := ifelse(is.na(old_weight),
+                                   0,
+                                   old_weight)]
+    
+    setnames(var_dt, 'old_weight', wtname)
+
   }
   
   # Check that specified id column exists in var_dt
@@ -172,7 +181,6 @@ hts_prep_data = function(summarize_var = NULL,
   sum_vars_id_cols = intersect(id_cols, names(var_dt))
   
   # Subset table to these column(s):
-  wtname = wt_cols[tbl_idx]
   
   if (weighted){
     
@@ -386,4 +394,4 @@ hts_prep_data = function(summarize_var = NULL,
 
 
 ## quiets concerns of R CMD check
-utils::globalVariables(c("hts_data", "is_checkbox", "data_type"))
+utils::globalVariables(c("hts_data", "is_checkbox", "data_type", "old_weight"))
