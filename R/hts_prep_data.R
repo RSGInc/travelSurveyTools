@@ -133,16 +133,16 @@ hts_prep_data = function(summarize_var = NULL,
   # Select table where this variable lives:
   var_dt = data[[var_location]]
   
-  browser()
-  #check for missing weight variables
-  missing_weight_count = var_dt[is.na(ids[tbl_idx]), .N]
-  
-  if (missing_weight_count > 0){
-    
-    message(missing_weight_count, ' missing weight(s) of ', ids[tbl_idx], 
-            ' in ', var_location, ' setting equal to 0')
-    
-  }
+  # browser()
+  # #check for missing weight variables
+  # missing_weight_count = var_dt[is.na(ids[tbl_idx]), .N]
+  # 
+  # if (missing_weight_count > 0){
+  # 
+  #   message(missing_weight_count, ' missing weight(s) of ', ids[tbl_idx],
+  #           ' in ', var_location, ' setting equal to 0')
+  # 
+  # }
   
   # Check that specified id column exists in var_dt
   stopifnot("table id not in var_dt, make id_cols ordered list of ids in each table of data" =
