@@ -1,6 +1,11 @@
-# travelSurveyTools 2.1.1
+# travelSurveyTools 2.3.0
 
 - Set missing weights to 0
+
+# travelSurveyTools 2.2.0
+
+- Add example using year to `getting_started` vignette
+
 
 # travelSurveyTools 2.1.0
 
