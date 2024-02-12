@@ -193,7 +193,7 @@ speed_cat_summary$summary
 
 ### Summarizing Two Variables
 
-If we want to summarize a variable by another variable (e.g., mode type by a person's race, mode_type by a person's ethnicity, income by study year) we can use the `summarize_by` argument.
+If we want to summarize a variable by another variable (e.g., mode type by a person's race, mode_type by a person's ethnicity, age by study year) we can use the `summarize_by` argument. The test dataset does not include `study_year` so that section cannot be run, but is provided as an example.
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
@@ -212,6 +212,23 @@ mode_by_race_summary = hts_summary(prepped_dt = DT$cat,
 
 
 mode_by_race_summary$summary
+
+if(FALSE){
+  
+  DT = hts_prep_data(summarize_var = 'age',
+                   summarize_by = 'study_year',
+                   variables_dt = variable_list,
+                   data = test_data)
+
+  mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
+                                   summarize_var = 'age',
+                                   summarize_by = 'study_year',
+                                   summarize_vartype = 'categorical',
+                                   weighted = TRUE,
+                                   wtname = 'trip_weight',
+                                   se = TRUE)
+  
+}
 
 ```
 
