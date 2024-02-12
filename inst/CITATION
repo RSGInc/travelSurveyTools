@@ -1,5 +1,5 @@
 bibentry(
-  bibtype  = "Article",
+  bibtype = "Misc",
   title    = "travelSurveyTools: Tools for using household travel survey data",
   author   = c(
     person("RSG", "Inc.", , "rsg@rsginc.com", role = c("aut", "cre")),
