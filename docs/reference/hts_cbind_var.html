@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,7 +119,9 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-in"><span> hts_data <span class="op">=</span> <span class="va">test_data</span>,</span></span>
 <span class="r-in"><span>  variable_list <span class="op">=</span> <span class="va">variable_list</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on hh_id, person_id, day_id, trip_id, speed_mph, trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, day_id, trip_id, speed_mph, trip_weight&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id speed_mph trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;        &lt;num&gt;     &lt;num&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12 21.480572         968</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12 23.720178         906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12  6.927242         387</span>
@@ -132,6 +134,7 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15819: 23422311 2342231102 234223110201 2.342231e+12 16.720703         596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15820: 23422311 2342231102 234223110201 2.342231e+12 25.812478          95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        travel_date distance_miles mode_type mode_1 mode_2 num_travelers</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;Date&gt;          &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;         &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:  2023-04-20       4.755560         8      7    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:  2023-04-20       4.856047         8      7    995             3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:  2023-04-20       1.516296         1      1    995             1</span>
@@ -144,6 +147,7 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15819:  2023-06-01       5.573568         8      6    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15820:  2023-06-01      20.219774         8      6    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        d_purpose_category</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                  9</span>
@@ -161,7 +165,9 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-in"><span>variable_list <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span> return_weight_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on hh_id, person_id, day_id, trip_id, speed_mph, trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, day_id, trip_id, speed_mph, trip_weight&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id speed_mph trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;        &lt;num&gt;     &lt;num&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12 21.480572         968</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12 23.720178         906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12  6.927242         387</span>
@@ -174,6 +180,7 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15819: 23422311 2342231102 234223110201 2.342231e+12 16.720703         596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15820: 23422311 2342231102 234223110201 2.342231e+12 25.812478          95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        travel_date distance_miles mode_type mode_1 mode_2 num_travelers</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;Date&gt;          &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;         &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:  2023-04-20       4.755560         8      7    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:  2023-04-20       4.856047         8      7    995             3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:  2023-04-20       1.516296         1      1    995             1</span>
@@ -186,6 +193,7 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15819:  2023-06-01       5.573568         8      6    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15820:  2023-06-01      20.219774         8      6    995             2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        d_purpose_category</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                  9</span>

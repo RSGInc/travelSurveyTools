@@ -47,6 +47,8 @@ hts_prep_byvar = function(summarize_by = NULL,
     
     tbl_idx = which(names(hts_data) == byvar_loc)
     
+    wtname = byvar_wts[tbl_idx]
+    
     byvar_dt_v = data.table::copy(hts_data[[byvar_loc]])
     
     # Check that specified id column exists in var_dt
@@ -58,6 +60,24 @@ hts_prep_byvar = function(summarize_by = NULL,
     
     # Is this a numeric variable?
     byvar_is_numeric = variables_dt[shared_name == summarize_by[[b]], data_type][[1]] == "numeric"
+    
+    #check for missing weight variables
+    missing_weight_count = byvar_dt_v[is.na(get(wtname)), .N]
+    
+    if (missing_weight_count > 0){
+      
+      message(missing_weight_count, ' missing observation(s) of ', wtname, 
+              ' in ', byvar_loc, ' setting equal to 0')
+      
+      setnames(byvar_dt_v, wtname, 'old_weight')
+      
+      byvar_dt_v[, old_weight := ifelse(is.na(old_weight),
+                                    0,
+                                    old_weight)]
+      
+      setnames(byvar_dt_v, 'old_weight', wtname)
+      
+    }
     
     if (byvar_is_shared) {
       
@@ -113,4 +133,4 @@ hts_prep_byvar = function(summarize_by = NULL,
 
 
 ## quiets concerns of R CMD check
-utils::globalVariables(c("variables_list", "is_checkbox", "data_type"))
+utils::globalVariables(c("variables_list", "is_checkbox", "data_type", "old_weight"))

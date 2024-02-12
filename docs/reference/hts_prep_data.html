@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -160,18 +160,19 @@ categorical or numeric.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person age </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id age person_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301   7           196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302   3           671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303   2           577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304   6           688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000405 2300040501   5           609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980: 23417656 2341765603   1           878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981: 23418585 2341858501   8           586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982: 23418585 2341858502   8           199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983: 23422311 2342231101   8           546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984: 23422311 2342231102   8           617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id   age person_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt; &lt;int&gt;         &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301     7           196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302     3           671</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303     2           577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173 2300017304     6           688</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000405 2300040501     5           609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1980: 23417656 2341765603     1           878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1981: 23418585 2341858501     8           586</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1982: 23418585 2341858502     8           199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1983: 23422311 2342231101     8           546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1984: 23422311 2342231102     8           617</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -186,7 +187,9 @@ categorical or numeric.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of trip speed_mph broken down by person age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id person_weight trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;        &lt;num&gt;         &lt;int&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12           196         968</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12           196         906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12           196         387</span>
@@ -198,21 +201,24 @@ categorical or numeric.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14683: 23422311 2342231102 234223110201 2.342231e+12           617          22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 23422311 2342231102 234223110201 2.342231e+12           617         596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 23422311 2342231102 234223110201 2.342231e+12           617          95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        speed_mph age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     17-25   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     17-25   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       1-9   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       1-9   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     33-41   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14681:     25-33   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14682:      9-17   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14683:     25-33   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14684:      9-17   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14685:     25-33   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        speed_mph   age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;fctr&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     17-25     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     17-25     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       1-9     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       1-9     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     33-41     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14681:     25-33     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14682:      9-17     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14683:     25-33     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14684:      9-17     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14685:     25-33     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id person_weight trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;      &lt;num&gt;        &lt;num&gt;        &lt;num&gt;         &lt;int&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12           196         968</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12           196         906</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12           196         387</span>
@@ -224,21 +230,23 @@ categorical or numeric.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14683: 23422311 2342231102 234223110201 2.342231e+12           617          22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 23422311 2342231102 234223110201 2.342231e+12           617         596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 23422311 2342231102 234223110201 2.342231e+12           617          95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        speed_mph age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 21.480572   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23.720178   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  6.927242   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:  6.146634   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 34.657421   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14681: 25.812478   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14682: 16.040986   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14683: 26.901306   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 16.720703   8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 25.812478   8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        speed_mph   age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 21.480572     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23.720178     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  6.927242     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:  6.146634     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 34.657421     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14681: 25.812478     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14682: 16.040986     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14683: 26.901306     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14684: 16.720703     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14685: 25.812478     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         377    113.0093     5198308</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span>                            </span></span>
@@ -253,18 +261,20 @@ categorical or numeric.</p>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person employment broken down by person age and person race</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight employment age                 race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           196          1   7                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017304           688          3   6                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000405 2300040501           609          1   5                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000405 2300040502            90          1   5                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000466 2300046601            62          5   9                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1622: 23417656 2341765602           856          1   6                Asian</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1623: 23418585 2341858501           586          1   8                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1624: 23418585 2341858502           199          2   8                White</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1625: 23422311 2342231101           546          7   8 Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1626: 23422311 2342231102           617          5   8 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, person_weight&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id  person_id person_weight employment   age                 race</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;      &lt;num&gt;         &lt;int&gt;      &lt;int&gt; &lt;int&gt;               &lt;fctr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301           196          1     7                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017304           688          3     6                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000405 2300040501           609          1     5                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000405 2300040502            90          1     5                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000466 2300046601            62          5     9                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1622: 23417656 2341765602           856          1     6                Asian</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1623: 23418585 2341858501           586          1     8                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1624: 23418585 2341858502           199          2     8                White</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1625: 23422311 2342231101           546          7     8 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1626: 23422311 2342231102           617          5     8 Prefer not to answer</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
