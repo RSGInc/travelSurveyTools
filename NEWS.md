@@ -1,3 +1,5 @@
+# travelSurveyTools 2.2.0
+
 # travelSurveyTools 2.1.0
 
 - Fix bug in checkbox variable proportions (`hts_summary_cat`)
