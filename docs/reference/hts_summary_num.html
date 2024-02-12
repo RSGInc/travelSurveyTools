@@ -132,14 +132,12 @@ max, mean, se, and median.</p>
 <span class="r-in"><span>                summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    count   min      max     mean  median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;   &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14685     0 112.9918 11.83172 8.63421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    count min      max     mean  median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14685   0 112.9918 11.83172 8.63421</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    count   min      max    mean   median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;num&gt;    &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14685     0 112.9918 11.8349 8.618818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    count min      max    mean   median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14685   0 112.9918 11.8349 8.618818</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trip_weight"</span>
@@ -158,34 +156,32 @@ max, mean, se, and median.</p>
 <span class="r-in"><span>                summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       age count        min       max      mean    median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;int&gt;      &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1   296 0.08714984 101.97575 11.133769  7.385581</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2   743 0.11910113 109.83115 10.434704  8.880725</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3   101 0.00000000  82.63329 13.845243 11.990414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4   980 0.00000000 112.99185  9.535263  5.138501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5  3006 0.00000000 108.02176 11.713822  7.568860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6  3518 0.00000000 112.53715 10.896587  7.745927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7  1825 0.00000000 112.37068 13.201686 10.388775</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8  1759 0.00000000 108.05151 13.253130 10.530855</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9  1767 0.00000000 107.93792 12.783168  9.682409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10   674 0.00000000  63.09036 12.136437  9.821970</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    11    16 0.82500585  88.79454 14.887919  6.119036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        min       max      mean    median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   296 0.08714984 101.97575 11.133769  7.385581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   743 0.11910113 109.83115 10.434704  8.880725</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   101 0.00000000  82.63329 13.845243 11.990414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   980 0.00000000 112.99185  9.535263  5.138501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  3006 0.00000000 108.02176 11.713822  7.568860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3518 0.00000000 112.53715 10.896587  7.745927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1825 0.00000000 112.37068 13.201686 10.388775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1759 0.00000000 108.05151 13.253130 10.530855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1767 0.00000000 107.93792 12.783168  9.682409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   674 0.00000000  63.09036 12.136437  9.821970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    16 0.82500585  88.79454 14.887919  6.119036</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       age count        min       max      mean    median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;int&gt;      &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1   296 0.08714984 101.97575 11.757763  7.713921</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2   743 0.11910113 109.83115 10.448693  9.024466</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3   101 0.00000000  82.63329 14.582794 12.965059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4   980 0.00000000 112.99185  9.090289  4.795173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5  3006 0.00000000 108.02176 11.616469  7.425500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6  3518 0.00000000 112.53715 10.985165  7.769085</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7  1825 0.00000000 112.37068 12.990898 10.022160</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8  1759 0.00000000 108.05151 13.138908 10.593106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9  1767 0.00000000 107.93792 13.124612 10.114323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10   674 0.00000000  63.09036 12.642415 10.661429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    11    16 0.82500585  88.79454 15.323818  6.541481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        min       max      mean    median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   296 0.08714984 101.97575 11.757763  7.713921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   743 0.11910113 109.83115 10.448693  9.024466</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   101 0.00000000  82.63329 14.582794 12.965059</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   980 0.00000000 112.99185  9.090289  4.795173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5  3006 0.00000000 108.02176 11.616469  7.425500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6  3518 0.00000000 112.53715 10.985165  7.769085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7  1825 0.00000000 112.37068 12.990898 10.022160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8  1759 0.00000000 108.05151 13.138908 10.593106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9  1767 0.00000000 107.93792 13.124612 10.114323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   674 0.00000000  63.09036 12.642415 10.661429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11    16 0.82500585  88.79454 15.323818  6.541481</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trip_weight"</span>
