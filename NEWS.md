@@ -1,3 +1,7 @@
+#  travelSurveyTools 2.3.1
+
+- Add a citation file
+
 # travelSurveyTools 2.3.0
 
 - Set missing weights to 0

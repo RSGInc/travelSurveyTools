@@ -1,0 +1,13 @@
+bibentry(
+  bibtype = "Misc",
+  title    = "travelSurveyTools: Tools for using household travel survey data",
+  author   = c(
+    person("RSG", "Inc.", , "rsg@rsginc.com", role = c("aut", "cre")),
+    person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = "aut"),
+    person("Erika", "Redding", , "erika.redding@rsginc.com", role = "aut"),
+    person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = "aut"),
+    person("James", "Clark", , "james.clark@rsginc.com", role = "aut")
+    ),
+  url  = "https://rsginc.github.io/travelSurveyTools/",
+  year     = "2024",
+)
