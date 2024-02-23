@@ -16,9 +16,11 @@
 #' require(stringr)
 #' hts_bin_var(prepped_dt = trip, numvar = 'speed_mph')
 #'
-hts_bin_var = function(prepped_dt,
-                       numvar,
-                       nbins = 7) {
+hts_bin_var = function(
+  prepped_dt,
+  numvar,
+  nbins = 7
+) {
   
   # TODO: Allow user to specify bins directly to cut
   prepped_dt_binned = data.table::copy(prepped_dt)
@@ -26,29 +28,43 @@ hts_bin_var = function(prepped_dt,
   data.table::setnames(prepped_dt_binned, old = numvar, new = "numvar")
   
   # Reclassify outliers:
-  q05 = round(stats::quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.025))
-  q95 = round(stats::quantile(prepped_dt_binned[, numvar], na.rm = TRUE, 0.975))
+  # TODO: Should this be a parameter.  
+  # TODO: Defaults should be described in description.
+  min_prob = 0.05
+  q_min = round(
+    stats::quantile(
+      x = prepped_dt_binned[, numvar], 
+      probs = min_prob / 2, 
+      na.rm = TRUE
+    )
+  )
+  q_max = round(
+    stats::quantile(
+      x = prepped_dt_binned[, numvar], 
+      probs = 1 - min_prob / 2,
+      na.rm = TRUE,
+    )
+  )
   
-  prepped_dt_binned[, binned := ifelse(numvar >= q95, q95, numvar)]
-  prepped_dt_binned[, binned := ifelse(numvar <= q05, q05, numvar)]
+  prepped_dt_binned[, binned := ifelse(numvar >= q_max, q_max, numvar)]
+  prepped_dt_binned[, binned := ifelse(numvar <= q_min, q_min, numvar)]
   
   
   # Create breaks:
-  round_digits = ifelse(
-    as.numeric(q95-q05) < 5, 
-    1, 
-    0)
+  round_digits = 1 * (as.numeric(q_max-q_min) < 5)
   
   
-  mid_breaks = seq(from = q05,
-                   to = q95,
-                   by = round((q95 - q05) / (nbins - 2), round_digits))
+  mid_breaks = seq(
+    from = q_min,
+    to = q_max,
+    by = round((q_max - q_min) / (nbins - 2), round_digits)
+  )
   
-  min_break = ifelse(q05 == 0, -Inf, 0)
+  min_break = ifelse(q_min == 0, -Inf, 0)
   
   all_breaks = c(min_break,
                  mid_breaks,
-                 q95,
+                 q_max,
                  Inf)
   
   all_breaks = unique(all_breaks)
@@ -68,7 +84,7 @@ hts_bin_var = function(prepped_dt,
                                    pattern = ",Inf|, Inf",
                                    replacement = " or more")
   binlabels[[1]] =
-    ifelse(q05 == 0,
+    ifelse(q_min == 0,
            "Exactly 0",
            paste0(stringr::str_split_i(
              binlabels[[1]], i = 2, pattern = ","
