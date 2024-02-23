@@ -27,6 +27,7 @@
 ### What can this package do?
 
 Some of the things this package enables include:
+
 * Cross tabs with an unlimited number of variables 
 * Summarizes numeric, categorical, date, and date-time variables
 * Accepts both weighted and unweighted data
