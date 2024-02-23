@@ -38,15 +38,17 @@
 #' )
 #'
 #' @export factorize_column
-factorize_column = function(x,
-                             var_str,
-                             vals_df,
-                             variable_colname = 'variable',
-                             value_colname = 'value',
-                             value_label_colname = 'value_label',
-                             value_order_colname = 'value',
-                             extra_labels = NULL,
-                             add_na = TRUE) {
+factorize_column = function(
+  x,
+  var_str,
+  vals_df,
+  variable_colname = 'variable',
+  value_colname = 'value',
+  value_label_colname = 'value_label',
+  value_order_colname = 'value',
+  extra_labels = NULL,
+  add_na = TRUE
+) {
   vals_df = data.table::data.table(vals_df)
 
   # sort the vals_df to ensure the ordered factor is ordered correctly
