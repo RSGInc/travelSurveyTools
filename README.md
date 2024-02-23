@@ -5,7 +5,7 @@
   <!-- badges: end -->
 
 ## Travel Survey Tools
-`travelSurveyTools` is an R package that empowers users of household travel survey (HTS) data to create meaningful summaries of their data. Currently, `travelSurveyTools` is compatible with RSG, Inc. HTS datasets, but we hope to expand to any travel survey. If you would like to collaborate, please contact Erika Redding at [erika.redding@rsginc.com](mailto:erika.redding@rsginc.com?subject=TravelSurveyTools). These datasets usually contain six tables: household, person, day, trip, vehicle, and location. In the future, we may expand `travelSurveyTools` to work with other types of travel survey data or other types of surveys.
+`travelSurveyTools` is an R package that empowers users of household travel survey (HTS) data to create meaningful summaries of their data. Currently, `travelSurveyTools` is compatible with HTS datasets from [RSG, Inc.](https://rsginc.com/), but we hope to expand to any travel survey. If you would like to collaborate, please contact Erika Redding at [erika.redding@rsginc.com](mailto:erika.redding@rsginc.com?subject=TravelSurveyTools). These datasets usually contain six tables: household, person, day, trip, vehicle, and location. In the future, we may expand `travelSurveyTools` to work with other types of travel survey data or other types of surveys.
 
 `travelSurveyTools` is in active development and is open-source; anyone can contribute 🤝. See the [CONTRIBUTING](CONTRIBUTING.md) page to learn how.
 
