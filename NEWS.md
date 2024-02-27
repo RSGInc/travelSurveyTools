@@ -1,3 +1,7 @@
+# travelSurveyTools 2.3.2
+
+- Additional steps to ensure anonymity of test data
+
 #  travelSurveyTools 2.3.1
 
 - Add a citation file
