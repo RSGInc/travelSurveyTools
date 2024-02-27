@@ -112,16 +112,17 @@ In order to create summaries of our data we first need to prepare our data. We c
 
 library(travelSurveyTools)
 library(data.table)
-library(srvyr)
 
 # Load data
 data("test_data")
 data("variable_list")
 data("value_labels")
 
-DT = hts_prep_data(summarize_var = 'speed_mph',
-                   variables_dt = variable_list,
-                   data = test_data)
+speed_list = hts_prep_data(
+  summarize_var = 'speed_mph',
+  variables_dt = variable_list,
+  data = test_data
+)
 
 ```
 
@@ -129,11 +130,13 @@ Numeric variables will be automatically binned in `hts_prep_data` to create cate
 
 ```{r, hts_summary_cat, eval=TRUE, echo=TRUE}
 
-speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
-                                summarize_var = 'speed_mph',
-                                summarize_by = NULL,
-                                summarize_vartype = 'categorical',
-                                weighted = FALSE)
+speed_cat_summary = hts_summary(
+  prepped_dt = speed_list$cat, 
+  summarize_var = 'speed_mph',
+  summarize_by = NULL,
+  summarize_vartype = 'categorical',
+  weighted = FALSE
+)
 
 speed_cat_summary$summary
 
@@ -144,11 +147,13 @@ Additionally, for numeric variables we can create numeric summaries.
 
 ```{r, hts_summary_num, eval=TRUE, echo=TRUE}
 
-speed_num_summary = hts_summary(prepped_dt = DT$num, 
-                                summarize_var = 'speed_mph',
-                                summarize_by = NULL,
-                                summarize_vartype = 'numeric',
-                                weighted = FALSE)
+speed_num_summary = hts_summary(
+  prepped_dt = speed_list$num, 
+  summarize_var = 'speed_mph',
+  summarize_by = NULL,
+  summarize_vartype = 'numeric',
+  weighted = FALSE
+)
 
 speed_num_summary$summary
 
@@ -162,12 +167,14 @@ Additionally, we can use weighted data by setting `weighted = TRUE` and specifyi
 
 ```{r, weighted_example, eval=TRUE, echo=TRUE}
 
-speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
-                                summarize_var = 'speed_mph',
-                                summarize_by = NULL,
-                                summarize_vartype = 'categorical',
-                                weighted = TRUE,
-                                wtname = 'trip_weight')
+speed_cat_summary = hts_summary(
+  prepped_dt = speed_list$cat, 
+  summarize_var = 'speed_mph',
+  summarize_by = NULL,
+  summarize_vartype = 'categorical',
+  weighted = TRUE,
+  wtname = 'trip_weight'
+)
 
 speed_cat_summary$summary
 
@@ -179,13 +186,15 @@ Additionally, by specifying `se = TRUE` we can calculate standard errors.
 
 ```{r, mode_type_se_example, echo=TRUE, eval=TRUE}
 
-speed_cat_summary = hts_summary(prepped_dt = DT$cat, 
-                                summarize_var = 'speed_mph',
-                                summarize_by = NULL,
-                                summarize_vartype = 'categorical',
-                                weighted = TRUE,
-                                wtname = 'trip_weight',
-                                se = TRUE)
+speed_cat_summary = hts_summary(
+  prepped_dt = speed_list$cat, 
+  summarize_var = 'speed_mph',
+  summarize_by = NULL,
+  summarize_vartype = 'categorical',
+  weighted = TRUE,
+  wtname = 'trip_weight',
+  se = TRUE
+)
 
 speed_cat_summary$summary
 
@@ -193,87 +202,85 @@ speed_cat_summary$summary
 
 ### Summarizing Two Variables
 
-If we want to summarize a variable by another variable (e.g., mode type by a person's race, mode_type by a person's ethnicity, age by study year) we can use the `summarize_by` argument. The test dataset does not include `study_year` so that section cannot be run, but is provided as an example.
+If we want to summarize a variable by another variable (e.g., mode type by a person's race, mode_type by a person's ethnicity, age by study year) we can use the `summarize_by` argument.
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
-DT = hts_prep_data(summarize_var = 'mode_type',
-                   summarize_by = 'race',
-                   variables_dt = variable_list,
-                   data = test_data)
+mode_type_list = hts_prep_data(
+  summarize_var = 'mode_type',
+  summarize_by = 'race',
+  variables_dt = variable_list,
+  data = test_data
+)
 
-mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
-                                   summarize_var = 'mode_type',
-                                   summarize_by = 'race',
-                                   summarize_vartype = 'categorical',
-                                   weighted = TRUE,
-                                   wtname = 'trip_weight',
-                                   se = TRUE)
+mode_by_race_summary = hts_summary(
+  prepped_dt = mode_type_list$cat, 
+  summarize_var = 'mode_type',
+  summarize_by = 'race',
+  summarize_vartype = 'categorical',
+  weighted = TRUE,
+  wtname = 'trip_weight',
+  se = TRUE
+)
 
 
 mode_by_race_summary$summary
 
-if(FALSE){
-  
-  DT = hts_prep_data(summarize_var = 'age',
-                   summarize_by = 'study_year',
-                   variables_dt = variable_list,
-                   data = test_data)
-
-  mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
-                                   summarize_var = 'age',
-                                   summarize_by = 'study_year',
-                                   summarize_vartype = 'categorical',
-                                   weighted = TRUE,
-                                   wtname = 'trip_weight',
-                                   se = TRUE)
-  
-}
 
 ```
 
-If we want to summarize a select all that apply variable, we can set `summarize_vartype` to checkbox.
+If we want to summarize a multiple response variable, we can set `summarize_vartype` to checkbox.
 
 ```{r, race_mode_type_example, echo=TRUE, eval=TRUE}
 
-DT = hts_prep_data(summarize_var = 'race',
-                   summarize_by = 'mode_type',
-                   variables_dt = variable_list,
-                   data = test_data)
+race_list = hts_prep_data(
+  summarize_var = 'race',
+  summarize_by = 'mode_type',
+  variables_dt = variable_list,
+  data = test_data
+)
 
-mode_by_race_summary = hts_summary(prepped_dt = DT$cat, 
-                                   summarize_var = 'race',
-                                   summarize_by = 'mode_type',
-                                   summarize_vartype = 'checkbox',
-                                   weighted = TRUE,
-                                   wtname = 'trip_weight',
-                                   se = TRUE)
+mode_by_race_summary = hts_summary(
+  prepped_dt = race_list$cat, 
+  summarize_var = 'race',
+  summarize_by = 'mode_type',
+  summarize_vartype = 'checkbox',
+  weighted = TRUE,
+  wtname = 'trip_weight',
+  se = TRUE
+)
 
 
 mode_by_race_summary$summary
 
 ```
 
-`summarize_by` can be used with an unlimited amount of variables. To use more than one `summarize_by` variable pass a list to the argument. 
+`summarize_by` can be used with an unlimited amount of variables. To use more than one `summarize_by` variable pass a vector to the argument. 
 
 ```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
 
-DT = hts_prep_data(summarize_var = 'mode_type',
-                   summarize_by = c('race', 'ethnicity'),
-                   variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))
+mode_type_list2 = hts_prep_data(
+  summarize_var = 'mode_type',
+  summarize_by = c('race', 'ethnicity'),
+  variables_dt = variable_list,
+  data = list(
+    'hh' = hh,
+    'person' = person,
+    'day' = day,
+    'trip' = trip,
+    'vehicle' = vehicle
+  )
+)
 
-mode_by_race_ethnicity_summary = hts_summary(prepped_dt = DT$cat, 
-                                             summarize_var = 'mode_type',
-                                             summarize_by = c('race', 'ethnicity'),
-                                             summarize_vartype = 'categorical',
-                                             weighted = TRUE,
-                                             wtname = 'trip_weight',
-                                             se = TRUE)
+mode_by_race_ethnicity_summary = hts_summary(
+  prepped_dt = mode_type_list2$cat, 
+  summarize_var = 'mode_type',
+  summarize_by = c('race', 'ethnicity'),
+  summarize_vartype = 'categorical',
+  weighted = TRUE,
+  wtname = 'trip_weight',
+  se = TRUE
+)
 
 
 head(mode_by_race_ethnicity_summary$summary$wtd, 10)
