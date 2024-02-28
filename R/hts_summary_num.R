@@ -90,15 +90,15 @@ hts_summary_num = function(prepped_dt,
     
       # Calculate survey proportions:
       num_summary_wttype =
-        num_so_ls[[wt_type]] %>%
-        group_by_at(unlist(summarize_by)) %>%
+        num_so_ls[[wt_type]] |>
+        group_by_at(unlist(summarize_by)) |>
         summarize(
           count =   length(get(summarize_var)),
           min =     min(get(summarize_var), na.rm = TRUE),
           max =     max(get(summarize_var), na.rm = TRUE),
           mean =    survey_mean(get(summarize_var), vartype = variance_type, na.rm = TRUE),
           median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
-        ) %>%
+        ) |>
         setDT()
       
       num_summary_ls[[wt_type]] = num_summary_wttype
@@ -107,15 +107,15 @@ hts_summary_num = function(prepped_dt,
       
       # Calculate survey proportions:
       num_summary_wttype =
-        num_so_ls[[wt_type]] %>%
-        group_by_at(unlist(summarize_by)) %>%
+        num_so_ls[[wt_type]] |>
+        group_by_at(unlist(summarize_by)) |>
         summarize(
           count =   length(get(summarize_var)),
           min =     min(get(summarize_var), na.rm = TRUE),
           max =     max(get(summarize_var), na.rm = TRUE),
           mean =    survey_mean(get(summarize_var), vartype = NULL, na.rm = TRUE),
           median =  survey_median(get(summarize_var), vartype = NULL, na.rm = TRUE)
-        ) %>%
+        ) |>
         setDT()
       
       num_summary_ls[[wt_type]] = num_summary_wttype

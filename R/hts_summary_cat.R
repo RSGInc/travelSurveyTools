@@ -228,14 +228,14 @@ hts_summary_cat = function(prepped_dt,
         strataname = strataname)
       
       wtd_summary =
-        so %>%
-        group_by_at(unlist(groupbyvars)) %>%
+        so |>
+        group_by_at(unlist(groupbyvars)) |>
         summarize(
           count = length(get(summarize_var)),
           prop =  srvyr::survey_prop(proportion = FALSE,
                                      vartype = "se"),
           est = survey_total(vartype = "se")
-        ) %>%
+        ) |>
         setDT()
       
     } else if (!se) {

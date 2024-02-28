@@ -69,7 +69,9 @@ hts_cbind_var = function(lhs_table,
   message("Joining ",
           rhs_var,
           " to table on ",
-          paste0(common_cols, collapse = ", "))
+          paste0(common_cols, collapse = ", ")
+  )
+  
   merge_t = merge(
     lhs_table,
     rhs_table,
