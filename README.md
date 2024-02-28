@@ -39,88 +39,50 @@ Some of the things this package enables include:
 * Ability to specify custom weights
 * Trip rate calculations
 
-### Dependency Tree
+## Creating the prepared data list
+
+```mermaid
+
+flowchart TD
+    A(hts_prep_variable) --> B{hts_validate_variable_list}
+    B --> C{remove_missing}
+    C --> |TRUE| CA(hts_remove_missing_data)
+    C --> |FALSE| D{hts_find_var}
+    CA --> D{hts_find_var}
+    D --> E(var_is_shared)
+    E --> |TRUE| EA(hts_melt_vars)
+    E --> |FALSE| F(summarize_var)
+    EA --> F(summarize_var)
+    F --> |numeric| FA(remove_outliers)
+    F --> |categorical| G("summarize_by > 0")
+    FA --> FB(hts_bin_var)
+    FB --> G("summarize_by > 0")
+    G --> |TRUE| GA(hts_find_var)
+    GA --> GB(hts_prep_byvar)
+    G --> H{"!is.null(strataname)"}
+    GB --> H{"!is.null(strataname)"}
+    H --> |TRUE| HA(hts_cbind_var)
+    H --> |FALSE| I((prepped_dt_ls))
+    HA --> I
+
+
+
 ```
-├─dplyr 1.1.4
-│ ├─cli 3.6.2
-│ ├─generics 0.1.3
-│ ├─glue 1.6.2
-│ ├─lifecycle 1.0.4
-│ │ ├─cli
-│ │ ├─glue
-│ │ └─rlang 1.1.2
-│ ├─magrittr 2.0.3
-│ ├─pillar 1.9.0
-│ │ ├─cli
-│ │ ├─fansi 1.0.6
-│ │ ├─glue
-│ │ ├─lifecycle
-│ │ ├─rlang
-│ │ ├─utf8 1.2.4
-│ │ └─vctrs 0.6.5
-│ │   ├─cli
-│ │   ├─glue
-│ │   ├─lifecycle
-│ │   └─rlang
-│ ├─R6 2.5.1
-│ ├─rlang
-│ ├─tibble 3.2.1
-│ │ ├─fansi
-│ │ ├─lifecycle
-│ │ ├─magrittr
-│ │ ├─pillar
-│ │ ├─pkgconfig 2.0.3
-│ │ ├─rlang
-│ │ └─vctrs
-│ ├─tidyselect 1.2.0
-│ │ ├─cli
-│ │ ├─glue
-│ │ ├─lifecycle
-│ │ ├─rlang
-│ │ ├─vctrs
-│ │ └─withr 2.5.2
-│ └─vctrs
-├─srvyr 1.2.0
-│ ├─dplyr
-│ ├─magrittr
-│ ├─rlang
-│ ├─survey 4.2-1
-│ │ ├─Matrix 1.6-1.1 -> 1.6-4
-│ │ │ └─lattice 0.21-9 -> 0.22-5
-│ │ ├─survival 3.5-7 
-│ │ │ └─Matrix
-│ │ ├─lattice
-│ │ ├─minqa 1.2.6
-│ │ │ └─Rcpp 1.0.11
-│ │ ├─numDeriv 2016.8-1.1
-│ │ └─mitools 2.4
-│ │   └─DBI 1.2.0
-│ ├─tibble
-│ ├─tidyr 1.3.0
-│ │ ├─cli
-│ │ ├─dplyr
-│ │ ├─glue
-│ │ ├─lifecycle
-│ │ ├─magrittr
-│ │ ├─purrr 1.0.2
-│ │ │ ├─cli
-│ │ │ ├─lifecycle
-│ │ │ ├─magrittr
-│ │ │ ├─rlang
-│ │ │ └─vctrs
-│ │ ├─rlang
-│ │ ├─stringr 1.5.1
-│ │ │ ├─cli
-│ │ │ ├─glue
-│ │ │ ├─lifecycle
-│ │ │ ├─magrittr
-│ │ │ ├─rlang
-│ │ │ ├─stringi 1.8.3
-│ │ │ └─vctrs
-│ │ ├─tibble
-│ │ ├─tidyselect
-│ │ └─vctrs
-│ ├─tidyselect
-│ └─vctrs
-└─stringr
+
+## Creating the summary
+
+```mermaid
+flowchart TD
+    A((prepped_dt_ls))
+    A --> B(hts_get_ns)
+    B --> |categorical| BB(hts_summary_cat)
+    B --> |numeric| CB(hts_summary_num)
+    BB --> BC{"weighted & se"}
+    BC --> |TRUE| BCA(hts_to_so)
+    BCA --> BD((cat_summary_ls))
+    BC --> |FALSE| BD
+    CB --> CC{weighted}
+    CC --> |TRUE| CCA(hts_to_so)
+    CCA --> CD((num_summary_ls))
+    CC --> |FALSE| CD
 ```

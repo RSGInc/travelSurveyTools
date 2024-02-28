@@ -40,7 +40,7 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' DT = hts_prep_data(summarize_var = 'age',
+#' DT = hts_prep_variable(summarize_var = 'age',
 #'                    summarize_by = 'employment',
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,
@@ -54,7 +54,7 @@
 #'               summarize_vartype = 'categorical',
 #'               wtname = 'person_weight')
 #'
-#' DT = hts_prep_data(summarize_var = 'speed_mph',
+#' DT = hts_prep_variable(summarize_var = 'speed_mph',
 #'                    summarize_by = 'age', 
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,
@@ -68,7 +68,7 @@
 #'               summarize_vartype = 'numeric',
 #'               wtname = 'trip_weight')
 #'
-#' DT = hts_prep_data(summarize_var = 'race',
+#' DT = hts_prep_variable(summarize_var = 'race',
 #'                    summarize_by = 'age', 
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,

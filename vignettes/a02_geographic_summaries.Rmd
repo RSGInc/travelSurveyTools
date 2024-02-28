@@ -31,6 +31,7 @@ states = states()
 `hts_summary` can summarize geographic variables.
 
 ```{r, county_income, echo=TRUE, eval=TRUE}
+
 income_county_list = hts_prep_data(
   summarize_var = 'income_detailed',
   summarize_by = 'home_county',
@@ -48,7 +49,6 @@ factorize_df(
   vals_df = value_labels,
   value_label_colname = 'label'
   )
-
 ```
 
 ### Using join_spatial to join together separate shapefiles

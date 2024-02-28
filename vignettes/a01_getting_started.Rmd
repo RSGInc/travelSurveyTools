@@ -107,9 +107,9 @@ A dataset containing the values for all variables found in variable_list The var
 
 ### Prepping the Data
 
-In order to create summaries of our data we first need to prepare our data. We can do this by using `hts_prep_data`. This will return a categorical (cat) and numeric (num) (if applicable) prepped data table that can be used to create summaries. 
+In order to create summaries of our data we first need to prepare our data. We can do this by using `hts_prep_variable`. This will return a categorical (cat) and numeric (num) (if applicable) prepped data table that can be used to create summaries. 
 
-```{r, hts_prep_data, eval=TRUE, echo=TRUE }
+```{r, hts_prep_variable, eval=TRUE, echo=TRUE }
 
 library(travelSurveyTools)
 library(data.table)
@@ -119,7 +119,7 @@ data("test_data")
 data("variable_list")
 data("value_labels")
 
-speed_list = hts_prep_data(
+speed_list = hts_prep_variable(
   summarize_var = 'speed_mph',
   variables_dt = variable_list,
   data = test_data
@@ -127,7 +127,7 @@ speed_list = hts_prep_data(
 
 ```
 
-Numeric variables will be automatically binned in `hts_prep_data` to create categorical summaries. Here we can make a categorical summary of a numeric variable using `hts_summary`. 
+Numeric variables will be automatically binned in `hts_prep_variable` to create categorical summaries. Here we can make a categorical summary of a numeric variable using `hts_summary`. 
 
 ```{r, hts_summary_cat, eval=TRUE, echo=TRUE}
 
@@ -207,7 +207,6 @@ If we want to summarize a variable by another variable (e.g., mode type by a per
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
-
 mode_type_list = hts_prep_data(
   summarize_var = 'mode_type',
   summarize_by = 'race',
@@ -255,7 +254,7 @@ If we want to summarize a multiple response variable, we can set `summarize_vart
 
 ```{r, race_mode_type_example, echo=TRUE, eval=TRUE}
 
-race_list = hts_prep_data(
+race_list = hts_prep_variable(
   summarize_var = 'race',
   summarize_by = 'mode_type',
   variables_dt = variable_list,
@@ -391,7 +390,6 @@ To summarize a new variable with `hts_summary` it must first be added to the `va
 ```{r, adding_var}
 
 test_data$hh[, hh_size := ifelse(num_people < 4, 0, 1)]
-
 
 variable_list = rbind(
   variable_list,

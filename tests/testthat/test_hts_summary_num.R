@@ -5,7 +5,7 @@ library(data.table)
 library(srvyr)
 
 
-DT = hts_prep_data(summarize_var = 'speed_mph',
+DT = hts_prep_variable(summarize_var = 'speed_mph',
                    variables_dt = variable_list,
                    data = test_data)$num
 
