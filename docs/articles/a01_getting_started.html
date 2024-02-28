@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,7 +209,7 @@ older)</li>
 <h3 id="prepping-the-data">Prepping the Data<a class="anchor" aria-label="anchor" href="#prepping-the-data"></a>
 </h3>
 <p>In order to create summaries of our data we first need to prepare our
-data. We can do this by using <code>hts_prep_data</code>. This will
+data. We can do this by using <code>hts_prep_variable</code>. This will
 return a categorical (cat) and numeric (num) (if applicable) prepped
 data table that can be used to create summaries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -221,14 +221,14 @@ data table that can be used to create summaries.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"variable_list"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"value_labels"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">speed_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<span><span class="va">speed_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">test_data</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Numeric variables will be automatically binned in
-<code>hts_prep_data</code> to create categorical summaries. Here we can
-make a categorical summary of a numeric variable using
+<code>hts_prep_variable</code> to create categorical summaries. Here we
+can make a categorical summary of a numeric variable using
 <code>hts_summary</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
@@ -352,7 +352,7 @@ standard errors.</p>
 type by a person’s race, mode_type by a person’s ethnicity, age by study
 year) we can use the <code>summarize_by</code> argument.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mode_type_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">mode_type_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="st">'race'</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -578,7 +578,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">age_study_year_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">age_study_year_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>    summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span>
 <span>    summarize_by <span class="op">=</span> <span class="st">'study_year'</span>,</span>
 <span>    variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -599,7 +599,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <p>If we want to summarize a multiple response variable, we can set
 <code>summarize_vartype</code> to checkbox.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">race_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">race_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -904,7 +904,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 variables. To use more than one <code>summarize_by</code> variable pass
 a vector to the argument.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mode_type_race_ethnicity_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">mode_type_race_ethnicity_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">'mode_type'</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'race'</span>, <span class="st">'ethnicity'</span><span class="op">)</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -1056,7 +1056,6 @@ variable called <code>hh_size</code> that we want to summarize.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_data</span><span class="op">$</span><span class="va">hh</span><span class="op">[</span>, <span class="va">hh_size</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">num_people</span> <span class="op">&lt;</span> <span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
-<span></span>
 <span><span class="va">variable_list</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
 <span>  <span class="va">variable_list</span>,</span>
 <span>  <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="st">'hh_size'</span>,</span>
@@ -1079,7 +1078,7 @@ variable called <code>hh_size</code> that we want to summarize.</p>
 <span>             val_order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">214</span><span class="op">:</span><span class="fl">215</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hh_size_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<span><span class="va">hh_size_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">'hh_size'</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">test_data</span></span>
