@@ -125,7 +125,8 @@ hts_prep_triprate = function(summarize_by = NULL,
     byvar_dt = hts_prep_byvar(summarize_by,
                               variables_dt = variables_dt,
                               hts_data = hts_data,
-                              byvar_ids = ids)
+                              byvar_ids = ids,
+                              byvar_wts = wts)
     
     merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
     
