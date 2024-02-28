@@ -259,7 +259,7 @@ mode_by_race_summary$summary
 
 ```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
 
-mode_type_list2 = hts_prep_variable(
+mode_type_race_ethnicity_list = hts_prep_variable(
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
   variables_dt = variable_list,
@@ -273,7 +273,7 @@ mode_type_list2 = hts_prep_variable(
 )
 
 mode_by_race_ethnicity_summary = hts_summary(
-  prepped_dt = mode_type_list2$cat, 
+  prepped_dt = mode_type_race_ethnicity_list$cat, 
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
   summarize_vartype = 'categorical',
@@ -383,20 +383,20 @@ variable_list = rbind(variable_list,
                                  description = 'Household size',
                                  data_type = 'integer/categorical',
                                  shared_name = 'hh_size')
-                      )
+)
 
 value_labels = rbind(value_labels,
                      data.table(variable = rep('hh_size', 2),
                                 value = c(0,1),
                                 label = c('Small household', 'Large household'),
                                 val_order = c(214:215))
-                      )
+)
 
-DT = hts_prep_variable(summarize_var = 'hh_size',
-                   variables_dt = variable_list,
-                   data = test_data)
+hh_size_list = hts_prep_variable(summarize_var = 'hh_size',
+                                 variables_dt = variable_list,
+                                 data = test_data)
 
-hh_size_summary = hts_summary(prepped_dt = DT$cat, 
+hh_size_summary = hts_summary(prepped_dt = hh_size_list$cat, 
                               summarize_var = 'hh_size',
                               summarize_vartype = 'categorical',
                               weighted = TRUE,
