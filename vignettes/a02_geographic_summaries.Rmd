@@ -31,7 +31,7 @@ states = states()
 `hts_summary` can summarize geographic variables.
 
 ```{r, county_income, echo=TRUE, eval=TRUE}
-DT = hts_prep_data(summarize_var = 'income_detailed', summarize_by = 'home_county', data = test_data)
+DT = hts_prep_variable(summarize_var = 'income_detailed', summarize_by = 'home_county', data = test_data)
 
 output = hts_summary(prepped_dt = DT$cat, summarize_var = 'income_detailed', summarize_by = 'home_county')
 

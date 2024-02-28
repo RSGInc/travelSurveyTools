@@ -33,7 +33,7 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' DT = hts_prep_data(summarize_var = 'age',
+#' DT = hts_prep_variable(summarize_var = 'age',
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,
 #'                                'person' = person,
@@ -44,7 +44,7 @@
 #'                 summarize_var = 'age',
 #'                 wtname = 'person_weight')
 #'                 
-#' DT = hts_prep_data(summarize_var = 'race',
+#' DT = hts_prep_variable(summarize_var = 'race',
 #'                    summarize_by = 'employment',
 #'                    variables_dt = variable_list,
 #'                    data = list('hh' = hh,
@@ -58,7 +58,7 @@
 #'                 wtname = 'person_weight',
 #'                 summarize_vartype = 'checkbox')
 #'                 
-#' DT = hts_prep_data(summarize_var = 'employment',
+#' DT = hts_prep_variable(summarize_var = 'employment',
 #'                 summarize_by = c('race', 'income_detailed', 'gender'),
 #'                 variables_dt = variable_list,
 #'                 data = list('hh' = hh,
