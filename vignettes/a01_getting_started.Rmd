@@ -395,6 +395,7 @@ To summarize a new variable with `hts_summary` it must first be added to the `va
 
 test_data$hh[, hh_size := ifelse(num_people < 4, 0, 1)]
 
+
 variable_list = rbind(
   variable_list,
   data.table(variable = 'hh_size',
