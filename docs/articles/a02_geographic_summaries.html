@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -97,51 +97,63 @@
 </h3>
 <p><code>hts_summary</code> can summarize geographic variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'income_detailed'</span>, summarize_by <span class="op">=</span> <span class="st">'home_county'</span>, data <span class="op">=</span> <span class="va">test_data</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">income_county_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span></span>
+<span>  summarize_var <span class="op">=</span> <span class="st">'income_detailed'</span>,</span>
+<span>  summarize_by <span class="op">=</span> <span class="st">'home_county'</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">test_data</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">output</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">cat</span>, summarize_var <span class="op">=</span> <span class="st">'income_detailed'</span>, summarize_by <span class="op">=</span> <span class="st">'home_county'</span><span class="op">)</span></span>
+<span><span class="va">output</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
+<span>  prepped_dt <span class="op">=</span> <span class="va">income_county_list</span><span class="op">$</span><span class="va">cat</span>,</span>
+<span>  summarize_var <span class="op">=</span> <span class="st">'income_detailed'</span>,</span>
+<span>  summarize_by <span class="op">=</span> <span class="st">'home_county'</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/factorize_df.html">factorize_df</a></span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">unwtd</span>, vals_df <span class="op">=</span> <span class="va">value_labels</span>, value_label_colname <span class="op">=</span> <span class="st">'label'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/factorize_df.html">factorize_df</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">unwtd</span>,</span>
+<span>  vals_df <span class="op">=</span> <span class="va">value_labels</span>,</span>
+<span>  value_label_colname <span class="op">=</span> <span class="st">'label'</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      home_county      income_detailed count       prop</span></span>
-<span><span class="co">##  1: Arike County        Under $10,000    14 0.04166667</span></span>
-<span><span class="co">##  2: Arike County      $10,000-$24,999    33 0.09821429</span></span>
-<span><span class="co">##  3: Arike County      $25,000-$34,999    15 0.04464286</span></span>
-<span><span class="co">##  4: Arike County      $35,000-$49,999    15 0.04464286</span></span>
-<span><span class="co">##  5: Arike County      $50,000-$74,999    35 0.10416667</span></span>
-<span><span class="co">##  6: Arike County      $75,000-$99,999    38 0.11309524</span></span>
-<span><span class="co">##  7: Arike County    $100,000-$149,999    62 0.18452381</span></span>
-<span><span class="co">##  8: Arike County    $150,000-$199,999    26 0.07738095</span></span>
-<span><span class="co">##  9: Arike County    $200,000-$249,999    18 0.05357143</span></span>
-<span><span class="co">## 10: Arike County     $250,000 or more    38 0.11309524</span></span>
-<span><span class="co">## 11: Arike County Prefer not to answer    42 0.12500000</span></span>
-<span><span class="co">## 12: Clark County        Under $10,000    16 0.04878049</span></span>
-<span><span class="co">## 13: Clark County      $10,000-$24,999    20 0.06097561</span></span>
-<span><span class="co">## 14: Clark County      $25,000-$34,999    14 0.04268293</span></span>
-<span><span class="co">## 15: Clark County      $35,000-$49,999    25 0.07621951</span></span>
-<span><span class="co">## 16: Clark County      $50,000-$74,999    36 0.10975610</span></span>
-<span><span class="co">## 17: Clark County      $75,000-$99,999    35 0.10670732</span></span>
-<span><span class="co">## 18: Clark County    $100,000-$149,999    53 0.16158537</span></span>
-<span><span class="co">## 19: Clark County    $150,000-$199,999    43 0.13109756</span></span>
-<span><span class="co">## 20: Clark County    $200,000-$249,999    21 0.06402439</span></span>
-<span><span class="co">## 21: Clark County     $250,000 or more    26 0.07926829</span></span>
-<span><span class="co">## 22: Clark County Prefer not to answer    39 0.11890244</span></span>
-<span><span class="co">## 23: Moore County        Under $10,000    11 0.03273810</span></span>
-<span><span class="co">## 24: Moore County      $10,000-$24,999    22 0.06547619</span></span>
-<span><span class="co">## 25: Moore County      $25,000-$34,999     9 0.02678571</span></span>
-<span><span class="co">## 26: Moore County      $35,000-$49,999    24 0.07142857</span></span>
-<span><span class="co">## 27: Moore County      $50,000-$74,999    31 0.09226190</span></span>
-<span><span class="co">## 28: Moore County      $75,000-$99,999    36 0.10714286</span></span>
-<span><span class="co">## 29: Moore County    $100,000-$149,999    68 0.20238095</span></span>
-<span><span class="co">## 30: Moore County    $150,000-$199,999    30 0.08928571</span></span>
-<span><span class="co">## 31: Moore County    $200,000-$249,999    14 0.04166667</span></span>
-<span><span class="co">## 32: Moore County     $250,000 or more    41 0.12202381</span></span>
-<span><span class="co">## 33: Moore County Prefer not to answer    50 0.14880952</span></span>
+<span><span class="co">##  1: Arike County        Under $10,000     8 0.02469136</span></span>
+<span><span class="co">##  2: Arike County      $10,000-$24,999    26 0.08024691</span></span>
+<span><span class="co">##  3: Arike County      $25,000-$34,999    11 0.03395062</span></span>
+<span><span class="co">##  4: Arike County      $35,000-$49,999    11 0.03395062</span></span>
+<span><span class="co">##  5: Arike County      $50,000-$74,999    40 0.12345679</span></span>
+<span><span class="co">##  6: Arike County      $75,000-$99,999    47 0.14506173</span></span>
+<span><span class="co">##  7: Arike County    $100,000-$149,999    56 0.17283951</span></span>
+<span><span class="co">##  8: Arike County    $150,000-$199,999    30 0.09259259</span></span>
+<span><span class="co">##  9: Arike County    $200,000-$249,999    24 0.07407407</span></span>
+<span><span class="co">## 10: Arike County     $250,000 or more    35 0.10802469</span></span>
+<span><span class="co">## 11: Arike County Prefer not to answer    36 0.11111111</span></span>
+<span><span class="co">## 12: Clark County        Under $10,000    12 0.03498542</span></span>
+<span><span class="co">## 13: Clark County      $10,000-$24,999    13 0.03790087</span></span>
+<span><span class="co">## 14: Clark County      $25,000-$34,999    16 0.04664723</span></span>
+<span><span class="co">## 15: Clark County      $35,000-$49,999    30 0.08746356</span></span>
+<span><span class="co">## 16: Clark County      $50,000-$74,999    42 0.12244898</span></span>
+<span><span class="co">## 17: Clark County      $75,000-$99,999    28 0.08163265</span></span>
+<span><span class="co">## 18: Clark County    $100,000-$149,999    60 0.17492711</span></span>
+<span><span class="co">## 19: Clark County    $150,000-$199,999    34 0.09912536</span></span>
+<span><span class="co">## 20: Clark County    $200,000-$249,999    24 0.06997085</span></span>
+<span><span class="co">## 21: Clark County     $250,000 or more    34 0.09912536</span></span>
+<span><span class="co">## 22: Clark County Prefer not to answer    50 0.14577259</span></span>
+<span><span class="co">## 23: Moore County        Under $10,000     9 0.02702703</span></span>
+<span><span class="co">## 24: Moore County      $10,000-$24,999    16 0.04804805</span></span>
+<span><span class="co">## 25: Moore County      $25,000-$34,999    15 0.04504505</span></span>
+<span><span class="co">## 26: Moore County      $35,000-$49,999    19 0.05705706</span></span>
+<span><span class="co">## 27: Moore County      $50,000-$74,999    56 0.16816817</span></span>
+<span><span class="co">## 28: Moore County      $75,000-$99,999    31 0.09309309</span></span>
+<span><span class="co">## 29: Moore County    $100,000-$149,999    61 0.18318318</span></span>
+<span><span class="co">## 30: Moore County    $150,000-$199,999    35 0.10510511</span></span>
+<span><span class="co">## 31: Moore County    $200,000-$249,999    29 0.08708709</span></span>
+<span><span class="co">## 32: Moore County     $250,000 or more    24 0.07207207</span></span>
+<span><span class="co">## 33: Moore County Prefer not to answer    38 0.11411411</span></span>
 <span><span class="co">##      home_county      income_detailed count       prop</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="using-spatial_join-to-join-together-separate-shapefiles">Using spatial_join to join together separate shapefiles<a class="anchor" aria-label="anchor" href="#using-spatial_join-to-join-together-separate-shapefiles"></a>
+<h3 id="using-join_spatial-to-join-together-separate-shapefiles">Using join_spatial to join together separate shapefiles<a class="anchor" aria-label="anchor" href="#using-join_spatial-to-join-together-separate-shapefiles"></a>
 </h3>
-<p><code>spatial_join</code> can link together multiple geographies.</p>
+<p><code>join_spatial</code> can link together multiple geographies.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span> <span class="op">=</span> <span class="fu"><a href="../reference/join_spatial.html">join_spatial</a></span><span class="op">(</span></span>
 <span>    <span class="va">hh</span>,</span>
@@ -153,24 +165,24 @@
 <span></span>
 <span><span class="va">hh</span><span class="op">[</span>, <span class="va">.N</span>, <span class="va">home_state</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##         home_state   N</span></span>
-<span><span class="co">##  1:         Kansas 112</span></span>
-<span><span class="co">##  2:       Arkansas  89</span></span>
-<span><span class="co">##  3:      Tennessee  92</span></span>
-<span><span class="co">##  4:       Illinois  51</span></span>
-<span><span class="co">##  5: South Carolina  37</span></span>
-<span><span class="co">##  6:        Indiana  36</span></span>
-<span><span class="co">##  7:           Ohio  34</span></span>
-<span><span class="co">##  8:        Georgia  36</span></span>
-<span><span class="co">##  9:       Missouri 123</span></span>
-<span><span class="co">## 10:       Oklahoma 120</span></span>
-<span><span class="co">## 11:       Kentucky  48</span></span>
-<span><span class="co">## 12:        Alabama  38</span></span>
-<span><span class="co">## 13:          Texas  58</span></span>
-<span><span class="co">## 14:    Mississippi  29</span></span>
-<span><span class="co">## 15:  West Virginia  42</span></span>
-<span><span class="co">## 16: North Carolina  39</span></span>
-<span><span class="co">## 17:       Virginia  15</span></span>
-<span><span class="co">## 18:   Pennsylvania   1</span></span></code></pre>
+<span><span class="co">##  1:        Indiana  39</span></span>
+<span><span class="co">##  2:           Ohio  29</span></span>
+<span><span class="co">##  3:       Oklahoma 101</span></span>
+<span><span class="co">##  4:       Arkansas 111</span></span>
+<span><span class="co">##  5:         Kansas 118</span></span>
+<span><span class="co">##  6:      Tennessee  78</span></span>
+<span><span class="co">##  7: North Carolina  36</span></span>
+<span><span class="co">##  8:       Missouri 106</span></span>
+<span><span class="co">##  9:       Kentucky  66</span></span>
+<span><span class="co">## 10:        Alabama  42</span></span>
+<span><span class="co">## 11:       Illinois  59</span></span>
+<span><span class="co">## 12: South Carolina  37</span></span>
+<span><span class="co">## 13:          Texas  50</span></span>
+<span><span class="co">## 14:    Mississippi  43</span></span>
+<span><span class="co">## 15:        Georgia  28</span></span>
+<span><span class="co">## 16:       Virginia  16</span></span>
+<span><span class="co">## 17:  West Virginia  40</span></span>
+<span><span class="co">## 18:       Nebraska   1</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -180,7 +192,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+<p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

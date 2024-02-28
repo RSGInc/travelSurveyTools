@@ -10,7 +10,7 @@
 A data frame with 55 rows and 10 columns:
 \describe{
 \item{variable}{Name of the variable}
-\item{is_checkbox}{The variable is a 'Select all that Apply' question}
+\item{is_checkbox}{The variable is a multiple response categorical variable question}
 \item{hh}{The variable exists in the hh table}
 \item{person}{The variable exists in the person table}
 \item{day}{The variable exists in the day table}

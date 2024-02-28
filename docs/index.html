@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -74,22 +74,34 @@
 <div class="section level2">
 <h2 id="travel-survey-tools">Travel Survey Tools<a class="anchor" aria-label="anchor" href="#travel-survey-tools"></a>
 </h2>
-<p><code>travelSurveyTools</code> is an R package that empowers users of household travel survey (HTS) data to create meaningful summaries of their data. Currently, <code>travelSurveyTools</code> is compatible with RSG, Inc. HTS datasets, but we hope to expand to any travel survey. If you would like to collaborate, please contact Suzanne Childress at <a href="mailto:schildress@psrc.org" class="email">schildress@psrc.org</a>. These datasets usually contain six tables: household, person, day, trip, vehicle, and location. In the future, we may expand <code>travelSurveyTools</code> to work with other types of travel survey data or other types of surveys.</p>
-<p><code>travelSurveyTools</code> is in active development and is open-source; anyone can contribute 🤝. See the CONTRIBUTING page to learn how.</p>
+<p><code>travelSurveyTools</code> is an R package that empowers users of household travel survey (HTS) data to create meaningful summaries of their data. Currently, <code>travelSurveyTools</code> is compatible with HTS datasets from <a href="https://rsginc.com/" class="external-link">RSG, Inc.</a>, but we hope to expand to any travel survey. If you would like to collaborate, please contact Erika Redding at <a href="mailto:erika.redding@rsginc.com?subject=TravelSurveyTools">erika.redding@rsginc.com</a>. These datasets usually contain six tables: household, person, day, trip, vehicle, and location. In the future, we may expand <code>travelSurveyTools</code> to work with other types of travel survey data or other types of surveys.</p>
+<p><code>travelSurveyTools</code> is in active development and is open-source; anyone can contribute 🤝. See the <a href="CONTRIBUTING.html">CONTRIBUTING</a> page to learn how.</p>
 <div class="section level3">
 <h3 id="cloning-instructions">Cloning instructions<a class="anchor" aria-label="anchor" href="#cloning-instructions"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li><p>Set config - usethis::use_git_config(user.name = {“username”}, user.email = {<a href="mailto:your_email@email.com" class="email">your_email@email.com</a>})</p></li>
-<li><p>Go to github page to generate token - usethis::create_github_token()</p></li>
-<li><p>Paste your PAT into pop-up that follows - credentials::set_github_pat()</p></li>
-<li><p>Lastly, remotes::install_github() will work - remotes::install_github(‘RSGInc/travelSurveyTools’)</p></li>
+<li><p>Set config - <code>usethis::use_git_config(user.name = {"username"}, user.email = {your_email@email.com})</code></p></li>
+<li><p>Go to github page to generate token - <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code></p></li>
+<li><p>Paste your PAT into pop-up that follows - <code><a href="https://docs.ropensci.org/credentials/reference/set_github_pat.html" class="external-link">credentials::set_github_pat()</a></code></p></li>
+<li><p>Lastly, <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">remotes::install_github()</a></code> will work - <code>remotes::install_github('RSGInc/travelSurveyTools')</code></p></li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="what-can-this-package-do">What can this package do?<a class="anchor" aria-label="anchor" href="#what-can-this-package-do"></a>
 </h3>
-<p>Some of the things this package enables include: * Cross tabs with an unlimited number of variables * Summarizes numeric, categorical, date, and date-time variables * Accepts both weighted and unweighted data * Numeric summaries return means, medians, and summaries with binned data * Ability to use customized datasets (e.g., filtered, binned, renamed data) * Data labeling helper functions * Returns sample sizes/unweighted counts * Standard errors calculated with survey statistics * Ability to specify custom weights * Trip rate calculations</p>
+<p>Some of the things this package enables include:</p>
+<ul>
+<li>Cross tabs with an unlimited number of variables</li>
+<li>Summarizes numeric, categorical, date, and date-time variables</li>
+<li>Accepts both weighted and unweighted data</li>
+<li>Numeric summaries return means, medians, and summaries with binned data</li>
+<li>Ability to use customized datasets (e.g., filtered, binned, renamed data)</li>
+<li>Data labeling helper functions</li>
+<li>Returns sample sizes/unweighted counts</li>
+<li>Standard errors calculated with survey statistics</li>
+<li>Ability to specify custom weights</li>
+<li>Trip rate calculations</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="dependency-tree">Dependency Tree<a class="anchor" aria-label="anchor" href="#dependency-tree"></a>
@@ -217,6 +229,7 @@
 <li>Erika Redding <br><small class="roles"> Author </small>  </li>
 <li>Jacob Moore <br><small class="roles"> Author </small>  </li>
 <li>James Clark <br><small class="roles"> Author </small>  </li>
+<li>Matt Landis <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
@@ -228,7 +241,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+<p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

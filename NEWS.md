@@ -1,3 +1,11 @@
+# travelSurveyTools 2.3.4
+
+- Fixing error in `hts_prep_triprate` where weight columns weren't being passed to `hts_prep_byvar`
+
+# travelSurveyTools 2.3.3
+
+- Small updates to DESCRIPTION
+
 # travelSurveyTools 2.3.2
 
 - Additional steps to ensure anonymity of test data
