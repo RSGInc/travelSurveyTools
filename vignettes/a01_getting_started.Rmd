@@ -8,6 +8,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 ```
@@ -18,7 +19,7 @@ The `travelSurveyTools` package provides tools for R users to aid use of data fr
 
 ## Data Assumptions
 
-`travelSurveyTools` assumes the the data have the structure shown below. If this does not reflect the structure of your data
+`travelSurveyTools` assumes the the data have the structure shown below.
 
 ### hts_data
 
@@ -28,7 +29,7 @@ hts_data is a list of five core tables:
 
 Household dataset
 
--   hh_id: 8 digit household ID
+-   hh_id: household ID
 -   survey variables asked on a household level
 -   hh_weight: household weight
 
@@ -36,8 +37,8 @@ Household dataset
 
 Person dataset
 
--   hh_id: 8 digit household ID
--   person_id: 10 digit person ID
+-   hh_id: household ID
+-   person_id: person ID
 -   survey variables asked on a person level
 -   person_weight: person weight
 
@@ -45,9 +46,9 @@ Person dataset
 
 Day dataset
 
--   hh_id: 8 digit household ID
--   person_id: 10 digit person ID
--   day_id: 12 digit day ID
+-   hh_id: household ID
+-   person_id: person ID
+-   day_id: day ID
 -   survey variable asked on a day level
 -   day_weight: day weight
 
@@ -55,10 +56,10 @@ Day dataset
 
 Trip dataset
 
--   hh_id: 8 digit household ID
--   person_id: 10 digit person ID
--   day_id: 12 digit day ID
--   trip_id: 13 digit trip ID
+-   hh_id: household ID
+-   person_id: person ID
+-   day_id: day ID
+-   trip_id: trip ID
 -   survey variables asked on a trip level
 -   trip_weight: trip weight
 
@@ -66,8 +67,8 @@ Trip dataset
 
 Vehicle dataset
 
--   hh_id: 8 digit household ID
--   vehicle_id: 10 digit vehicle ID
+-   hh_id: household ID
+-   vehicle_id: vehicle ID
 -   survey responses asked on a vehicle level
 -   hh_weight: household weight
 
@@ -80,7 +81,7 @@ In addition to data from the household travel survey. The codebook is also requi
 A dataset containing information about all variables existing in the hh, person, day, trip, and vehicle tables. The variables are as follows:
 
 -   variable: Name of the variable
--   is_checkbox: The variable is a 'Select all that Apply' question
+-   is_checkbox: The variable is a multiple response categorical variable question
 -   hh: The variable exists in the hh table
 -   person: The variable exists in the person table
 -   day: The variable exists in the day table
@@ -90,7 +91,7 @@ A dataset containing information about all variables existing in the hh, person,
 -   data_type: Data type of the variable
 -   description: A description of the variable
 -   logic: Conditions where the variable should have a value
--   shared_name: the shared name of checkbox variable or the variable name for non-checkbox variables
+-   shared_name: the shared name of a multiple response categorical variable variable or the variable name for non-multiple response categorical variable variables
 
 #### value_labels
 
@@ -206,6 +207,7 @@ If we want to summarize a variable by another variable (e.g., mode type by a per
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
+
 mode_type_list = hts_prep_data(
   summarize_var = 'mode_type',
   summarize_by = 'race',
@@ -226,6 +228,26 @@ mode_by_race_summary = hts_summary(
 
 mode_by_race_summary$summary
 
+if(FALSE){
+  
+  age_study_year_list = hts_prep_data(
+    summarize_var = 'age',
+    summarize_by = 'study_year',
+    variables_dt = variable_list,
+    data = test_data
+  )
+  
+  mode_by_race_summary = hts_summary(
+    prepped_dt = age_study_year_list$cat, 
+    summarize_var = 'age',
+    summarize_by = 'study_year',
+    summarize_vartype = 'categorical',
+    weighted = TRUE,
+    wtname = 'trip_weight',
+    se = TRUE
+  )
+  
+}
 
 ```
 
@@ -259,27 +281,22 @@ mode_by_race_summary$summary
 
 ```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
 
-mode_type_list2 = hts_prep_data(
+mode_type_race_ethnicity_list = hts_prep_data(
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
   variables_dt = variable_list,
-  data = list(
-    'hh' = hh,
-    'person' = person,
-    'day' = day,
-    'trip' = trip,
-    'vehicle' = vehicle
-  )
+  data = list('hh' = hh,
+              'person' = person,
+              'day' = day,
+              'trip' = trip,
+              'vehicle' = vehicle)
 )
 
 mode_by_race_ethnicity_summary = hts_summary(
-  prepped_dt = mode_type_list2$cat, 
+  prepped_dt = mode_type_race_ethnicity_list$cat, 
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
-  summarize_vartype = 'categorical',
-  weighted = TRUE,
-  wtname = 'trip_weight',
-  se = TRUE
+  wtname = 'trip_weight'
 )
 
 
@@ -294,23 +311,26 @@ head(mode_by_race_ethnicity_summary$summary$wtd, 10)
 
 ```{r, trip_rates_example}
 
-DT = hts_prep_triprate(summarize_by = 'employment',
-                       variables_dt = variable_list,
-                       trip_name = 'trip',
-                       day_name = 'day',
-                       hts_data = list('hh' = hh,
-                                       'person' = person,
-                                       'day' = day,
-                                       'trip' = trip,
-                                       'vehicle' = vehicle))
+employment_triprate_list = hts_prep_triprate(
+  summarize_by = 'employment',
+  variables_dt = variable_list,
+  trip_name = 'trip',
+  day_name = 'day',
+  hts_data = list('hh' = hh,
+                  'person' = person,
+                  'day' = day,
+                  'trip' = trip,
+                  'vehicle' = vehicle)
+)
 
-trip_rate_by_employment_summary = hts_summary(prepped_dt = DT$num, 
-                                              summarize_var = 'num_trips_wtd',
-                                              summarize_by = 'employment',
-                                              summarize_vartype = 'numeric',
-                                              weighted = TRUE,
-                                              wtname = 'day_weight',
-                                              se = TRUE)
+trip_rate_by_employment_summary = hts_summary(
+  prepped_dt = employment_triprate_list$num, 
+  summarize_var = 'num_trips_wtd',
+  summarize_by = 'employment',
+  summarize_vartype = 'numeric',
+  weighted = TRUE,
+  wtname = 'day_weight',
+  se = TRUE)
 
 head(trip_rate_by_employment_summary$summary$wtd, 10)
 
@@ -342,13 +362,13 @@ trip_rate_by_employment_summary$summary$wtd
 
 `hts_summary` creates outputs that can easily be used to create visuals.
 
-```{r, ggplot_example, echo=TRUE, eval=TRUE}
+```{r, ggplot_example, echo=TRUE, eval=TRUE, fig.width=8, fig.height=6}
 
 library(ggplot2)
 
 p = ggplot(
   trip_rate_by_employment_summary$summary$wtd, 
-  aes(x = mean, y = employment)) +
+  aes(x = mean, y = employment, label = count)) +
   geom_bar(stat = 'identity') + 
   geom_errorbar(
     aes(xmin = (mean - mean_se), 
@@ -372,35 +392,42 @@ To summarize a new variable with `hts_summary` it must first be added to the `va
 
 test_data$hh[, hh_size := ifelse(num_people < 4, 0, 1)]
 
-variable_list = rbind(variable_list,
-                      data.table(variable = 'hh_size',
-                                 is_checkbox = 0,
-                                 hh = 1,
-                                 person = 0,
-                                 day = 0,
-                                 trip = 0,
-                                 vehicle = 0,
-                                 description = 'Household size',
-                                 data_type = 'integer/categorical',
-                                 shared_name = 'hh_size')
-                      )
 
-value_labels = rbind(value_labels,
-                     data.table(variable = rep('hh_size', 2),
-                                value = c(0,1),
-                                label = c('Small household', 'Large household'),
-                                val_order = c(214:215))
-                      )
+variable_list = rbind(
+  variable_list,
+  data.table(variable = 'hh_size',
+             is_checkbox = 0,
+             hh = 1,
+             person = 0,
+             day = 0,
+             trip = 0,
+             vehicle = 0,
+             description = 'Household size',
+             data_type = 'integer/categorical',
+             shared_name = 'hh_size')
+)
 
-DT = hts_prep_data(summarize_var = 'hh_size',
-                   variables_dt = variable_list,
-                   data = test_data)
+value_labels = rbind(
+  value_labels,
+  data.table(variable = rep('hh_size', 2),
+             value = c(0,1),
+             label = c('Small household', 'Large household'),
+             val_order = c(214:215))
+)
 
-hh_size_summary = hts_summary(prepped_dt = DT$cat, 
-                              summarize_var = 'hh_size',
-                              summarize_vartype = 'categorical',
-                              weighted = TRUE,
-                              wtname = 'hh_weight')
+hh_size_list = hts_prep_data(
+  summarize_var = 'hh_size',
+  variables_dt = variable_list,
+  data = test_data
+)
+
+hh_size_summary = hts_summary(
+  prepped_dt = hh_size_list$cat, 
+  summarize_var = 'hh_size',
+  summarize_vartype = 'categorical',
+  weighted = TRUE,
+  wtname = 'hh_weight'
+)
 
 factorize_df(df = hh_size_summary$summary$wtd, value_labels, value_label_colname = 'label')
 
