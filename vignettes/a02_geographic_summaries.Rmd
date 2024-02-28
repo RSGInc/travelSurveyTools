@@ -32,7 +32,7 @@ states = states()
 
 ```{r, county_income, echo=TRUE, eval=TRUE}
 
-income_county_list = hts_prep_data(
+income_county_list = hts_prep_variable(
   summarize_var = 'income_detailed',
   summarize_by = 'home_county',
   data = test_data

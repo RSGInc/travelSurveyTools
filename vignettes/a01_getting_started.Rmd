@@ -207,7 +207,7 @@ If we want to summarize a variable by another variable (e.g., mode type by a per
 
 ```{r, mode_type_race_example, echo=TRUE, eval=TRUE}
 
-mode_type_list = hts_prep_data(
+mode_type_list = hts_prep_variable(
   summarize_var = 'mode_type',
   summarize_by = 'race',
   variables_dt = variable_list,
@@ -229,7 +229,7 @@ mode_by_race_summary$summary
 
 if(FALSE){
   
-  age_study_year_list = hts_prep_data(
+  age_study_year_list = hts_prep_variable(
     summarize_var = 'age',
     summarize_by = 'study_year',
     variables_dt = variable_list,
@@ -280,7 +280,7 @@ mode_by_race_summary$summary
 
 ```{r, mode_type_ethnicity_example, echo=TRUE, eval=TRUE}
 
-mode_type_race_ethnicity_list = hts_prep_data(
+mode_type_race_ethnicity_list = hts_prep_variable(
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
   variables_dt = variable_list,
@@ -413,7 +413,7 @@ value_labels = rbind(
              val_order = c(214:215))
 )
 
-hh_size_list = hts_prep_data(
+hh_size_list = hts_prep_variable(
   summarize_var = 'hh_size',
   variables_dt = variable_list,
   data = test_data
