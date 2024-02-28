@@ -3,11 +3,11 @@ title: "Creating summaries of trip rates"
 description: >
 output: html_vignette
 vignette: >
-  %\VignetteIndexEntry{Creating summaries of trip rates}
+%\VignetteIndexEntry{Creating summaries of trip rates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
+  ---
+  
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
@@ -24,10 +24,12 @@ data("test_data")
 data("variable_list")
 data("value_labels")
 
-DT = hts_prep_triprate(variables_dt = variable_list,
-                   trip_name = 'trip',
-                   day_name = 'day',
-                   hts_data = test_data)
+prepped_triprates_list = hts_prep_triprate(
+  variables_dt = variable_list,
+  trip_name = 'trip',
+  day_name = 'day',
+  hts_data = test_data
+)
 
 ```
 
@@ -37,7 +39,7 @@ After preparing the data we can create a summary using `hts_summary`.
 ```{r, hts_summary, echo=TRUE}
 
 hts_summary(
-  prepped_dt = DT$num,
+  prepped_dt = prepped_triprates_list$num,
   summarize_var = 'num_trips_wtd',
   summarize_vartype = 'numeric'
 )
@@ -49,14 +51,14 @@ We can also summarize trip rates by one or more variables.
 
 ```{r, trip_rate_job_type, echo=TRUE, fig.width=8, fig.height=6, warning=FALSE}
 
-DT = hts_prep_triprate(variables_dt = variable_list,
+job_type_triprate_list = hts_prep_triprate(variables_dt = variable_list,
                        summarize_by = 'job_type',
-                   trip_name = 'trip',
-                   day_name = 'day',
-                   hts_data = test_data)
+                       trip_name = 'trip',
+                       day_name = 'day',
+                       hts_data = test_data)
 
 num_trips_job_type = hts_summary(
-  prepped_dt = DT$num,
+  prepped_dt = job_type_triprate_list$num,
   summarize_by = 'job_type',
   summarize_var = 'num_trips_wtd',
   summarize_vartype = 'numeric',
@@ -67,9 +69,11 @@ num_trips_job_type = hts_summary(
 
 
 # Label job_type
-num_trips_job_type_labeled = factorize_df(num_trips_job_type,
-                                            value_labels,
-                                            value_label_colname = 'label')
+num_trips_job_type_labeled = factorize_df(
+  num_trips_job_type,
+  value_labels,
+  value_label_colname = 'label'
+)
 
 
 # Create a plot
@@ -86,14 +90,16 @@ ggplot(num_trips_job_type_labeled,
 
 ```{r, trip_rate_race_ethnicity, fig.width=8, fig.height=6, warning=FALSE}
 
-DT = hts_prep_triprate(variables_dt = variable_list,
-                       summarize_by = c('race', 'ethnicity'),
-                   trip_name = 'trip',
-                   day_name = 'day',
-                   hts_data = test_data)
+race_ethnicity_triprate_list = hts_prep_triprate(
+  variables_dt = variable_list,
+  summarize_by = c('race', 'ethnicity'),
+  trip_name = 'trip',
+  day_name = 'day',
+  hts_data = test_data
+)
 
 num_trips_race_ethnicity = hts_summary(
-  prepped_dt = DT$num,
+  prepped_dt = race_ethnicity_triprate_list$num,
   summarize_by = c('race', 'ethnicity'),
   summarize_var = 'num_trips_wtd',
   summarize_vartype = 'numeric',
@@ -103,9 +109,11 @@ num_trips_race_ethnicity = hts_summary(
 )$summary$wtd
 
 # label data
-num_trips_race_ethnicity_labeled = factorize_df(num_trips_race_ethnicity,
-                                            value_labels,
-                                            value_label_colname = 'label')
+num_trips_race_ethnicity_labeled = factorize_df(
+  num_trips_race_ethnicity,
+  value_labels,
+  value_label_colname = 'label'
+)
 
 # Create a plot
 ggplot(num_trips_race_ethnicity_labeled, 
