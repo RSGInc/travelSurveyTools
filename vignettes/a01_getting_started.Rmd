@@ -296,24 +296,7 @@ mode_by_race_ethnicity_summary = hts_summary(
   prepped_dt = mode_type_race_ethnicity_list$cat, 
   summarize_var = 'mode_type',
   summarize_by = c('race', 'ethnicity'),
-  variables_dt = variable_list,
-  data = list(
-    'hh' = hh,
-    'person' = person,
-    'day' = day,
-    'trip' = trip,
-    'vehicle' = vehicle
-  )
-)
-
-mode_by_race_ethnicity_summary = hts_summary(
-  prepped_dt = mode_type_list2$cat, 
-  summarize_var = 'mode_type',
-  summarize_by = c('race', 'ethnicity'),
-  summarize_vartype = 'categorical',
-  weighted = TRUE,
-  wtname = 'trip_weight',
-  se = TRUE
+  wtname = 'trip_weight'
 )
 
 
