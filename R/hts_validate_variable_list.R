@@ -1,7 +1,7 @@
-#' Check that variable list has required elements for hts_prep_data returns updated variable list or prompts error
+#' Check that variable list has required elements for hts_prep_variable returns updated variable list or prompts error
 #'
 #' @param variable_list Name of the variable to summarize. Default is NULL
-#' @param hts_data List of named tables specified in hts_prep_data
+#' @param hts_data List of named tables specified in hts_prep_variable
 #'
 #' @return Cleaned variable_list
 #' @export

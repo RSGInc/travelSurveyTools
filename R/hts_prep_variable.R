@@ -30,7 +30,7 @@
 #'
 #' require(data.table)
 #' require(stringr)
-#' hts_prep_data(
+#' hts_prep_variable(
 #'   summarize_var = "age",
 #'   variables_dt = variable_list,
 #'   data = list(
@@ -41,7 +41,7 @@
 #'     "vehicle" = vehicle
 #'   )
 #' )
-#' hts_prep_data(
+#' hts_prep_variable(
 #'   summarize_var = "speed_mph",
 #'   summarize_by = "age",
 #'   variables_dt = variable_list,
@@ -55,7 +55,7 @@
 #' )
 #'
 #'
-#' hts_prep_data(
+#' hts_prep_variable(
 #'   summarize_var = "employment",
 #'   summarize_by = c("age", "race"),
 #'   variables_dt = variable_list,
@@ -67,51 +67,23 @@
 #'     "vehicle" = vehicle
 #'   )
 #' )
-hts_prep_data = function(summarize_var = NULL,
-                          summarize_by = NULL,
-                          variables_dt = variable_list,
-                          data = hts_data,
-                          id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
-                          weighted = TRUE,
-                          wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
-                          remove_outliers = TRUE,
-                          threshold = 0.975,
-                          remove_missing = TRUE,
-                          missing_values = c("Missing Response", "995"),
-                          not_imputable = -1,
-                          strataname = NULL) {
+hts_prep_variable = function(summarize_var = NULL,
+                              summarize_by = NULL,
+                              variables_dt = variable_list,
+                              data = hts_data,
+                              id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
+                              weighted = TRUE,
+                              wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
+                              remove_outliers = TRUE,
+                              threshold = 0.975,
+                              remove_missing = TRUE,
+                              missing_values = c("Missing Response", "995"),
+                              not_imputable = -1,
+                              strataname = NULL) {
   # tictoc::tic("Total Time")
 
   # Check variable_list first
   variables_dt = hts_validate_variable_list(variables_dt, data)
-
-  # Message:
-  msg_pt1 = paste0(
-    "Creating a summary of ",
-    hts_find_var(summarize_var, data = data, variables_dt = variables_dt), " ", summarize_var
-  )
-
-
-  if (!is.null(summarize_by)) {
-    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt, data = data)
-
-    for (b in 1:length(byvarlocs)) {
-      byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
-    }
-
-    byvarlocs = unlist(byvarlocs)
-
-    msg_pt2 = ifelse(length(summarize_by) > 0,
-      paste0(
-        "broken down by ",
-        paste0(byvarlocs, collapse = " and ")
-      ),
-      ""
-    )
-  } else {
-    msg_pt2 = NULL
-  }
-  message(paste0(msg_pt1, " ", msg_pt2))
 
   # Check that there is a id and weight for every table
   if (length(data) != length(id_cols)) {

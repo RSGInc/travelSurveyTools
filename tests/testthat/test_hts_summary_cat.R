@@ -2,7 +2,7 @@
 library(testthat)
 library(data.table)
 
-DT = hts_prep_data(
+DT = hts_prep_variable(
   summarize_var = "age",
   summarize_by = "employment",
   variables_dt = variable_list,

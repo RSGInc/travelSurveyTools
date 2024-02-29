@@ -2,20 +2,20 @@
 % Please edit documentation in R/hts_validate_variable_list.R
 \name{hts_validate_variable_list}
 \alias{hts_validate_variable_list}
-\title{Check that variable list has required elements for hts_prep_data returns updated variable list or prompts error}
+\title{Check that variable list has required elements for hts_prep_variable returns updated variable list or prompts error}
 \usage{
 hts_validate_variable_list(variable_list, hts_data)
 }
 \arguments{
 \item{variable_list}{Name of the variable to summarize. Default is NULL}
 
-\item{hts_data}{List of named tables specified in hts_prep_data}
+\item{hts_data}{List of named tables specified in hts_prep_variable}
 }
 \value{
 Cleaned variable_list
 }
 \description{
-Check that variable list has required elements for hts_prep_data returns updated variable list or prompts error
+Check that variable list has required elements for hts_prep_variable returns updated variable list or prompts error
 }
 \examples{
 hts_validate_variable_list(variable_list, test_data)

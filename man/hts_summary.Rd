@@ -72,7 +72,7 @@ require(data.table)
 require(stringr)
 require(dplyr)
 require(srvyr)
-DT = hts_prep_data(
+DT = hts_prep_variable(
   summarize_var = "age",
   summarize_by = "employment",
   variables_dt = variable_list,
@@ -92,7 +92,7 @@ output = hts_summary(
   wtname = "person_weight"
 )
 
-DT = hts_prep_data(
+DT = hts_prep_variable(
   summarize_var = "speed_mph",
   summarize_by = "age",
   variables_dt = variable_list,
@@ -112,7 +112,7 @@ output = hts_summary(
   wtname = "trip_weight"
 )
 
-DT = hts_prep_data(
+DT = hts_prep_variable(
   summarize_var = "race",
   summarize_by = "age",
   variables_dt = variable_list,

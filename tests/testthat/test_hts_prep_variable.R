@@ -4,8 +4,8 @@ library(data.table)
 
 
 
-test_that("hts_prep_data should return counts and units", {
-  results = hts_prep_data(
+test_that("hts_prep_variable should return counts and units", {
+  results = hts_prep_variable(
     summarize_var = "age",
     summarize_by = "mode_type",
     variables_dt = variable_list,
