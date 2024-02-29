@@ -38,7 +38,7 @@ The "factorize" functions were borrowed and updated from the
 hh_labeled = factorize_df(
   df = hh,
   vals_df = value_labels,
-  value_label_colname = 'label',
+  value_label_colname = "label",
   extra_labels = c("Missing")
 )
 

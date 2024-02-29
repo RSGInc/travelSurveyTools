@@ -33,21 +33,25 @@ Add vehicle_id to trip table
 
 require(data.table)
 trip_ex = data.table(
-      hh_id = sample(1:10, size = 30, replace = TRUE),
-      trip_id = 1:30,
-      mode_type = sample(1:2, size = 30, replace = TRUE),
-      mode_1 = sample(1, size = 30, replace = TRUE))
+  hh_id = sample(1:10, size = 30, replace = TRUE),
+  trip_id = 1:30,
+  mode_type = sample(1:2, size = 30, replace = TRUE),
+  mode_1 = sample(1, size = 30, replace = TRUE)
+)
 vehicle_ex = data.table(
-      hh_id = sample(1:10, size = 30, replace = TRUE),
-      vehicle_id = 1:30)
+  hh_id = sample(1:10, size = 30, replace = TRUE),
+  vehicle_id = 1:30
+)
 values_ex = data.table(
-      variable = c(rep('mode_type', 2), ('mode_1')),
-      value = c(1,2,1),
-      value_label = c('Vehicle', 'Walk', 'Car')
-      )
-hts_trip_vehid(trip_table = trip_ex,
-               vehicle_table = vehicle_ex,
-               vehicle_mode_type = 'Vehicle',
-               values_dt = values_ex)
+  variable = c(rep("mode_type", 2), ("mode_1")),
+  value = c(1, 2, 1),
+  value_label = c("Vehicle", "Walk", "Car")
+)
+hts_trip_vehid(
+  trip_table = trip_ex,
+  vehicle_table = vehicle_ex,
+  vehicle_mode_type = "Vehicle",
+  values_dt = values_ex
+)
 
 }

@@ -25,8 +25,10 @@ require(data.table)
 
 data(test_data)
 
-hts_filter_data(hts_data = test_data,
-                ids = hh[num_people > 5, hh_id],
-                id_name = 'hh_id')
+hts_filter_data(
+  hts_data = test_data,
+  ids = hh[num_people > 5, hh_id],
+  id_name = "hh_id"
+)
 
 }

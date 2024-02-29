@@ -4,32 +4,31 @@
 #'  in data.table format.
 #' @param numvar Numeric variable to remove outliers from. Default is NULL.
 #' @param threshold Threshold to define what an outlier is. Default is .975.
-#' 
+#'
 #' @return List of outliers removed and the dataset without the outliers.
 #' @export
 #'
 #' @examples
-#' 
-#' require(data.table)
-#' hts_remove_outliers(var_dt = trip, numvar = 'speed_mph')
 #'
-hts_remove_outliers = function (var_dt, numvar = NULL,
-                                threshold = 0.975){
-  
+#' require(data.table)
+#' hts_remove_outliers(var_dt = trip, numvar = "speed_mph")
+#'
+hts_remove_outliers = function(var_dt, numvar = NULL,
+                                threshold = 0.975) {
   outlier_storage = list()
-  
+
   outlier_cutoff = quantile(var_dt[, get(numvar)], threshold, na.rm = TRUE)
-  
+
   outlier_table = data.table(
     threshold = threshold,
     num_removed = nrow(var_dt[get(numvar) >= outlier_cutoff]),
     min_outlier = min(var_dt[get(numvar) >= outlier_cutoff, get(numvar)]),
     max_outlier = max(var_dt[get(numvar) >= outlier_cutoff, get(numvar)])
   )
-  
-  outlier_storage[['outlier_description']] = outlier_table
-  
-  outlier_storage[['dt']] = var_dt[get(numvar) < outlier_cutoff]
-  
+
+  outlier_storage[["outlier_description"]] = outlier_table
+
+  outlier_storage[["dt"]] = var_dt[get(numvar) < outlier_cutoff]
+
   return(outlier_storage)
 }

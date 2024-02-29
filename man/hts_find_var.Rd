@@ -22,6 +22,6 @@ Find table location of a variable
 }
 \examples{
 
-hts_find_var('income_detailed', data = test_data)
+hts_find_var("income_detailed", data = test_data)
 
 }

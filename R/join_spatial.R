@@ -20,46 +20,46 @@
 #'   from y.
 #' @export
 #' @author Matt Landis
-#' 
+#'
 #' @import sf
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' x = data.table(id = 1:3, lon=c(-82.33, -79.17, -76.17), lat = c(35.50, 36.27, 36.49))
-#' nc = st_read(system.file('shape/nc.shp', package='sf'))[, c('FIPS', 'NAME', 'geometry')]
-#' z = join_spatial(x, nc, id_col='id', lon_col = 'lon', lat_col = 'lat')
-#' z}
+#' x = data.table(id = 1:3, lon = c(-82.33, -79.17, -76.17), lat = c(35.50, 36.27, 36.49))
+#' nc = st_read(system.file("shape/nc.shp", package = "sf"))[, c("FIPS", "NAME", "geometry")]
+#' z = join_spatial(x, nc, id_col = "id", lon_col = "lon", lat_col = "lat")
+#' z
+#' }
 #'
 join_spatial =
   function(
-    x,
-    y,
-    id_col,
-    lon_col,
-    lat_col,
-    crs_lonlat = 4326,
-    crs_equal_area = 5070,
-    largest = FALSE){
+      x,
+      y,
+      id_col,
+      lon_col,
+      lat_col,
+      crs_lonlat = 4326,
+      crs_equal_area = 5070,
+      largest = FALSE) {
+    n_x = x[, .N]
 
-  n_x = x[, .N]
-
-  x_spatial =
-    x[!is.na(get(lat_col)), c(id_col, lon_col, lat_col), with=FALSE] %>%
+    x_spatial =
+      x[!is.na(get(lat_col)), c(id_col, lon_col, lat_col), with = FALSE] %>%
       sf::st_as_sf(coords = c(lon_col, lat_col), crs = crs_lonlat) %>%
       sf::st_transform(crs = crs_equal_area)
 
-  y_with_id =
-    y %>%
+    y_with_id =
+      y %>%
       sf::st_transform(crs = crs_equal_area) %>%
       sf::st_join(x_spatial, ., largest = largest) %>%
       sf::st_drop_geometry() %>%
       data.table::data.table()
 
-  x_with_y = merge(x, y_with_id, by = id_col, all.x = TRUE)
+    x_with_y = merge(x, y_with_id, by = id_col, all.x = TRUE)
 
-  if (largest) {
-    stopifnot(n_x == x_with_y[, .N])
+    if (largest) {
+      stopifnot(n_x == x_with_y[, .N])
+    }
+
+    return(x_with_y)
   }
-
-  return(x_with_y)
-}

@@ -25,6 +25,6 @@ Transform travel survey data.table to a survey object
 \examples{
 
 require(data.table)
-hts_to_so(prepped_dt = trip, wtname = 'trip_weight')
+hts_to_so(prepped_dt = trip, wtname = "trip_weight")
 
 }

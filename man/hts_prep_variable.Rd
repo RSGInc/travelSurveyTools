@@ -66,29 +66,41 @@ Prepare datasets to make summaries
 
 require(data.table)
 require(stringr)
-hts_prep_variable(summarize_var = 'age',
-              variables_dt = variable_list,
-              data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
-hts_prep_variable(summarize_var = 'speed_mph',
-              summarize_by = 'age',
-              variables_dt = variable_list,
-              data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
-                            
-                            
-hts_prep_variable(summarize_var = 'employment',
-              summarize_by = c('age', 'race'),
-              variables_dt = variable_list,
-              data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
+hts_prep_variable(
+  summarize_var = "age",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
+hts_prep_variable(
+  summarize_var = "speed_mph",
+  summarize_by = "age",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
+
+
+hts_prep_variable(
+  summarize_var = "employment",
+  summarize_by = c("age", "race"),
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
 }
