@@ -4,7 +4,7 @@ library(data.table)
 library(srvyr)
 
 
-DT <- hts_prep_data(
+DT = hts_prep_data(
   summarize_var = "speed_mph",
   variables_dt = variable_list,
   data = test_data
@@ -12,7 +12,7 @@ DT <- hts_prep_data(
 
 
 test_that("hts_summary_num should return counts and units", {
-  results <- hts_summary_num(
+  results = hts_summary_num(
     prepped_dt = DT,
     summarize_var = "speed_mph",
     wtname = "trip_weight"

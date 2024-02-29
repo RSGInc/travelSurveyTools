@@ -3,19 +3,19 @@ library(testthat)
 library(data.table)
 
 # Sample trip_table and vehicle_table for testing
-trip_ex <- data.table(
+trip_ex = data.table(
   hh_id = sample(1:10, size = 30, replace = TRUE),
   trip_id = 1:30,
   mode_type = sample(1:2, size = 30, replace = TRUE),
   mode_1 = sample(1, size = 30, replace = TRUE)
 )
 
-vehicle_ex <- data.table(
+vehicle_ex = data.table(
   hh_id = sample(1:10, size = 30, replace = TRUE),
   vehicle_id = 1:30
 )
 
-values_ex <- data.table(
+values_ex = data.table(
   variable = c(rep("mode_type", 2), ("mode_1")),
   value = c(1, 2, 1),
   value_label = c("Vehicle", "Walk", "Car")
@@ -23,7 +23,7 @@ values_ex <- data.table(
 
 
 test_that("hts_trip_vehid should create vehicle_id correctly", {
-  results <- hts_trip_vehid(
+  results = hts_trip_vehid(
     trip_table = trip_ex,
     vehicle_table = vehicle_ex,
     vehicle_mode_type = "Vehicle",

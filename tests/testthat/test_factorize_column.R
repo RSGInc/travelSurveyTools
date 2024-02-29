@@ -1,11 +1,11 @@
 library(travelSurveyTools)
 library(data.table)
 
-x <- sample(5, replace = TRUE, size = 10)
-x <- c(x, NA)
-var_str <- "test_column"
+x = sample(5, replace = TRUE, size = 10)
+x = c(x, NA)
+var_str = "test_column"
 
-vals_df <- data.table(
+vals_df = data.table(
   variable = "test_column",
   value = 1:7,
   value_label = letters[1:7],

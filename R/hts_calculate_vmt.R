@@ -33,7 +33,7 @@
 #'   vehicle_modes = 8,
 #'   occupancy_var = "num_travelers"
 #' )
-hts_calculate_vmt <- function(data,
+hts_calculate_vmt = function(data,
                               trip_name = "trip",
                               ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
                               agg_tbl = "trip",
@@ -41,17 +41,17 @@ hts_calculate_vmt <- function(data,
                               miles_col,
                               vehicle_modes,
                               occupancy_var = NULL) {
-  dt <- data[[trip_name]]
+  dt = data[[trip_name]]
 
   if (length(mode_cols) > 1) {
-    in_modes <- 0
+    in_modes = 0
 
     for (i in 1:length(mode_cols)) {
-      var_name <- mode_cols[i]
+      var_name = mode_cols[i]
 
-      col <- 1 * (dt[, get(var_name)] %in% vehicle_modes)
+      col = 1 * (dt[, get(var_name)] %in% vehicle_modes)
 
-      in_modes <- col + in_modes
+      in_modes = col + in_modes
     }
 
     dt[, in_vehicle_modes := 1 * (in_modes > 0)]
@@ -69,15 +69,15 @@ hts_calculate_vmt <- function(data,
   dt[is.na(vmt), vmt := 0]
 
   # Get id to aggregate on
-  id_index <- which(names(data) == agg_tbl)
+  id_index = which(names(data) == agg_tbl)
 
-  id <- ids[id_index]
+  id = ids[id_index]
 
-  vmt_crosswalk <- dt[, .(vmt = sum(vmt)), .(id = get(id))]
+  vmt_crosswalk = dt[, .(vmt = sum(vmt)), .(id = get(id))]
 
   setnames(vmt_crosswalk, "id", id)
 
-  vmt_tbl <- copy(get(agg_tbl))
+  vmt_tbl = copy(get(agg_tbl))
 
   vmt_tbl[
     vmt_crosswalk,

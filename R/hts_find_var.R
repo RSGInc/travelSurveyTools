@@ -14,17 +14,17 @@
 #'
 #' hts_find_var("income_detailed", data = test_data)
 #'
-hts_find_var <- function(var,
+hts_find_var = function(var,
                          data,
                          variables_dt = variable_list) {
-  varlist <- data.table::copy(variables_dt)
-  varlist <- varlist[, .SD[1], keyby = .(shared_name)]
+  varlist = data.table::copy(variables_dt)
+  varlist = varlist[, .SD[1], keyby = .(shared_name)]
   data.table::setDT(varlist)
 
-  table_names <- names(data)
+  table_names = names(data)
 
   # Find the locations of the variable:
-  var_location <- data.table::melt(
+  var_location = data.table::melt(
     varlist[shared_name == var,
       c(
         "variable",
@@ -37,8 +37,8 @@ hts_find_var <- function(var,
   )
 
   if (nrow(var_location) == 0) {
-    msg <- paste0("Variable ", var, " not found")
-    similar_vars <-
+    msg = paste0("Variable ", var, " not found")
+    similar_vars =
       variable_list[
         agrep(
           pattern = var,
@@ -48,7 +48,7 @@ hts_find_var <- function(var,
         variable
       ]
     if (length(similar_vars) > 0) {
-      msg <- paste0(
+      msg = paste0(
         msg,
         "\n",
         "Perhaps you meant ",
@@ -58,13 +58,13 @@ hts_find_var <- function(var,
     stop(msg)
   }
 
-  table_locs <- var_location[value == 1, table]
+  table_locs = var_location[value == 1, table]
 
-  max_index <- which.max(
+  max_index = which.max(
     lapply(data[table_locs], nrow)
   )
 
-  var_location <- as.character(table_locs[[max_index]])
+  var_location = as.character(table_locs[[max_index]])
 
   return(var_location)
 }

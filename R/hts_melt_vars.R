@@ -43,7 +43,7 @@
 #'   )
 #' )
 #'
-hts_melt_vars <- function(shared_name = NULL,
+hts_melt_vars = function(shared_name = NULL,
                           wide_dt = NULL,
                           shared_name_vars = NULL,
                           variables_dt = variable_list,
@@ -55,18 +55,18 @@ hts_melt_vars <- function(shared_name = NULL,
                           to_single_row = FALSE) {
   if (is.null(wide_dt)) {
     # Find location of summary variable:
-    var_location <- hts_find_var(shared_name, data = data, variables_dt = variables_dt)
+    var_location = hts_find_var(shared_name, data = data, variables_dt = variables_dt)
 
     # Select table where this variable lives:
-    wide_dt <- data[[var_location]]
+    wide_dt = data[[var_location]]
   }
 
   if (is.null(shared_name_vars)) {
-    sn <- shared_name
-    shared_name_vars <- variables_dt[shared_name == sn, variable]
+    sn = shared_name
+    shared_name_vars = variables_dt[shared_name == sn, variable]
   }
 
-  melted_dt <- data.table::melt(
+  melted_dt = data.table::melt(
     wide_dt,
     id.vars = intersect(names(wide_dt), ids),
     measure.vars = shared_name_vars,
@@ -75,7 +75,7 @@ hts_melt_vars <- function(shared_name = NULL,
   )
 
   if (remove_missing == TRUE) {
-    melted_dt <- melted_dt[!value %in% missing_values]
+    melted_dt = melted_dt[!value %in% missing_values]
   }
 
   # append description:
@@ -83,15 +83,15 @@ hts_melt_vars <- function(shared_name = NULL,
 
   # If condensing multiple checkboxes to single response:
   if (to_single_row) {
-    sn <- shared_name
+    sn = shared_name
 
     # shared_description:
-    shared_description <- stringr::str_split_i(variables_dt[shared_name == sn, description][1],
+    shared_description = stringr::str_split_i(variables_dt[shared_name == sn, description][1],
       pattern = checkbox_label_sep,
       i = 1
     )
 
-    shared_description_twoormore <- paste0(shared_description, ": ", "Two or more")
+    shared_description_twoormore = paste0(shared_description, ": ", "Two or more")
 
     # two or more checked:
     melted_dt[, num_checked := sum(value),
@@ -99,37 +99,37 @@ hts_melt_vars <- function(shared_name = NULL,
     ]
 
     # make factor levels
-    melted_dt$description <- factor(melted_dt$description, levels = unique(melted_dt$description))
+    melted_dt$description = factor(melted_dt$description, levels = unique(melted_dt$description))
 
     if (melted_dt[num_checked >= 2, .N] > 0) {
-      bottom_levels <- levels(melted_dt$description)[levels(melted_dt$description) %like% "Prefer not|Prefers not|Other"]
+      bottom_levels = levels(melted_dt$description)[levels(melted_dt$description) %like% "Prefer not|Prefers not|Other"]
 
-      top_levels <- levels(melted_dt$description)[!levels(melted_dt$description) %in% bottom_levels]
+      top_levels = levels(melted_dt$description)[!levels(melted_dt$description) %in% bottom_levels]
 
       melted_dt[
         num_checked >= 2,
         description := shared_description_twoormore
       ]
 
-      melted_dt$description <- factor(melted_dt$description, levels = c(top_levels, shared_description_twoormore, bottom_levels))
+      melted_dt$description = factor(melted_dt$description, levels = c(top_levels, shared_description_twoormore, bottom_levels))
     }
 
     melted_dt[, num_checked := NULL]
 
-    melted_dt <- melted_dt[value == 1]
+    melted_dt = melted_dt[value == 1]
 
     melted_dt[, `:=`(variable = NULL, value = NULL)]
 
-    melted_dt <- unique(melted_dt)
+    melted_dt = unique(melted_dt)
   }
 
   # remove everything before checkbox_label_sep from description
   if (length(levels(melted_dt$description)) != 0) {
-    levels <- gsub(stringr::str_glue(".*{checkbox_label_sep} "), "", levels(melted_dt$description))
+    levels = gsub(stringr::str_glue(".*{checkbox_label_sep} "), "", levels(melted_dt$description))
 
     melted_dt[, description := gsub(stringr::str_glue(".*{checkbox_label_sep} "), "", description)]
 
-    melted_dt$description <- factor(melted_dt$description, levels = levels)
+    melted_dt$description = factor(melted_dt$description, levels = levels)
   } else {
     melted_dt[, description := gsub(stringr::str_glue(".*{checkbox_label_sep} "), "", description)]
   }

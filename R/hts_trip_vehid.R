@@ -12,17 +12,17 @@
 #' @examples
 #'
 #' require(data.table)
-#' trip_ex <- data.table(
+#' trip_ex = data.table(
 #'   hh_id = sample(1:10, size = 30, replace = TRUE),
 #'   trip_id = 1:30,
 #'   mode_type = sample(1:2, size = 30, replace = TRUE),
 #'   mode_1 = sample(1, size = 30, replace = TRUE)
 #' )
-#' vehicle_ex <- data.table(
+#' vehicle_ex = data.table(
 #'   hh_id = sample(1:10, size = 30, replace = TRUE),
 #'   vehicle_id = 1:30
 #' )
-#' values_ex <- data.table(
+#' values_ex = data.table(
 #'   variable = c(rep("mode_type", 2), ("mode_1")),
 #'   value = c(1, 2, 1),
 #'   value_label = c("Vehicle", "Walk", "Car")
@@ -34,19 +34,19 @@
 #'   values_dt = values_ex
 #' )
 #'
-hts_trip_vehid <- function(trip_table,
+hts_trip_vehid = function(trip_table,
                            vehicle_table,
                            vehicle_mode_type = "Vehicle",
                            values_dt = value_labels,
                            ...) {
-  trip_dt <- data.table::copy(trip_table)
+  trip_dt = data.table::copy(trip_table)
   if (!("mode_1" %in% names(trip_dt) &
     "mode_type" %in% names(trip_dt))) {
     stop("Please append mode_type and mode_1 to trip table
 before proceding.")
   }
   # check - is this factorized data?
-  is_factorized <- any(class(trip_dt$mode_type) == "factor")
+  is_factorized = any(class(trip_dt$mode_type) == "factor")
   if (is_factorized == FALSE) {
     trip_dt[, vehicle_id := factorize_column(
       x = mode_1,

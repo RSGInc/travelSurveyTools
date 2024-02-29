@@ -22,7 +22,7 @@ data("test_data")
 data("variable_list")
 data("value_labels")
 
-prepped_triprates_list <- hts_prep_triprate(
+prepped_triprates_list = hts_prep_triprate(
   variables_dt = variable_list,
   trip_name = "trip",
   day_name = "day",
@@ -44,7 +44,7 @@ hts_summary(
 We can also summarize trip rates by one or more variables. 
 
 ```{r, trip_rate_job_type, echo=TRUE, fig.width=8, fig.height=6, warning=FALSE}
-job_type_triprate_list <- hts_prep_triprate(
+job_type_triprate_list = hts_prep_triprate(
   variables_dt = variable_list,
   summarize_by = "job_type",
   trip_name = "trip",
@@ -52,7 +52,7 @@ job_type_triprate_list <- hts_prep_triprate(
   hts_data = test_data
 )
 
-num_trips_job_type <- hts_summary(
+num_trips_job_type = hts_summary(
   prepped_dt = job_type_triprate_list$num,
   summarize_by = "job_type",
   summarize_var = "num_trips_wtd",
@@ -64,7 +64,7 @@ num_trips_job_type <- hts_summary(
 
 
 # Label job_type
-num_trips_job_type_labeled <- factorize_df(
+num_trips_job_type_labeled = factorize_df(
   num_trips_job_type,
   value_labels,
   value_label_colname = "label"
@@ -89,7 +89,7 @@ ggplot(
 
 
 ```{r, trip_rate_race_ethnicity, fig.width=8, fig.height=6, warning=FALSE}
-race_ethnicity_triprate_list <- hts_prep_triprate(
+race_ethnicity_triprate_list = hts_prep_triprate(
   variables_dt = variable_list,
   summarize_by = c("race", "ethnicity"),
   trip_name = "trip",
@@ -97,7 +97,7 @@ race_ethnicity_triprate_list <- hts_prep_triprate(
   hts_data = test_data
 )
 
-num_trips_race_ethnicity <- hts_summary(
+num_trips_race_ethnicity = hts_summary(
   prepped_dt = race_ethnicity_triprate_list$num,
   summarize_by = c("race", "ethnicity"),
   summarize_var = "num_trips_wtd",
@@ -108,7 +108,7 @@ num_trips_race_ethnicity <- hts_summary(
 )$summary$wtd
 
 # label data
-num_trips_race_ethnicity_labeled <- factorize_df(
+num_trips_race_ethnicity_labeled = factorize_df(
   num_trips_race_ethnicity,
   value_labels,
   value_label_colname = "label"

@@ -15,31 +15,31 @@
 #            weighted = TRUE,
 #            wt_col = 'day_weight')
 #'
-hts_get_ns <- function(prepped_dt,
+hts_get_ns = function(prepped_dt,
                        weighted,
                        ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
                        wt_col) {
   # Get ids that are in prepped_dt
-  present_ids <- intersect(names(prepped_dt), ids)
+  present_ids = intersect(names(prepped_dt), ids)
 
-  ndt_ids <- prepped_dt[, present_ids, with = FALSE]
+  ndt_ids = prepped_dt[, present_ids, with = FALSE]
 
-  ns_unwtd <- lapply(ndt_ids, function(x) uniqueN(x))
+  ns_unwtd = lapply(ndt_ids, function(x) uniqueN(x))
 
-  n_names <- paste("Count of unique", present_ids)
+  n_names = paste("Count of unique", present_ids)
 
-  names(ns_unwtd) <- n_names
+  names(ns_unwtd) = n_names
 
   # get weighted counts
   if (weighted) {
-    ns_wtd <- prepped_dt[, sum(get(wt_col))]
+    ns_wtd = prepped_dt[, sum(get(wt_col))]
 
-    names(ns_wtd) <- paste("Sum of", wt_col)
+    names(ns_wtd) = paste("Sum of", wt_col)
   } else {
-    ns_wtd <- NULL
+    ns_wtd = NULL
   }
 
-  ns <- list(
+  ns = list(
     "unwtd" = ns_unwtd,
     "wtd" = ns_wtd
   )

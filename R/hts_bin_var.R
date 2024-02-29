@@ -16,27 +16,27 @@
 #' require(stringr)
 #' hts_bin_var(prepped_dt = trip, numvar = "speed_mph")
 #'
-hts_bin_var <- function(
+hts_bin_var = function(
     prepped_dt,
     numvar,
     nbins = 7) {
   # TODO: Allow user to specify bins directly to cut
-  prepped_dt_binned <- data.table::copy(prepped_dt)
+  prepped_dt_binned = data.table::copy(prepped_dt)
 
   data.table::setnames(prepped_dt_binned, old = numvar, new = "numvar")
 
   # Reclassify outliers:
   # TODO: Should this be a parameter.
   # TODO: Defaults should be described in description.
-  min_prob <- 0.05
-  q_min <- round(
+  min_prob = 0.05
+  q_min = round(
     stats::quantile(
       x = prepped_dt_binned[, numvar],
       probs = min_prob / 2,
       na.rm = TRUE
     )
   )
-  q_max <- round(
+  q_max = round(
     stats::quantile(
       x = prepped_dt_binned[, numvar],
       probs = 1 - min_prob / 2,
@@ -49,25 +49,25 @@ hts_bin_var <- function(
 
 
   # Create breaks:
-  round_digits <- 1 * (as.numeric(q_max - q_min) < 5)
+  round_digits = 1 * (as.numeric(q_max - q_min) < 5)
 
 
-  mid_breaks <- seq(
+  mid_breaks = seq(
     from = q_min,
     to = q_max,
     by = round((q_max - q_min) / (nbins - 2), round_digits)
   )
 
-  min_break <- ifelse(q_min == 0, -Inf, 0)
+  min_break = ifelse(q_min == 0, -Inf, 0)
 
-  all_breaks <- c(
+  all_breaks = c(
     min_break,
     mid_breaks,
     q_max,
     Inf
   )
 
-  all_breaks <- unique(all_breaks)
+  all_breaks = unique(all_breaks)
 
   prepped_dt_binned[, binned := cut(
     numvar,
@@ -76,15 +76,15 @@ hts_bin_var <- function(
   )]
 
   # Clean up bin labels:
-  binlabels <- levels(prepped_dt_binned$binned)
-  binlabels <- stringr::str_remove(string = binlabels, pattern = "[(]")
-  binlabels <- stringr::str_remove(string = binlabels, pattern = "[]]")
-  binlabels <- stringr::str_replace(
+  binlabels = levels(prepped_dt_binned$binned)
+  binlabels = stringr::str_remove(string = binlabels, pattern = "[(]")
+  binlabels = stringr::str_remove(string = binlabels, pattern = "[]]")
+  binlabels = stringr::str_replace(
     string = binlabels,
     pattern = ",Inf|, Inf",
     replacement = " or more"
   )
-  binlabels[[1]] <-
+  binlabels[[1]] =
     ifelse(q_min == 0,
       "Exactly 0",
       paste0(stringr::str_split_i(
@@ -102,7 +102,7 @@ hts_bin_var <- function(
   # }
 
 
-  binlabels <- stringr::str_replace(
+  binlabels = stringr::str_replace(
     string = binlabels,
     pattern = ",",
     replacement = "-"
@@ -113,7 +113,7 @@ hts_bin_var <- function(
     labels = binlabels
   )]
 
-  levels(prepped_dt_binned$binned) <- c(
+  levels(prepped_dt_binned$binned) = c(
     levels(prepped_dt_binned$binned),
     "Missing"
   )

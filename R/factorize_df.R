@@ -20,7 +20,7 @@
 #' @return A factorized (i.e. labeled) version of the dataframe it was passed.
 #' @examples
 #'
-#' hh_labeled <- factorize_df(
+#' hh_labeled = factorize_df(
 #'   df = hh,
 #'   vals_df = value_labels,
 #'   value_label_colname = "label",
@@ -28,19 +28,19 @@
 #' )
 #'
 #' @export factorize_df
-factorize_df <- function(df, vals_df, verbose = TRUE, ...) {
+factorize_df = function(df, vals_df, verbose = TRUE, ...) {
   if ("data.table" %in% class(df)) {
-    df_is_dt <- TRUE
-    df_labeled <- as.data.frame(df) # If df is a data.table, R crashes in Rstudio
+    df_is_dt = TRUE
+    df_labeled = as.data.frame(df) # If df is a data.table, R crashes in Rstudio
     # on.exit(expr=data.table(df_labeled))
   } else {
-    df_is_dt <- FALSE
+    df_is_dt = FALSE
   }
 
   for (i in 1:ncol(df)) {
-    var_str <- names(df)[i]
+    var_str = names(df)[i]
 
-    df_labeled[[var_str]] <- factorize_column(
+    df_labeled[[var_str]] = factorize_column(
       x = df[[var_str]],
       var_str = var_str,
       vals_df = vals_df,
@@ -50,8 +50,8 @@ factorize_df <- function(df, vals_df, verbose = TRUE, ...) {
 
   if (verbose) {
     # print which vars are labeled and unlabeled
-    labeled_vars_in_df <- sort(colnames(df)[(colnames(df) %in% vals_df$variable)])
-    unlabeled_vars_in_df <- sort(colnames(df)[!(colnames(df) %in% vals_df$variable)])
+    labeled_vars_in_df = sort(colnames(df)[(colnames(df) %in% vals_df$variable)])
+    unlabeled_vars_in_df = sort(colnames(df)[!(colnames(df) %in% vals_df$variable)])
 
     message("\n Labeled vars: ")
     message(paste(sprintf("- %s", labeled_vars_in_df), collapse = "\n"), "\n")
@@ -59,7 +59,7 @@ factorize_df <- function(df, vals_df, verbose = TRUE, ...) {
     message(paste(sprintf("- %s", unlabeled_vars_in_df), collapse = "\n"))
   }
   if (df_is_dt) {
-    df_labeled <- data.table::data.table(df_labeled)
+    df_labeled = data.table::data.table(df_labeled)
   }
   return(df_labeled)
 }

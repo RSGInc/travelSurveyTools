@@ -40,7 +40,7 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' DT <- hts_prep_data(
+#' DT = hts_prep_data(
 #'   summarize_var = "age",
 #'   summarize_by = "employment",
 #'   variables_dt = variable_list,
@@ -52,7 +52,7 @@
 #'     "vehicle" = vehicle
 #'   )
 #' )$cat
-#' output <- hts_summary(
+#' output = hts_summary(
 #'   prepped_dt = DT,
 #'   summarize_var = "age",
 #'   summarize_by = "employment",
@@ -60,7 +60,7 @@
 #'   wtname = "person_weight"
 #' )
 #'
-#' DT <- hts_prep_data(
+#' DT = hts_prep_data(
 #'   summarize_var = "speed_mph",
 #'   summarize_by = "age",
 #'   variables_dt = variable_list,
@@ -72,7 +72,7 @@
 #'     "vehicle" = vehicle
 #'   )
 #' )$num
-#' output <- hts_summary(
+#' output = hts_summary(
 #'   prepped_dt = DT,
 #'   summarize_var = "speed_mph",
 #'   summarize_by = "age",
@@ -80,7 +80,7 @@
 #'   wtname = "trip_weight"
 #' )
 #'
-#' DT <- hts_prep_data(
+#' DT = hts_prep_data(
 #'   summarize_var = "race",
 #'   summarize_by = "age",
 #'   variables_dt = variable_list,
@@ -92,14 +92,14 @@
 #'     "vehicle" = vehicle
 #'   )
 #' )$cat
-#' output <- hts_summary(
+#' output = hts_summary(
 #'   prepped_dt = DT,
 #'   summarize_var = "race",
 #'   summarize_by = "age",
 #'   summarize_vartype = "checkbox",
 #'   wtname = "person_weight"
 #' )
-hts_summary <- function(
+hts_summary = function(
     prepped_dt,
     summarize_var,
     summarize_by = NULL,
@@ -124,7 +124,7 @@ hts_summary <- function(
   if (weighted & is.null(wtname)) {
     message("Weight not specified; setting weighted = FALSE")
 
-    weighted <- FALSE
+    weighted = FALSE
   }
 
   # Think we should put in hts_summary_num and hts_summary_cat instead
@@ -138,7 +138,7 @@ hts_summary <- function(
   #
   # }
 
-  cat_ns <- hts_get_ns(
+  cat_ns = hts_get_ns(
     prepped_dt = prepped_dt,
     weighted = weighted,
     ids = id_cols,
@@ -150,7 +150,7 @@ hts_summary <- function(
 
   # if the variable to summarize is categorical, use cat_summary
   if (summarize_vartype %in% c("categorical", "checkbox")) {
-    summary <- hts_summary_cat(
+    summary = hts_summary_cat(
       prepped_dt = prepped_dt,
       summarize_var = summarize_var,
       summarize_by = summarize_by,
@@ -166,7 +166,7 @@ hts_summary <- function(
   }
 
   if (summarize_vartype == "numeric") {
-    summary <- hts_summary_num(
+    summary = hts_summary_num(
       prepped_dt = prepped_dt,
       summarize_var = summarize_var,
       summarize_by = summarize_by,
@@ -177,7 +177,7 @@ hts_summary <- function(
     )
   }
 
-  summary_ls <- list(
+  summary_ls = list(
     "n_ls" = cat_ns,
     "summary" = summary
   )

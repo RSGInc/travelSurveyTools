@@ -2,10 +2,10 @@
 library(testthat)
 library(data.table)
 
-sample_dt <- test_data$person
+sample_dt = test_data$person
 
 test_that("hts_get_ns should return counts", {
-  results <- hts_get_ns(sample_dt, weighted = FALSE)
+  results = hts_get_ns(sample_dt, weighted = FALSE)
 
   expect_type(results, "list")
 

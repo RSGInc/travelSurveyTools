@@ -2,12 +2,12 @@ library(travelSurveyTools)
 library(data.table)
 
 
-dt <- data.table(
+dt = data.table(
   x = c(sample(5, replace = TRUE, size = 10), NA),
   y = sample(3, replace = TRUE, size = 11)
 )
 
-vals_df <- data.table(
+vals_df = data.table(
   variable = "x",
   value = 1:7,
   value_label = letters[1:7],

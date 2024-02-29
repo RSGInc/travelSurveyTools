@@ -4,7 +4,7 @@ library(data.table)
 
 
 test_that("hts_prep_byvar should prepare data by variable correctly", {
-  results <- hts_prep_byvar(
+  results = hts_prep_byvar(
     summarize_by = "age",
     variables_dt = variable_list,
     hts_data = test_data

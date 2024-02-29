@@ -4,12 +4,12 @@ library(data.table)
 library(stringr)
 
 # Create a sample data.table for testing
-prepped_dt <- test_data$trip
+prepped_dt = test_data$trip
 
 
 test_that("hts_bin_var should bin numeric variables", {
   # Call the function
-  result <- hts_bin_var(prepped_dt, numvar = "speed_mph", nbins = 5)
+  result = hts_bin_var(prepped_dt, numvar = "speed_mph", nbins = 5)
 
   # Check if the result is a data.table
   expect_type(result, "list")

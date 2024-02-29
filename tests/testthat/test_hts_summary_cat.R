@@ -2,7 +2,7 @@
 library(testthat)
 library(data.table)
 
-DT <- hts_prep_data(
+DT = hts_prep_data(
   summarize_var = "age",
   summarize_by = "employment",
   variables_dt = variable_list,
@@ -13,7 +13,7 @@ DT <- hts_prep_data(
 
 
 test_that("hts_summary_cat should return counts and units", {
-  results <- hts_summary_cat(
+  results = hts_summary_cat(
     prepped_dt = DT,
     summarize_var = "age",
     summarize_by = "employment",

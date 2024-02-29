@@ -31,23 +31,23 @@
 #'   return_weight_cols = TRUE
 #' )
 #'
-hts_cbind_var <- function(lhs_table,
+hts_cbind_var = function(lhs_table,
                           rhs_var,
                           hts_data,
                           variable_list = variable_list,
                           return_weight_cols = FALSE,
                           cbind_ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
                           cbind_wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight")) {
-  var_location <-
+  var_location =
     hts_find_var(rhs_var, data = hts_data, variables_dt = variable_list)
 
-  rhs_table <- hts_data[[var_location]]
+  rhs_table = hts_data[[var_location]]
 
   # If joining trip to vehicle or vice versa, need vehicle ID:
   if ("trip_id" %in% names(lhs_table) &
     var_location == "vehicle" &
     !"vehicle_id" %in% names(lhs_table)) {
-    lhs_table <- hts_trip_vehid(
+    lhs_table = hts_trip_vehid(
       trip_table = lhs_table,
       vehicle_table = rhs_table
     )
@@ -56,14 +56,14 @@ hts_cbind_var <- function(lhs_table,
     (!"trip_id" %in% names(lhs_table)) &
     var_location == "trip" &
     !"vehicle_id" %in% names(rhs_table)) {
-    rhs_table <- hts_trip_vehid(
+    rhs_table = hts_trip_vehid(
       trip_table = rhs_table,
       vehicle_table = lhs_table
     )
   }
 
   # Subset table to ID columns, weight columns (if desired), rhs_var:
-  selected_cols <- c(
+  selected_cols = c(
     intersect(
       names(rhs_table),
       c(cbind_ids, cbind_wts)
@@ -71,10 +71,10 @@ hts_cbind_var <- function(lhs_table,
     rhs_var
   )
 
-  rhs_table <- rhs_table[, selected_cols, with = FALSE]
+  rhs_table = rhs_table[, selected_cols, with = FALSE]
 
   # Merge lhs_table to table with rhs_var:
-  common_cols <- intersect(names(lhs_table), names(rhs_table))
+  common_cols = intersect(names(lhs_table), names(rhs_table))
   message(
     "Joining ",
     rhs_var,
@@ -82,7 +82,7 @@ hts_cbind_var <- function(lhs_table,
     paste0(common_cols, collapse = ", ")
   )
 
-  merge_t <- merge(
+  merge_t = merge(
     lhs_table,
     rhs_table,
     by = common_cols,

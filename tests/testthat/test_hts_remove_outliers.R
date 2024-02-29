@@ -4,7 +4,7 @@ library(data.table)
 
 
 test_that("hts_remove_outliers should return counts and units", {
-  results <- hts_remove_outliers(var_dt = test_data$trip, numvar = "speed_mph")
+  results = hts_remove_outliers(var_dt = test_data$trip, numvar = "speed_mph")
 
   expect_type(results, "list")
 

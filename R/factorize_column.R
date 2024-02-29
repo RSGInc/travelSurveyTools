@@ -29,7 +29,7 @@
 #'  This is returned invisibly.
 #' @examples
 #'
-#' factored <- factorize_column(
+#' factored = factorize_column(
 #'   x = hh$income_detailed,
 #'   var_str = "income_detailed",
 #'   vals_df = value_labels,
@@ -38,7 +38,7 @@
 #' )
 #'
 #' @export factorize_column
-factorize_column <- function(
+factorize_column = function(
     x,
     var_str,
     vals_df,
@@ -48,10 +48,10 @@ factorize_column <- function(
     value_order_colname = "value",
     extra_labels = NULL,
     add_na = TRUE) {
-  vals_df <- data.table::data.table(vals_df)
+  vals_df = data.table::data.table(vals_df)
 
   # sort the vals_df to ensure the ordered factor is ordered correctly
-  vals_df <- vals_df[with(
+  vals_df = vals_df[with(
     vals_df,
     order(
       get(variable_colname),
@@ -62,13 +62,13 @@ factorize_column <- function(
   ), ]
 
   # select levels and labels for this variable
-  levels <- vals_df[get(variable_colname) == var_str, get(value_colname)]
-  labels <- vals_df[get(variable_colname) == var_str, get(value_label_colname)]
+  levels = vals_df[get(variable_colname) == var_str, get(value_colname)]
+  labels = vals_df[get(variable_colname) == var_str, get(value_label_colname)]
 
   # add extra labels, if provided
   if (!missing(extra_labels)) {
-    levels <- c(levels, vals_df[get(variable_colname) %in% extra_labels, get(value_colname)])
-    labels <- c(labels, vals_df[get(variable_colname) %in% extra_labels, get(value_label_colname)])
+    levels = c(levels, vals_df[get(variable_colname) %in% extra_labels, get(value_colname)])
+    labels = c(labels, vals_df[get(variable_colname) %in% extra_labels, get(value_label_colname)])
   }
 
   # only apply labels if there are labels specific to this variable
@@ -93,10 +93,10 @@ factorize_column <- function(
 
     # check for missing levels (except NA) (gets a warning)
     if (any(!(unique(x) %in% c(levels, NA)))) {
-      missing_levels <- unique(x)[!unique(x) %in% c(levels, NA)]
+      missing_levels = unique(x)[!unique(x) %in% c(levels, NA)]
 
-      levels <- c(levels, missing_levels)
-      labels <- c(labels, extra_labels)
+      levels = c(levels, missing_levels)
+      labels = c(labels, extra_labels)
 
       warning(
         'Missing labels in variable "', var_str, '". Values missing labels: ',
@@ -106,16 +106,16 @@ factorize_column <- function(
 
     # TODO add checks after making variable a factor to ensure it's right?
 
-    y <- factor(x, levels = levels, labels = labels, ordered = TRUE)
+    y = factor(x, levels = levels, labels = labels, ordered = TRUE)
 
     # if NAs are desired.
     if (add_na) {
-      y <- addNA(y)
+      y = addNA(y)
     }
     # if (add_na) {forcats::fct_explicit_na(y, na_level = "(Missing - NA)")}
   } else {
     # if there are no labels in the codebook for this variable, it is returned unchanged.
-    y <- x
+    y = x
   }
   return(invisible(y))
 }

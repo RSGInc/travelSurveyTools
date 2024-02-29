@@ -5,7 +5,7 @@ library(data.table)
 
 
 test_that("hts_prep_data should return counts and units", {
-  results <- hts_prep_data(
+  results = hts_prep_data(
     summarize_var = "age",
     summarize_by = "mode_type",
     variables_dt = variable_list,

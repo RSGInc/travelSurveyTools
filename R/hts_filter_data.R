@@ -19,26 +19,26 @@
 #'   id_name = "hh_id"
 #' )
 #'
-hts_filter_data <- function(hts_data,
+hts_filter_data = function(hts_data,
                             ids,
                             id_name) {
-  tbl_names <- names(hts_data)
+  tbl_names = names(hts_data)
 
-  filtered_tbls <- list()
+  filtered_tbls = list()
 
   for (i in 1:length(hts_data)) {
-    tbl <- hts_data[[i]]
+    tbl = hts_data[[i]]
 
     if (id_name %in% names(tbl)) {
-      filtered_tbl <- tbl[get(id_name) %in% ids]
+      filtered_tbl = tbl[get(id_name) %in% ids]
     } else {
-      filtered_tbl <- tbl
+      filtered_tbl = tbl
     }
 
-    filtered_tbls[[i]] <- filtered_tbl
+    filtered_tbls[[i]] = filtered_tbl
   }
 
-  names(filtered_tbls) <- tbl_names
+  names(filtered_tbls) = tbl_names
 
 
   return(filtered_tbls)

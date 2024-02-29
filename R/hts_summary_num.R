@@ -28,7 +28,7 @@
 #' require(stringr)
 #' require(dplyr)
 #' require(srvyr)
-#' DT <- hts_prep_data(
+#' DT = hts_prep_data(
 #'   summarize_var = "speed_mph",
 #'   variables_dt = variable_list,
 #'   data = list(
@@ -44,7 +44,7 @@
 #'   summarize_var = "speed_mph",
 #'   wtname = "trip_weight"
 #' )
-#' DT <- hts_prep_data(
+#' DT = hts_prep_data(
 #'   summarize_var = "speed_mph",
 #'   summarize_by = "age",
 #'   variables_dt = variable_list,
@@ -62,7 +62,7 @@
 #'   summarize_by = "age",
 #'   wtname = "trip_weight"
 #' )
-hts_summary_num <- function(prepped_dt,
+hts_summary_num = function(prepped_dt,
                             summarize_var = NULL,
                             summarize_by = NULL,
                             weighted = TRUE,
@@ -73,29 +73,29 @@ hts_summary_num <- function(prepped_dt,
     message("Standard errors require weighted data; setting se = FALSE.
             Set weighted = TRUE and specify a wtname if standard errors are desired.")
 
-    se <- FALSE
+    se = FALSE
   }
 
-  num_so_ls <- list()
+  num_so_ls = list()
 
-  num_so_ls[["unwtd"]] <- srvyr::as_survey_design(prepped_dt, w = NULL)
+  num_so_ls[["unwtd"]] = srvyr::as_survey_design(prepped_dt, w = NULL)
 
   if (weighted == TRUE) {
-    num_so_ls[["wtd"]] <- hts_to_so(prepped_dt, strataname = strataname, wtname = wtname)
+    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strataname = strataname, wtname = wtname)
   }
 
 
-  num_summary_ls <- list()
+  num_summary_ls = list()
 
   for (w in seq_along(num_so_ls)) {
-    wt_type <- names(num_so_ls)[[w]]
+    wt_type = names(num_so_ls)[[w]]
 
     # Set the variance type:
-    variance_type <- "se"
+    variance_type = "se"
 
     if (se) {
       # Calculate survey proportions:
-      num_summary_wttype <-
+      num_summary_wttype =
         num_so_ls[[wt_type]] |>
         group_by_at(unlist(summarize_by)) |>
         summarize(
@@ -107,10 +107,10 @@ hts_summary_num <- function(prepped_dt,
         ) |>
         setDT()
 
-      num_summary_ls[[wt_type]] <- num_summary_wttype
+      num_summary_ls[[wt_type]] = num_summary_wttype
     } else {
       # Calculate survey proportions:
-      num_summary_wttype <-
+      num_summary_wttype =
         num_so_ls[[wt_type]] |>
         group_by_at(unlist(summarize_by)) |>
         summarize(
@@ -122,12 +122,12 @@ hts_summary_num <- function(prepped_dt,
         ) |>
         setDT()
 
-      num_summary_ls[[wt_type]] <- num_summary_wttype
+      num_summary_ls[[wt_type]] = num_summary_wttype
     }
   }
 
   if (weighted) {
-    num_summary_ls$weight_name <- wtname
+    num_summary_ls$weight_name = wtname
   }
 
   return(num_summary_ls)

@@ -9,14 +9,14 @@
 #' @examples
 #' hts_validate_variable_list(variable_list, test_data)
 #'
-hts_validate_variable_list <- function(variable_list,
+hts_validate_variable_list = function(variable_list,
                                        hts_data) {
-  var_dt <- copy(variable_list)
+  var_dt = copy(variable_list)
 
   # Get expected variable names
-  tbl_names <- names(hts_data)
+  tbl_names = names(hts_data)
 
-  admin_names <- c(
+  admin_names = c(
     "variable",
     "is_checkbox",
     "data_type",
@@ -24,7 +24,7 @@ hts_validate_variable_list <- function(variable_list,
     "shared_name"
   )
 
-  expected_names <- c(admin_names, tbl_names)
+  expected_names = c(admin_names, tbl_names)
 
   # Stop if missing required columns
   if (length(setdiff(expected_names, names(var_dt))) > 0) {
@@ -36,7 +36,7 @@ hts_validate_variable_list <- function(variable_list,
   }
 
   # Check for missing values in admin names
-  missing_admin_counts <- lapply(var_dt[, ..admin_names], function(x) sum(is.na(x)))
+  missing_admin_counts = lapply(var_dt[, ..admin_names], function(x) sum(is.na(x)))
 
   if (length(missing_admin_counts[missing_admin_counts != 0]) > 0) {
     stop(
@@ -47,7 +47,7 @@ hts_validate_variable_list <- function(variable_list,
   }
 
   # Check that each variable is in at least one table
-  var_dt$tbl_count <- rowSums(var_dt[, ..tbl_names])
+  var_dt$tbl_count = rowSums(var_dt[, ..tbl_names])
 
   if (var_dt[tbl_count == 0, .N]) {
     warning(
@@ -63,13 +63,13 @@ hts_validate_variable_list <- function(variable_list,
 
   # Check that checkbox variables are "integer/categorical"
 
-  not_categorical <- var_dt[is_checkbox == 1 & data_type != "integer/categorical", .N]
+  not_categorical = var_dt[is_checkbox == 1 & data_type != "integer/categorical", .N]
 
   if (not_categorical > 0) {
     message("Editing ", not_categorical, ' categorical variables to "integer/categorical"')
   }
 
-  var_dt <- var_dt[, ..expected_names]
+  var_dt = var_dt[, ..expected_names]
 
   return(var_dt)
 }
