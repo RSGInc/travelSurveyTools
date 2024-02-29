@@ -3,7 +3,7 @@
 library(testthat)
 library(data.table)
 
-DT = hts_prep_data(summarize_var = 'age',
+DT = hts_prep_variable(summarize_var = 'age',
                    variables_dt = variable_list,
                    data = test_data)$cat
 

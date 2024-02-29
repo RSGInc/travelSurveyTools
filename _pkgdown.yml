@@ -24,7 +24,7 @@ reference:
   
 - subtitle: Prepping data frames
   contents:
-  - hts_prep_data
+  - hts_prep_variable
   - hts_prep_triprate
   - hts_prep_byvar
   
