@@ -37,19 +37,27 @@ Prepare variable to be summarized
 }
 \examples{
 
-hts_prep_byvar(summarize_by = 'age',
-               variables_dt = variable_list,
-               hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
-hts_prep_byvar(summarize_by = 'race',
-               variables_dt = variable_list,
-               hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
+hts_prep_byvar(
+  summarize_by = "age",
+  variables_dt = variable_list,
+  hts_data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
+hts_prep_byvar(
+  summarize_by = "race",
+  variables_dt = variable_list,
+  hts_data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
 
 }

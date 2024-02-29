@@ -47,26 +47,38 @@ require(data.table)
 require(stringr)
 require(dplyr)
 require(srvyr)
-DT = hts_prep_data(summarize_var = 'speed_mph',
-                   variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$num
-hts_summary_num(prepped_dt = DT,
-                summarize_var = 'speed_mph',
-                wtname = 'trip_weight')
-DT = hts_prep_data(summarize_var = 'speed_mph',
-                   summarize_by = 'age', 
-                   variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$num
-hts_summary_num(prepped_dt = DT,
-                summarize_var = 'speed_mph',
-                summarize_by = 'age',
-                wtname = 'trip_weight')
+DT = hts_prep_data(
+  summarize_var = "speed_mph",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)$num
+hts_summary_num(
+  prepped_dt = DT,
+  summarize_var = "speed_mph",
+  wtname = "trip_weight"
+)
+DT = hts_prep_data(
+  summarize_var = "speed_mph",
+  summarize_by = "age",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)$num
+hts_summary_num(
+  prepped_dt = DT,
+  summarize_var = "speed_mph",
+  summarize_by = "age",
+  wtname = "trip_weight"
+)
 }

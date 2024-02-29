@@ -23,6 +23,6 @@ Remove outliers from a numeric variable
 \examples{
 
 require(data.table)
-hts_remove_outliers(var_dt = trip, numvar = 'speed_mph')
+hts_remove_outliers(var_dt = trip, numvar = "speed_mph")
 
 }

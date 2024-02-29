@@ -54,21 +54,29 @@ Prepare datasets for trip rate calculations
 
 require(data.table)
 require(stringr)
-hts_prep_triprate(variables_dt = variable_list,
-                  trip_name = 'trip',
-                  day_name = 'day',
-                  hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
-hts_prep_triprate(summarize_by = 'age',
-                  variables_dt = variable_list,
-                  trip_name = 'trip',
-                  day_name = 'day',
-                  hts_data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))
+hts_prep_triprate(
+  variables_dt = variable_list,
+  trip_name = "trip",
+  day_name = "day",
+  hts_data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
+hts_prep_triprate(
+  summarize_by = "age",
+  variables_dt = variable_list,
+  trip_name = "trip",
+  day_name = "day",
+  hts_data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
 }

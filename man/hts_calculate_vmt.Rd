@@ -40,23 +40,23 @@ Calculate vmt for each trip
 }
 \examples{
 
- hts_calculate_vmt(
-  trip_name = 'trip',
+hts_calculate_vmt(
+  trip_name = "trip",
   data = test_data,
-  agg_tbl = 'day',
-  mode_cols = c('mode_1', 'mode_2'),
-  miles_col = 'distance_miles',
+  agg_tbl = "day",
+  mode_cols = c("mode_1", "mode_2"),
+  miles_col = "distance_miles",
   vehicle_modes = c(6, 7, 10)
- )
+)
 
 
- hts_calculate_vmt(
+hts_calculate_vmt(
   data = test_data,
-  trip_name = 'trip',
-  agg_tbl = 'trip',
-  mode_cols = 'mode_type',
-  miles_col = 'distance_miles',
+  trip_name = "trip",
+  agg_tbl = "trip",
+  mode_cols = "mode_type",
+  miles_col = "distance_miles",
   vehicle_modes = 8,
-  occupancy_var = 'num_travelers'
- )
+  occupancy_var = "num_travelers"
+)
 }

@@ -44,13 +44,17 @@ Remove missing data for summary variables
 \examples{
 
 require(data.table)
-hts_remove_missing_data(hts_data = list('hh' = hh,
-                                        'person' = person,
-                                        'day' = day,
-                                        'trip' = trip,
-                                        'vehicle' = vehicle),
-                        variables_dt = variable_list,
-                        summarize_var = 'speed_mph',
-                        summarize_by = 'mode_type')
+hts_remove_missing_data(
+  hts_data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  ),
+  variables_dt = variable_list,
+  summarize_var = "speed_mph",
+  summarize_by = "mode_type"
+)
 
 }
