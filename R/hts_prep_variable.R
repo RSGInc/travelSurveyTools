@@ -56,36 +56,22 @@
 #'                             'trip' = trip,
 #'                             'vehicle' = vehicle))
 hts_prep_variable = function(summarize_var = NULL,
-                         summarize_by = NULL,
-                         variables_dt = variable_list,
-                         data = hts_data,
-                         id_cols = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
-                         weighted = TRUE,
-                         wt_cols = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
-                         remove_outliers = TRUE,
-                         threshold = 0.975,
-                         remove_missing = TRUE,
-                         missing_values = c("Missing Response", "995"),
-                         not_imputable = -1,
-                         strataname = NULL) {
+                             summarize_by = NULL,
+                             variables_dt = variable_list,
+                             data = hts_data,
+                             id_cols = c('hh_id', 'person_id', 'day_id', 'trip_id', 'vehicle_id'),
+                             weighted = TRUE,
+                             wt_cols = c('hh_weight', 'person_weight', 'day_weight', 'trip_weight', 'hh_weight'),
+                             remove_outliers = TRUE,
+                             threshold = 0.975,
+                             remove_missing = TRUE,
+                             missing_values = c("Missing Response", "995"),
+                             not_imputable = -1,
+                             strataname = NULL) {
   # tictoc::tic("Total Time")
   
   # Check variable_list first
   variables_dt = hts_validate_variable_list(variables_dt, data)
-  
-  if (!is.null(summarize_by)){
-    
-    byvarlocs = lapply(summarize_by, hts_find_var, variables_dt = variables_dt, data = data)
-    
-    for(b in 1:length(byvarlocs)) {
-      byvarlocs[b] = paste0(byvarlocs[[b]], " ", summarize_by[[b]])
-    }
-    
-    byvarlocs = unlist(byvarlocs)
-
-  } else {
-    msg_pt2 = NULL
-  }
   
   # Check that there is a id and weight for every table
   if (length(data) != length(id_cols)){
@@ -100,7 +86,7 @@ hts_prep_variable = function(summarize_var = NULL,
       stop('Each table in data must have a corresponding weight in wt_cols')
     }
   }
-
+  
   # TODO: Could we put id and weight cols in a snippet or some such?
   # Or in a settings/options for these functions?
   
@@ -136,11 +122,11 @@ hts_prep_variable = function(summarize_var = NULL,
     setnames(var_dt, wtname, 'old_weight')
     
     var_dt[, old_weight := ifelse(is.na(old_weight),
-                                   0,
-                                   old_weight)]
+                                  0,
+                                  old_weight)]
     
     setnames(var_dt, 'old_weight', wtname)
-
+    
   }
   
   # Check that specified id column exists in var_dt

@@ -141,7 +141,7 @@ flowchart TD
     A --&gt; B(hts_get_ns)
     B --&gt; |categorical| BB(hts_summary_cat)
     B --&gt; |numeric| CB(hts_summary_num)
-    BB --&gt; BC{"weighted &amp; se"}
+    BB --&gt; BC{se}
     BC --&gt; |TRUE| BCA(hts_to_so)
     BCA --&gt; BD((cat_summary_ls))
     BC --&gt; |FALSE| BD

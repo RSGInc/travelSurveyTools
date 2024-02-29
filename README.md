@@ -77,7 +77,7 @@ flowchart TD
     A --> B(hts_get_ns)
     B --> |categorical| BB(hts_summary_cat)
     B --> |numeric| CB(hts_summary_num)
-    BB --> BC{"weighted & se"}
+    BB --> BC{se}
     BC --> |TRUE| BCA(hts_to_so)
     BCA --> BD((cat_summary_ls))
     BC --> |FALSE| BD
