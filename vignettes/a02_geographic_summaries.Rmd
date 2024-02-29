@@ -10,11 +10,9 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
-
 ```
 
 ```{r, load_data, echo=TRUE, eval=TRUE, results = 'hide'}
-
 library(travelSurveyTools)
 library(data.table)
 library(tigris)
@@ -23,7 +21,7 @@ library(tigris)
 data("test_data")
 data("variable_list")
 
-states = states()
+states <- states()
 ```
 
 ### Creating summaries by geographic variables using hts_summary
@@ -31,24 +29,23 @@ states = states()
 `hts_summary` can summarize geographic variables.
 
 ```{r, county_income, echo=TRUE, eval=TRUE}
-income_county_list = hts_prep_data(
-  summarize_var = 'income_detailed',
-  summarize_by = 'home_county',
+income_county_list <- hts_prep_data(
+  summarize_var = "income_detailed",
+  summarize_by = "home_county",
   data = test_data
-  )
+)
 
-output = hts_summary(
+output <- hts_summary(
   prepped_dt = income_county_list$cat,
-  summarize_var = 'income_detailed',
-  summarize_by = 'home_county'
-  )
+  summarize_var = "income_detailed",
+  summarize_by = "home_county"
+)
 
 factorize_df(
   output$summary$unwtd,
   vals_df = value_labels,
-  value_label_colname = 'label'
-  )
-
+  value_label_colname = "label"
+)
 ```
 
 ### Using join_spatial to join together separate shapefiles
@@ -56,14 +53,14 @@ factorize_df(
 `join_spatial` can link together multiple geographies.
 
 ```{r, join_spatial, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
-
-hh = join_spatial(
-    hh,
-    dplyr::select(states, home_state = NAME),
-    id_col = 'hh_id',
-    lon_col = 'home_lon',
-    lat_col = 'home_lat',
-    largest = TRUE)
+hh <- join_spatial(
+  hh,
+  dplyr::select(states, home_state = NAME),
+  id_col = "hh_id",
+  lon_col = "home_lon",
+  lat_col = "home_lat",
+  largest = TRUE
+)
 
 hh[, .N, home_state]
 ```

@@ -1,8 +1,8 @@
 #' Test household travel survey dataset
-#' 
+#'
 #' @format ## `test_data`
 #' A list containing the following datasets:
-#' 
+#'
 #' @source A list of export tables compiled from internal RSG database on 11/22/2023
 "test_data"
 #' Test household dataset

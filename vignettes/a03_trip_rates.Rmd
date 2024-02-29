@@ -10,13 +10,11 @@ vignette: >
   
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
-
 ```
 
 To calculate trip rates we first need to prepare the data. We can do this using `hts_prep_triprate`
 
 ```{r, prep_triprate, echo=TRUE}
-
 library(travelSurveyTools)
 library(ggplot2)
 
@@ -24,114 +22,120 @@ data("test_data")
 data("variable_list")
 data("value_labels")
 
-prepped_triprates_list = hts_prep_triprate(
+prepped_triprates_list <- hts_prep_triprate(
   variables_dt = variable_list,
-  trip_name = 'trip',
-  day_name = 'day',
+  trip_name = "trip",
+  day_name = "day",
   hts_data = test_data
 )
-
 ```
 
 
 After preparing the data we can create a summary using `hts_summary`.
 
 ```{r, hts_summary, echo=TRUE}
-
 hts_summary(
   prepped_dt = prepped_triprates_list$num,
-  summarize_var = 'num_trips_wtd',
-  summarize_vartype = 'numeric'
+  summarize_var = "num_trips_wtd",
+  summarize_vartype = "numeric"
 )
-
-
 ```
 
 We can also summarize trip rates by one or more variables. 
 
 ```{r, trip_rate_job_type, echo=TRUE, fig.width=8, fig.height=6, warning=FALSE}
+job_type_triprate_list <- hts_prep_triprate(
+  variables_dt = variable_list,
+  summarize_by = "job_type",
+  trip_name = "trip",
+  day_name = "day",
+  hts_data = test_data
+)
 
-job_type_triprate_list = hts_prep_triprate(variables_dt = variable_list,
-                       summarize_by = 'job_type',
-                       trip_name = 'trip',
-                       day_name = 'day',
-                       hts_data = test_data)
-
-num_trips_job_type = hts_summary(
+num_trips_job_type <- hts_summary(
   prepped_dt = job_type_triprate_list$num,
-  summarize_by = 'job_type',
-  summarize_var = 'num_trips_wtd',
-  summarize_vartype = 'numeric',
-  wtname = 'day_weight',
+  summarize_by = "job_type",
+  summarize_var = "num_trips_wtd",
+  summarize_vartype = "numeric",
+  wtname = "day_weight",
   weighted = TRUE
 )$summary$wtd
 
 
 
 # Label job_type
-num_trips_job_type_labeled = factorize_df(
+num_trips_job_type_labeled <- factorize_df(
   num_trips_job_type,
   value_labels,
-  value_label_colname = 'label'
+  value_label_colname = "label"
 )
 
 
 # Create a plot
-ggplot(num_trips_job_type_labeled, 
-       aes(x = median, y = job_type)) + 
-  geom_bar(stat = 'identity') +
-  scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = 50),
-                   limits = rev) + 
-  labs(x = 'Median number of trips',
-       y = 'Job Type')
-
+ggplot(
+  num_trips_job_type_labeled,
+  aes(x = median, y = job_type)
+) +
+  geom_bar(stat = "identity") +
+  scale_y_discrete(
+    labels = function(x) stringr::str_wrap(x, width = 50),
+    limits = rev
+  ) +
+  labs(
+    x = "Median number of trips",
+    y = "Job Type"
+  )
 ```
 
 
 ```{r, trip_rate_race_ethnicity, fig.width=8, fig.height=6, warning=FALSE}
-
-race_ethnicity_triprate_list = hts_prep_triprate(
+race_ethnicity_triprate_list <- hts_prep_triprate(
   variables_dt = variable_list,
-  summarize_by = c('race', 'ethnicity'),
-  trip_name = 'trip',
-  day_name = 'day',
+  summarize_by = c("race", "ethnicity"),
+  trip_name = "trip",
+  day_name = "day",
   hts_data = test_data
 )
 
-num_trips_race_ethnicity = hts_summary(
+num_trips_race_ethnicity <- hts_summary(
   prepped_dt = race_ethnicity_triprate_list$num,
-  summarize_by = c('race', 'ethnicity'),
-  summarize_var = 'num_trips_wtd',
-  summarize_vartype = 'numeric',
-  wtname = 'day_weight',
+  summarize_by = c("race", "ethnicity"),
+  summarize_var = "num_trips_wtd",
+  summarize_vartype = "numeric",
+  wtname = "day_weight",
   weighted = TRUE,
   se = TRUE
 )$summary$wtd
 
 # label data
-num_trips_race_ethnicity_labeled = factorize_df(
+num_trips_race_ethnicity_labeled <- factorize_df(
   num_trips_race_ethnicity,
   value_labels,
-  value_label_colname = 'label'
+  value_label_colname = "label"
 )
 
 # Create a plot
-ggplot(num_trips_race_ethnicity_labeled, 
-       aes(x = mean, y = race, fill = ethnicity)) +
-  scale_y_discrete(labels = function(x) stringr::str_wrap(x, width = 30),
-                   limits = rev) + 
-  geom_bar(stat = 'identity', position = position_dodge2(preserve = 'single', width = 0)) + 
-  geom_errorbar(
-    aes(xmin = (mean - mean_se), 
-        xmax = (mean + mean_se)),
-    position = position_dodge2(preserve = 'single', width = 0)
+ggplot(
+  num_trips_race_ethnicity_labeled,
+  aes(x = mean, y = race, fill = ethnicity)
+) +
+  scale_y_discrete(
+    labels = function(x) stringr::str_wrap(x, width = 30),
+    limits = rev
   ) +
-  labs(x = 'Mean number of trips',
-       y = 'Race',
-       fill = 'Ethnicity') 
-
-
-
+  geom_bar(stat = "identity", position = position_dodge2(preserve = "single", width = 0)) +
+  geom_errorbar(
+    aes(
+      xmin = (mean - mean_se),
+      xmax = (mean + mean_se)
+    ),
+    position = position_dodge2(preserve = "single", width = 0)
+  ) +
+  labs(
+    x = "Mean number of trips",
+    y = "Race",
+    fill = "Ethnicity"
+  )
 ```
 
 
