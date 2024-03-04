@@ -154,7 +154,7 @@ hts_prep_variable = function(summarize_var = NULL,
     summarize_var = variables_dt[shared_name == summarize_var, variable]
 
     for (i in 1:length(summarize_var)) {
-      if (var_dt[, class(get(summarize_var[i]))] != "integer") {
+      if (var_dt[, !"integer" %in% class(get(summarize_var[i]))]) {
         message("Checkbox variables must have integer values")
 
         stop()
@@ -273,7 +273,7 @@ hts_prep_variable = function(summarize_var = NULL,
         var = variables_dt[shared_name == var, variable][1]
       }
 
-      if (byvar_is_shared & byvar_table[, class(get(var))] != "integer") {
+      if (byvar_is_shared & !"integer" %in% byvar_table[, class(get(var))]) {
         message("Checkbox variables must have integer values")
 
         stop()
