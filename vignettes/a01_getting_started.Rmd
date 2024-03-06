@@ -81,7 +81,7 @@ In addition to data from the household travel survey. The codebook is also requi
 A dataset containing information about all variables existing in the hh, person, day, trip, and vehicle tables. The variables are as follows:
 
 -   variable: Name of the variable
--   is_checkbox: The variable is a multiple response categorical variable question
+-   is_checkbox: The variable is a multiple response categorical variable question (multiple or mrcv variable)
 -   hh: The variable exists in the hh table
 -   person: The variable exists in the person table
 -   day: The variable exists in the day table
@@ -235,7 +235,7 @@ if (FALSE) {
 }
 ```
 
-If we want to summarize a multiple response variable, we can set `summarize_vartype` to checkbox.
+If we want to summarize a multiple response categorical variable (mrcv or multiple), we can set `summarize_vartype` to checkbox.
 
 ```{r, race_mode_type_example, echo=TRUE, eval=TRUE}
 race_list = hts_prep_variable(
