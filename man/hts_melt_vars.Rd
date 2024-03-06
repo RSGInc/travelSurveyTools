@@ -59,12 +59,16 @@ Melts checkbox variables into a single variable
 
 require(data.table)
 require(stringr)
-hts_melt_vars(shared_name = 'race',
-              wide_dt = person,
-              data = list('hh' = hh,
-                              'person' = person,
-                              'day' = day,
-                              'trip' = trip,
-                              'vehicle' = vehicle))
+hts_melt_vars(
+  shared_name = "race",
+  wide_dt = person,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)
 
 }

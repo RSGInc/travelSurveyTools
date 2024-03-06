@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -118,85 +118,61 @@ to lhs_table. Default is FALSE.</p></dd>
 <span class="r-in"><span> rhs_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span> hts_data <span class="op">=</span> <span class="va">test_data</span>,</span></span>
 <span class="r-in"><span>  variable_list <span class="op">=</span> <span class="va">variable_list</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on hh_id, person_id, day_id, trip_id, speed_mph, trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id speed_mph trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12 21.480572         968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12 23.720178         906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12  6.927242         387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12  6.146634         684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12 34.657421          64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816: 23422311 2342231101 234223110101 2.342231e+12 25.812478         624</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817: 23422311 2342231102 234223110201 2.342231e+12 16.040986         322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818: 23422311 2342231102 234223110201 2.342231e+12 26.901306          22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819: 23422311 2342231102 234223110201 2.342231e+12 16.720703         596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820: 23422311 2342231102 234223110201 2.342231e+12 25.812478          95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        travel_date distance_miles mode_type mode_1 mode_2 num_travelers</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:  2023-04-20       4.755560         8      7    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:  2023-04-20       4.856047         8      7    995             3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  2023-04-20       1.516296         1      1    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:  2023-04-20       1.393237         1      1    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:  2023-04-21       8.933913         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816:  2023-06-01      20.219774         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817:  2023-06-01       6.683744         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818:  2023-06-01      20.175979         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819:  2023-06-01       5.573568         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820:  2023-06-01      20.219774         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        d_purpose_category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817:                 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818:                 13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819:                  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820:                  1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on day_id, trip_id, speed_mph, hh_id, person_id, trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph hh_id person_id trip_weight distance_miles</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6099  3.8030030   642       820         237     0.31691692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6848  0.3570582   642       820         957     0.07736261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1    9240  1.3936891   642       820         578     0.47308002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      1   13883 10.7289440   642       820         361    10.72894403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      1   15759  9.2827577   642       820         287     0.16244826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15870:   4125     719  1.5648402   876      1684         954     7.77203953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15871:   4125    4397  8.5320851   876      1684         977     1.42201419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15872:   4125    4505 16.3377147   876      1684         999     3.23577517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15873:   4125    7897 42.9297111   876      1684         167    22.65734754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15874:   4125   14260 10.5795319   876      1684         841     1.76325532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mode_type mode_1 mode_2 num_travelers d_purpose_category travel_date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         8     34    995             2                  7  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:         8      6    995             1                  7  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         2      2    995             1                  1  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:        13      2     23             1                 11  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         1      1    995             1                  9  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15870:         1      1    995             1                 12  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15871:         8     34    995             2                  7  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15872:         8      6    995             1                 12  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15873:         8      6    995             1                  2  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15874:         8      7    995             1                  2  2023-05-30</span>
 <span class="r-in"><span><span class="fu">hts_cbind_var</span><span class="op">(</span>lhs_table <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span> rhs_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span>  hts_data <span class="op">=</span> <span class="va">test_data</span>,</span></span>
 <span class="r-in"><span>variable_list <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span> return_weight_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on hh_id, person_id, day_id, trip_id, speed_mph, trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id      trip_id speed_mph trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102 2.300017e+12 21.480572         968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102 2.300017e+12 23.720178         906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102 2.300017e+12  6.927242         387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102 2.300017e+12  6.146634         684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103 2.300017e+12 34.657421          64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816: 23422311 2342231101 234223110101 2.342231e+12 25.812478         624</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817: 23422311 2342231102 234223110201 2.342231e+12 16.040986         322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818: 23422311 2342231102 234223110201 2.342231e+12 26.901306          22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819: 23422311 2342231102 234223110201 2.342231e+12 16.720703         596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820: 23422311 2342231102 234223110201 2.342231e+12 25.812478          95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        travel_date distance_miles mode_type mode_1 mode_2 num_travelers</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:  2023-04-20       4.755560         8      7    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:  2023-04-20       4.856047         8      7    995             3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  2023-04-20       1.516296         1      1    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:  2023-04-20       1.393237         1      1    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:  2023-04-21       8.933913         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816:  2023-06-01      20.219774         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817:  2023-06-01       6.683744         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818:  2023-06-01      20.175979         8      7    995             1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819:  2023-06-01       5.573568         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820:  2023-06-01      20.219774         8      6    995             2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        d_purpose_category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15816:                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15817:                 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15818:                 13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15819:                  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15820:                  1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining speed_mph to table on day_id, trip_id, speed_mph, hh_id, person_id, trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph hh_id person_id trip_weight distance_miles</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6099  3.8030030   642       820         237     0.31691692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6848  0.3570582   642       820         957     0.07736261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1    9240  1.3936891   642       820         578     0.47308002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      1   13883 10.7289440   642       820         361    10.72894403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      1   15759  9.2827577   642       820         287     0.16244826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15870:   4125     719  1.5648402   876      1684         954     7.77203953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15871:   4125    4397  8.5320851   876      1684         977     1.42201419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15872:   4125    4505 16.3377147   876      1684         999     3.23577517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15873:   4125    7897 42.9297111   876      1684         167    22.65734754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15874:   4125   14260 10.5795319   876      1684         841     1.76325532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mode_type mode_1 mode_2 num_travelers d_purpose_category travel_date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         8     34    995             2                  7  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:         8      6    995             1                  7  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         2      2    995             1                  1  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:        13      2     23             1                 11  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         1      1    995             1                  9  2023-05-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15870:         1      1    995             1                 12  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15871:         8     34    995             2                  7  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15872:         8      6    995             1                 12  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15873:         8      6    995             1                  2  2023-05-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15874:         8      7    995             1                  2  2023-05-30</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -205,7 +181,7 @@ to lhs_table. Default is FALSE.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -171,7 +171,7 @@ and output$n_ls$unwtd.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:stats':</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -179,14 +179,13 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person age broken down by person employment</span>
 <span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'categorical'</span>,</span></span>
 <span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'age'</span>, </span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -194,14 +193,13 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">num</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of trip speed_mph broken down by person age</span>
 <span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'numeric'</span>,</span></span>
 <span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'age'</span>, </span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -209,7 +207,6 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person race broken down by person age</span>
 <span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
@@ -222,7 +219,7 @@ and output$n_ls$unwtd.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

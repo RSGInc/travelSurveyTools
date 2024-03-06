@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -141,50 +141,51 @@ and proportions.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person age </span>
 <span class="r-in"><span><span class="fu">hts_summary_cat</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>                summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1    79 0.039818548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   194 0.097782258</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    33 0.016633065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4    99 0.049899194</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   389 0.196068548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   354 0.178427419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   234 0.117943548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   259 0.130544355</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   218 0.109879032</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   119 0.059979839</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11     6 0.003024194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count       prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   183 0.08939912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   158 0.07718613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   172 0.08402540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   172 0.08402540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   176 0.08597948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   162 0.07914021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   178 0.08695652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   180 0.08793356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   169 0.08255984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   149 0.07278945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11   177 0.08646800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  12   171 0.08353688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count        prop    est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1    79 0.042732174  43036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   194 0.092259038  92915</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3    33 0.018525285  18657</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4    99 0.049041316  49390</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   389 0.198440091 199851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   354 0.171938517 173161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   234 0.117023960 117856</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   259 0.134759857 135718</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   218 0.109464706 110243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   119 0.062543317  62988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11     6 0.003271738   3295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     age count       prop   est</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   183 0.09068116 93964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   158 0.07077481 73337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   172 0.08828491 91481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   172 0.08196664 84934</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   176 0.09268849 96044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   162 0.07615986 78917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   178 0.08525751 88344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   180 0.07853874 81382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   169 0.08182574 84788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   149 0.07724652 80043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11   177 0.09292107 96285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  12   171 0.08365454 86683</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span>                </span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -192,150 +193,167 @@ and proportions.</p>
 <span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person race broken down by person employment</span>
 <span class="r-in"><span><span class="fu">hts_summary_cat</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>                summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
 <span class="r-in"><span>                summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'person_weight'</span>,</span></span>
 <span class="r-in"><span>                summarize_vartype <span class="op">=</span> <span class="st">'checkbox'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          1                 African American or Black    24 0.029268293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:          1          American Indian or Alaska Native     6 0.007317073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:          1                                     Asian   203 0.247560976</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:          1 Native Hawaiian or other Pacific Islander    11 0.013414634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:          1                                     White   505 0.615853659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:          1                                Other race    13 0.015853659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          1                      Prefer not to answer    92 0.112195122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          2                 African American or Black    10 0.068965517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          2          American Indian or Alaska Native     2 0.013793103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          2                                     Asian    25 0.172413793</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:          2 Native Hawaiian or other Pacific Islander     1 0.006896552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:          2                                     White   101 0.696551724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:          2                      Prefer not to answer    16 0.110344828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          3                 African American or Black     1 0.009803922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          3          American Indian or Alaska Native     3 0.029411765</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:          3                                     Asian    15 0.147058824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:          3                                     White    76 0.745098039</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:          3                                Other race     2 0.019607843</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:          3                      Prefer not to answer     9 0.088235294</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          5                 African American or Black    10 0.021834061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          5          American Indian or Alaska Native    11 0.024017467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:          5                                     Asian    69 0.150655022</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:          5 Native Hawaiian or other Pacific Islander     1 0.002183406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:          5                                     White   343 0.748908297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:          5                                Other race     8 0.017467249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          5                      Prefer not to answer    35 0.076419214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          6                 African American or Black     8 0.103896104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          6                                     Asian     9 0.116883117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:          6                                     White    51 0.662337662</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:          6                                Other race     2 0.025974026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:          6                      Prefer not to answer    10 0.129870130</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          7                 African American or Black     3 0.200000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          7          American Indian or Alaska Native     1 0.066666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          7                                     Asian     4 0.266666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:          7                                     White     8 0.533333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:          7                                Other race     1 0.066666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:          7                      Prefer not to answer     3 0.200000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          8                                     Asian     1 0.111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          8                                     White     4 0.444444444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          8                                Other race     1 0.111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:          8                      Prefer not to answer     3 0.333333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count        prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count       prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          1                 African American or Black   232 0.25863991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:          1          American Indian or Alaska Native   240 0.26755853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:          1                                     Asian   214 0.23857302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:          1 Native Hawaiian or other Pacific Islander   242 0.26978818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:          1                                     White   245 0.27313266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:          1                                Other race   220 0.24526198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          1                      Prefer not to answer   442 0.49275362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          2                 African American or Black    38 0.25165563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          2          American Indian or Alaska Native    29 0.19205298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          2                                     Asian    37 0.24503311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:          2 Native Hawaiian or other Pacific Islander    41 0.27152318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:          2                                     White    27 0.17880795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:          2                                Other race    46 0.30463576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          2                      Prefer not to answer    75 0.49668874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          3                 African American or Black    24 0.21818182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:          3          American Indian or Alaska Native    29 0.26363636</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:          3                                     Asian    34 0.30909091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:          3 Native Hawaiian or other Pacific Islander    28 0.25454545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:          3                                     White    24 0.21818182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          3                                Other race    28 0.25454545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          3                      Prefer not to answer    57 0.51818182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:          5                 African American or Black   122 0.24351297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:          5          American Indian or Alaska Native   130 0.25948104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:          5                                     Asian   122 0.24351297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:          5 Native Hawaiian or other Pacific Islander   118 0.23552894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          5                                     White   127 0.25349301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          5                                Other race   118 0.23552894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          5                      Prefer not to answer   256 0.51097804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:          6                 African American or Black    22 0.27160494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:          6          American Indian or Alaska Native    19 0.23456790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:          6                                     Asian    17 0.20987654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          6 Native Hawaiian or other Pacific Islander    25 0.30864198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          6                                     White    24 0.29629630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          6                                Other race    15 0.18518519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:          6                      Prefer not to answer    36 0.44444444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:          7                 African American or Black     1 0.07142857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:          7 Native Hawaiian or other Pacific Islander     2 0.14285714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          7                                     White     3 0.21428571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          7                                Other race     2 0.14285714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          7                      Prefer not to answer    11 0.78571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:          8                 African American or Black     2 0.12500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:          8          American Indian or Alaska Native     1 0.06250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:          8                                     Asian     2 0.12500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:          8 Native Hawaiian or other Pacific Islander     2 0.12500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:          8                                     White     3 0.18750000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:          8                                Other race     4 0.25000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:          8                      Prefer not to answer    11 0.68750000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count       prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          1                 African American or Black    24 0.028694995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:          1          American Indian or Alaska Native     6 0.009275864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:          1                                     Asian   203 0.258106330</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:          1 Native Hawaiian or other Pacific Islander    11 0.017659958</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:          1                                     White   505 0.620537498</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:          1                                Other race    13 0.017940159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          1                      Prefer not to answer    92 0.096883680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          2                 African American or Black    10 0.063301044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          2          American Indian or Alaska Native     2 0.015717331</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          2                                     Asian    25 0.154313159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:          2 Native Hawaiian or other Pacific Islander     1 0.006475810</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:          2                                     White   101 0.680675103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:          2                      Prefer not to answer    16 0.135196028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          3                 African American or Black     1 0.015622480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          3          American Indian or Alaska Native     3 0.021448154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:          3                                     Asian    15 0.145460410</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:          3                                     White    76 0.747802774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:          3                                Other race     2 0.013183358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:          3                      Prefer not to answer     9 0.099520239</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          5                 African American or Black    10 0.025855586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          5          American Indian or Alaska Native    11 0.026347325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:          5                                     Asian    69 0.144806982</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:          5 Native Hawaiian or other Pacific Islander     1 0.003297548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:          5                                     White   343 0.739481318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:          5                                Other race     8 0.021636542</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          5                      Prefer not to answer    35 0.080426285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          6                 African American or Black     8 0.090334120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          6                                     Asian     9 0.091319111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:          6                                     White    51 0.699473807</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:          6                                Other race     2 0.022395604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:          6                      Prefer not to answer    10 0.133025739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          7                 African American or Black     3 0.121598770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          7          American Indian or Alaska Native     1 0.037509608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          7                                     Asian     4 0.186625673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:          7                                     White     8 0.506994620</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:          7                                Other race     1 0.037509608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:          7                      Prefer not to answer     3 0.295772483</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          8                                     Asian     1 0.166990763</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          8                                     White     4 0.401798736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          8                                Other race     1 0.095527467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:          8                      Prefer not to answer     3 0.335683034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count        prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count       prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          1                 African American or Black   232 0.27073716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:          1          American Indian or Alaska Native   240 0.28655208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:          1                                     Asian   214 0.24514797</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:          1 Native Hawaiian or other Pacific Islander   242 0.27775413</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:          1                                     White   245 0.28411353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:          1                                Other race   220 0.25628640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          1                      Prefer not to answer   442 0.48754533</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          2                 African American or Black    38 0.26319327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:          2          American Indian or Alaska Native    29 0.17631616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          2                                     Asian    37 0.22820145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:          2 Native Hawaiian or other Pacific Islander    41 0.26018745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:          2                                     White    27 0.16369678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:          2                                Other race    46 0.31722196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          2                      Prefer not to answer    75 0.50837698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:          3                 African American or Black    24 0.24917350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:          3          American Indian or Alaska Native    29 0.29843295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:          3                                     Asian    34 0.33304681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:          3 Native Hawaiian or other Pacific Islander    28 0.28963898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:          3                                     White    24 0.22072534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:          3                                Other race    28 0.24761968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:          3                      Prefer not to answer    57 0.47690756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:          5                 African American or Black   122 0.25345189</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:          5          American Indian or Alaska Native   130 0.26013795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:          5                                     Asian   122 0.24647690</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:          5 Native Hawaiian or other Pacific Islander   118 0.24306672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:          5                                     White   127 0.24809246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:          5                                Other race   118 0.22771685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:          5                      Prefer not to answer   256 0.52309602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:          6                 African American or Black    22 0.29014733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:          6          American Indian or Alaska Native    19 0.22133978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:          6                                     Asian    17 0.19500460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:          6 Native Hawaiian or other Pacific Islander    25 0.30255525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:          6                                     White    24 0.27992634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:          6                                Other race    15 0.12228361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:          6                      Prefer not to answer    36 0.49417587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:          7                 African American or Black     1 0.10779358</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:          7 Native Hawaiian or other Pacific Islander     2 0.21159045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:          7                                     White     3 0.22087692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:          7                                Other race     2 0.21159045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:          7                      Prefer not to answer    11 0.77912308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:          8                 African American or Black     2 0.15386297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:          8          American Indian or Alaska Native     1 0.04491312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:          8                                     Asian     2 0.09682002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:          8 Native Hawaiian or other Pacific Islander     2 0.17265873</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:          8                                     White     3 0.12621571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:          8                                Other race     4 0.23516556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:          8                      Prefer not to answer    11 0.70112556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     employment                                      race count       prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est wtd_group_n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  11777      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   3807      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 105932      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   7248      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 254681      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   7363      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  39763      410420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   4692       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   1165       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  11438       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    480       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  50453       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  10021       74122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:    775       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   1064       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:   7216       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  37097       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:    654       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:   4937       49608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:   6257      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:   6376      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:  35043      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:    798      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24: 178953      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:   5236      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:  19463      241998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:   3485       38579</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:   3523       38579</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  26985       38579</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:    864       38579</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   5132       38579</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:    791        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:    244        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   1214        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:   3298        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:    244        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   1924        6505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:    687        4114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   1653        4114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:    393        4114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   1381        4114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: 121460      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: 128555      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: 109980      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: 124608      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: 127461      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: 114977      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: 218726      448627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:  20752       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  13902       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  17993       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  20515       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  12907       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  25012       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:  40084       78847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:  15074       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  18054       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  20148       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  17522       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  13353       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  14980       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:  28851       60496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:  62282      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:  63925      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  60568      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:  59730      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:  60965      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  55958      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28: 128543      245735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  12604       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:   9615       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   8471       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  13143       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:  12160       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   5312       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:  21467       43440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:    917        8507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   1800        8507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:   1879        8507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   1800        8507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:   6628        8507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   1408        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:    411        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:    886        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:   1580        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:   1155        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:   2152        9151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:   6416        9151</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        est wtd_group_n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span>                </span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_data.html">hts_prep_data</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'race'</span>, <span class="st">'income_detailed'</span>, <span class="st">'gender'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
 <span class="r-in"><span>                data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
@@ -343,36 +361,35 @@ and proportions.</p>
 <span class="r-in"><span>                            <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>                            <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating a summary of person employment broken down by person race and hh income_detailed and person gender</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">hts_summary_cat</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
 <span class="r-in"><span>                summarize_var <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
 <span class="r-in"><span>                summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'race'</span>, <span class="st">'income_detailed'</span>, <span class="st">'gender'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span><span class="op">$</span><span class="va">unwtd</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                           race income_detailed gender employment count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: African American or Black               1      1          5     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: African American or Black               1      1          6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: African American or Black               1      2          6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: African American or Black               2      1          1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: African American or Black               2      1          5     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: African American or Black               1      1          6     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: African American or Black               4      2          5     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: African American or Black               5      4          5     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: African American or Black               6      4          6     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: African American or Black               6    999          1     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 394:      Prefer not to answer             999    999          1    24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 395:      Prefer not to answer             999    999          2     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 396:      Prefer not to answer             999    999          3     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 397:      Prefer not to answer             999    999          5     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 398:      Prefer not to answer             999    999          6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 0.2000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 0.4000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 394: 0.7500000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 395: 0.0312500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 396: 0.0312500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 397: 0.1562500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 398: 0.0312500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 394:      Prefer not to answer             999    999          2     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 395:      Prefer not to answer             999    999          3     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 396:      Prefer not to answer             999    999          5     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 397:      Prefer not to answer             999    999          7     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 398:      Prefer not to answer             999    999          8     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 0.66666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 394: 0.04347826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 395: 0.08695652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 396: 0.30434783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 397: 0.04347826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 398: 0.08695652</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -380,7 +397,7 @@ and proportions.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

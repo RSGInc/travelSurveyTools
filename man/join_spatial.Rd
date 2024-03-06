@@ -47,10 +47,11 @@ columns.
 }
 \examples{
 \dontrun{
-x = data.table(id = 1:3, lon=c(-82.33, -79.17, -76.17), lat = c(35.50, 36.27, 36.49))
-nc = st_read(system.file('shape/nc.shp', package='sf'))[, c('FIPS', 'NAME', 'geometry')]
-z = join_spatial(x, nc, id_col='id', lon_col = 'lon', lat_col = 'lat')
-z}
+x = data.table(id = 1:3, lon = c(-82.33, -79.17, -76.17), lat = c(35.50, 36.27, 36.49))
+nc = st_read(system.file("shape/nc.shp", package = "sf"))[, c("FIPS", "NAME", "geometry")]
+z = join_spatial(x, nc, id_col = "id", lon_col = "lon", lat_col = "lat")
+z
+}
 
 }
 \author{

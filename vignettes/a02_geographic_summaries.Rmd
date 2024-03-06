@@ -10,11 +10,9 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
-
 ```
 
 ```{r, load_data, echo=TRUE, eval=TRUE, results = 'hide'}
-
 library(travelSurveyTools)
 library(data.table)
 library(tigris)
@@ -31,27 +29,38 @@ states = states()
 `hts_summary` can summarize geographic variables.
 
 ```{r, county_income, echo=TRUE, eval=TRUE}
-DT = hts_prep_data(summarize_var = 'income_detailed', summarize_by = 'home_county', data = test_data)
+income_county_list = hts_prep_variable(
+  summarize_var = "income_detailed",
+  summarize_by = "home_county",
+  data = test_data
+)
 
-output = hts_summary(prepped_dt = DT$cat, summarize_var = 'income_detailed', summarize_by = 'home_county')
+output = hts_summary(
+  prepped_dt = income_county_list$cat,
+  summarize_var = "income_detailed",
+  summarize_by = "home_county"
+)
 
-factorize_df(output$summary$unwtd, vals_df = value_labels, value_label_colname = 'label')
-
+factorize_df(
+  output$summary$unwtd,
+  vals_df = value_labels,
+  value_label_colname = "label"
+)
 ```
 
-### Using spatial_join to join together separate shapefiles
+### Using join_spatial to join together separate shapefiles
 
-`spatial_join` can link together multiple geographies.
+`join_spatial` can link together multiple geographies.
 
-```{r, spatial_join, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
-
+```{r, join_spatial, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 hh = join_spatial(
-    hh,
-    dplyr::select(states, home_state = NAME),
-    id_col = 'hh_id',
-    lon_col = 'home_lon',
-    lat_col = 'home_lat',
-    largest = TRUE)
+  hh,
+  dplyr::select(states, home_state = NAME),
+  id_col = "hh_id",
+  lon_col = "home_lon",
+  lat_col = "home_lat",
+  largest = TRUE
+)
 
 hh[, .N, home_state]
 ```

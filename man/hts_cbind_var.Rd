@@ -41,14 +41,18 @@ Bind a column from one table to another
 \examples{
 
 require(data.table)
-hts_cbind_var(lhs_table = trip,
- rhs_var = 'speed_mph',
- hts_data = test_data,
-  variable_list = variable_list)
-hts_cbind_var(lhs_table = trip,
- rhs_var = 'speed_mph',
+hts_cbind_var(
+  lhs_table = trip,
+  rhs_var = "speed_mph",
   hts_data = test_data,
-variable_list = variable_list,
- return_weight_cols = TRUE)
+  variable_list = variable_list
+)
+hts_cbind_var(
+  lhs_table = trip,
+  rhs_var = "speed_mph",
+  hts_data = test_data,
+  variable_list = variable_list,
+  return_weight_cols = TRUE
+)
 
 }

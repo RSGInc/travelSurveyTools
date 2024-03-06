@@ -1,4 +1,3 @@
-
 # Load necessary libraries and setup environment
 library(travelSurveyTools)
 library(sf)
@@ -10,9 +9,9 @@ test_dt = data.table(
 )
 
 test_geog = st_read(
-  system.file('shape/nc.shp', package = 'sf'),
+  system.file("shape/nc.shp", package = "sf"),
   quiet = TRUE
-)[, c('FIPS', 'NAME', 'geometry')]
+)[, c("FIPS", "NAME", "geometry")]
 
 test_geog$FIPS = as.character(test_geog$FIPS)
 test_geog$NAME = as.character(test_geog$NAME)
@@ -20,20 +19,22 @@ test_geog$NAME = as.character(test_geog$NAME)
 test_result = cbind(
   test_dt,
   data.table(
-    FIPS = c('37021', '37033', '37053'),
-    NAME = c('Buncombe', 'Caswell', 'Currituck'))
+    FIPS = c("37021", "37033", "37053"),
+    NAME = c("Buncombe", "Caswell", "Currituck")
   )
+)
 
-setkey(test_result, 'id')
+setkey(test_result, "id")
 
-test_that("Returns spatial id columns properly",{
+test_that("Returns spatial id columns properly", {
   expect_equal(
     join_spatial(
       test_dt,
       test_geog,
-      id_col = 'id',
-      lon_col = 'lon',
-      lat_col = 'lat'),
+      id_col = "id",
+      lon_col = "lon",
+      lat_col = "lat"
+    ),
     test_result
   )
 })

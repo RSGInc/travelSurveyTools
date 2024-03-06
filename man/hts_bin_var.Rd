@@ -23,6 +23,6 @@ Bin numeric variables
 
 require(data.table)
 require(stringr)
-hts_bin_var(prepped_dt = trip, numvar = 'speed_mph')
+hts_bin_var(prepped_dt = trip, numvar = "speed_mph")
 
 }

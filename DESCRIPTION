@@ -1,12 +1,13 @@
 Package: travelSurveyTools
 Title: travelSurveyTools
-Version: 2.3.1
+Version: 2.3.5
 Authors@R: c(
     person("RSG", "Inc.", , "rsg@rsginc.com", role = c("aut", "cre")),
     person("Ashley", "Asmus", , "ashley.asmus@rsginc.com", role = "aut"),
     person("Erika", "Redding", , "erika.redding@rsginc.com", role = "aut"),
     person("Jacob", "Moore", , "jacob.moore@rsginc.com", role = "aut"),
-    person("James", "Clark", , "james.clark@rsginc.com", role = "aut")
+    person("James", "Clark", , "james.clark@rsginc.com", role = "aut"),
+    person("Matt", "Landis", , "matt.landis@rsginc.com", role = "aut")
     )
 Description: An R Package To Make Working With And Summarizing Household Travel Survey Data Easier.
 License: GPL (>= 3)
@@ -30,7 +31,7 @@ Suggests:
     tigris
 Config/testthat/edition: 3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 LazyData: true
 VignetteBuilder: knitr
 URL: https://github.com/RSGInc/travelSurveyTools

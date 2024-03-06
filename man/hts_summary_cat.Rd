@@ -60,42 +60,60 @@ require(data.table)
 require(stringr)
 require(dplyr)
 require(srvyr)
-DT = hts_prep_data(summarize_var = 'age',
-                   variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$cat
-hts_summary_cat(prepped_dt = DT,
-                summarize_var = 'age',
-                wtname = 'person_weight')
-                
-DT = hts_prep_data(summarize_var = 'race',
-                   summarize_by = 'employment',
-                   variables_dt = variable_list,
-                   data = list('hh' = hh,
-                               'person' = person,
-                               'day' = day,
-                               'trip' = trip,
-                               'vehicle' = vehicle))$cat
-hts_summary_cat(prepped_dt = DT,
-                summarize_var = 'race',
-                summarize_by = 'employment',
-                wtname = 'person_weight',
-                summarize_vartype = 'checkbox')
-                
-DT = hts_prep_data(summarize_var = 'employment',
-                summarize_by = c('race', 'income_detailed', 'gender'),
-                variables_dt = variable_list,
-                data = list('hh' = hh,
-                            'person' = person,
-                            'day' = day,
-                            'trip' = trip,
-                            'vehicle' = vehicle))$cat
+DT = hts_prep_variable(
+  summarize_var = "age",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)$cat
+hts_summary_cat(
+  prepped_dt = DT,
+  summarize_var = "age",
+  wtname = "person_weight"
+)
 
-hts_summary_cat(prepped_dt = DT,
-                summarize_var = 'employment',
-                summarize_by = c('race', 'income_detailed', 'gender'),
-                wtname = 'person_weight')$unwtd
+DT = hts_prep_variable(
+  summarize_var = "race",
+  summarize_by = "employment",
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)$cat
+hts_summary_cat(
+  prepped_dt = DT,
+  summarize_var = "race",
+  summarize_by = "employment",
+  wtname = "person_weight",
+  summarize_vartype = "checkbox"
+)
+
+DT = hts_prep_variable(
+  summarize_var = "employment",
+  summarize_by = c("race", "income_detailed", "gender"),
+  variables_dt = variable_list,
+  data = list(
+    "hh" = hh,
+    "person" = person,
+    "day" = day,
+    "trip" = trip,
+    "vehicle" = vehicle
+  )
+)$cat
+
+hts_summary_cat(
+  prepped_dt = DT,
+  summarize_var = "employment",
+  summarize_by = c("race", "income_detailed", "gender"),
+  wtname = "person_weight"
+)$unwtd
 }

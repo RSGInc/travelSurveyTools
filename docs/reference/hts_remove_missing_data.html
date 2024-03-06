@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
   </div>
 </li>
 <li class="nav-item">
@@ -126,170 +126,146 @@ is -1.</p></dd>
 <span class="r-in"><span>                        summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
 <span class="r-in"><span>                        summarize_by <span class="op">=</span> <span class="st">'mode_type'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hh</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id sample_segment num_trips num_people income_detailed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173              8        66          4               8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000405             16        80          2              10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000466             16        81          3               5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000799              4        45          2               8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000858             16        10          2              10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  996: 23414932             14         0          1               7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  997: 23416563             14        16          6               7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  998: 23417656              5        11          3              10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  999: 23418585              5         2          2               5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1000: 23422311             14         7          2               8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       income_followup  home_lon home_lat home_county residence_type hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:             995 -94.77477 38.86486           2              1       190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:             995 -91.39139 36.38438           2            997        62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:             995 -89.40941 35.37538           3              4       313</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:             995 -88.98899 36.18819           1              1       425</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:             995 -91.41141 35.99199           3              2        85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id sample_segment income_detailed income_followup  home_lon home_lat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     1             13               7             995 -86.30631 38.48649</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2             16               5             995 -85.72573 39.71972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     3              2               9             995 -83.36336 39.12412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     4              4               8             995 -98.43844 36.68569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     5              1               8             995 -92.89289 34.96897</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  996:             995 -82.72272 35.94294           3              1        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  997:             995 -88.36837 39.86687           1              2        94</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  998:             995 -94.37437 33.04204           1              1       759</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  999:             995 -88.14815 35.20020           2              1       663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1000:             995 -93.57357 37.16216           2              1       888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  996:   996             10               9             995 -86.72673 34.93393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  997:   997             16               5             995 -84.30430 39.09610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  998:   998             13               2             995 -85.66567 35.24224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  999:   999              6               9             995 -98.75876 37.89089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1000:  1000              2               5             995 -90.67067 36.41942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       home_county residence_type num_people num_trips hh_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:           1              4          0         0        54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:           3            995          4        21       478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:           3            995          2        17       760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:           3              1          1         0       754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:           3              2          1         4       839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  996:           1              5          2        18       118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  997:           3              4          3        11        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  998:           1            995          2        15       546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  999:           2              4          1        16       745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1000:           3              4          1        10       133</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $person</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       ethnicity_1 ethnicity_2 ethnicity_3 ethnicity_4 ethnicity_997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:           1           0           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:         995         995         995         995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:         995         995         995         995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:           1           0           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:           1           0           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980:         995         995         995         995           995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981:           0           1           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982:           0           1           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983:           1           0           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984:           1           0           0           0             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       ethnicity_999 race_1 race_2 race_3 race_4 race_5 race_997 race_999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:             0      0      0      0      0      1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:           995    995    995    995    995    995      995      995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:           995    995    995    995    995    995      995      995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:             0      0      0      0      0      1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:             0      0      0      0      0      1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980:           995    995    995    995    995    995      995      995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981:             0      0      0      0      0      1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982:             0      0      0      0      0      1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983:             0      0      0      0      0      0        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984:             0      0      0      0      0      0        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id num_trips  person_id age gender employment job_type education</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173        21 2300017301   7      2          1        5         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173         5 2300017302   3      2          5      995       995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173         2 2300017303   2      2        995      995       995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000173        38 2300017304   6      1          3        1         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000405        30 2300040501   5      2          1        5         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980: 23417656         3 2341765603   1      1        995      995       995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981: 23418585         2 2341858501   8      2          1        1         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982: 23418585         0 2341858502   8      1          2        1         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983: 23422311         3 2342231101   8      1          7        3         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984: 23422311         4 2342231102   8      2          5      995         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       person_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:           196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:           671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:           577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:           688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:           609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1980:           878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1981:           586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1982:           199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1983:           546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1984:           617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       person_id ethnicity_1 ethnicity_2 ethnicity_3 ethnicity_4 ethnicity_997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:         1           0           1           1           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:         2           1           0           0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:         3           0           0           0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:         4           0           0           0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:         5           0           1           1           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:      2043           1           0           0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:      2044           1           0           0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:      2045           0           0           0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:      2046           0           0           0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:      2047           0           0           0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       ethnicity_999 race_1 race_2 race_3 race_4 race_5 race_997 race_999 hh_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:             0      0      0      0      0      0        0        1   356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:             0      1      1      0      0      0        1        0   724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:             1      0      1      0      1      1        1        0   681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:             1      0      0      0      0      0        0        1   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:             0      0      0      0      0      0        0        1   165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:             0      0      0      1      1      0        0        0   931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:             0      0      0      0      0      0        0        1   667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:             1      0      0      0      0      0        0        1   543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:             0      0      0      0      0      0        0        1   749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:             1      0      0      0      0      0        0        1   364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       age gender employment job_type education num_trips person_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  10      2          1        1         6        12           229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  11      2          3      995         2         0           128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:   7      2        995      995         3        10           888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:   2    999        995      995         6         8           350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  10    995          2        1         4         4           825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:   7    995          1        1       995         8           116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:   1    995          1        1       995        12           122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:   3      1          1        5         3         0           494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:  11      2          1        5         6        11           874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:  11    995          5      995         3         0           393</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $day</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       delivery_2 delivery_3 delivery_4 delivery_5 delivery_6 delivery_7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:          0          0          0          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4289:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4290:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4291:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4292:          0          0          0          1          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4293:        995        995        995        995        995        995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       delivery_8 delivery_996    hh_id num_trips  person_id       day_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:          0            1 23000173         0 2300017301 230001730101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:        995          995 23000173        NA 2300017302 230001730201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:        995          995 23000173        NA 2300017303 230001730301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:          0            1 23000173         3 2300017304 230001730401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:          0            1 23000173         4 2300017301 230001730102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4289:        995          995 23417656         3 2341765603 234176560301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4290:          0            0 23418585         2 2341858501 234185850101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4291:        995          995 23418585         0 2341858502 234185850201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4292:          0            0 23422311         3 2342231101 234223110101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4293:        995          995 23422311         4 2342231102 234223110201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       travel_date begin_day end_day day_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  2023-04-19         1       1        694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  2023-04-19       995     995         90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:  2023-04-19       995     995        728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:  2023-04-19         1       1        507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  2023-04-20         1       1        296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4289:  2023-06-06         1       1        971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4290:  2023-06-06         1       1        892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4291:  2023-06-06         1       1        268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4292:  2023-06-01         1       1        161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4293:  2023-06-01         1       1        350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       day_id person_id delivery_2 delivery_3 delivery_4 delivery_5 delivery_6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:      1       820        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:      2        24          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:      3      1866          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:      4      1915        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:      5       415          0          0          0          1          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4121:   4121      1321          0          1          0          1          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4122:   4122      1619          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4123:   4123       886        995        995        995        995        995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4124:   4124       964          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4125:   4125      1684          0          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       delivery_7 delivery_8 delivery_996 travel_date begin_day end_day hh_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:        995        995          995  2023-05-28         1       1   642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:          0          0            1  2023-05-23         1       1    24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:          0          0            1  2023-05-25         1       1   888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:        995        995          995  2023-04-17         1       1   875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:          0          0            0  2023-05-26         1       1   976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4121:          0          0            0  2023-05-20         1       1   595</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4122:          0          0            1  2023-04-09         1       1    47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4123:        995        995          995  2023-04-12       995     995   474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4124:          0          0            1  2023-04-22         1       1   764</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4125:          0          0            1  2023-05-30         1       1   876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips day_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:         5        583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:         5        220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:         2         73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:         6         63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:         3        139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4121:         1        755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4122:         5        996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4123:         5        818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4124:         2        460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4125:         5        762</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $trip</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           hh_id  person_id       day_id travel_date      trip_id speed_mph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 21.480572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12 23.720178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.927242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 23000173 2300017301 230001730102  2023-04-20 2.300017e+12  6.146634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 23000173 2300017301 230001730103  2023-04-21 2.300017e+12 34.657421</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15362: 23422311 2342231101 234223110101  2023-06-01 2.342231e+12 25.812478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15363: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 16.040986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15364: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 26.901306</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15365: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 16.720703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15366: 23422311 2342231102 234223110201  2023-06-01 2.342231e+12 25.812478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        distance_miles mode_type mode_1 mode_2 num_travelers d_purpose_category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:       4.755560         8      7    995             2                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:       4.856047         8      7    995             3                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       1.516296         1      1    995             1                  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       1.393237         1      1    995             1                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       8.933913         8      7    995             1                  3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15362:      20.219774         8      6    995             2                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15363:       6.683744         8      7    995             1                 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15364:      20.175979         8      7    995             1                 13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15365:       5.573568         8      6    995             2                  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15366:      20.219774         8      6    995             2                  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:         968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:         906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:         387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:          64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15362:         624</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15363:         322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15364:          22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15365:         596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15366:          95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph distance_miles mode_type mode_1 mode_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6848  0.3570582     0.07736261         8      6    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6099  3.8030030     0.31691692         8     34    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1   15759  9.2827577     0.16244826         1      1    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      1   13883 10.7289440    10.72894403        13      2     23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      1    9240  1.3936891     0.47308002         2      2    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15449:   4125    4505 16.3377147     3.23577517         8      6    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15450:   4125    7897 42.9297111    22.65734754         8      6    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15451:   4125     719  1.5648402     7.77203953         1      1    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15452:   4125   14260 10.5795319     1.76325532         8      7    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15453:   4125    4397  8.5320851     1.42201419         8     34    995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        num_travelers d_purpose_category hh_id person_id travel_date trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:             1                  7   642       820  2023-05-28         957</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:             2                  7   642       820  2023-05-28         237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:             1                  9   642       820  2023-05-28         287</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:             1                 11   642       820  2023-05-28         361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:             1                  1   642       820  2023-05-28         578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15449:             1                 12   876      1684  2023-05-30         999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15450:             1                  2   876      1684  2023-05-30         167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15451:             1                 12   876      1684  2023-05-30         954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15452:             1                  2   876      1684  2023-05-30         841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15453:             2                  7   876      1684  2023-05-30         977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vehicle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          hh_id vehicle_id fuel_type hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 23000173 2300017301         1       190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 23000173 2300017302         1       190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 23000173 2300017303         1       190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 23000405 2300040501         1        62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 23000466 2300046601         1       313</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1384: 23417656 2341765601         1       759</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1385: 23418585 2341858501         1       663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1386: 23418585 2341858502         1       663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1387: 23422311 2342231101         4       888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1388: 23422311 2342231102         1       888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id vehicle_id fuel_type hh_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     1       1103         1        54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2        521         1       478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       1356         1       478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     3       1210         1       760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     6       1394         1       987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1430:   998        520         1       546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1431:   998       1141         1       546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432:   999        659         1       745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1433:   999        108         1       745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1434:  1000       1031         1       133</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -299,7 +275,7 @@ is -1.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark.</p>
+  <p></p><p>Developed by RSG Inc., Ashley Asmus, Erika Redding, Jacob Moore, James Clark, Matt Landis.</p>
 </div>
 
 <div class="pkgdown-footer-right">

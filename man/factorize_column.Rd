@@ -64,7 +64,7 @@ factored = factorize_column(
   var_str = "income_detailed",
   vals_df = value_labels,
   extra_labels = "Missing",
-  value_label_colname = 'label'
+  value_label_colname = "label"
 )
 
 }
