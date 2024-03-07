@@ -130,7 +130,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     }
   }
   
-  # If summarize_by is in day and trip set location to trip for correct merge
+  # If summarize_by is in day and trip set location to day for correct merge
   day_trip_vars = variables_dt[
     shared_name %in% summarize_by &
       get(day_name) == 1 & 
