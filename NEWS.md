@@ -1,5 +1,9 @@
 # travelSurveyTools 2.3.6
 
+- Fixing `hts_prep_triprate` to properly calculate days with zero trips.
+
+# travelSurveyTools 2.3.6
+
 - Fixing bug in `hts_prep_triprate` for variables that appear in trip and day tables.
 
 # travelSurveyTools 2.3.5

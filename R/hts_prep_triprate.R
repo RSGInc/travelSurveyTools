@@ -171,7 +171,7 @@ if (length(summarize_by) > 0) {
   }
   
   if (!weighted) {
-    triprate_dt = triprate_dt[, .(num_trips = .N),
+    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(trip_id)))),
                               by = triprate_cols_all
     ]
   }
