@@ -1,3 +1,7 @@
+# travelSurveyTools 2.3.6
+
+- Fixing bug in `hts_prep_triprate` for variables that appear in trip and day tables.
+
 # travelSurveyTools 2.3.5
 
 - Change name of `hts_prep_data` to `hts_prep_variable`
