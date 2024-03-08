@@ -3,10 +3,10 @@ title: "Creating summaries of trip rates"
 description: >
 output: html_vignette
 vignette: >
-%\VignetteIndexEntry{Creating summaries of trip rates}
+  %\VignetteIndexEntry{Creating summaries of trip rates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  ---
+---
   
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)

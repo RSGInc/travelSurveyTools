@@ -26,7 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a01_getting_started.html">Getting Started</a>
     <a class="dropdown-item" href="../articles/a02_geographic_summaries.html">Creating user-specified geographic summaries</a>
-    <a class="dropdown-item" href="../articles/a03_trip_rates.html">UNKNOWN TITLE</a>
+    <a class="dropdown-item" href="../articles/a03_trip_rates.html">Creating summaries of trip rates</a>
   </div>
 </li>
 <li class="nav-item">
@@ -153,6 +153,7 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: dplyr</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'dplyr' was built under R version 4.3.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'dplyr'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:data.table':</span>
@@ -166,52 +167,71 @@ and output$n_ls$unwtd.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: srvyr</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'srvyr' was built under R version 4.3.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'srvyr'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:stats':</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
-<span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
-<span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
-<span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
-<span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'age'</span>,</span></span>
-<span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'employment'</span>,</span></span>
-<span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'categorical'</span>,</span></span>
-<span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"employment"</span>,</span></span>
+<span class="r-in"><span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"hh"</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"person"</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"day"</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"trip"</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"vehicle"</span> <span class="op">=</span> <span class="va">vehicle</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"employment"</span>,</span></span>
+<span class="r-in"><span>  summarize_vartype <span class="op">=</span> <span class="st">"categorical"</span>,</span></span>
+<span class="r-in"><span>  wtname <span class="op">=</span> <span class="st">"person_weight"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
-<span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'age'</span>, </span></span>
-<span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
-<span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">num</span></span></span>
-<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
-<span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'speed_mph'</span>,</span></span>
-<span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
-<span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'numeric'</span>,</span></span>
-<span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'trip_weight'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"hh"</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"person"</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"day"</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"trip"</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"vehicle"</span> <span class="op">=</span> <span class="va">vehicle</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="va">num</span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  summarize_vartype <span class="op">=</span> <span class="st">"numeric"</span>,</span></span>
+<span class="r-in"><span>  wtname <span class="op">=</span> <span class="st">"trip_weight"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span>summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
-<span class="r-in"><span>                   summarize_by <span class="op">=</span> <span class="st">'age'</span>, </span></span>
-<span class="r-in"><span>                   variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
-<span class="r-in"><span>                   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'hh'</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'person'</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'day'</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'trip'</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">'vehicle'</span> <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
-<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span>prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
-<span class="r-in"><span>              summarize_var <span class="op">=</span> <span class="st">'race'</span>,</span></span>
-<span class="r-in"><span>              summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
-<span class="r-in"><span>              summarize_vartype <span class="op">=</span> <span class="st">'checkbox'</span>,</span></span>
-<span class="r-in"><span>              wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span>             </span></span>
+<span class="r-in"><span><span class="va">DT</span> <span class="op">=</span> <span class="fu"><a href="hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"race"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"hh"</span> <span class="op">=</span> <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"person"</span> <span class="op">=</span> <span class="va">person</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"day"</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"trip"</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"vehicle"</span> <span class="op">=</span> <span class="va">vehicle</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="va">cat</span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">=</span> <span class="fu">hts_summary</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  prepped_dt <span class="op">=</span> <span class="va">DT</span>,</span></span>
+<span class="r-in"><span>  summarize_var <span class="op">=</span> <span class="st">"race"</span>,</span></span>
+<span class="r-in"><span>  summarize_by <span class="op">=</span> <span class="st">"age"</span>,</span></span>
+<span class="r-in"><span>  summarize_vartype <span class="op">=</span> <span class="st">"checkbox"</span>,</span></span>
+<span class="r-in"><span>  wtname <span class="op">=</span> <span class="st">"person_weight"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

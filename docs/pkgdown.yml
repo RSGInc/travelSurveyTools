@@ -1,11 +1,11 @@
-pandoc: 3.1.1
+pandoc: 3.1.5
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   a01_getting_started: a01_getting_started.html
   a02_geographic_summaries: a02_geographic_summaries.html
   a03_trip_rates: a03_trip_rates.html
-last_built: 2024-02-29T16:08Z
+last_built: 2024-03-06T23:03Z
 urls:
   reference: https://rsginc.github.io/travelSurveyTools/reference
   article: https://rsginc.github.io/travelSurveyTools/articles
