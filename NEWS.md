@@ -1,3 +1,8 @@
+# travelSurveyTools 2.3.8
+
+- Add column in `hts_prep_triprate` for weighted trip count. 
+
+
 # travelSurveyTools 2.3.6
 
 - Fixing `hts_prep_triprate` to properly calculate days with zero trips.
