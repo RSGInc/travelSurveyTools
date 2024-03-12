@@ -230,7 +230,8 @@ if (length(summarize_by) > 0) {
     triprate_dt[, trip_rate :=
                   ifelse(num_trips == 0, 0, num_trips / get(day_wt))]
     
-    triprate_dt[, num_trips := NULL]
+    # Save counts of trips under a different name
+    setnames(triprate_dt, "num_trips", "trip_count_wtd")
     
     setnames(triprate_dt, "trip_rate", "num_trips")
   }
