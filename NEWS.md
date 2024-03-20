@@ -1,5 +1,9 @@
 # travelSurveyTools 2.3.8
 
+- Fix join in  `hts_prep_triprate` to properly count days when summarize_by is trip variable. 
+
+# travelSurveyTools 2.3.8
+
 - Add column in `hts_prep_triprate` for weighted trip count. 
 
 
