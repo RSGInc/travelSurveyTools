@@ -156,7 +156,7 @@ if (length(summarize_by) > 0) {
   
   merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
   
-  triprate_dt = merge(trip_control, byvar_dt, by = merge_cols)
+  triprate_dt = merge(trip_control, byvar_dt, by = merge_cols, all.x = TRUE)
   
   triprate_cols = intersect(names(triprate_dt), c(ids, wts))
   
