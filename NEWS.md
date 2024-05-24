@@ -1,3 +1,7 @@
+# travelSurveyTools 2.4.0
+
+- Add wrapper function `'hts_summary_wrapper` to run hts_prep_triprate/variable and hts_summary
+
 # travelSurveyTools 2.3.8
 
 - Fix join in  `hts_prep_triprate` to properly count days when summarize_by is trip variable. 
