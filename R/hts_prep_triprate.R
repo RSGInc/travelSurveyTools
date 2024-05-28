@@ -47,7 +47,7 @@
 #'     "day" = day,
 #'     "trip" = trip,
 #'     "vehicle" = vehicle
-#'   ), weighted = FALSE
+#'   )
 #' )
 hts_prep_triprate = function(summarize_by = NULL,
                              variables_dt = variable_list,
