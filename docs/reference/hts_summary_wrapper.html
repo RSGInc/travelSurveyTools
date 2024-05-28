@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,7 @@
 <span>  summarize_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
+<span>  vals_df <span class="op">=</span> <span class="va">value_labels</span>,</span>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>hh <span class="op">=</span> <span class="va">hh</span>, person <span class="op">=</span> <span class="va">person</span>, day <span class="op">=</span> <span class="va">day</span>, trip <span class="op">=</span> <span class="va">trip</span>, vehicle <span class="op">=</span> <span class="va">vehicle</span><span class="op">)</span>,</span>
 <span>  id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hh_id"</span>, <span class="st">"person_id"</span>, <span class="st">"day_id"</span>, <span class="st">"trip_id"</span>, <span class="st">"vehicle_id"</span><span class="op">)</span>,</span>
 <span>  weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -74,6 +75,7 @@
 <span>  wtname <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  checkbox_valname <span class="op">=</span> <span class="st">"value"</span>,</span>
 <span>  checkbox_yesval <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  value_label_colname <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>  remove_outliers <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">0.975</span>,</span>
 <span>  remove_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -96,6 +98,12 @@ Default is NULL.</p></dd>
 <dt>variables_dt</dt>
 <dd><p>List of variable locations and descriptions in data.table
 format.</p></dd>
+
+
+<dt>vals_df</dt>
+<dd><p>A dataframe of variable labels (i.e., factor levels and
+labels) with the format as specified below. Passed to factorize_column
+function.</p></dd>
 
 
 <dt>data</dt>
@@ -145,6 +153,10 @@ Must be provided if summarize_var is a checkbox variable.</p></dd>
 <dt>checkbox_yesval</dt>
 <dd><p>Value of checkbox_valname that indicates it was selected.
 Default is 1. Must be provided if summarize_var is a checkbox variable.</p></dd>
+
+
+<dt>value_label_colname</dt>
+<dd><p>The name of the value label column in vals_df. Default is 'value_label'</p></dd>
 
 
 <dt>remove_outliers</dt>
@@ -211,168 +223,494 @@ and output$n_ls$unwtd.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age employment count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1          1    68 0.444444444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   1          2    16 0.104575163</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   1          3     9 0.058823529</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   1          5    50 0.326797386</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   1          6     8 0.052287582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   1          7     1 0.006535948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   1          8     1 0.006535948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   2          1    73 0.540740741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   2          2    12 0.088888889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   2          3     8 0.059259259</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   2          5    36 0.266666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   2          6     4 0.029629630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   2          7     1 0.007407407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   2          8     1 0.007407407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   3          1    77 0.538461538</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:   3          2     6 0.041958042</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:   3          3     8 0.055944056</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:   3          5    37 0.258741259</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:   3          6     7 0.048951049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:   3          7     4 0.027972028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:   3          8     4 0.027972028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:   4          1    82 0.546666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:   4          2    12 0.080000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:   4          3     3 0.020000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:   4          5    43 0.286666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:   4          6     9 0.060000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:   4          8     1 0.006666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:   5          1    80 0.522875817</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:   5          2    10 0.065359477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:   5          3    11 0.071895425</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   5          5    42 0.274509804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:   5          6     6 0.039215686</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:   5          7     3 0.019607843</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   5          8     1 0.006535948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:   6          1    70 0.503597122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:   6          2    14 0.100719424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   6          3     6 0.043165468</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:   6          5    42 0.302158273</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   6          6     5 0.035971223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:   6          8     2 0.014388489</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   7          1    78 0.516556291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:   7          2    10 0.066225166</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:   7          3    10 0.066225166</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:   7          5    44 0.291390728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:   7          6     8 0.052980132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:   7          8     1 0.006622517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:   8          1    79 0.484662577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:   8          2    15 0.092024540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:   8          3    13 0.079754601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:   8          5    51 0.312883436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:   8          6     4 0.024539877</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:   8          7     1 0.006134969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:   9          1    69 0.496402878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:   9          2    14 0.100719424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:   9          3    11 0.079136691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:   9          5    36 0.258992806</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:   9          6     5 0.035971223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:   9          7     1 0.007194245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:   9          8     3 0.021582734</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:  10          1    68 0.515151515</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:  10          2    10 0.075757576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:  10          3     9 0.068181818</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63:  10          5    32 0.242424242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64:  10          6    10 0.075757576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65:  10          7     2 0.015151515</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66:  10          8     1 0.007575758</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67:  11          1    82 0.512500000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68:  11          2    15 0.093750000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69:  11          3    13 0.081250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70:  11          5    40 0.250000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71:  11          6     8 0.050000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72:  11          7     1 0.006250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73:  11          8     1 0.006250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74:  12          1    71 0.467105263</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75:  12          2    17 0.111842105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76:  12          3     9 0.059210526</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77:  12          5    48 0.315789474</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78:  12          6     7 0.046052632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age employment count        prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                   &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     count        prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:    68 0.444444444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:    16 0.104575163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     9 0.058823529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:    50 0.326797386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     8 0.052287582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     1 0.006535948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     1 0.006535948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:    73 0.540740741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:    12 0.088888889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:     8 0.059259259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    36 0.266666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:     4 0.029629630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:     1 0.007407407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:     1 0.007407407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:    77 0.538461538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:     6 0.041958042</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:     8 0.055944056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:    37 0.258741259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:     7 0.048951049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:     4 0.027972028</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:     4 0.027972028</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:    82 0.546666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:    12 0.080000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:     3 0.020000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:    43 0.286666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:     9 0.060000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:     1 0.006666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:    80 0.522875817</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:    10 0.065359477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:    11 0.071895425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:    42 0.274509804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:     6 0.039215686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:     3 0.019607843</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:     1 0.006535948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:    70 0.503597122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:    14 0.100719424</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:     6 0.043165468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:    42 0.302158273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:     5 0.035971223</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:     2 0.014388489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:    78 0.516556291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:    10 0.066225166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:    10 0.066225166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:    44 0.291390728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:     8 0.052980132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:     1 0.006622517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:    79 0.484662577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:    15 0.092024540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:    13 0.079754601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:    51 0.312883436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:     4 0.024539877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:     1 0.006134969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:    69 0.496402878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:    14 0.100719424</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:    11 0.079136691</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:    36 0.258992806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:     5 0.035971223</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:     1 0.007194245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:     3 0.021582734</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:    68 0.515151515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:    10 0.075757576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:     9 0.068181818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:    32 0.242424242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:    10 0.075757576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:     2 0.015151515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:     1 0.007575758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:    82 0.512500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:    15 0.093750000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:    13 0.081250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70:    40 0.250000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:     8 0.050000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:     1 0.006250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:     1 0.006250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74:    71 0.467105263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75:    17 0.111842105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76:     9 0.059210526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77:    48 0.315789474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78:     7 0.046052632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     count        prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age employment count        prop   est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1          1    68 0.431768082 35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   1          2    16 0.116033054  9422</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   1          3     9 0.076045862  6175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   1          5    50 0.291708230 23687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   1          6     8 0.062179037  5049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   1          7     1 0.009987562   811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   1          8     1 0.012278174   997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   2          1    73 0.510666817 31621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   2          2    12 0.108509230  6719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   2          3     8 0.078115664  4837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   2          5    36 0.239159574 14809</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   2          6     4 0.045428853  2813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   2          7     1 0.002696985   167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   2          8     1 0.015422878   955</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   3          1    77 0.522054934 40465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:   3          2     6 0.045696740  3542</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:   3          3     8 0.043503503  3372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:   3          5    37 0.262814310 20371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:   3          6     7 0.055463096  4299</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:   3          7     4 0.037710777  2923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:   3          8     4 0.032756641  2539</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:   4          1    82 0.518540589 38288</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:   4          2    12 0.112679108  8320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:   4          3     3 0.019542783  1443</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:   4          5    43 0.276131531 20389</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:   4          6     9 0.069002411  5095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:   4          8     1 0.004103578   303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:   5          1    80 0.516957618 43472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:   5          2    10 0.065618608  5518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:   5          3    11 0.079603292  6694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   5          5    42 0.284759549 23946</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:   5          6     6 0.025995338  2186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:   5          7     3 0.015768444  1326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   5          8     1 0.011297151   950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:   6          1    70 0.539207351 36149</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:   6          2    14 0.081741024  5480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   6          3     6 0.041168837  2760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:   6          5    42 0.288480184 19340</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   6          6     5 0.042183142  2828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:   6          8     2 0.007219463   484</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   7          1    78 0.527234938 39066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:   7          2    10 0.050704491  3757</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:   7          3    10 0.093432844  6923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:   7          5    44 0.274333297 20327</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:   7          6     8 0.048342691  3582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:   7          8     1 0.005951738   441</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:   8          1    79 0.479060279 35461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:   8          2    15 0.092337413  6835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:   8          3    13 0.080030261  5924</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:   8          5    51 0.313825619 23230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:   8          6     4 0.030355840  2247</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:   8          7     1 0.004390587   325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:   9          1    69 0.531648697 36587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:   9          2    14 0.078191752  5381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:   9          3    11 0.075212880  5176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:   9          5    36 0.245706065 16909</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:   9          6     5 0.043418873  2988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:   9          7     1 0.005725246   394</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:   9          8     3 0.020096486  1383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:  10          1    68 0.459676752 33333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:  10          2    10 0.088479466  6416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:  10          3     9 0.081956588  5943</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63:  10          5    32 0.251937557 18269</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64:  10          6    10 0.082094492  5953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65:  10          7     2 0.022243980  1613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66:  10          8     1 0.013611165   987</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67:  11          1    82 0.517030042 45555</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68:  11          2    15 0.108082035  9523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69:  11          3    13 0.070344687  6198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70:  11          5    40 0.260722514 22972</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71:  11          6     8 0.031790169  2801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72:  11          7     1 0.010759400   948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73:  11          8     1 0.001271153   112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74:  12          1    71 0.462725456 36584</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75:  12          2    17 0.106701070  8436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76:  12          3     9 0.063886570  5051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77:  12          5    48 0.316789355 25046</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78:  12          6     7 0.049897549  3945</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age employment count        prop   est</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     Under 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        5-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:       12-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:       16-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:       18-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:       25-34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:       35-44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:       45-54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:       55-64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:       65-74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:       75-84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78: 85 or older</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                   &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:                                                          Unpaid volunteer or intern</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74:                                           Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75:                                 Employed part-time (fewer than 35 hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76:                                                                       Self-employed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77: Not employed and not looking for work (e.g., retired, stay-at-home parent, student)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78:                                                     Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     count        prop   est</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt;       &lt;num&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:    68 0.431768082 35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:    16 0.116033054  9422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     9 0.076045862  6175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:    50 0.291708230 23687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     8 0.062179037  5049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     1 0.009987562   811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     1 0.012278174   997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:    73 0.510666817 31621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:    12 0.108509230  6719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:     8 0.078115664  4837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    36 0.239159574 14809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:     4 0.045428853  2813</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:     1 0.002696985   167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:     1 0.015422878   955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:    77 0.522054934 40465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:     6 0.045696740  3542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:     8 0.043503503  3372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:    37 0.262814310 20371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:     7 0.055463096  4299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:     4 0.037710777  2923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:     4 0.032756641  2539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:    82 0.518540589 38288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:    12 0.112679108  8320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:     3 0.019542783  1443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:    43 0.276131531 20389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:     9 0.069002411  5095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:     1 0.004103578   303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:    80 0.516957618 43472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:    10 0.065618608  5518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:    11 0.079603292  6694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:    42 0.284759549 23946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:     6 0.025995338  2186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:     3 0.015768444  1326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:     1 0.011297151   950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:    70 0.539207351 36149</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:    14 0.081741024  5480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:     6 0.041168837  2760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:    42 0.288480184 19340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:     5 0.042183142  2828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:     2 0.007219463   484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:    78 0.527234938 39066</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:    10 0.050704491  3757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:    10 0.093432844  6923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:    44 0.274333297 20327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:     8 0.048342691  3582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:     1 0.005951738   441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:    79 0.479060279 35461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:    15 0.092337413  6835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:    13 0.080030261  5924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:    51 0.313825619 23230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:     4 0.030355840  2247</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:     1 0.004390587   325</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:    69 0.531648697 36587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:    14 0.078191752  5381</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:    11 0.075212880  5176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:    36 0.245706065 16909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:     5 0.043418873  2988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:     1 0.005725246   394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:     3 0.020096486  1383</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:    68 0.459676752 33333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:    10 0.088479466  6416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:     9 0.081956588  5943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:    32 0.251937557 18269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:    10 0.082094492  5953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:     2 0.022243980  1613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:     1 0.013611165   987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:    82 0.517030042 45555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:    15 0.108082035  9523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:    13 0.070344687  6198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70:    40 0.260722514 22972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:     8 0.031790169  2801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:     1 0.010759400   948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:     1 0.001271153   112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74:    71 0.462725456 36584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75:    17 0.106701070  8436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76:     9 0.063886570  5051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77:    48 0.316789355 25046</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78:     7 0.049897549  3945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     count        prop   est</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
@@ -406,44 +744,73 @@ and output$n_ls$unwtd.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      age employment                                      race count      prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:   1          1                 African American or Black    19 0.2794118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:   1          1          American Indian or Alaska Native    18 0.2647059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:   1          1                                     Asian    21 0.3088235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:   1          1 Native Hawaiian or other Pacific Islander    20 0.2941176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:   1          1                                     White    19 0.2794118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 427:  12          6          American Indian or Alaska Native     2 0.2857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 428:  12          6                                     Asian     2 0.2857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 429:  12          6 Native Hawaiian or other Pacific Islander     2 0.2857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 430:  12          6                                     White     2 0.2857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 431:  12          6                      Prefer not to answer     3 0.4285714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              age                                employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;ord&gt;                                     &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 428: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 429: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 430: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 431: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           race count      prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         &lt;fctr&gt; &lt;int&gt;     &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                 African American or Black    19 0.2794118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:          American Indian or Alaska Native    18 0.2647059</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                     Asian    21 0.3088235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: Native Hawaiian or other Pacific Islander    20 0.2941176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                     White    19 0.2794118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427:          American Indian or Alaska Native     2 0.2857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 428:                                     Asian     2 0.2857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 429: Native Hawaiian or other Pacific Islander     2 0.2857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 430:                                     White     2 0.2857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 431:                      Prefer not to answer     3 0.4285714</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      age employment                                      race count      prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:   1          1                 African American or Black    19 0.2678266</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:   1          1          American Indian or Alaska Native    18 0.2697946</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:   1          1                                     Asian    21 0.2495722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:   1          1 Native Hawaiian or other Pacific Islander    20 0.2790645</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:   1          1                                     White    19 0.2383058</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 427:  12          6          American Indian or Alaska Native     2 0.2094723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 428:  12          6                                     Asian     2 0.2094723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 429:  12          6 Native Hawaiian or other Pacific Islander     2 0.3161028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 430:  12          6                      Prefer not to answer     3 0.5412720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 431:  12          6                                     White     2 0.3918809</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       est wtd_group_n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 9390       35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 9459       35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 8750       35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 9784       35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 8355       35060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 427:  774        3695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 428:  774        3695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 429: 1168        3695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 430: 2000        3695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 431: 1448        3695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              age                                employment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;ord&gt;                                     &lt;ord&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:     Under 5 Employed full-time (35+ hours/week, paid)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 428: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 429: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 430: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 431: 85 or older           Unemployed and looking for work</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           race count      prop   est</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         &lt;fctr&gt; &lt;int&gt;     &lt;num&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                 African American or Black    19 0.2678266  9390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:          American Indian or Alaska Native    18 0.2697946  9459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                     Asian    21 0.2495722  8750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: Native Hawaiian or other Pacific Islander    20 0.2790645  9784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                     White    19 0.2383058  8355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427:          American Indian or Alaska Native     2 0.2094723   774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 428:                                     Asian     2 0.2094723   774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 429: Native Hawaiian or other Pacific Islander     2 0.3161028  1168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 430:                      Prefer not to answer     3 0.5412720  2000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 431:                                     White     2 0.3918809  1448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      wtd_group_n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:       35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:       35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:       35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:       35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:       35060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427:        3695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 428:        3695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 429:        3695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 430:        3695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 431:        3695</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$weight_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
@@ -457,204 +824,113 @@ and output$n_ls$unwtd.</p>
 <span class="r-in"><span><span class="fu">hts_summary_wrapper</span><span class="op">(</span></span></span>
 <span class="r-in"><span>summarize_var <span class="op">=</span> <span class="st">'num_trips'</span>,</span></span>
 <span class="r-in"><span>summarize_by <span class="op">=</span> <span class="st">'age'</span>,</span></span>
-<span class="r-in"><span>wtname <span class="op">=</span> <span class="st">'person_weight'</span><span class="op">)</span></span></span>
+<span class="r-in"><span>weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls$unwtd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls$unwtd$`Count of unique hh_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 819</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls$unwtd$`Count of unique person_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1733</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls$unwtd$`Count of unique day_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3958</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$n_ls$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sum of person_weight </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              2052306 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age  num_trips count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1  Exactly 0     9 0.024861878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   1        0-7   256 0.707182320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   1       7-14    55 0.151933702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   1      14-21    16 0.044198895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   1      21-28    14 0.038674033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   1      28-34     2 0.005524862</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   1 34 or more    10 0.027624309</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   2  Exactly 0     4 0.013698630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   2        0-7   216 0.739726027</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   2       7-14    40 0.136986301</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   2      14-21    15 0.051369863</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   2      21-28     7 0.023972603</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   2      28-34     1 0.003424658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   2 34 or more     9 0.030821918</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   3  Exactly 0     6 0.019672131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:   3        0-7   227 0.744262295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:   3       7-14    42 0.137704918</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:   3      14-21    14 0.045901639</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:   3      21-28     6 0.019672131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:   3      28-34     4 0.013114754</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:   3 34 or more     6 0.019672131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:   4  Exactly 0     9 0.025069638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:   4        0-7   258 0.718662953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:   4       7-14    42 0.116991643</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:   4      14-21    16 0.044568245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:   4      21-28    15 0.041782730</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:   4      28-34     7 0.019498607</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:   4 34 or more    12 0.033426184</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:   5  Exactly 0     5 0.014084507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:   5        0-7   262 0.738028169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   5       7-14    47 0.132394366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:   5      14-21    21 0.059154930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:   5      21-28     8 0.022535211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   5      28-34     6 0.016901408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:   5 34 or more     6 0.016901408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:   6  Exactly 0     9 0.026011561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   6        0-7   248 0.716763006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:   6       7-14    50 0.144508671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   6      14-21    17 0.049132948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:   6      21-28     7 0.020231214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   6      28-34     5 0.014450867</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:   6 34 or more    10 0.028901734</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:   7  Exactly 0     3 0.008645533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:   7        0-7   247 0.711815562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:   7       7-14    54 0.155619597</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:   7      14-21    21 0.060518732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:   7      21-28     9 0.025936599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:   7      28-34     3 0.008645533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:   7 34 or more    10 0.028818444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:   8  Exactly 0     3 0.009375000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:   8        0-7   242 0.756250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:   8       7-14    42 0.131250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:   8      14-21    14 0.043750000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:   8      21-28    10 0.031250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:   8      28-34     4 0.012500000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:   8 34 or more     5 0.015625000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:   9  Exactly 0     7 0.021943574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:   9        0-7   250 0.783699060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:   9       7-14    33 0.103448276</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:   9      14-21     9 0.028213166</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:   9      21-28    11 0.034482759</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:   9      28-34     2 0.006269592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63:   9 34 or more     7 0.021943574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64:  10  Exactly 0     8 0.026143791</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65:  10        0-7   198 0.647058824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66:  10       7-14    62 0.202614379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67:  10      14-21    19 0.062091503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68:  10      21-28     5 0.016339869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69:  10      28-34     4 0.013071895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70:  10 34 or more    10 0.032679739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71:  11  Exactly 0     8 0.022408964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72:  11        0-7   259 0.725490196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73:  11       7-14    54 0.151260504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74:  11      14-21    14 0.039215686</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75:  11      21-28     9 0.025210084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76:  11      28-34     4 0.011204482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77:  11 34 or more     9 0.025210084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78:  12  Exactly 0     8 0.022662890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79:  12        0-7   263 0.745042493</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80:  12       7-14    42 0.118980170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81:  12      14-21    17 0.048158640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82:  12      21-28     9 0.025495751</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83:  12      28-34     8 0.022662890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84:  12 34 or more     6 0.016997167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age  num_trips count        prop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age  num_trips count         prop    est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1  Exactly 0     9 0.0224548112   4102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   1        0-7   256 0.7452074141 136133</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   1       7-14    55 0.1323531022  24178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   1      14-21    16 0.0453968184   8293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   1      21-28    14 0.0308904192   5643</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   1      28-34     2 0.0006185748    113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   1 34 or more    10 0.0230788601   4216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   2  Exactly 0     4 0.0137997083   1902</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   2        0-7   216 0.7187602029  99066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   2       7-14    40 0.1495113510  20607</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   2      14-21    15 0.0579195960   7983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   2      21-28     7 0.0288981274   3983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   2      28-34     1 0.0049916926    688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   2 34 or more     9 0.0261193218   3600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   3  Exactly 0     6 0.0126130513   2124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:   3        0-7   227 0.7474895634 125875</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:   3       7-14    42 0.1423540799  23972</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:   3      14-21    14 0.0425720173   7169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:   3      21-28     6 0.0262296834   4417</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:   3      28-34     4 0.0092519463   1558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:   3 34 or more     6 0.0194896584   3282</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:   4  Exactly 0     9 0.0221081589   3954</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:   4        0-7   258 0.7085290302 126719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:   4       7-14    42 0.1154499911  20648</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:   4      14-21    16 0.0386641170   6915</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:   4      21-28    15 0.0489130435   8748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:   4      28-34     7 0.0245012525   4382</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:   4 34 or more    12 0.0418344069   7482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:   5  Exactly 0     5 0.0106922521   2026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:   5        0-7   262 0.7435601083 140892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:   5       7-14    47 0.1303810896  24705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:   5      14-21    21 0.0658423183  12476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:   5      21-28     8 0.0125974362   2387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:   5      28-34     6 0.0163444742   3097</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:   5 34 or more     6 0.0205823214   3900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:   6  Exactly 0     9 0.0299933946   5131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:   6        0-7   248 0.7440711751 127289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:   6       7-14    50 0.1215752524  20798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:   6      14-21    17 0.0501546142   8580</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:   6      21-28     7 0.0167006681   2857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:   6      28-34     5 0.0119774830   2049</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:   6 34 or more    10 0.0255274126   4367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:   7  Exactly 0     3 0.0150261793   2514</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:   7        0-7   247 0.6905348220 115532</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:   7       7-14    54 0.1599564874  26762</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:   7      14-21    21 0.0669603366  11203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:   7      21-28     9 0.0297116695   4971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:   7      28-34     3 0.0069930906   1170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:   7 34 or more    10 0.0308174146   5156</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:   8  Exactly 0     3 0.0128387435   1887</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:   8        0-7   242 0.7411091531 108926</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:   8       7-14    42 0.1347693857  19808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:   8      14-21    14 0.0503003871   7393</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:   8      21-28    10 0.0234594528   3448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:   8      28-34     4 0.0177170578   2604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:   8 34 or more     5 0.0198058200   2911</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:   9  Exactly 0     7 0.0221603968   3664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:   9        0-7   250 0.8024857869 132683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:   9       7-14    33 0.0984153865  16272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:   9      14-21     9 0.0187855328   3106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:   9      21-28    11 0.0269384299   4454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:   9      28-34     2 0.0058243619    963</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63:   9 34 or more     7 0.0253901052   4198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64:  10  Exactly 0     8 0.0259672516   4331</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65:  10        0-7   198 0.6450562694 107587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66:  10       7-14    62 0.2003753290  33420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67:  10      14-21    19 0.0635361269  10597</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68:  10      21-28     5 0.0175853034   2933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69:  10      28-34     4 0.0180229874   3006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70:  10 34 or more    10 0.0294567322   4913</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71:  11  Exactly 0     8 0.0351732437   6840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72:  11        0-7   259 0.7113531414 138334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73:  11       7-14    54 0.1487355116  28924</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74:  11      14-21    14 0.0331626094   6449</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75:  11      21-28     9 0.0258297080   5023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76:  11      28-34     4 0.0170055434   3307</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77:  11 34 or more     9 0.0287402425   5589</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78:  12  Exactly 0     8 0.0304114197   5569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79:  12        0-7   263 0.7297812387 133639</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80:  12       7-14    42 0.1201439478  22001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81:  12      14-21    17 0.0454887998   8330</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82:  12      21-28     9 0.0328797195   6021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83:  12      28-34     8 0.0255731152   4683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84:  12 34 or more     6 0.0157217593   2879</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age  num_trips count         prop    est</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $cat$summary$weight_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age num_trips count       prop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;ord&gt;    &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     Under 5 1 or less    43 0.11977716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     Under 5       1-2    62 0.17270195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     Under 5       2-3    72 0.20055710</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     Under 5       3-4    65 0.18105850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     Under 5       4-5    59 0.16434540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     Under 5       5-6    40 0.11142061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     Under 5       6-7    18 0.05013928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:        5-11 1 or less    35 0.12152778</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        5-11       1-2    50 0.17361111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:        5-11       2-3    74 0.25694444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:        5-11       3-4    43 0.14930556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:        5-11       4-5    39 0.13541667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:        5-11       5-6    31 0.10763889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        5-11       6-7    16 0.05555556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:       12-15 1 or less    29 0.09666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:       12-15       1-2    42 0.14000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:       12-15       2-3    63 0.21000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:       12-15       3-4    59 0.19666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:       12-15       4-5    54 0.18000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:       12-15       5-6    34 0.11333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21:       12-15       6-7    19 0.06333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22:       16-17 1 or less    43 0.12250712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23:       16-17       1-2    60 0.17094017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:       16-17       2-3    61 0.17378917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25:       16-17       3-4    75 0.21367521</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26:       16-17       4-5    64 0.18233618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:       16-17       5-6    31 0.08831909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:       16-17       6-7    17 0.04843305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:       18-24 1 or less    34 0.09855072</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:       18-24       1-2    48 0.13913043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:       18-24       2-3    81 0.23478261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:       18-24       3-4    67 0.19420290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33:       18-24       4-5    55 0.15942029</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34:       18-24       5-6    33 0.09565217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35:       18-24       6-7    27 0.07826087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36:       25-34 1 or less    35 0.10174419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37:       25-34       1-2    65 0.18895349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38:       25-34       2-3    68 0.19767442</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39:       25-34       3-4    70 0.20348837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40:       25-34       4-5    49 0.14244186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41:       25-34       5-6    39 0.11337209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42:       25-34       6-7    18 0.05232558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43:       35-44 1 or less    34 0.09770115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44:       35-44       1-2    45 0.12931034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45:       35-44       2-3    83 0.23850575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:       35-44       3-4    59 0.16954023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:       35-44       4-5    68 0.19540230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48:       35-44       5-6    39 0.11206897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49:       35-44       6-7    20 0.05747126</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50:       45-54 1 or less    45 0.14469453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51:       45-54       1-2    46 0.14790997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52:       45-54       2-3    67 0.21543408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53:       45-54       3-4    66 0.21221865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54:       45-54       4-5    41 0.13183280</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55:       45-54       5-6    27 0.08681672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56:       45-54       6-7    19 0.06109325</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57:       55-64 1 or less    42 0.13291139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58:       55-64       1-2    49 0.15506329</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59:       55-64       2-3    68 0.21518987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60:       55-64       3-4    70 0.22151899</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61:       55-64       4-5    44 0.13924051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62:       55-64       5-6    29 0.09177215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63:       55-64       6-7    14 0.04430380</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64:       65-74 1 or less    20 0.06666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65:       65-74       1-2    42 0.14000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66:       65-74       2-3    58 0.19333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67:       65-74       3-4    68 0.22666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68:       65-74       4-5    59 0.19666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69:       65-74       5-6    33 0.11000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70:       65-74       6-7    20 0.06666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71:       75-84 1 or less    37 0.10571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72:       75-84       1-2    66 0.18857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73:       75-84       2-3    65 0.18571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74:       75-84       3-4    62 0.17714286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75:       75-84       4-5    67 0.19142857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76:       75-84       5-6    38 0.10857143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77:       75-84       6-7    15 0.04285714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78: 85 or older 1 or less    39 0.11271676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79: 85 or older       1-2    71 0.20520231</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80: 85 or older       2-3    78 0.22543353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81: 85 or older       3-4    60 0.17341040</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82: 85 or older       4-5    49 0.14161850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83: 85 or older       5-6    34 0.09826590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84: 85 or older       6-7    15 0.04335260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age num_trips count       prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -662,53 +938,35 @@ and output$n_ls$unwtd.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls$unwtd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls$unwtd$`Count of unique hh_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 819</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls$unwtd$`Count of unique person_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1733</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls$unwtd$`Count of unique day_id`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3958</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$n_ls$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sum of person_weight </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              2052306 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num$summary$unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count min      max     mean   median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   362   0 60.77358 6.678020 3.638851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   292   0 64.44681 6.453618 3.330964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   305   0 66.08108 6.395317 3.691882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   359   0 66.63636 7.308847 3.585366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   355   0 57.37500 6.459746 3.636804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   346   0 63.02941 6.829649 3.612824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   347   0 62.41860 7.102319 3.927928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   320   0 63.39535 6.192273 3.628440</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   319   0 63.17778 5.967302 3.305263</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   306   0 66.57407 7.516483 4.428346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11   357   0 63.66667 6.557999 3.678182</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  12   353   0 49.28947 6.107548 3.211509</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $num$summary$wtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     age count min      max     mean   median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   1   362   0 60.77358 6.155638 3.576310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   2   292   0 64.44681 6.426324 3.360489</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   3   305   0 66.08108 6.437580 3.660377</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   4   359   0 66.63636 7.982338 3.662447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   5   355   0 57.37500 6.469231 3.600928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   6   346   0 63.02941 6.340520 3.520635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   7   347   0 62.41860 7.301390 3.728814</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   8   320   0 63.39535 6.334346 3.553785</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   9   319   0 63.17778 5.786151 3.050847</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  10   306   0 66.57407 7.540718 4.528000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  11   357   0 63.66667 6.738990 3.595442</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  12   353   0 49.28947 6.169193 2.961870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $num$summary$weight_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "person_weight"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             age count   min   max     mean median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;ord&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;num&gt;  &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     Under 5   359     0     7 3.607242      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:        5-11   288     0     7 3.534722      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:       12-15   300     0     7 3.796667      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:       16-17   351     0     7 3.595442      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:       18-24   345     0     7 3.762319      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:       25-34   344     0     7 3.619186      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:       35-44   348     0     7 3.793103      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:       45-54   311     0     7 3.533762      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:       55-64   316     0     7 3.509494      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:       65-74   300     0     7 3.916667      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:       75-84   350     0     7 3.634286      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: 85 or older   346     0     7 3.471098      3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

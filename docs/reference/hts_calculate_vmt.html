@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,6 +124,7 @@
 <span class="r-in"><span>  vehicle_modes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       day_id person_id delivery_2 delivery_3 delivery_4 delivery_5 delivery_6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;     &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:      1       820        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:      2        24          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:      3      1866          0          0          0          0          0</span>
@@ -136,6 +137,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4124:   4124       964          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4125:   4125      1684          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       delivery_7 delivery_8 delivery_996 travel_date begin_day end_day hh_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;int&gt;      &lt;int&gt;        &lt;int&gt;      &lt;Date&gt;     &lt;int&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:        995        995          995  2023-05-28         1       1   642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:          0          0            1  2023-05-23         1       1    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:          0          0            1  2023-05-25         1       1   888</span>
@@ -148,6 +150,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4124:          0          0            1  2023-04-22         1       1   764</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4125:          0          0            1  2023-05-30         1       1   876</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips day_weight         vmt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt;      &lt;int&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:         5        583  0.07736261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:         5        220  4.96664814</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:         2         73  0.00000000</span>
@@ -171,6 +174,7 @@
 <span class="r-in"><span>  occupancy_var <span class="op">=</span> <span class="st">"num_travelers"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph distance_miles mode_type mode_1 mode_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;int&gt;   &lt;int&gt;      &lt;num&gt;          &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6848  0.3570582     0.07736261         8      6    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6099  3.8030030     0.31691692         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1   15759  9.2827577     0.16244826         1      1    995</span>
@@ -183,6 +187,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15873:   4125   14260 10.5795319     1.76325532         8      7    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15874:   4125    4397  8.5320851     1.42201419         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        num_travelers d_purpose_category hh_id person_id travel_date trip_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;      &lt;Date&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:             1                  7   642       820  2023-05-28         957</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:             2                  7   642       820  2023-05-28         237</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:             1                  9   642       820  2023-05-28         287</span>
@@ -195,6 +200,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15873:             1                  2   876      1684  2023-05-30         841</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15874:             2                  7   876      1684  2023-05-30         977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                vmt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:  0.07736261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:  0.15845846</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:  0.00000000</span>

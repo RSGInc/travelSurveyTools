@@ -1,3 +1,7 @@
+# travelSurveyTools 2.4.1
+
+- Factorize outputs in `hts_summary_wrapper`
+
 # travelSurveyTools 2.4.0
 
 - Add wrapper function `'hts_summary_wrapper` to run hts_prep_triprate/variable and hts_summary
