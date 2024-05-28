@@ -131,7 +131,6 @@ is -1.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hh</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id sample_segment income_detailed income_followup  home_lon home_lat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;          &lt;int&gt;           &lt;int&gt;           &lt;int&gt;     &lt;num&gt;    &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:     1             13               7             995 -86.30631 38.48649</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2             16               5             995 -85.72573 39.71972</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:     3              2               9             995 -83.36336 39.12412</span>
@@ -144,7 +143,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  999:   999              6               9             995 -98.75876 37.89089</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1000:  1000              2               5             995 -90.67067 36.41942</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       home_county residence_type num_people num_trips hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;int&gt;          &lt;int&gt;      &lt;num&gt;     &lt;num&gt;     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:           1              4          0         0        54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:           3            995          4        21       478</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:           3            995          2        17       760</span>
@@ -159,7 +157,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $person</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       person_id ethnicity_1 ethnicity_2 ethnicity_3 ethnicity_4 ethnicity_997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;         &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:         1           0           1           1           0             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:         2           1           0           0           1             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:         3           0           0           0           0             0</span>
@@ -172,7 +169,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2046:      2046           0           0           0           0             1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2047:      2047           0           0           0           0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       ethnicity_999 race_1 race_2 race_3 race_4 race_5 race_997 race_999 hh_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;    &lt;int&gt;    &lt;int&gt; &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:             0      0      0      0      0      0        0        1   356</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:             0      1      1      0      0      0        1        0   724</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:             1      0      1      0      1      1        1        0   681</span>
@@ -184,23 +180,21 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2045:             1      0      0      0      0      0        0        1   543</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2046:             0      0      0      0      0      0        0        1   749</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2047:             1      0      0      0      0      0        0        1   364</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         age gender employment job_type education num_trips person_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;    &lt;int&gt;     &lt;int&gt;     &lt;num&gt;         &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:    10      2          1        1         6        12           229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:    11      2          3      995         2         0           128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     7      2        995      995         3        10           888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     2    999        995      995         6         8           350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:    10    995          2        1         4         4           825</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:     7    995          1        1       995         8           116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:     1    995          1        1       995        12           122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:     3      1          1        5         3         0           494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:    11      2          1        5         6        11           874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:    11    995          5      995         3         0           393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       age gender employment job_type education num_trips person_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:  10      2          1        1         6        12           229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:  11      2          3      995         2         0           128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:   7      2        995      995         3        10           888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:   2    999        995      995         6         8           350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:  10    995          2        1         4         4           825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:   7    995          1        1       995         8           116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:   1    995          1        1       995        12           122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:   3      1          1        5         3         0           494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:  11      2          1        5         6        11           874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:  11    995          5      995         3         0           393</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $day</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       day_id person_id delivery_2 delivery_3 delivery_4 delivery_5 delivery_6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;     &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:      1       820        995        995        995        995        995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:      2        24          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:      3      1866          0          0          0          0          0</span>
@@ -213,7 +207,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4124:   4124       964          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4125:   4125      1684          0          0          0          0          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       delivery_7 delivery_8 delivery_996 travel_date begin_day end_day hh_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;int&gt;      &lt;int&gt;        &lt;int&gt;      &lt;Date&gt;     &lt;int&gt;   &lt;int&gt; &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:        995        995          995  2023-05-28         1       1   642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:          0          0            1  2023-05-23         1       1    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:          0          0            1  2023-05-25         1       1   888</span>
@@ -226,7 +219,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4124:          0          0            1  2023-04-22         1       1   764</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4125:          0          0            1  2023-05-30         1       1   876</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips day_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt;      &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:         5        583</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:         5        220</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:         2         73</span>
@@ -241,7 +233,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $trip</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph distance_miles mode_type mode_1 mode_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;int&gt;   &lt;int&gt;      &lt;num&gt;          &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6848  0.3570582     0.07736261         8      6    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6099  3.8030030     0.31691692         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1   15759  9.2827577     0.16244826         1      1    995</span>
@@ -254,7 +245,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15452:   4125   14260 10.5795319     1.76325532         8      7    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15453:   4125    4397  8.5320851     1.42201419         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        num_travelers d_purpose_category hh_id person_id travel_date trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;      &lt;Date&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:             1                  7   642       820  2023-05-28         957</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:             2                  7   642       820  2023-05-28         237</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:             1                  9   642       820  2023-05-28         287</span>
@@ -269,7 +259,6 @@ is -1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vehicle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id vehicle_id fuel_type hh_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;      &lt;int&gt;     &lt;int&gt;     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1:     1       1103         1        54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2        521         1       478</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       1356         1       478</span>

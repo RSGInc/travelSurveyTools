@@ -241,9 +241,7 @@ can make a categorical summary of a numeric variable using
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
 <span><span class="co">## 1:  1 or less   635 0.04313273</span></span>
 <span><span class="co">## 2:       1-10  7289 0.49510936</span></span>
 <span><span class="co">## 3:      10-19  3618 0.24575465</span></span>
@@ -264,9 +262,8 @@ summaries.</p>
 <span></span>
 <span><span class="va">speed_num_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">##    count   min      max     mean   median</span></span>
-<span><span class="co">##    &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">## 1: 14722     0 112.5371 12.27017 8.914392</span></span></code></pre>
+<span><span class="co">##    count min      max     mean   median</span></span>
+<span><span class="co">## 1: 14722   0 112.5371 12.27017 8.914392</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="using-weighted-data">Using Weighted Data<a class="anchor" aria-label="anchor" href="#using-weighted-data"></a>
@@ -286,9 +283,7 @@ used (<code>wtname</code>).</p>
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
 <span><span class="co">## 1:  1 or less   635 0.04313273</span></span>
 <span><span class="co">## 2:       1-10  7289 0.49510936</span></span>
 <span><span class="co">## 3:      10-19  3618 0.24575465</span></span>
@@ -299,7 +294,6 @@ used (<code>wtname</code>).</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##     speed_mph count       prop     est</span></span>
-<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;   &lt;int&gt;</span></span>
 <span><span class="co">## 1:  1 or less   635 0.04225006  314952</span></span>
 <span><span class="co">## 2:       1-10  7289 0.49882701 3718493</span></span>
 <span><span class="co">## 3:      10-19  3618 0.24538136 1829189</span></span>
@@ -329,9 +323,7 @@ standard errors.</p>
 <span></span>
 <span><span class="va">speed_cat_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">## Key: &lt;speed_mph&gt;</span></span>
 <span><span class="co">##     speed_mph count       prop</span></span>
-<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
 <span><span class="co">## 1:  1 or less   635 0.04313273</span></span>
 <span><span class="co">## 2:       1-10  7289 0.49510936</span></span>
 <span><span class="co">## 3:      10-19  3618 0.24575465</span></span>
@@ -342,7 +334,6 @@ standard errors.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##     speed_mph count       prop     prop_se     est   est_se</span></span>
-<span><span class="co">##        &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;       &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
 <span><span class="co">## 1:  1 or less   635 0.04225006 0.001886624  314952 14128.27</span></span>
 <span><span class="co">## 2:       1-10  7289 0.49882701 0.004730868 3718493 39396.65</span></span>
 <span><span class="co">## 3:      10-19  3618 0.24538136 0.004073123 1829189 31541.65</span></span>
@@ -381,9 +372,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <span></span>
 <span><span class="va">mode_by_race_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">## Key: &lt;race&gt;</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
-<span><span class="co">##                                        &lt;fctr&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;</span></span>
 <span><span class="co">##  1:                 African American or Black         1    22 0.2222222222</span></span>
 <span><span class="co">##  2:                 African American or Black         2     3 0.0303030303</span></span>
 <span><span class="co">##  3:                 African American or Black         8    68 0.6868686869</span></span>
@@ -452,7 +441,6 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
-<span><span class="co">##                                        &lt;fctr&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;</span></span>
 <span><span class="co">##  1:                 African American or Black         1    22 0.2425302553</span></span>
 <span><span class="co">##  2:                 African American or Black         2     3 0.0322180413</span></span>
 <span><span class="co">##  3:                 African American or Black         8    68 0.6657378216</span></span>
@@ -519,7 +507,6 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <span><span class="co">## 64:                      Prefer not to answer        14    16 0.0014028643</span></span>
 <span><span class="co">##                                          race mode_type count         prop</span></span>
 <span><span class="co">##          prop_se     est     est_se</span></span>
-<span><span class="co">##            &lt;num&gt;   &lt;num&gt;      &lt;num&gt;</span></span>
 <span><span class="co">##  1: 0.0488793701   11924  2760.2835</span></span>
 <span><span class="co">##  2: 0.0192747891    1584   961.7070</span></span>
 <span><span class="co">##  3: 0.0538431192   32731  4557.6808</span></span>
@@ -631,9 +618,7 @@ checkbox.</p>
 <span></span>
 <span><span class="va">mode_by_race_summary</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## $unwtd</span></span>
-<span><span class="co">## Key: &lt;mode_type&gt;</span></span>
 <span><span class="co">##     mode_type                                      race count       prop</span></span>
-<span><span class="co">##         &lt;int&gt;                                    &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
 <span><span class="co">##  1:         1                 African American or Black  1173 0.26072461</span></span>
 <span><span class="co">##  2:         1          American Indian or Alaska Native  1149 0.25539009</span></span>
 <span><span class="co">##  3:         1                                     Asian  1095 0.24338742</span></span>
@@ -727,9 +712,7 @@ checkbox.</p>
 <span><span class="co">##     mode_type                                      race count       prop</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $wtd</span></span>
-<span><span class="co">## Key: &lt;mode_type&gt;</span></span>
 <span><span class="co">##     mode_type                                      race count       prop</span></span>
-<span><span class="co">##         &lt;int&gt;                                    &lt;fctr&gt; &lt;int&gt;      &lt;num&gt;</span></span>
 <span><span class="co">##  1:         1                 African American or Black  1173 0.26371389</span></span>
 <span><span class="co">##  2:         1          American Indian or Alaska Native  1149 0.26062794</span></span>
 <span><span class="co">##  3:         1                                     Asian  1095 0.25433099</span></span>
@@ -822,7 +805,6 @@ checkbox.</p>
 <span><span class="co">## 90:        14                      Prefer not to answer    16 0.39948629</span></span>
 <span><span class="co">##     mode_type                                      race count       prop</span></span>
 <span><span class="co">##         prop_se     est     est_se wtd_group_n</span></span>
-<span><span class="co">##           &lt;num&gt;   &lt;num&gt;      &lt;num&gt;       &lt;int&gt;</span></span>
 <span><span class="co">##  1: 0.007521060  590587 19751.7986     2239499</span></span>
 <span><span class="co">##  2: 0.007495255  583676 19648.7332     2239499</span></span>
 <span><span class="co">##  3: 0.007466454  569574 19535.6370     2239499</span></span>
@@ -944,7 +926,6 @@ a vector to the argument.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mode_by_race_ethnicity_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                 race                                  ethnicity</span></span>
-<span><span class="co">##                               &lt;fctr&gt;                                     &lt;fctr&gt;</span></span>
 <span><span class="co">##  1:        African American or Black                                      Cuban</span></span>
 <span><span class="co">##  2:        African American or Black                                      Cuban</span></span>
 <span><span class="co">##  3:        African American or Black                                Two or more</span></span>
@@ -956,7 +937,6 @@ a vector to the argument.</p>
 <span><span class="co">##  9:        African American or Black                       Prefer not to answer</span></span>
 <span><span class="co">## 10: American Indian or Alaska Native Not of Hispanic, Latino, or Spanish origin</span></span>
 <span><span class="co">##     mode_type count       prop   est</span></span>
-<span><span class="co">##         &lt;int&gt; &lt;int&gt;      &lt;num&gt; &lt;int&gt;</span></span>
 <span><span class="co">##  1:         8    20 0.85193115  9948</span></span>
 <span><span class="co">##  2:         1     4 0.14806885  1729</span></span>
 <span><span class="co">##  3:         8    19 0.61909727  8312</span></span>
@@ -1000,7 +980,6 @@ rates.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    employment count       min      max     mean    mean_se   median</span></span>
-<span><span class="co">##         &lt;int&gt; &lt;int&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
 <span><span class="co">## 1:          1  1759 0.0000000 66.63636 3.689127 0.06833122 2.735211</span></span>
 <span><span class="co">## 2:          2   294 0.0000000 61.07273 3.971959 0.17999151 3.023569</span></span>
 <span><span class="co">## 3:          3   236 0.0000000 66.08108 3.470364 0.16677819 2.702176</span></span>
@@ -1028,7 +1007,6 @@ rates.</p>
 <span></span>
 <span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                                                             employment</span></span>
-<span><span class="co">##                                                                                  &lt;ord&gt;</span></span>
 <span><span class="co">## 1:                                           Employed full-time (35+ hours/week, paid)</span></span>
 <span><span class="co">## 2:                                 Employed part-time (fewer than 35 hours/week, paid)</span></span>
 <span><span class="co">## 3:                                                                       Self-employed</span></span>
@@ -1038,7 +1016,6 @@ rates.</p>
 <span><span class="co">## 7:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span></span>
 <span><span class="co">## 8:                                                                    Missing Response</span></span>
 <span><span class="co">##    count       min      max     mean    mean_se   median</span></span>
-<span><span class="co">##    &lt;int&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
 <span><span class="co">## 1:  1759 0.0000000 66.63636 3.689127 0.06833122 2.735211</span></span>
 <span><span class="co">## 2:   294 0.0000000 61.07273 3.971959 0.17999151 3.023569</span></span>
 <span><span class="co">## 3:   236 0.0000000 66.08108 3.470364 0.16677819 2.702176</span></span>
@@ -1054,9 +1031,10 @@ rates.</p>
 <p><code>hts_summary</code> creates outputs that can easily be used to
 create visuals.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'ggplot2' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  <span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>,</span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean</span>, y <span class="op">=</span> <span class="va">employment</span>, label <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
@@ -1087,7 +1065,7 @@ create visuals.</p>
 first be added to the <code>variable_list</code> and
 <code>value_labels</code>. In this example we are creating a new
 variable called <code>hh_size</code> that we want to summarize.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_data</span><span class="op">$</span><span class="va">hh</span><span class="op">[</span>, <span class="va">hh_size</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">num_people</span> <span class="op">&lt;</span> <span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">variable_list</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
@@ -1132,7 +1110,6 @@ variable called <code>hh_size</code> that we want to summarize.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/factorize_df.html">factorize_df</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">hh_size_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="va">value_labels</span>, value_label_colname <span class="op">=</span> <span class="st">"label"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##            hh_size count      prop    est</span></span>
-<span><span class="co">##              &lt;ord&gt; &lt;int&gt;     &lt;num&gt;  &lt;int&gt;</span></span>
 <span><span class="co">## 1: Small household   842 0.8400047 436054</span></span>
 <span><span class="co">## 2: Large household   158 0.1599953  83055</span></span></code></pre>
 </div>

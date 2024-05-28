@@ -62,10 +62,7 @@
 #' wtname = 'person_weight')
 #' 
 #' 
-#' hts_summary_wrapper(
-#' summarize_var = 'num_trips',
-#' summarize_by = 'age',
-#' wtname = 'person_weight')
+
 
 hts_summary_wrapper = function(
     summarize_var = NULL,
