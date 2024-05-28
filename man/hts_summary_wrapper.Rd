@@ -8,6 +8,7 @@ hts_summary_wrapper(
   summarize_var = NULL,
   summarize_by = NULL,
   variables_dt = variable_list,
+  vals_df = value_labels,
   data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle),
   id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   weighted = TRUE,
@@ -19,6 +20,7 @@ hts_summary_wrapper(
   wtname = NULL,
   checkbox_valname = "value",
   checkbox_yesval = 1,
+  value_label_colname = "label",
   remove_outliers = TRUE,
   threshold = 0.975,
   remove_missing = TRUE,
@@ -34,6 +36,10 @@ Default is NULL.}
 
 \item{variables_dt}{List of variable locations and descriptions in data.table
 format.}
+
+\item{vals_df}{A dataframe of variable labels (i.e., factor levels and
+labels) with the format as specified below. Passed to factorize_column
+function.}
 
 \item{data}{List of household, person, vehicle, day, and trip tables in
 data.table format.}
@@ -61,6 +67,8 @@ Must be provided if summarize_var is a checkbox variable.}
 
 \item{checkbox_yesval}{Value of checkbox_valname that indicates it was selected.
 Default is 1. Must be provided if summarize_var is a checkbox variable.}
+
+\item{value_label_colname}{The name of the value label column in vals_df. Default is 'value_label'}
 
 \item{remove_outliers}{Whether to remove outliers for numeric variable. Default
 is TRUE.}
@@ -108,7 +116,7 @@ wtname = 'person_weight',
 hts_summary_wrapper(
 summarize_var = 'num_trips',
 summarize_by = 'age',
-wtname = 'person_weight')
+weighted = FALSE)
 
 
 }

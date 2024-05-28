@@ -4,6 +4,9 @@
 #'  Default is NULL.
 #' @param variables_dt List of variable locations and descriptions in data.table
 #'  format.
+#' @param vals_df A dataframe of variable labels (i.e., factor levels and
+#'  labels) with the format as specified below. Passed to factorize_column
+#'  function.
 #' @param data List of household, person, vehicle, day, and trip tables in
 #'  data.table format.
 #' @param id_cols name of unique identifier for each table in hts_data
@@ -20,6 +23,7 @@
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
 #'  Default is 1. Must be provided if summarize_var is a checkbox variable.
+#' @param value_label_colname The name of the value label column in vals_df. Default is 'value_label'
 #' @param remove_outliers Whether to remove outliers for numeric variable. Default
 #'  is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
@@ -59,7 +63,7 @@
 #' hts_summary_wrapper(
 #' summarize_var = 'num_trips',
 #' summarize_by = 'age',
-#' wtname = 'person_weight')
+#' weighted = FALSE)
 #' 
 #' 
 
@@ -68,6 +72,7 @@ hts_summary_wrapper = function(
     summarize_var = NULL,
     summarize_by = NULL,
     variables_dt = variable_list,
+    vals_df = value_labels,
     data = list(
       "hh" = hh,
       "person" = person,
@@ -85,6 +90,7 @@ hts_summary_wrapper = function(
     wtname = NULL,
     checkbox_valname = "value",
     checkbox_yesval = 1,
+    value_label_colname = 'label',
     remove_outliers = TRUE,
     threshold = 0.975,
     remove_missing = TRUE,
@@ -177,6 +183,26 @@ hts_summary_wrapper = function(
     checkbox_yesval = checkbox_yesval
   )
   
+  if (!is.null(output_ls_cat$summary$wtd)){
+    
+    output_ls_cat$summary$wtd = factorize_df(
+      output_ls_cat$summary$wtd,
+      vals_df = vals_df,
+      value_label_colname = value_label_colname,
+      verbose = FALSE
+    )
+    
+    
+  }
+  
+  output_ls_cat$summary$unwtd = factorize_df(
+    output_ls_cat$summary$unwtd,
+    vals_df = vals_df,
+    value_label_colname = value_label_colname,
+    verbose = FALSE
+  )
+  
+  
   if (!is.null(prepped_dt_ls$num)){
     
     prepped_dt = prepped_dt_ls$num
@@ -216,6 +242,28 @@ hts_summary_wrapper = function(
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval
     )
+    
+    if (!is.null(output_ls_num$summary$wtd)){
+      
+      output_ls_num$summary$wtd = factorize_df(
+        output_ls_num$summary$wtd,
+        vals_df = vals_df,
+        value_label_colname = value_label_colname,
+        verbose = FALSE
+      )
+      
+      
+    }
+    
+    output_ls_num$summary$unwtd = factorize_df(
+      output_ls_num$summary$unwtd,
+      vals_df = vals_df,
+      value_label_colname = value_label_colname,
+      verbose = FALSE
+    )
+    
+    
+    
   } else {
     
     output_ls_num = NULL

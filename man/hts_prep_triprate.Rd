@@ -77,6 +77,6 @@ hts_prep_triprate(
     "day" = day,
     "trip" = trip,
     "vehicle" = vehicle
-  )
+  ), weighted = FALSE
 )
 }
