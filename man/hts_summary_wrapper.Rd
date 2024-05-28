@@ -116,7 +116,7 @@ wtname = 'person_weight',
 hts_summary_wrapper(
 summarize_var = 'num_trips',
 summarize_by = 'age',
-weighted = FALSE)
+wtname = 'person_weight')
 
 
 }
