@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -163,19 +163,18 @@ categorical or numeric.</p>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id   age person_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt; &lt;int&gt;         &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:   356         1    10           229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:   724         2    11           128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:   681         3     7           888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:   114         4     2           350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:   165         5    10           825</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:   931      2043     7           116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:   667      2044     1           122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:   543      2045     3           494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:   749      2046    11           874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:   364      2047    11           393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id age person_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:   356         1  10           229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:   724         2  11           128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:   681         3   7           888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:   114         4   2           350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:   165         5  10           825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2043:   931      2043   7           116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2044:   667      2044   1           122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2045:   543      2045   3           494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2046:   749      2046  11           874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2047:   364      2047  11           393</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -193,40 +192,35 @@ categorical or numeric.</p>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id person_id day_id trip_id person_weight trip_weight speed_mph   age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;     &lt;int&gt;  &lt;int&gt;   &lt;int&gt;         &lt;int&gt;       &lt;int&gt;    &lt;fctr&gt; &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     2       425    388   11340           130         258      1-10    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     2       425    388    9915           130          57     19-28    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:     2       425   1320    4947           130         233     10-19    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:     2       892   1559    4450           715         845 1 or less     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     2       892   1559    7943           715         685     10-19     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14718:  1000       352   1663    2279           883         177     19-28    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14719:  1000       352   3389    7926           883         819     10-19    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14720:  1000       352   3389    1639           883          25     10-19    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14721:  1000       352   3389   13926           883         216      1-10    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14722:  1000       352   3389   11951           883         700      1-10    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id person_id day_id trip_id person_weight trip_weight speed_mph age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     2       425    388   11340           130         258      1-10  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     2       425    388    9915           130          57     19-28  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:     2       425   1320    4947           130         233     10-19  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:     2       892   1559    4450           715         845 1 or less   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     2       892   1559    7943           715         685     10-19   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14718:  1000       352   1663    2279           883         177     19-28  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14719:  1000       352   3389    7926           883         819     10-19  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14720:  1000       352   3389    1639           883          25     10-19  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14721:  1000       352   3389   13926           883         216      1-10  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14722:  1000       352   3389   11951           883         700      1-10  10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id person_id day_id trip_id person_weight trip_weight speed_mph   age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;     &lt;int&gt;  &lt;int&gt;   &lt;int&gt;         &lt;int&gt;       &lt;int&gt;     &lt;num&gt; &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     2       425    388   11340           130         258  2.981870    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     2       425    388    9915           130          57 20.761805    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:     2       425   1320    4947           130         233 16.885215    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:     2       892   1559    4450           715         845  0.610109     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     2       892   1559    7943           715         685 10.902785     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14718:  1000       352   1663    2279           883         177 26.002610    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14719:  1000       352   3389    7926           883         819 10.201849    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14720:  1000       352   3389    1639           883          25 13.915420    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14721:  1000       352   3389   13926           883         216  3.337872    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14722:  1000       352   3389   11951           883         700  2.583252    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        hh_id person_id day_id trip_id person_weight trip_weight speed_mph age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:     2       425    388   11340           130         258  2.981870  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:     2       425    388    9915           130          57 20.761805  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:     2       425   1320    4947           130         233 16.885215  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:     2       892   1559    4450           715         845  0.610109   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:     2       892   1559    7943           715         685 10.902785   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14718:  1000       352   1663    2279           883         177 26.002610  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14719:  1000       352   3389    7926           883         819 10.201849  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14720:  1000       352   3389    1639           883          25 13.915420  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14721:  1000       352   3389   13926           883         216  3.337872  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14722:  1000       352   3389   11951           883         700  2.583252  10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         378    112.9918    228233.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -244,20 +238,18 @@ categorical or numeric.</p>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;hh_id, person_id, person_weight&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id person_weight employment   age                 race</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;         &lt;int&gt;      &lt;int&gt; &lt;int&gt;               &lt;fctr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       217            92          3     3          Two or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425           130          5    12          Two or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892           715          1     3 Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     3       417           987          8    10 Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     3      1671           644          5     9          Two or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1749:   997      1724           452          2    11 Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1750:   998       409           406          5     7          Two or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1751:   998       817           664          6     4 Prefer not to answer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1752:   999      1305           836          6    10          Two or more</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1753:  1000       352           883          1    10          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id person_weight employment age                 race</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       217            92          3   3          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425           130          5  12          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892           715          1   3 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     3       417           987          8  10 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     3      1671           644          5   9          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1749:   997      1724           452          2  11 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1750:   998       409           406          5   7          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1751:   998       817           664          6   4 Prefer not to answer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1752:   999      1305           836          6  10          Two or more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1753:  1000       352           883          1  10          Two or more</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>

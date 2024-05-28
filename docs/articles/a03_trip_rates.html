@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,9 +86,10 @@
 this using <code>hts_prep_triprate</code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RSGInc/travelSurveyTools" class="external-link">travelSurveyTools</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"test_data"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'ggplot2' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"test_data"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"variable_list"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"value_labels"</span><span class="op">)</span></span>
 <span></span>
@@ -100,7 +101,7 @@ this using <code>hts_prep_triprate</code></p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>After preparing the data we can create a summary using
 <code>hts_summary</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
 <span>  prepped_dt <span class="op">=</span> <span class="va">prepped_triprates_list</span><span class="op">$</span><span class="va">num</span>,</span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"num_trips_wtd"</span>,</span>
@@ -124,11 +125,10 @@ this using <code>hts_prep_triprate</code></p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $summary</span></span>
 <span><span class="co">## $summary$unwtd</span></span>
-<span><span class="co">##    count   min      max     mean   median</span></span>
-<span><span class="co">##    &lt;int&gt; &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">## 1:  4021     0 66.63636 6.635024 3.631111</span></span></code></pre>
+<span><span class="co">##    count min      max     mean   median</span></span>
+<span><span class="co">## 1:  4021   0 66.63636 6.635024 3.631111</span></span></code></pre>
 <p>We can also summarize trip rates by one or more variables.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">job_type_triprate_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_triprate.html">hts_prep_triprate</a></span><span class="op">(</span></span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="st">"job_type"</span>,</span>
@@ -171,7 +171,7 @@ this using <code>hts_prep_triprate</code></p>
 <span>    y <span class="op">=</span> <span class="st">"Job Type"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="a03_trip_rates_files/figure-html/trip_rate_job_type-1.png" width="768"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">race_ethnicity_triprate_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_triprate.html">hts_prep_triprate</a></span><span class="op">(</span></span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"ethnicity"</span><span class="op">)</span>,</span>
