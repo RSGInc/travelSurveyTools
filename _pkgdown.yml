@@ -34,6 +34,7 @@ reference:
   - hts_summary_cat
   - hts_summary_num
   - hts_to_so
+  - hts_summary_wrapper
 
 - subtitle: Helper functions
   contents:
