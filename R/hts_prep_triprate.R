@@ -69,7 +69,7 @@ hts_prep_triprate = function(summarize_by = NULL,
   day_index = which(names(hts_data) == day_name)
   
   # Get ids
-  tripid = ids[trip_index]
+  trip_id = ids[trip_index]
   day_id = ids[day_index]
   
   # Get weights
@@ -160,7 +160,7 @@ if (length(summarize_by) > 0) {
   
   triprate_cols = intersect(names(triprate_dt), c(ids, wts))
   
-  triprate_cols = triprate_cols[!triprate_cols %in% c(tripid, trip_wt)]
+  triprate_cols = triprate_cols[!triprate_cols %in% c(trip_id, trip_wt)]
   
   triprate_cols_all = c(triprate_cols, summarize_by)
   
@@ -171,7 +171,7 @@ if (length(summarize_by) > 0) {
   }
   
   if (!weighted) {
-    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(tripid)))),
+    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(trip_id)))),
                               by = triprate_cols_all
     ]
   }
@@ -183,7 +183,7 @@ if (length(summarize_by) > 0) {
   
   # If one of the by-variables is in trip table, need to expand to
   # include all levels of the variable for every trip, and fill with zeros:
-  if (tripid %in% names(byvar_dt)) {
+  if (trip_id %in% names(byvar_dt)) {
     # fill in with zeros for zero trips for a given level of xt_var using dcast:
     dcast_formula =
       paste0(
