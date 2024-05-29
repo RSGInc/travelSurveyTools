@@ -17,8 +17,6 @@
 #' @param strataname  Name of strata name to bring in. Default is NULL.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set
 #' to FALSE if weighted is FALSE.
-#' @param wtname Name of the weight column to use. Default is NULL. Must be specified
-#' when weighted = TRUE.
 #' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
@@ -50,20 +48,17 @@
 #'
 #' hts_summary_wrapper(
 #' summarize_var = 'employment',
-#' summarize_by = 'age',
-#' wtname = 'person_weight')
+#' summarize_by = 'income_detailed')
 #' 
 #' 
 #' hts_summary_wrapper(
 #' summarize_var = 'race',
-#' summarize_by = c('age', 'employment'),
-#' wtname = 'person_weight',
+#' summarize_by = c('age', 'employment')
 #' )
 #' 
 #' hts_summary_wrapper(
 #' summarize_var = 'num_trips',
-#' summarize_by = 'age',
-#' wtname = 'person_weight')
+#' summarize_by = 'age')
 #' 
 #' 
 
@@ -87,7 +82,6 @@ hts_summary_wrapper = function(
     day_name = "day",
     strataname = NULL,
     se = FALSE,
-    wtname = NULL,
     checkbox_valname = "value",
     checkbox_yesval = 1,
     value_label_colname = 'label',
@@ -135,7 +129,7 @@ hts_summary_wrapper = function(
     
   }
   
-  # If a checkbox variable use chexkbox for summarize_vartype
+  # If a checkbox variable use checkbox for summarize_vartype
   if (variable_list[shared_name == summarize_var, .N] > 1){
     
     summarize_vartype = 'checkbox'
@@ -168,6 +162,24 @@ hts_summary_wrapper = function(
     
   }
   
+  
+  # Determine what weight to use
+  if (summarize_var == 'num_trips'){
+    
+    weight = 'day_weight'
+    
+  } else {
+  
+  id_counts = prepped_dt[, lapply(.SD, uniqueN),
+                         .SDcols = intersect(id_cols, names(prepped_dt))]
+  
+  max_id = which.max(id_counts)
+  
+  weight = wt_cols[[max_id]]
+  
+  }
+  
+  
   # run hts_summary
   output_ls_cat = hts_summary(
     prepped_dt,
@@ -177,11 +189,15 @@ hts_summary_wrapper = function(
     id_cols = id_cols,
     weighted = weighted,
     se = se,
-    wtname = wtname,
+    wtname = weight,
     strataname = strataname,
     checkbox_valname = checkbox_valname,
     checkbox_yesval = checkbox_yesval
   )
+  
+  #return variables used
+  output_ls_cat$summarize_var = summarize_var
+  output_ls_cat$summarize_by = summarize_by
   
   if (!is.null(output_ls_cat$summary$wtd)){
     
@@ -237,11 +253,15 @@ hts_summary_wrapper = function(
       id_cols = id_cols,
       weighted = weighted,
       se = se,
-      wtname = wtname,
+      wtname = weight,
       strataname = strataname,
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval
     )
+    
+    #return variables used
+    output_ls_cat$summarize_var = summarize_var
+    output_ls_cat$summarize_by = summarize_by
     
     if (!is.null(output_ls_num$summary$wtd)){
       

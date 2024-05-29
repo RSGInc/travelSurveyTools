@@ -8,8 +8,7 @@ library(data.table)
 test_that("hts_summary_wrapper should return counts and units", {
   results = hts_summary_wrapper(
     summarize_var = 'employment',
-    summarize_by = 'age',
-    wtname = 'person_weight')
+    summarize_by = 'age')
   
   expect_type(results, "list")
   
