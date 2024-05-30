@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -193,42 +193,68 @@ breakdown of outliers if removed.</p>
 <span class="r-in"><span>    <span class="st">"day"</span> <span class="op">=</span> <span class="va">day</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"trip"</span> <span class="op">=</span> <span class="va">trip</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"vehicle"</span> <span class="op">=</span> <span class="va">vehicle</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id day_id day_weight person_weight   age num_trips_unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;          &lt;fctr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       425    388        613           130    12             2-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425   1320        593           130    12       1 or less</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892   1559        983           715     3             2-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     2       973   1178        556            57     5             5-6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     2       973   3183        518            57     5             2-3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3954:   999      1305   3055        463           836    10             3-4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3955:  1000       352   1165        245           883    10             1-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3956:  1000       352   1222         10           883    10             1-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3957:  1000       352   1663        751           883    10             1-2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3958:  1000       352   3389        969           883    10             3-4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id day_id day_weight person_weight   age trip_count_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;          &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       425    388        613           130    12           1284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425   1320        593           130    12            233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892   1559        983           715     3           2326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     2       973   1178        556            57     5           2293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     2       973   3183        518            57     5           2406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4017:   999      1305   2315        119           836    10           1721</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4018:   999      1305   3055        463           836    10           2337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4019:  1000       352   1165        245           883    10           1633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4020:  1000       352   1663        751           883    10           1141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4021:  1000       352   3389        969           883    10           1760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;fctr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4017:         14-21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4018:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4019:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4020:           0-7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4021:           0-7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id day_id day_weight person_weight   age num_trips_unwtd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;           &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       425    388        613           130    12               3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425   1320        593           130    12               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892   1559        983           715     3               3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     2       973   1178        556            57     5               6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     2       973   3183        518            57     5               3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3954:   999      1305   3055        463           836    10               4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3955:  1000       352   1165        245           883    10               2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3956:  1000       352   1222         10           883    10               2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3957:  1000       352   1663        751           883    10               2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3958:  1000       352   3389        969           883    10               4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       hh_id person_id day_id day_weight person_weight   age trip_count_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;int&gt;          &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2       425    388        613           130    12           1284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     2       425   1320        593           130    12            233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2       892   1559        983           715     3           2326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     2       973   1178        556            57     5           2293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     2       973   3183        518            57     5           2406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4017:   999      1305   2315        119           836    10           1721</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4018:   999      1305   3055        463           836    10           2337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4019:  1000       352   1165        245           883    10           1633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4020:  1000       352   1663        751           883    10           1141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4021:  1000       352   3389        969           883    10           1760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       num_trips_wtd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1:     2.0946166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2:     0.3929174</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3:     2.3662258</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4:     4.1241007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5:     4.6447876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ---              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4017:    14.4621849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4018:     5.0475162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4019:     6.6653061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4020:     1.5193076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4021:     1.8163055</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outliers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         167           8          12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         104    66.95918    391.8182</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

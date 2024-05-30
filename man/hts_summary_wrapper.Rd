@@ -17,7 +17,6 @@ hts_summary_wrapper(
   day_name = "day",
   strataname = NULL,
   se = FALSE,
-  wtname = NULL,
   checkbox_valname = "value",
   checkbox_yesval = 1,
   value_label_colname = "label",
@@ -58,9 +57,6 @@ data.table format.}
 
 \item{se}{Whether to calculate standard error. Default is FALSE. Will be set
 to FALSE if weighted is FALSE.}
-
-\item{wtname}{Name of the weight column to use. Default is NULL. Must be specified
-when weighted = TRUE.}
 
 \item{checkbox_valname}{Name of the column with the checkbox value. Default is 'value'.
 Must be provided if summarize_var is a checkbox variable.}
@@ -103,20 +99,17 @@ Make household travel survey summaries-- runs hts_prep_variable and hts_summary
 
 hts_summary_wrapper(
 summarize_var = 'employment',
-summarize_by = 'age',
-wtname = 'person_weight')
+summarize_by = 'income_detailed')
 
 
 hts_summary_wrapper(
 summarize_var = 'race',
-summarize_by = c('age', 'employment'),
-wtname = 'person_weight',
+summarize_by = c('age', 'employment')
 )
 
 hts_summary_wrapper(
 summarize_var = 'num_trips',
-summarize_by = 'age',
-wtname = 'person_weight')
+summarize_by = 'age')
 
 
 }

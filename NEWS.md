@@ -1,3 +1,7 @@
+# travelSurveyTools 2.4.2
+
+- Add summarize_var and summarize_by to output. Select weight automatically in `hts_summary_wrapper`
+
 # travelSurveyTools 2.4.1
 
 - Factorize outputs in `hts_summary_wrapper`
