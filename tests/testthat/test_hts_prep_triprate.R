@@ -7,6 +7,7 @@ test_that("hts_prep_triprate should return counts and units", {
   results = hts_prep_triprate(
     summarize_by = "age",
     variables_dt = variable_list,
+    remove_outliers = TRUE,
     hts_data = test_data
   )
 

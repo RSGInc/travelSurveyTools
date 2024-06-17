@@ -226,11 +226,13 @@ data table that can be used to create summaries.</p>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">test_data</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in hts_remove_outliers(var_dt, numvar = summarize_var, threshold =</span></span>
+<span><span class="co">## threshold): 378 outliers were removed based on the threshold of 0.975.</span></span></code></pre>
 <p>Numeric variables will be automatically binned in
 <code>hts_prep_variable</code> to create categorical summaries. Here we
 can make a categorical summary of a numeric variable using
 <code>hts_summary</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
 <span>  prepped_dt <span class="op">=</span> <span class="va">speed_list</span><span class="op">$</span><span class="va">cat</span>,</span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span>
@@ -251,7 +253,7 @@ can make a categorical summary of a numeric variable using
 <span><span class="co">## 7: 44 or more   350 0.02377394</span></span></code></pre>
 <p>Additionally, for numeric variables we can create numeric
 summaries.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_num_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
 <span>  prepped_dt <span class="op">=</span> <span class="va">speed_list</span><span class="op">$</span><span class="va">num</span>,</span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span>
@@ -271,7 +273,7 @@ summaries.</p>
 <p>Additionally, we can use weighted data by setting
 <code>weighted = TRUE</code> and specifying the name of the weight to be
 used (<code>wtname</code>).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
 <span>  prepped_dt <span class="op">=</span> <span class="va">speed_list</span><span class="op">$</span><span class="va">cat</span>,</span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span>
@@ -310,7 +312,7 @@ used (<code>wtname</code>).</p>
 </h3>
 <p>Additionally, by specifying <code>se = TRUE</code> we can calculate
 standard errors.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speed_cat_summary</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_summary.html">hts_summary</a></span><span class="op">(</span></span>
 <span>  prepped_dt <span class="op">=</span> <span class="va">speed_list</span><span class="op">$</span><span class="va">cat</span>,</span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"speed_mph"</span>,</span>
@@ -351,7 +353,7 @@ standard errors.</p>
 <p>If we want to summarize a variable by another variable (e.g., mode
 type by a person’s race, mode_type by a person’s ethnicity, age by study
 year) we can use the <code>summarize_by</code> argument.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mode_type_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"mode_type"</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="st">"race"</span>,</span>
@@ -575,7 +577,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $weight_name</span></span>
 <span><span class="co">## [1] "trip_weight"</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">age_study_year_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>    summarize_var <span class="op">=</span> <span class="st">"age"</span>,</span>
@@ -597,7 +599,7 @@ year) we can use the <code>summarize_by</code> argument.</p>
 <p>If we want to summarize a multiple response categorical variable
 (mrcv or multiple), we can set <code>summarize_vartype</code> to
 checkbox.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">race_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"race"</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="st">"mode_type"</span>,</span>
@@ -902,7 +904,7 @@ checkbox.</p>
 <p><code>summarize_by</code> can be used with an unlimited amount of
 variables. To use more than one <code>summarize_by</code> variable pass
 a vector to the argument.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mode_type_race_ethnicity_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_variable.html">hts_prep_variable</a></span><span class="op">(</span></span>
 <span>  summarize_var <span class="op">=</span> <span class="st">"mode_type"</span>,</span>
 <span>  summarize_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"ethnicity"</span><span class="op">)</span>,</span>
@@ -953,7 +955,7 @@ a vector to the argument.</p>
 </h3>
 <p><code>hts_summary</code> can also be used to calculate trip
 rates.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">employment_triprate_list</span> <span class="op">=</span> <span class="fu"><a href="../reference/hts_prep_triprate.html">hts_prep_triprate</a></span><span class="op">(</span></span>
 <span>  summarize_by <span class="op">=</span> <span class="st">"employment"</span>,</span>
 <span>  variables_dt <span class="op">=</span> <span class="va">variable_list</span>,</span>
@@ -979,21 +981,21 @@ rates.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    employment count       min      max     mean    mean_se   median</span></span>
-<span><span class="co">## 1:          1  1759 0.0000000 66.63636 3.689127 0.06833122 2.735211</span></span>
-<span><span class="co">## 2:          2   294 0.0000000 61.07273 3.971959 0.17999151 3.023569</span></span>
-<span><span class="co">## 3:          3   236 0.0000000 66.08108 3.470364 0.16677819 2.702176</span></span>
-<span><span class="co">## 4:          5   954 0.0000000 66.57407 3.678085 0.09273873 2.694794</span></span>
-<span><span class="co">## 5:          6   177 0.0000000 60.77358 3.909302 0.22822014 2.775264</span></span>
-<span><span class="co">## 6:          7    26 0.2647059 57.37500 3.321632 0.50701000 2.773455</span></span>
-<span><span class="co">## 7:          8    30 0.7719101 26.95098 4.065571 0.58655049 3.592087</span></span>
-<span><span class="co">## 8:        995   545 0.0000000 65.90909 3.867029 0.12589798 2.922734</span></span></code></pre>
+<pre><code><span><span class="co">##    employment count       min       max     mean    mean_se   median</span></span>
+<span><span class="co">## 1:          1  1798 0.0000000 391.81818 3.810070 0.07239468 2.745520</span></span>
+<span><span class="co">## 2:          2   298 0.0000000 130.57143 4.064631 0.18903924 3.023569</span></span>
+<span><span class="co">## 3:          3   246 0.0000000 186.50000 3.685040 0.18526271 2.721311</span></span>
+<span><span class="co">## 4:          5   982 0.0000000 246.71429 3.855805 0.10134559 2.697699</span></span>
+<span><span class="co">## 5:          6   182 0.0000000 163.23529 4.033846 0.23908385 2.775264</span></span>
+<span><span class="co">## 6:          7    28 0.2647059 165.04545 3.851056 0.66241644 2.773455</span></span>
+<span><span class="co">## 7:          8    30 0.7719101  26.95098 4.065571 0.58654865 3.592087</span></span>
+<span><span class="co">## 8:        995   561 0.0000000 299.10000 4.031359 0.13624559 2.922734</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="labeling-values">Labeling Values<a class="anchor" aria-label="anchor" href="#labeling-values"></a>
 </h3>
 <p>To label values we can use <code>factorize_column</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span><span class="op">$</span><span class="va">employment</span> <span class="op">=</span> <span class="fu"><a href="../reference/factorize_column.html">factorize_column</a></span><span class="op">(</span></span>
 <span>  <span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span><span class="op">$</span><span class="va">employment</span>,</span>
 <span>  <span class="st">"employment"</span>,</span>
@@ -1015,25 +1017,25 @@ rates.</p>
 <span><span class="co">## 6:                                                          Unpaid volunteer or intern</span></span>
 <span><span class="co">## 7:               Employed, but not currently working (e.g., on leave, furloughed 100%)</span></span>
 <span><span class="co">## 8:                                                                    Missing Response</span></span>
-<span><span class="co">##    count       min      max     mean    mean_se   median</span></span>
-<span><span class="co">## 1:  1759 0.0000000 66.63636 3.689127 0.06833122 2.735211</span></span>
-<span><span class="co">## 2:   294 0.0000000 61.07273 3.971959 0.17999151 3.023569</span></span>
-<span><span class="co">## 3:   236 0.0000000 66.08108 3.470364 0.16677819 2.702176</span></span>
-<span><span class="co">## 4:   954 0.0000000 66.57407 3.678085 0.09273873 2.694794</span></span>
-<span><span class="co">## 5:   177 0.0000000 60.77358 3.909302 0.22822014 2.775264</span></span>
-<span><span class="co">## 6:    26 0.2647059 57.37500 3.321632 0.50701000 2.773455</span></span>
-<span><span class="co">## 7:    30 0.7719101 26.95098 4.065571 0.58655049 3.592087</span></span>
-<span><span class="co">## 8:   545 0.0000000 65.90909 3.867029 0.12589798 2.922734</span></span></code></pre>
+<span><span class="co">##    count       min       max     mean    mean_se   median</span></span>
+<span><span class="co">## 1:  1798 0.0000000 391.81818 3.810070 0.07239468 2.745520</span></span>
+<span><span class="co">## 2:   298 0.0000000 130.57143 4.064631 0.18903924 3.023569</span></span>
+<span><span class="co">## 3:   246 0.0000000 186.50000 3.685040 0.18526271 2.721311</span></span>
+<span><span class="co">## 4:   982 0.0000000 246.71429 3.855805 0.10134559 2.697699</span></span>
+<span><span class="co">## 5:   182 0.0000000 163.23529 4.033846 0.23908385 2.775264</span></span>
+<span><span class="co">## 6:    28 0.2647059 165.04545 3.851056 0.66241644 2.773455</span></span>
+<span><span class="co">## 7:    30 0.7719101  26.95098 4.065571 0.58654865 3.592087</span></span>
+<span><span class="co">## 8:   561 0.0000000 299.10000 4.031359 0.13624559 2.922734</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="creating-visuals-using-hts_summary-output">Creating Visuals using hts_summary output<a class="anchor" aria-label="anchor" href="#creating-visuals-using-hts_summary-output"></a>
 </h3>
 <p><code>hts_summary</code> creates outputs that can easily be used to
 create visuals.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: package 'ggplot2' was built under R version 4.3.2</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  <span class="va">trip_rate_by_employment_summary</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">wtd</span>,</span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean</span>, y <span class="op">=</span> <span class="va">employment</span>, label <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span>
@@ -1065,7 +1067,7 @@ create visuals.</p>
 first be added to the <code>variable_list</code> and
 <code>value_labels</code>. In this example we are creating a new
 variable called <code>hh_size</code> that we want to summarize.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_data</span><span class="op">$</span><span class="va">hh</span><span class="op">[</span>, <span class="va">hh_size</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">num_people</span> <span class="op">&lt;</span> <span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">variable_list</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
