@@ -14,7 +14,7 @@ hts_prep_triprate(
   remove_outliers = TRUE,
   threshold = 0.975,
   weighted = TRUE,
-  hts_data
+  hts_data = list(hts_data)
 )
 }
 \arguments{

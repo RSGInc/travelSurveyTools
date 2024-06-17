@@ -58,7 +58,7 @@ hts_prep_triprate = function(summarize_by = NULL,
                              remove_outliers = TRUE,
                              threshold = 0.975,
                              weighted = TRUE,
-                             hts_data) {
+                             hts_data = list(hts_data)) {
   # Check variable_list first
   variables_dt = hts_validate_variable_list(variables_dt, hts_data)
   
