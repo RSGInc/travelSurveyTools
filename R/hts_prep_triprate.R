@@ -199,7 +199,7 @@ if (length(summarize_by) > 0) {
     )
     
     # Remove columns where NA levels of factors were generated during dcast:
-    na_filled_cols = names(triprate_cast)[names(triprate_cast) %like% "_NA"]
+    na_filled_cols = names(triprate_cast)[names(triprate_cast) %like% "_NA" | names(triprate_cast) == "NA"]
     
     if (length(na_filled_cols) > 0) {
       triprate_cast[, c(na_filled_cols) := NULL]
