@@ -171,7 +171,7 @@ if (length(summarize_by) > 0) {
   }
   
   if (!weighted) {
-    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(trip_id)))),
+    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(..trip_id)))),
                               by = triprate_cols_all
     ]
   }
@@ -282,4 +282,4 @@ return(prepped_dt_ls)
 }
 
 ## quiets concerns of R CMD check
-utils::globalVariables(c("trip_weight", "num_trips", "trip_rate", "day_weight", "trip_table"))
+utils::globalVariables(c("..trip_id","trip_weight", "num_trips", "trip_rate", "day_weight", "trip_table"))
