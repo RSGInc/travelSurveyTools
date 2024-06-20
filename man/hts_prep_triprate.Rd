@@ -14,7 +14,7 @@ hts_prep_triprate(
   remove_outliers = FALSE,
   threshold = 0.975,
   weighted = TRUE,
-  hts_data = list(hts_data)
+  hts_data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle)
 )
 }
 \arguments{

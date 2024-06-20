@@ -58,7 +58,13 @@ hts_prep_triprate = function(summarize_by = NULL,
                              remove_outliers = FALSE,
                              threshold = 0.975,
                              weighted = TRUE,
-                             hts_data = list(hts_data)) {
+                             hts_data = list(
+                               "hh" = hh,
+                               "person" = person,
+                               "day" = day,
+                               "trip" = trip,
+                               "vehicle" = vehicle)) {
+  
   # Check variable_list first
   variables_dt = hts_validate_variable_list(variables_dt, hts_data)
   
@@ -135,150 +141,150 @@ hts_prep_triprate = function(summarize_by = NULL,
     shared_name %in% summarize_by &
       get(day_name) == 1 & 
       get(trip_name) == 1, shared_name]
-
-if (length(day_trip_vars) > 0) {
   
-  setnames(variables_dt, trip_name, 'trip_table')
-  
-  variables_dt[shared_name %in% day_trip_vars, trip_table := 0]
-  
-  setnames(variables_dt, 'trip_table', trip_name)
-  
-}
-
-if (length(summarize_by) > 0) {
-  byvar_dt = hts_prep_byvar(summarize_by,
-                            variables_dt = variables_dt,
-                            hts_data = hts_data,
-                            byvar_ids = ids,
-                            byvar_wts = wts
-  )
-  
-  merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
-  
-  triprate_dt = merge(trip_control, byvar_dt, by = merge_cols, all.x = TRUE)
-  
-  triprate_cols = intersect(names(triprate_dt), c(ids, wts))
-  
-  triprate_cols = triprate_cols[!triprate_cols %in% c(trip_id, trip_wt)]
-  
-  triprate_cols_all = c(triprate_cols, summarize_by)
-  
-  if (weighted) {
-    triprate_dt = triprate_dt[, .(num_trips = sum(get(trip_wt))),
-                              by = triprate_cols_all
-    ]
+  if (length(day_trip_vars) > 0) {
+    
+    setnames(variables_dt, trip_name, 'trip_table')
+    
+    variables_dt[shared_name %in% day_trip_vars, trip_table := 0]
+    
+    setnames(variables_dt, 'trip_table', trip_name)
+    
   }
   
-  if (!weighted) {
-    triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(..trip_id)))),
-                              by = triprate_cols_all
-    ]
-  }
-  
-  # fill in with zeros for zero trips on a given day:
-  triprate_dt[, `:=`(
-    num_trips = nafill(num_trips, fill = 0)
-  )]
-  
-  # If one of the by-variables is in trip table, need to expand to
-  # include all levels of the variable for every trip, and fill with zeros:
-  if (trip_id %in% names(byvar_dt)) {
-    # fill in with zeros for zero trips for a given level of xt_var using dcast:
-    dcast_formula =
-      paste0(
-        paste0(triprate_cols, collapse = " + "),
-        " ~ ",
-        paste0(summarize_by, collapse = " + ")
+  if (length(summarize_by) > 0) {
+    byvar_dt = hts_prep_byvar(summarize_by,
+                              variables_dt = variables_dt,
+                              hts_data = hts_data,
+                              byvar_ids = ids,
+                              byvar_wts = wts
+    )
+    
+    merge_cols = names(byvar_dt)[names(byvar_dt) %in% names(trip_control)]
+    
+    triprate_dt = merge(trip_control, byvar_dt, by = merge_cols, all.x = TRUE)
+    
+    triprate_cols = intersect(names(triprate_dt), c(ids, wts))
+    
+    triprate_cols = triprate_cols[!triprate_cols %in% c(trip_id, trip_wt)]
+    
+    triprate_cols_all = c(triprate_cols, summarize_by)
+    
+    if (weighted) {
+      triprate_dt = triprate_dt[, .(num_trips = sum(get(trip_wt))),
+                                by = triprate_cols_all
+      ]
+    }
+    
+    if (!weighted) {
+      triprate_dt = triprate_dt[, .(num_trips = sum(!is.na(get(..trip_id)))),
+                                by = triprate_cols_all
+      ]
+    }
+    
+    # fill in with zeros for zero trips on a given day:
+    triprate_dt[, `:=`(
+      num_trips = nafill(num_trips, fill = 0)
+    )]
+    
+    # If one of the by-variables is in trip table, need to expand to
+    # include all levels of the variable for every trip, and fill with zeros:
+    if (trip_id %in% names(byvar_dt)) {
+      # fill in with zeros for zero trips for a given level of xt_var using dcast:
+      dcast_formula =
+        paste0(
+          paste0(triprate_cols, collapse = " + "),
+          " ~ ",
+          paste0(summarize_by, collapse = " + ")
+        )
+      
+      triprate_cast = dcast(triprate_dt,
+                            dcast_formula,
+                            value.var = "num_trips",
+                            fill = 0
       )
-    
-    triprate_cast = dcast(triprate_dt,
-                          dcast_formula,
-                          value.var = "num_trips",
-                          fill = 0
-    )
-    
-    # Remove columns where NA levels of factors were generated during dcast:
-    na_filled_cols = names(triprate_cast)[names(triprate_cast) %like% "_NA" | names(triprate_cast) == "NA"]
-    
-    if (length(na_filled_cols) > 0) {
-      triprate_cast[, c(na_filled_cols) := NULL]
+      
+      # Remove columns where NA levels of factors were generated during dcast:
+      na_filled_cols = names(triprate_cast)[names(triprate_cast) %like% "_NA" | names(triprate_cast) == "NA"]
+      
+      if (length(na_filled_cols) > 0) {
+        triprate_cast[, c(na_filled_cols) := NULL]
+      }
+      
+      # transform back to long format, with separate cols for weighted & unwt. trip rates:
+      triprate_dt = data.table::melt(
+        triprate_cast,
+        id.vars = triprate_cols,
+        value.name = "num_trips"
+      )
+      
+      # Relabel xtab trip vars after melting:
+      if (length(summarize_by) > 1) {
+        triprate_dt[, c(summarize_by) := tstrsplit(variable, "_")]
+        triprate_dt[, variable := NULL]
+      }
+      
+      if (length(summarize_by) == 1) {
+        setnames(triprate_dt, old = "variable", new = summarize_by)
+      }
+      
+      triprate_dt = triprate_dt[]
     }
     
-    # transform back to long format, with separate cols for weighted & unwt. trip rates:
-    triprate_dt = data.table::melt(
-      triprate_cast,
-      id.vars = triprate_cols,
-      value.name = "num_trips"
-    )
-    
-    # Relabel xtab trip vars after melting:
-    if (length(summarize_by) > 1) {
-      triprate_dt[, c(summarize_by) := tstrsplit(variable, "_")]
-      triprate_dt[, variable := NULL]
+    if (weighted) {
+      # calculate trip rate
+      triprate_dt[, trip_rate :=
+                    ifelse(num_trips == 0, 0, num_trips / get(day_wt))]
+      
+      # Save counts of trips under a different name
+      setnames(triprate_dt, "num_trips", "trip_count_wtd")
+      
+      setnames(triprate_dt, "trip_rate", "num_trips")
     }
-    
-    if (length(summarize_by) == 1) {
-      setnames(triprate_dt, old = "variable", new = summarize_by)
-    }
-    
-    triprate_dt = triprate_dt[]
   }
+  
+  # remove outliers
+  if (remove_outliers) {
+    out = hts_remove_outliers(triprate_dt,
+                              numvar = "num_trips",
+                              threshold = threshold
+    )
+    
+    triprate_dt = out[["dt"]]
+    
+    outlier_table = out[["outlier_description"]]
+  }
+  
+  # Bin trips:
+  triprate_binned = hts_bin_var(
+    prepped_dt = triprate_dt,
+    numvar = "num_trips",
+    nbins = 7
+  )
   
   if (weighted) {
-    # calculate trip rate
-    triprate_dt[, trip_rate :=
-                  ifelse(num_trips == 0, 0, num_trips / get(day_wt))]
-    
-    # Save counts of trips under a different name
-    setnames(triprate_dt, "num_trips", "trip_count_wtd")
-    
-    setnames(triprate_dt, "trip_rate", "num_trips")
+    setnames(triprate_dt, "num_trips", "num_trips_wtd", skip_absent = TRUE)
+    setnames(triprate_binned, "num_trips", "num_trips_wtd", skip_absent = TRUE)
+  } else {
+    setnames(triprate_dt, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
+    setnames(triprate_binned, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
   }
-}
-
-# remove outliers
-if (remove_outliers) {
-  out = hts_remove_outliers(triprate_dt,
-                            numvar = "num_trips",
-                            threshold = threshold
-  )
-  
-  triprate_dt = out[["dt"]]
-  
-  outlier_table = out[["outlier_description"]]
-}
-
-# Bin trips:
-triprate_binned = hts_bin_var(
-  prepped_dt = triprate_dt,
-  numvar = "num_trips",
-  nbins = 7
-)
-
-if (weighted) {
-  setnames(triprate_dt, "num_trips", "num_trips_wtd", skip_absent = TRUE)
-  setnames(triprate_binned, "num_trips", "num_trips_wtd", skip_absent = TRUE)
-} else {
-  setnames(triprate_dt, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
-  setnames(triprate_binned, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
-}
-prepped_dt_ls = list(
-  "num" = triprate_dt,
-  "cat" = triprate_binned
-)
-
-# Append outliers:
-if (remove_outliers) {
   prepped_dt_ls = list(
-    "cat" = triprate_binned,
     "num" = triprate_dt,
-    "outliers" = outlier_table
+    "cat" = triprate_binned
   )
-}
-
-
-return(prepped_dt_ls)
+  
+  # Append outliers:
+  if (remove_outliers) {
+    prepped_dt_ls = list(
+      "cat" = triprate_binned,
+      "num" = triprate_dt,
+      "outliers" = outlier_table
+    )
+  }
+  
+  
+  return(prepped_dt_ls)
 }
 
 ## quiets concerns of R CMD check
