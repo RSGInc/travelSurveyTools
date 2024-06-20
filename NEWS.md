@@ -1,6 +1,6 @@
 # travelSurveyTools 2.4.3
 
-- Resolve bugs and updated function syntax in `hts_prep_triprate`
+- Resolve bugs and updated function syntax in `hts_prep_triprate` and `hts_prep_variable`
 - Updated `remove_outliers` parameter to default to FALSE in `hts_prep_triprate`
 - Added a warning message in `hts_remove_outliers`
 
