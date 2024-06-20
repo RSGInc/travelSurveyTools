@@ -11,10 +11,12 @@
 #' @examples
 #'
 #' require(data.table)
+#' 
 #' hts_remove_outliers(var_dt = trip, numvar = "speed_mph")
 #'
 hts_remove_outliers = function(var_dt, numvar = NULL,
                                 threshold = 0.975) {
+
   outlier_storage = list()
 
   outlier_cutoff = quantile(var_dt[, get(numvar)], threshold, na.rm = TRUE)
@@ -25,6 +27,12 @@ hts_remove_outliers = function(var_dt, numvar = NULL,
     min_outlier = min(var_dt[get(numvar) >= outlier_cutoff, get(numvar)]),
     max_outlier = max(var_dt[get(numvar) >= outlier_cutoff, get(numvar)])
   )
+
+  if (outlier_table$num_removed > 0) {
+    warning(stringr::str_glue(
+      "{outlier_table$num_removed} outliers were removed based on the threshold of {threshold}."
+    ))
+  }
 
   outlier_storage[["outlier_description"]] = outlier_table
 

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">travelSurveyTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,15 +88,15 @@ in data.table format.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">hts_remove_outliers</span><span class="op">(</span>var_dt <span class="op">=</span> <span class="va">trip</span>, numvar <span class="op">=</span> <span class="st">"speed_mph"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>378 outliers were removed based on the threshold of 0.975.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $outlier_description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    threshold num_removed min_outlier max_outlier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;       &lt;int&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.975         378    112.9918    228233.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        day_id trip_id  speed_mph distance_miles mode_type mode_1 mode_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;int&gt;   &lt;int&gt;      &lt;num&gt;          &lt;num&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:      1    6848  0.3570582     0.07736261         8      6    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:      1    6099  3.8030030     0.31691692         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:      1   15759  9.2827577     0.16244826         1      1    995</span>
@@ -109,7 +109,6 @@ in data.table format.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14721:   4125   14260 10.5795319     1.76325532         8      7    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14722:   4125    4397  8.5320851     1.42201419         8     34    995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        num_travelers d_purpose_category hh_id person_id travel_date trip_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;              &lt;int&gt; &lt;int&gt;     &lt;int&gt;      &lt;Date&gt;       &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:             1                  7   642       820  2023-05-28         957</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:             2                  7   642       820  2023-05-28         237</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:             1                  9   642       820  2023-05-28         287</span>

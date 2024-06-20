@@ -11,10 +11,10 @@ hts_prep_triprate(
   day_name = "day",
   ids = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
-  remove_outliers = TRUE,
+  remove_outliers = FALSE,
   threshold = 0.975,
   weighted = TRUE,
-  hts_data
+  hts_data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle)
 )
 }
 \arguments{

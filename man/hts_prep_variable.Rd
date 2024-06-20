@@ -8,7 +8,7 @@ hts_prep_variable(
   summarize_var = NULL,
   summarize_by = NULL,
   variables_dt = variable_list,
-  data = hts_data,
+  data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle),
   id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
   weighted = TRUE,
   wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
