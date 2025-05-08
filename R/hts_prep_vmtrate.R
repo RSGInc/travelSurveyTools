@@ -7,6 +7,7 @@
 #' @param trip_name Name of the trip dataset in hts_data.
 #' @param day_name Name of the day dataset in hts_data.
 #' @param ids name of unique identifier in each table in hts_data
+#' @param traveler_count_var name of traveler count variable in trip table
 #' @param dist_var name of distance variable in trip table, preferably miles for VMT
 #' @param mode_var name of mode variable in trip table
 #' @param veh_regex regular expression pattern capturing vehicular modes in mode_var
@@ -33,7 +34,7 @@ hts_prep_vmtrate = function(summarize_by = NULL,
                             traveler_count_var = NULL,
                             dist_var = NULL, 
                             mode_var = NULL,
-                            mode_regex = NULL,
+                            veh_regex = NULL,
                             wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
                             remove_outliers = FALSE,
                             threshold = 0.975,
@@ -81,14 +82,14 @@ hts_prep_vmtrate = function(summarize_by = NULL,
   
   if (length(summarize_by) == 0) {
     if (weighted) {
-      vmtrate_dt = tripdat[grepl(mode_regex, as.character(get(mode_var))), 
+      vmtrate_dt = tripdat[grepl(veh_regex, as.character(get(mode_var))), 
                            .(vmt = sum(get(trip_wt) * get(dist_var)/get(traveler_count_var))),
                             by = vmtratekeys
       ]
     }
     
     if (!weighted) {
-      vmtrate_dt = tripdat[grepl(mode_regex, as.character(get(mode_var))),
+      vmtrate_dt = tripdat[grepl(veh_regex, as.character(get(mode_var))),
                            .(vmt = sum(get(dist_var)/get(traveler_count_var))),
                             by = vmtratekeys
       ]
@@ -153,14 +154,14 @@ hts_prep_vmtrate = function(summarize_by = NULL,
     vmtrate_cols_all = c(vmtrate_cols, summarize_by)
     
     if (weighted) {
-      vmtrate_dt = vmtrate_dt[grepl(mode_regex, as.character(get(mode_var))), 
+      vmtrate_dt = vmtrate_dt[grepl(veh_regex, as.character(get(mode_var))), 
                               .(vmt = sum(get(trip_wt) * get(dist_var)/get(traveler_count_var))),
                               by = vmtrate_cols_all
       ]
     }
 
     if (!weighted) {
-      vmtrate_dt = vmtrate_dt[grepl(mode_regex, as.character(get(mode_var))), 
+      vmtrate_dt = vmtrate_dt[grepl(veh_regex, as.character(get(mode_var))), 
                               .(vmt = sum(!is.na(get(..trip_id)) * get(dist_var)/get(traveler_count_var))),
                                 by = vmtrate_cols_all
       ]

@@ -14,6 +14,7 @@ hts_prep_triprate(
   remove_outliers = FALSE,
   threshold = 0.975,
   weighted = TRUE,
+  strataname = NULL,
   hts_data = list(hh = hh, person = person, day = day, trip = trip, vehicle = vehicle)
 )
 }
@@ -38,6 +39,8 @@ Default is TRUE.}
 \item{threshold}{Threshold to define outliers. Default is 0.975.}
 
 \item{weighted}{Whether the data is weighted. Default is TRUE.}
+
+\item{strataname}{Name of strata name to bring in. Default is NULL.}
 
 \item{hts_data}{List containing household, person, day, trip, and vehicle
 datasets in data.table format.}

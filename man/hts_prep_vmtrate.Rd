@@ -13,7 +13,7 @@ hts_prep_vmtrate(
   traveler_count_var = NULL,
   dist_var = NULL,
   mode_var = NULL,
-  mode_regex = NULL,
+  veh_regex = NULL,
   wts = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
   remove_outliers = FALSE,
   threshold = 0.975,
@@ -35,9 +35,13 @@ format.}
 
 \item{ids}{name of unique identifier in each table in hts_data}
 
+\item{traveler_count_var}{name of traveler count variable in trip table}
+
 \item{dist_var}{name of distance variable in trip table, preferably miles for VMT}
 
 \item{mode_var}{name of mode variable in trip table}
+
+\item{veh_regex}{regular expression pattern capturing vehicular modes in mode_var}
 
 \item{wts}{name of weight column in each table in hts_data}
 
@@ -52,8 +56,6 @@ Default is TRUE.}
 
 \item{hts_data}{List containing household, person, day, trip, and vehicle
 datasets in data.table format.}
-
-\item{veh_regex}{regular expression pattern capturing vehicular modes in mode_var}
 }
 \value{
 List of binned vehicle miles traveled with key columns and summarize by variable,
