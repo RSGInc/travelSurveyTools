@@ -12,6 +12,7 @@
 #'  Default is TRUE.
 #' @param threshold Threshold to define outliers. Default is 0.975.
 #' @param weighted Whether the data is weighted. Default is TRUE.
+#' @param strataname  Name of strata name to bring in. Default is NULL.
 #' @param hts_data List containing household, person, day, trip, and vehicle
 #'  datasets in data.table format.
 #'
@@ -58,6 +59,7 @@ hts_prep_triprate = function(summarize_by = NULL,
                              remove_outliers = FALSE,
                              threshold = 0.975,
                              weighted = TRUE,
+                             strataname=NULL,
                              hts_data = list(
                                "hh" = hh,
                                "person" = person,
@@ -82,9 +84,9 @@ hts_prep_triprate = function(summarize_by = NULL,
   trip_wt = wts[trip_index]
   day_wt = wts[day_index]
   
-  tripratekeys = intersect(names(tripdat), ids[-trip_index])
-  trip_subset_cols = intersect(names(tripdat), c(ids, wts))
-  day_subset_cols = intersect(names(daydat), c(ids, wts))
+  tripratekeys = intersect(names(tripdat), c(ids[-trip_index], summarize_by))
+  trip_subset_cols = intersect(names(tripdat), c(ids, wts, summarize_by))
+  day_subset_cols = intersect(names(daydat), c(ids, wts, summarize_by))
   
   if (weighted & (!trip_wt %in% trip_subset_cols |
                   !day_wt %in% day_subset_cols)) {
@@ -105,7 +107,6 @@ hts_prep_triprate = function(summarize_by = NULL,
       ]
     }
     
-    # FIXME: rename triprate_binned to num_trips?
     if (!weighted) {
       triprate_dt = tripdat[, .(num_trips = .N),
                             by = tripratekeys
@@ -255,6 +256,19 @@ hts_prep_triprate = function(summarize_by = NULL,
     outlier_table = out[["outlier_description"]]
   }
   
+  # survey strata
+  if(!is.null(strataname)){
+    dts = hts_cbind_var(
+      lhs_table = triprate_dt,
+      rhs_var = strataname,
+      hts_data = hts_data,
+      variable_list = variables_dt,
+      cbind_ids = ids,
+      cbind_wts = wts
+    )
+    triprate_dt = dts
+  }
+  
   # Bin trips:
   triprate_binned = hts_bin_var(
     prepped_dt = triprate_dt,
@@ -269,6 +283,7 @@ hts_prep_triprate = function(summarize_by = NULL,
     setnames(triprate_dt, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
     setnames(triprate_binned, "num_trips", "num_trips_unwtd", skip_absent = TRUE)
   }
+  
   prepped_dt_ls = list(
     "num" = triprate_dt,
     "cat" = triprate_binned

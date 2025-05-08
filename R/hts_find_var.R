@@ -39,7 +39,7 @@ hts_find_var = function(var,
   if (nrow(var_location) == 0) {
     msg = paste0("Variable ", var, " not found")
     similar_vars =
-      variable_list[
+      variables_dt[
         agrep(
           pattern = var,
           x = variable,
