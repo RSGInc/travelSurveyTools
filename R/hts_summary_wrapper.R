@@ -31,16 +31,8 @@
 #'  is -1.
 #' @param missing_values Missing values to remove. Default is 995.
 #'
-#' @return A list containing (if applicable) categorical and numeric summaries of the
-#'  specified variable(s), as well as sample sizes and whether or not the summarized
-#'  variable is a shared checkbox variable.
-#'  To access the categorical/numeric df use output$summary.
-#'  To access the weighted df use output$summary$wtd, and output$summary$unwtd for the
-#'  unweighted df.
-#'  To access the weight name use output$summary$weight_name.
-#'  To access sample sizes use output$n_ls.
-#'  To access weighted and unweighted sample sizes respectively, use output$n_ls$wtd
-#'  and output$n_ls$unwtd.
+#' @return A structured list with wrapper-level metadata,
+#'  diagnostics, and current summary outputs stored under `summaries`.
 #' @export
 #'
 #' @examples
@@ -61,6 +53,31 @@
 #' summarize_by = 'age')
 #' 
 #' 
+
+`%||%` <- function(x, y) {
+  if (is.null(x) || length(x) == 0L || all(is.na(x))) {
+    return(y)
+  }
+
+  x
+}
+
+hts_wrapper_meta <- function(summarize_var, variables_dt, table_name, weight_var) {
+  var_rows <- data.table::copy(
+    variables_dt[shared_name == summarize_var | variable == summarize_var]
+  )
+
+  list(
+    label = var_rows$label[!is.na(var_rows$label)][1] %||% NULL,
+    description = var_rows$description[!is.na(var_rows$description)][1] %||% NULL,
+    logic = var_rows$logic[!is.na(var_rows$logic)][1] %||% NULL,
+    data_type = var_rows$data_type[!is.na(var_rows$data_type)][1] %||% NULL,
+    shared_name = var_rows$shared_name[!is.na(var_rows$shared_name)][1] %||% summarize_var,
+    is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1),
+    weight_var = weight_var %||% NULL,
+    table = table_name %||% NULL
+  )
+}
 
 
 hts_summary_wrapper = function(
@@ -91,6 +108,7 @@ hts_summary_wrapper = function(
     not_imputable = -1,
     missing_values = c("Missing Response", "995")
 ){
+  variables_dt = hts_validate_variable_list(variables_dt, data)
   
   
   # Decide what prep function to run
@@ -116,7 +134,7 @@ hts_summary_wrapper = function(
     
     prepped_dt_ls = hts_prep_triprate(
       summarize_by = summarize_by,
-      variables_dt = variable_list,
+      variables_dt = variables_dt,
       trip_name = trip_name,
       day_name = day_name,
       ids = id_cols,
@@ -130,7 +148,7 @@ hts_summary_wrapper = function(
   }
   
   # If a checkbox variable use checkbox for summarize_vartype
-  if (variable_list[shared_name == summarize_var, .N] > 1){
+  if (variables_dt[shared_name == summarize_var, .N] > 1){
     
     summarize_vartype = 'checkbox'
     
@@ -295,8 +313,34 @@ hts_summary_wrapper = function(
     'num' = output_ls_num
   )
   
-  
-  return(output_ls)
+  table_name = if (summarize_var == "num_trips") {
+    day_name
+  } else {
+    hts_find_var(summarize_var, data = data, variables_dt = variables_dt)
+  }
+
+  obj = list(
+    variable = summarize_var,
+    summarize_by = summarize_by,
+    table = table_name,
+    meta = hts_wrapper_meta(
+      summarize_var = summarize_var,
+      variables_dt = variables_dt,
+      table_name = table_name,
+      weight_var = weight
+    ),
+    diagnostics = list(
+      n_ls = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL,
+      notes = character(),
+      warnings = character()
+    ),
+    summaries = list(
+      categorical = output_ls_cat,
+      numeric = output_ls_num
+    )
+  )
+
+  return(obj)
   
   
 }
