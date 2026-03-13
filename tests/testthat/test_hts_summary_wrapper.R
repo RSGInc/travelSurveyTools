@@ -21,7 +21,11 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
   expect_equal(results$meta$source_tables, "person")
   expect_equal(results$meta$design$weight_var, "person_weight")
   expect_true(all(c("unit_counts", "n_total", "n_valid", "n_missing") %in% names(results$diagnostics)))
-  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$n_ls)
+  expect_true(all(
+    c("summary_data", "weight_var", "unit_counts", "raw_summary") %in%
+      names(results$summaries$categorical)
+  ))
+  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$unit_counts)
   expect_equal(results$diagnostics$n_total, nrow(person))
   expect_equal(results$diagnostics$n_valid, expected_n_valid)
   expect_equal(
@@ -30,10 +34,18 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
   )
   expect_true("categorical" %in% names(results$summaries))
   
-  expect_true(results$summaries$categorical$summary$weight_name == "person_weight")
+  expect_true(results$summaries$categorical$weight_var == "person_weight")
   expect_true(
-    sum(results$summaries$categorical$summary$wtd$est) ==
+    sum(results$summaries$categorical$summary_data$wtd$est) ==
       sum(results$diagnostics$unit_counts$wtd)
+  )
+  expect_equal(
+    results$summaries$categorical$raw_summary$summary$unwtd,
+    results$summaries$categorical$summary_data$unwtd
+  )
+  expect_equal(
+    results$summaries$categorical$raw_summary$summary$wtd,
+    results$summaries$categorical$summary_data$wtd
   )
 })
 
@@ -56,12 +68,25 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_true("numeric" %in% names(results$summaries))
   expect_false(is.null(results$summaries$numeric))
   expect_equal(results$meta$design$weight_var, "trip_weight")
-  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$n_ls)
+  expect_true(all(
+    c("summary_data", "weight_var", "unit_counts", "raw_summary") %in%
+      names(results$summaries$numeric)
+  ))
+  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$unit_counts)
   expect_equal(results$diagnostics$n_total, nrow(trip))
   expect_equal(results$diagnostics$n_valid, expected_n_valid)
   expect_equal(
     results$diagnostics$n_missing,
     results$diagnostics$n_total - results$diagnostics$n_valid
+  )
+  expect_equal(results$summaries$numeric$weight_var, "trip_weight")
+  expect_equal(
+    results$summaries$numeric$raw_summary$summary$unwtd,
+    results$summaries$numeric$summary_data$unwtd
+  )
+  expect_equal(
+    results$summaries$numeric$raw_summary$summary$wtd,
+    results$summaries$numeric$summary_data$wtd
   )
 })
 

@@ -43,11 +43,13 @@
 #'    `notes` and `warnings`.}
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
 #'    contains the categorical summary payload, and `summaries$numeric`
-#'    contains the numeric summary payload when available.}
+#'    contains the numeric summary payload when available. Each payload
+#'    includes `summary_data`, `weight_var`, `unit_counts`, and
+#'    `raw_summary`.}
 #'  }
 #'
-#'  The internal structure of `summaries$categorical` and
-#'  `summaries$numeric` is unchanged from the existing summary helpers.
+#'  `raw_summary` retains the existing helper return structure so this wrapper
+#'  can evolve without forcing an immediate rewrite of downstream code.
 #' @export
 #'
 #' @examples
@@ -84,6 +86,22 @@ hts_wrapper_meta_value <- function(var_rows, col_name, default = NULL) {
 
   value <- var_rows[[col_name]][!is.na(var_rows[[col_name]])][1]
   value %||% default
+}
+
+hts_wrap_summary_payload <- function(summary_ls) {
+  if (is.null(summary_ls)) {
+    return(NULL)
+  }
+
+  list(
+    summary_data = list(
+      unwtd = summary_ls$summary$unwtd %||% NULL,
+      wtd = summary_ls$summary$wtd %||% NULL
+    ),
+    weight_var = summary_ls$summary$weight_name %||% NULL,
+    unit_counts = summary_ls$n_ls %||% NULL,
+    raw_summary = summary_ls
+  )
 }
 
 hts_wrapper_meta <- function(
@@ -402,8 +420,8 @@ hts_summary_wrapper = function(
       warnings = character()
     ),
     summaries = list(
-      categorical = output_ls_cat,
-      numeric = output_ls_num
+      categorical = hts_wrap_summary_payload(output_ls_cat),
+      numeric = hts_wrap_summary_payload(output_ls_num)
     )
   )
 
