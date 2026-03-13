@@ -74,6 +74,15 @@
   x
 }
 
+hts_wrapper_meta_value <- function(var_rows, col_name, default = NULL) {
+  if (!col_name %in% names(var_rows)) {
+    return(default)
+  }
+
+  value <- var_rows[[col_name]][!is.na(var_rows[[col_name]])][1]
+  value %||% default
+}
+
 hts_wrapper_meta <- function(
     summarize_var,
     summarize_by,
@@ -86,11 +95,6 @@ hts_wrapper_meta <- function(
   var_rows <- data.table::copy(
     variables_dt[shared_name == summarize_var | variable == summarize_var]
   )
-
-  question_text <- NULL
-  if ("question_text" %in% names(var_rows)) {
-    question_text <- var_rows$question_text[!is.na(var_rows$question_text)][1] %||% NULL
-  }
 
   meta_tables <- unique(stats::na.omit(vapply(
     c(summarize_var, summarize_by %||% character()),
@@ -107,12 +111,12 @@ hts_wrapper_meta <- function(
   list(
     target = list(
       variable = summarize_var,
-      variable_label = var_rows$label[!is.na(var_rows$label)][1] %||% NULL,
-      question_text = question_text,
-      variable_description = var_rows$description[!is.na(var_rows$description)][1] %||% NULL,
-      variable_logic = var_rows$logic[!is.na(var_rows$logic)][1] %||% NULL,
-      data_type = var_rows$data_type[!is.na(var_rows$data_type)][1] %||% NULL,
-      shared_name = var_rows$shared_name[!is.na(var_rows$shared_name)][1] %||% summarize_var,
+      variable_label = hts_wrapper_meta_value(var_rows, "label"),
+      question_text = hts_wrapper_meta_value(var_rows, "question_text"),
+      variable_description = hts_wrapper_meta_value(var_rows, "description"),
+      variable_logic = hts_wrapper_meta_value(var_rows, "logic"),
+      data_type = hts_wrapper_meta_value(var_rows, "data_type"),
+      shared_name = hts_wrapper_meta_value(var_rows, "shared_name", summarize_var),
       is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1)
     ),
     group_by = list(

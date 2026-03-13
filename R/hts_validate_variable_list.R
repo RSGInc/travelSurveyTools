@@ -24,6 +24,12 @@ hts_validate_variable_list = function(variable_list,
     "shared_name"
   )
 
+  optional_metadata_names = c(
+    "label",
+    "question_text",
+    "logic"
+  )
+
   expected_names = c(admin_names, tbl_names)
 
   # Stop if missing required columns
@@ -61,6 +67,12 @@ hts_validate_variable_list = function(variable_list,
     stop("Duplicate variables appear in variable list")
   }
 
+  for (col_name in optional_metadata_names) {
+    if (!col_name %in% names(var_dt)) {
+      var_dt[, (col_name) := NA_character_]
+    }
+  }
+
   # Check that checkbox variables are "integer/categorical"
 
   not_categorical = var_dt[is_checkbox == 1 & data_type != "integer/categorical", .N]
@@ -75,5 +87,5 @@ hts_validate_variable_list = function(variable_list,
 ## quiets concerns of R CMD check
 utils::globalVariables(c(
   "..admin_names", "..tbl_names", "tbl_count", "N",
-  "..expected_names"
+  "..expected_names", "..optional_metadata_names"
 ))

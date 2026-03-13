@@ -40,3 +40,22 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_false(is.null(results$summaries$numeric))
   expect_equal(results$meta$design$weight_var, "trip_weight")
 })
+
+test_that("hts_summary_wrapper carries optional variable metadata into meta target", {
+  data("variable_list")
+
+  variable_list[, question_text := NA_character_]
+  variable_list[, logic := NA_character_]
+  variable_list[variable == "employment", label := "Employment status"]
+  variable_list[variable == "employment", question_text := "What is your employment status?"]
+  variable_list[variable == "employment", logic := "Asked of all persons age 16+"]
+
+  results = hts_summary_wrapper(
+    summarize_var = "employment",
+    variables_dt = variable_list
+  )
+
+  expect_equal(results$meta$target$variable_label, "Employment status")
+  expect_equal(results$meta$target$question_text, "What is your employment status?")
+  expect_equal(results$meta$target$variable_logic, "Asked of all persons age 16+")
+})
