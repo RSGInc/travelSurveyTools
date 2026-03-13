@@ -47,12 +47,8 @@
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
 #'    contains the categorical summary payload, and `summaries$numeric`
 #'    contains the numeric summary payload when available. Each payload
-#'    includes `summary_data`, `weight_var`, `unit_counts`, and
-#'    `raw_summary`.}
+#'    includes `summary_data`, `weight_var`, and `unit_counts`.}
 #'  }
-#'
-#'  `raw_summary` retains the existing helper return structure so this wrapper
-#'  can evolve without forcing an immediate rewrite of downstream code.
 #' @export
 #'
 #' @examples
@@ -180,8 +176,7 @@ hts_wrap_summary_payload <- function(summary_ls) {
       wtd = summary_ls$summary$wtd %||% NULL
     ),
     weight_var = summary_ls$summary$weight_name %||% NULL,
-    unit_counts = summary_ls$n_ls %||% NULL,
-    raw_summary = summary_ls
+    unit_counts = summary_ls$n_ls %||% NULL
   )
 }
 

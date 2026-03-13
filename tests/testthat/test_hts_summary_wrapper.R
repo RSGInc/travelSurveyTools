@@ -27,7 +27,7 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
     ) %in% names(results$diagnostics)
   ))
   expect_true(all(
-    c("summary_data", "weight_var", "unit_counts", "raw_summary") %in%
+    c("summary_data", "weight_var", "unit_counts") %in%
       names(results$summaries$categorical)
   ))
   expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$unit_counts)
@@ -49,14 +49,6 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
   expect_true(
     sum(results$summaries$categorical$summary_data$wtd$est) ==
       sum(results$diagnostics$unit_counts$wtd)
-  )
-  expect_equal(
-    results$summaries$categorical$raw_summary$summary$unwtd,
-    results$summaries$categorical$summary_data$unwtd
-  )
-  expect_equal(
-    results$summaries$categorical$raw_summary$summary$wtd,
-    results$summaries$categorical$summary_data$wtd
   )
 })
 
@@ -80,7 +72,7 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_false(is.null(results$summaries$numeric))
   expect_equal(results$meta$design$weight_var, "trip_weight")
   expect_true(all(
-    c("summary_data", "weight_var", "unit_counts", "raw_summary") %in%
+    c("summary_data", "weight_var", "unit_counts") %in%
       names(results$summaries$numeric)
   ))
   expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$unit_counts)
@@ -97,14 +89,6 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_true(results$diagnostics$n_distinct > 0)
   expect_false(results$diagnostics$all_missing)
   expect_equal(results$summaries$numeric$weight_var, "trip_weight")
-  expect_equal(
-    results$summaries$numeric$raw_summary$summary$unwtd,
-    results$summaries$numeric$summary_data$unwtd
-  )
-  expect_equal(
-    results$summaries$numeric$raw_summary$summary$wtd,
-    results$summaries$numeric$summary_data$wtd
-  )
 })
 
 test_that("hts_summary_wrapper carries optional variable metadata into meta target", {
