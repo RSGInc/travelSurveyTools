@@ -17,6 +17,8 @@
 #' @param strataname  Name of strata name to bring in. Default is NULL.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set
 #' to FALSE if weighted is FALSE.
+#' @param conf_level Confidence level for confidence intervals when available.
+#'  Default is 0.95.
 #' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
@@ -262,6 +264,7 @@ hts_summary_wrapper = function(
     day_name = "day",
     strataname = NULL,
     se = FALSE,
+    conf_level = 0.95,
     checkbox_valname = "value",
     checkbox_yesval = 1,
     value_label_colname = 'label',
@@ -370,6 +373,7 @@ hts_summary_wrapper = function(
     id_cols = id_cols,
     weighted = weighted,
     se = se,
+    conf_level = conf_level,
     wtname = weight,
     strataname = strataname,
     checkbox_valname = checkbox_valname,
@@ -434,6 +438,7 @@ hts_summary_wrapper = function(
       id_cols = id_cols,
       weighted = weighted,
       se = se,
+      conf_level = conf_level,
       wtname = weight,
       strataname = strataname,
       checkbox_valname = checkbox_valname,

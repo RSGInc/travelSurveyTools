@@ -135,6 +135,48 @@ test_that("hts_summary_wrapper carries optional variable metadata into meta targ
   expect_equal(results$meta$target$variable_notes, "Collapsed to major employment categories")
 })
 
+test_that("hts_summary_wrapper includes estimate-level reliability stats for weighted categorical summaries", {
+  results = hts_summary_wrapper(
+    summarize_var = "employment",
+    summarize_by = "age",
+    se = TRUE
+  )
+
+  expect_true(all(
+    c("prop_se", "prop_low", "prop_upp", "est_low", "est_upp", "rse", "deff", "ess") %in%
+      names(results$summaries$categorical$summary_data$wtd)
+  ))
+  expect_true(all(results$summaries$categorical$summary_data$wtd$rse >= 0, na.rm = TRUE))
+  expect_true(all(results$summaries$categorical$summary_data$wtd$deff >= 0, na.rm = TRUE))
+  expect_true(any(!is.na(results$summaries$categorical$summary_data$wtd$ess)))
+})
+
+test_that("hts_summary_wrapper passes conf_level through to weighted categorical summaries", {
+  results_95 = hts_summary_wrapper(
+    summarize_var = "employment",
+    summarize_by = "age",
+    se = TRUE,
+    conf_level = 0.95
+  )
+
+  results_90 = hts_summary_wrapper(
+    summarize_var = "employment",
+    summarize_by = "age",
+    se = TRUE,
+    conf_level = 0.90
+  )
+
+  width_95 =
+    results_95$summaries$categorical$summary_data$wtd$prop_upp -
+    results_95$summaries$categorical$summary_data$wtd$prop_low
+  width_90 =
+    results_90$summaries$categorical$summary_data$wtd$prop_upp -
+    results_90$summaries$categorical$summary_data$wtd$prop_low
+
+  expect_true(all(width_90 <= width_95 | is.na(width_90) | is.na(width_95)))
+  expect_true(any(width_90 < width_95, na.rm = TRUE))
+})
+
 test_that("hts_summary_wrapper handles checkbox summaries with unit-level diagnostics", {
   checkbox_vars = variable_list[shared_name == "race", variable]
   expected_n_valid = person[

@@ -14,6 +14,8 @@
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set
 #' to FALSE if weighted is FALSE.
+#' @param conf_level Confidence level for confidence intervals when available.
+#'  Default is 0.95.
 #' @param wtname Name of the weight column to use. Default is NULL. Must be specified
 #' when weighted = TRUE.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
@@ -107,6 +109,7 @@ hts_summary = function(
     id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
     weighted = TRUE,
     se = FALSE,
+    conf_level = 0.95,
     wtname = NULL,
     strataname = NULL,
     checkbox_valname = "value",
@@ -156,6 +159,7 @@ hts_summary = function(
       summarize_by = summarize_by,
       weighted = weighted,
       se = se,
+      conf_level = conf_level,
       wtname = wtname,
       strataname = strataname,
       checkbox_valname = checkbox_valname,
@@ -172,6 +176,7 @@ hts_summary = function(
       summarize_by = summarize_by,
       weighted = weighted,
       se = se,
+      conf_level = conf_level,
       wtname = wtname,
       strataname = strataname
     )

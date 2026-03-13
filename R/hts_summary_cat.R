@@ -7,6 +7,8 @@
 #'  Default is NULL.
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param se Whether to calculate standard error. Default is FALSE.
+#' @param conf_level Confidence level for confidence intervals when available.
+#'  Default is 0.95.
 #' @param wtname Name of the weight column to use. Default is NULL.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
 #' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
@@ -94,6 +96,7 @@ hts_summary_cat = function(prepped_dt,
                             summarize_by = NULL,
                             weighted = TRUE,
                             se = FALSE,
+                            conf_level = 0.95,
                             wtname = NULL,
                             strataname = NULL,
                             checkbox_valname = "value",
@@ -220,11 +223,30 @@ hts_summary_cat = function(prepped_dt,
           count = length(get(summarize_var)),
           prop = srvyr::survey_prop(
             proportion = FALSE,
-            vartype = "se"
+            vartype = c("se", "cv", "ci"),
+            level = conf_level,
+            deff = TRUE
           ),
-          est = survey_total(vartype = "se")
+          est = survey_total(
+            vartype = c("se", "cv", "ci"),
+            level = conf_level,
+            deff = TRUE
+          )
         ) |>
         setDT()
+
+      if ("prop_cv" %in% names(wtd_summary)) {
+        wtd_summary[, rse := prop_cv]
+      }
+
+      if ("prop_deff" %in% names(wtd_summary)) {
+        wtd_summary[, deff := prop_deff]
+        wtd_summary[, ess := fifelse(
+          is.na(deff) | !is.finite(deff) | deff <= 0,
+          NA_real_,
+          as.numeric(count) / deff
+        )]
+      }
     } else if (!se) {
       wtd_summary =
         prepped_dt[

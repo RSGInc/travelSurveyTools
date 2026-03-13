@@ -9,6 +9,8 @@
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set
 #' to FALSE if weighted is FALSE.
+#' @param conf_level Confidence level for confidence intervals when available.
+#'  Default is 0.95.
 #' @param wtname Name of the weight column to use. Default is NULL. Must be specified
 #' when weighted = TRUE.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
@@ -67,6 +69,7 @@ hts_summary_num = function(prepped_dt,
                             summarize_by = NULL,
                             weighted = TRUE,
                             se = FALSE,
+                            conf_level = 0.95,
                             wtname = NULL,
                             strataname = NULL) {
   if (!weighted & se) {
