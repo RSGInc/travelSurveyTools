@@ -4,14 +4,16 @@ library(data.table)
 library(srvyr)
 
 
-DT = hts_prep_variable(
-  summarize_var = "speed_mph",
-  variables_dt = variable_list,
-  data = test_data
-)$num
-
-
 test_that("hts_summary_num should return counts and units", {
+  expect_warning(
+    DT <- hts_prep_variable(
+      summarize_var = "speed_mph",
+      variables_dt = variable_list,
+      data = test_data
+    )$num,
+    "outliers were removed"
+  )
+
   results = hts_summary_num(
     prepped_dt = DT,
     summarize_var = "speed_mph",
