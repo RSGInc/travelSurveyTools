@@ -10,7 +10,11 @@
 #' @param conf_level Confidence level for confidence intervals when available.
 #'  Default is 0.95.
 #' @param wtname Name of the weight column to use. Default is NULL.
+#' @param psu_var Name of the PSU variable to use in the survey design.
+#'  Default is NULL and will be resolved from available ID columns.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param use_strata Whether to include strata in the survey design. Defaults to
+#'  `TRUE` when `strataname` is provided and `FALSE` otherwise.
 #' @param checkbox_valname Name of the column with the checkbox value. Default is 'value'.
 #'  Must be provided if summarize_var is a checkbox variable.
 #' @param checkbox_yesval Value of checkbox_valname that indicates it was selected.
@@ -98,7 +102,9 @@ hts_summary_cat = function(prepped_dt,
                             se = FALSE,
                             conf_level = 0.95,
                             wtname = NULL,
+                            psu_var = NULL,
                             strataname = NULL,
+                            use_strata = !is.null(strataname),
                             checkbox_valname = "value",
                             checkbox_yesval = 1,
                             summarize_vartype = "categorical",
@@ -110,7 +116,7 @@ hts_summary_cat = function(prepped_dt,
     se = FALSE
   }
 
-  if (!se & weighted & !is.null(strataname)) {
+  if (!se & weighted & isTRUE(use_strata) & !is.null(strataname)) {
     message("Stratanames are only used in calculating standard errors; setting se = TRUE
             Set se = FALSE and remove the strataname if standard errors are not desired.")
 
@@ -213,7 +219,9 @@ hts_summary_cat = function(prepped_dt,
         prepped_dt = prepped_dt,
         weighted = weighted,
         wtname = wtname,
-        strataname = strataname
+        psu_var = psu_var,
+        strataname = strataname,
+        use_strata = use_strata
       )
 
       wtd_summary =

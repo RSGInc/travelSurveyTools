@@ -20,6 +20,9 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
   expect_equal(results$meta$group_by$variables, "age")
   expect_equal(results$meta$source_tables, "person")
   expect_equal(results$meta$design$weight_var, "person_weight")
+  expect_equal(results$meta$design$psu_var, "hh_id")
+  expect_false(results$meta$design$use_strata)
+  expect_null(results$meta$design$strata_var)
   expect_true(all(
     c(
       "unit_counts", "n_total", "n_valid", "n_missing", "pct_missing",
@@ -71,6 +74,7 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_true("numeric" %in% names(results$summaries))
   expect_false(is.null(results$summaries$numeric))
   expect_equal(results$meta$design$weight_var, "trip_weight")
+  expect_equal(results$meta$design$psu_var, "hh_id")
   expect_true(all(
     c("summary_data", "weight_var", "unit_counts") %in%
       names(results$summaries$numeric)
@@ -108,6 +112,29 @@ test_that("hts_summary_wrapper includes datetime summaries when available", {
   expect_true(inherits(results$summaries$datetime$summary_data$unwtd$mean, "Date"))
   expect_true(inherits(results$summaries$datetime$summary_data$unwtd$median, "Date"))
   expect_true(inherits(results$summaries$datetime$summary_data$wtd$mean, "Date"))
+})
+
+test_that("hts_summary_wrapper exposes explicit PSU and optional strata metadata", {
+  hh_with_strata = copy(hh)
+  hh_with_strata[, sample_segment := c("Zone 1", "Zone 2", "Zone 3")[(seq_len(.N) %% 3L) + 1L]]
+
+  results = hts_summary_wrapper(
+    summarize_var = "employment",
+    data = list(
+      hh = hh_with_strata,
+      person = person,
+      day = day,
+      trip = trip,
+      vehicle = vehicle
+    ),
+    psu_var = "person_id",
+    use_strata = TRUE,
+    se = TRUE
+  )
+
+  expect_equal(results$meta$design$psu_var, "person_id")
+  expect_equal(results$meta$design$strata_var, "sample_segment")
+  expect_true(results$meta$design$use_strata)
 })
 
 test_that("hts_summary_wrapper carries optional variable metadata into meta target", {

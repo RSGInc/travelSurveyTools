@@ -14,7 +14,12 @@
 #' @param wt_cols weight name for each table in hts_data 
 #' @param trip_name Name of the trip dataset in hts_data.
 #' @param day_name Name of the day dataset in hts_data.
+#' @param psu_var Name of the PSU variable to use in the survey design.
+#'  Default is NULL and will be resolved from available ID columns, preferring
+#'  `hh_id` and then `person_id`.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param use_strata Whether to include strata in the survey design. Defaults to
+#'  `TRUE` when `strataname` is provided and `FALSE` otherwise.
 #' @param se Whether to calculate standard error. Default is FALSE. Will be set
 #' to FALSE if weighted is FALSE.
 #' @param conf_level Confidence level for confidence intervals when available.
@@ -37,7 +42,8 @@
 #'  \describe{
 #'    \item{meta}{Summary metadata, including `target` information for the
 #'    summarized variable, `group_by` variables, `source_tables`, and survey
-#'    `design` fields such as weight and strata variables. `meta$target`
+#'    `design` fields such as weight, PSU, and optional strata variables.
+#'    `meta$target`
 #'    includes variable metadata such as label, question text, description,
 #'    logic, universe, topic, and notes when available in `variables_dt`.}
 #'    \item{diagnostics}{Wrapper-level diagnostic information, currently
@@ -229,6 +235,39 @@ hts_wrap_datetime_payload <- function(summary_ls, prototype) {
   payload
 }
 
+hts_resolve_strata_var <- function(
+    data,
+    strataname = NULL,
+    use_strata = FALSE,
+    hh_name = "hh"
+) {
+  if (!isTRUE(use_strata)) {
+    return(NULL)
+  }
+
+  hh_dt <- data[[hh_name]]
+
+  if (is.null(strataname)) {
+    candidate_names <- c("sample_segment", "weighting_zone")
+    candidate_names <- candidate_names[candidate_names %in% names(hh_dt)]
+
+    if (length(candidate_names) == 0L) {
+      stop(
+        "Could not resolve a strata variable from the hh table. ",
+        "Provide strataname explicitly or add sample_segment/weighting_zone to hh."
+      )
+    }
+
+    strataname <- candidate_names[[1]]
+  }
+
+  if (!strataname %in% names(hh_dt)) {
+    stop(paste0(strataname, " strata column not found on the hh table."))
+  }
+
+  strataname
+}
+
 hts_wrapper_meta <- function(
     summarize_var,
     summarize_by,
@@ -236,7 +275,9 @@ hts_wrapper_meta <- function(
     data,
     day_name,
     weight_var,
-    strataname
+    psu_var,
+    strataname,
+    use_strata
 ) {
   var_rows <- data.table::copy(
     variables_dt[shared_name == summarize_var | variable == summarize_var]
@@ -282,8 +323,9 @@ hts_wrapper_meta <- function(
     source_tables = meta_tables,
     design = list(
       weight_var = weight_var %||% NULL,
-      psu_var = NULL,
-      strata_var = strataname %||% NULL
+      psu_var = psu_var %||% NULL,
+      strata_var = if (isTRUE(use_strata)) strataname %||% NULL else NULL,
+      use_strata = isTRUE(use_strata)
     )
   )
 }
@@ -306,7 +348,9 @@ hts_summary_wrapper = function(
     wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
     trip_name = "trip",
     day_name = "day",
+    psu_var = NULL,
     strataname = NULL,
+    use_strata = !is.null(strataname),
     se = FALSE,
     conf_level = 0.95,
     checkbox_valname = "value",
@@ -319,6 +363,11 @@ hts_summary_wrapper = function(
     missing_values = c("Missing Response", "995")
 ){
   variables_dt = hts_validate_variable_list(variables_dt, data)
+  strataname = hts_resolve_strata_var(
+    data = data,
+    strataname = strataname,
+    use_strata = use_strata
+  )
   
   
   # Decide what prep function to run
@@ -406,6 +455,8 @@ hts_summary_wrapper = function(
   weight = wt_cols[[max_id]]
   
   }
+
+  resolved_psu = hts_resolve_psu_var(prepped_dt, psu_var)
   
   
   # run hts_summary
@@ -420,7 +471,9 @@ hts_summary_wrapper = function(
       se = se,
       conf_level = conf_level,
       wtname = weight,
+      psu_var = resolved_psu,
       strataname = strataname,
+      use_strata = use_strata,
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval
     )
@@ -484,7 +537,9 @@ hts_summary_wrapper = function(
       se = se,
       conf_level = conf_level,
       wtname = weight,
+      psu_var = resolved_psu,
       strataname = strataname,
+      use_strata = use_strata,
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval
     )
@@ -531,7 +586,9 @@ hts_summary_wrapper = function(
       se = se,
       conf_level = conf_level,
       wtname = weight,
+      psu_var = resolved_psu,
       strataname = strataname,
+      use_strata = use_strata,
       checkbox_valname = checkbox_valname,
       checkbox_yesval = checkbox_yesval
     )
@@ -565,7 +622,9 @@ hts_summary_wrapper = function(
     data = data,
     day_name = day_name,
     weight_var = weight,
-    strataname = strataname
+    psu_var = resolved_psu,
+    strataname = strataname,
+    use_strata = use_strata
   )
   checkbox_diagnostics = if (isTRUE(obj_meta$target$is_checkbox)) {
     hts_wrapper_checkbox_diagnostics(

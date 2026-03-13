@@ -13,7 +13,11 @@
 #'  Default is 0.95.
 #' @param wtname Name of the weight column to use. Default is NULL. Must be specified
 #' when weighted = TRUE.
+#' @param psu_var Name of the PSU variable to use in the survey design.
+#'  Default is NULL and will be resolved from available ID columns.
 #' @param strataname  Name of strata name to bring in. Default is NULL.
+#' @param use_strata Whether to include strata in the survey design. Defaults to
+#'  `TRUE` when `strataname` is provided and `FALSE` otherwise.
 #'
 #' @importFrom srvyr survey_mean
 #' @importFrom srvyr survey_median
@@ -71,7 +75,9 @@ hts_summary_num = function(prepped_dt,
                             se = FALSE,
                             conf_level = 0.95,
                             wtname = NULL,
-                            strataname = NULL) {
+                            psu_var = NULL,
+                            strataname = NULL,
+                            use_strata = !is.null(strataname)) {
   if (!weighted & se) {
     message("Standard errors require weighted data; setting se = FALSE.
             Set weighted = TRUE and specify a wtname if standard errors are desired.")
@@ -84,7 +90,13 @@ hts_summary_num = function(prepped_dt,
   num_so_ls[["unwtd"]] = srvyr::as_survey_design(prepped_dt, w = NULL)
 
   if (weighted == TRUE) {
-    num_so_ls[["wtd"]] = hts_to_so(prepped_dt, strataname = strataname, wtname = wtname)
+    num_so_ls[["wtd"]] = hts_to_so(
+      prepped_dt = prepped_dt,
+      wtname = wtname,
+      psu_var = psu_var,
+      strataname = strataname,
+      use_strata = use_strata
+    )
   }
 
 
