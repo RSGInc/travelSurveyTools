@@ -31,8 +31,20 @@
 #'  is -1.
 #' @param missing_values Missing values to remove. Default is 995.
 #'
-#' @return A structured list with wrapper-level metadata,
-#'  diagnostics, and current summary outputs stored under `summaries`.
+#' @return A structured list with three top-level elements:
+#'  \describe{
+#'    \item{meta}{Summary metadata, including `target` information for the
+#'    summarized variable, `group_by` variables, `source_tables`, and survey
+#'    `design` fields such as weight and strata variables.}
+#'    \item{diagnostics}{Wrapper-level diagnostic information, currently
+#'    including sample sizes in `n_ls` plus `notes` and `warnings`.}
+#'    \item{summaries}{Computed summary outputs. `summaries$categorical`
+#'    contains the categorical summary payload, and `summaries$numeric`
+#'    contains the numeric summary payload when available.}
+#'  }
+#'
+#'  The internal structure of `summaries$categorical` and
+#'  `summaries$numeric` is unchanged from the existing summary helpers.
 #' @export
 #'
 #' @examples
@@ -62,20 +74,56 @@
   x
 }
 
-hts_wrapper_meta <- function(summarize_var, variables_dt, table_name, weight_var) {
+hts_wrapper_meta <- function(
+    summarize_var,
+    summarize_by,
+    variables_dt,
+    data,
+    day_name,
+    weight_var,
+    strataname
+) {
   var_rows <- data.table::copy(
     variables_dt[shared_name == summarize_var | variable == summarize_var]
   )
 
+  question_text <- NULL
+  if ("question_text" %in% names(var_rows)) {
+    question_text <- var_rows$question_text[!is.na(var_rows$question_text)][1] %||% NULL
+  }
+
+  meta_tables <- unique(stats::na.omit(vapply(
+    c(summarize_var, summarize_by %||% character()),
+    FUN = function(x) {
+      if (identical(x, "num_trips")) {
+        return(day_name)
+      }
+
+      hts_find_var(x, data = data, variables_dt = variables_dt)
+    },
+    FUN.VALUE = character(1)
+  )))
+
   list(
-    label = var_rows$label[!is.na(var_rows$label)][1] %||% NULL,
-    description = var_rows$description[!is.na(var_rows$description)][1] %||% NULL,
-    logic = var_rows$logic[!is.na(var_rows$logic)][1] %||% NULL,
-    data_type = var_rows$data_type[!is.na(var_rows$data_type)][1] %||% NULL,
-    shared_name = var_rows$shared_name[!is.na(var_rows$shared_name)][1] %||% summarize_var,
-    is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1),
-    weight_var = weight_var %||% NULL,
-    table = table_name %||% NULL
+    target = list(
+      variable = summarize_var,
+      variable_label = var_rows$label[!is.na(var_rows$label)][1] %||% NULL,
+      question_text = question_text,
+      variable_description = var_rows$description[!is.na(var_rows$description)][1] %||% NULL,
+      variable_logic = var_rows$logic[!is.na(var_rows$logic)][1] %||% NULL,
+      data_type = var_rows$data_type[!is.na(var_rows$data_type)][1] %||% NULL,
+      shared_name = var_rows$shared_name[!is.na(var_rows$shared_name)][1] %||% summarize_var,
+      is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1)
+    ),
+    group_by = list(
+      variables = summarize_by %||% character()
+    ),
+    source_tables = meta_tables,
+    design = list(
+      weight_var = weight_var %||% NULL,
+      psu_var = NULL,
+      strata_var = strataname %||% NULL
+    )
   )
 }
 
@@ -313,21 +361,15 @@ hts_summary_wrapper = function(
     'num' = output_ls_num
   )
   
-  table_name = if (summarize_var == "num_trips") {
-    day_name
-  } else {
-    hts_find_var(summarize_var, data = data, variables_dt = variables_dt)
-  }
-
   obj = list(
-    variable = summarize_var,
-    summarize_by = summarize_by,
-    table = table_name,
     meta = hts_wrapper_meta(
       summarize_var = summarize_var,
+      summarize_by = summarize_by,
       variables_dt = variables_dt,
-      table_name = table_name,
-      weight_var = weight
+      data = data,
+      day_name = day_name,
+      weight_var = weight,
+      strataname = strataname
     ),
     diagnostics = list(
       n_ls = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL,
