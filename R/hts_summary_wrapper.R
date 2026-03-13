@@ -39,7 +39,8 @@
 #'    includes variable metadata such as label, question text, description,
 #'    logic, universe, topic, and notes when available in `variables_dt`.}
 #'    \item{diagnostics}{Wrapper-level diagnostic information, currently
-#'    including sample sizes in `n_ls` plus `notes` and `warnings`.}
+#'    including `unit_counts`, `n_total`, `n_valid`, `n_missing`, plus
+#'    `notes` and `warnings`.}
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
 #'    contains the categorical summary payload, and `summaries$numeric`
 #'    contains the numeric summary payload when available.}
@@ -369,6 +370,18 @@ hts_summary_wrapper = function(
     'cat' = output_ls_cat,
     'num' = output_ls_num
   )
+
+  target_table = if (identical(summarize_var, "num_trips")) {
+    day_name
+  } else {
+    hts_find_var(summarize_var, data = data, variables_dt = variables_dt)
+  }
+
+  source_dt = data[[target_table]]
+  prepared_dt = prepped_dt_ls$cat %||% prepped_dt_ls$num
+  n_total = nrow(source_dt)
+  n_valid = if (is.null(prepared_dt)) 0L else nrow(prepared_dt)
+  n_missing = n_total - n_valid
   
   obj = list(
     meta = hts_wrapper_meta(
@@ -381,7 +394,10 @@ hts_summary_wrapper = function(
       strataname = strataname
     ),
     diagnostics = list(
-      n_ls = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL,
+      unit_counts = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL,
+      n_total = n_total,
+      n_valid = n_valid,
+      n_missing = n_missing,
       notes = character(),
       warnings = character()
     ),

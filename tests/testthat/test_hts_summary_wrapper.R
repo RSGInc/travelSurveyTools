@@ -3,6 +3,11 @@ library(testthat)
 library(data.table)
 
 test_that("hts_summary_wrapper returns the expected wrapper structure for categorical summaries", {
+  expected_n_valid = nrow(hts_prep_variable(
+    summarize_var = "employment",
+    summarize_by = "age"
+  )$cat)
+
   results = hts_summary_wrapper(
     summarize_var = 'employment',
     summarize_by = 'age')
@@ -15,16 +20,28 @@ test_that("hts_summary_wrapper returns the expected wrapper structure for catego
   expect_equal(results$meta$group_by$variables, "age")
   expect_equal(results$meta$source_tables, "person")
   expect_equal(results$meta$design$weight_var, "person_weight")
+  expect_true(all(c("unit_counts", "n_total", "n_valid", "n_missing") %in% names(results$diagnostics)))
+  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$n_ls)
+  expect_equal(results$diagnostics$n_total, nrow(person))
+  expect_equal(results$diagnostics$n_valid, expected_n_valid)
+  expect_equal(
+    results$diagnostics$n_missing,
+    results$diagnostics$n_total - results$diagnostics$n_valid
+  )
   expect_true("categorical" %in% names(results$summaries))
   
   expect_true(results$summaries$categorical$summary$weight_name == "person_weight")
   expect_true(
     sum(results$summaries$categorical$summary$wtd$est) ==
-      sum(results$diagnostics$n_ls$wtd)
+      sum(results$diagnostics$unit_counts$wtd)
   )
 })
 
 test_that("hts_summary_wrapper includes numeric summaries when available", {
+  expected_n_valid = nrow(suppressWarnings(hts_prep_variable(
+    summarize_var = "speed_mph"
+  )$cat))
+
   expect_warning(
     results <- hts_summary_wrapper(
       summarize_var = "speed_mph"
@@ -39,6 +56,13 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_true("numeric" %in% names(results$summaries))
   expect_false(is.null(results$summaries$numeric))
   expect_equal(results$meta$design$weight_var, "trip_weight")
+  expect_equal(results$diagnostics$unit_counts, results$summaries$categorical$n_ls)
+  expect_equal(results$diagnostics$n_total, nrow(trip))
+  expect_equal(results$diagnostics$n_valid, expected_n_valid)
+  expect_equal(
+    results$diagnostics$n_missing,
+    results$diagnostics$n_total - results$diagnostics$n_valid
+  )
 })
 
 test_that("hts_summary_wrapper carries optional variable metadata into meta target", {
