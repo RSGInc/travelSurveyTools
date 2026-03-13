@@ -4,6 +4,8 @@
 #'  `variable`, `entity`, and `data_type`.
 #' @param settings Settings object created by [hts_summary_settings()] or an
 #'  equivalent list containing a valid `entity_map`.
+#' @param data Optional named list of input tables. When provided, this is used
+#'  to verify that each variable exists in the table mapped from its entity.
 #'
 #' @return A normalized variable metadata table.
 #' @export
@@ -15,8 +17,8 @@
 #'   data_type = c("categorical", "categorical")
 #' )
 #' hts_validate_variables(variables_dt, hts_summary_settings())
-hts_validate_variables <- function(variables_dt, settings = NULL) {
-  settings <- hts_validate_settings(settings)
+hts_validate_variables <- function(variables_dt, settings = NULL, data = NULL) {
+  settings <- hts_validate_settings(settings, data = data)
 
   if (!data.table::is.data.table(variables_dt)) {
     variables_dt <- data.table::as.data.table(variables_dt)
@@ -121,6 +123,33 @@ hts_validate_variables <- function(variables_dt, settings = NULL) {
       "Checkbox shared_name group(s) contain only one variable: ",
       paste(singleton_checkbox_groups, collapse = ", ")
     )
+  }
+
+  if (!is.null(data)) {
+    variable_lookup <- variables_dt[, .(variable, entity)]
+    variable_lookup[, table_name := vapply(
+      entity,
+      function(entity_name) settings$entity_map[[entity_name]]$table,
+      FUN.VALUE = character(1)
+    )]
+
+    missing_vars <- variable_lookup[
+      ,
+      {
+        table_cols <- names(data[[table_name]])
+        missing_cols <- variable[!variable %in% table_cols]
+        .(missing_variable = missing_cols)
+      },
+      by = .(table_name)
+    ][!is.na(missing_variable)]
+
+    if (nrow(missing_vars) > 0L) {
+      stop(
+        "Variable(s) not found in their mapped entity table(s): ",
+        paste(paste0(missing_vars$missing_variable, " (", missing_vars$table_name, ")"), collapse = ", "),
+        "."
+      )
+    }
   }
 
   variables_dt[]
