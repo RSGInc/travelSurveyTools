@@ -41,6 +41,28 @@ hts_variable_row <- function(variable_name, variables_dt) {
   variables_dt[variable == variable_name][1]
 }
 
+hts_variable_rows <- function(variable_name, variables_dt) {
+  exact_rows <- variables_dt[variable == variable_name]
+  if (nrow(exact_rows) > 0L) {
+    return(exact_rows[])
+  }
+
+  shared_rows <- variables_dt[shared_name == variable_name]
+  shared_rows[]
+}
+
+hts_checkbox_label <- function(variable_rows) {
+  labels <- variable_rows$variable_label
+  descriptions <- variable_rows$variable_description
+  label_values <- ifelse(
+    !is.na(labels) & nzchar(labels),
+    labels,
+    ifelse(!is.na(descriptions) & nzchar(descriptions), descriptions, variable_rows$variable)
+  )
+
+  sub("^.*?:\\s*", "", label_values)
+}
+
 hts_join_entity_table <- function(analysis_dt, entity_name, normalized_inputs) {
   entity_spec <- normalized_inputs$settings$entity_map[[entity_name]]
   entity_table <- data.table::copy(normalized_inputs$data[[entity_spec$table]])
@@ -73,14 +95,20 @@ hts_build_analysis_table <- function(
   variables_dt <- normalized_inputs$variables
   entity_map <- normalized_inputs$settings$entity_map
 
-  target_row <- hts_variable_row(summarize_var, variables_dt)
-  if (nrow(target_row) == 0L) {
+  target_rows <- hts_variable_rows(summarize_var, variables_dt)
+  if (nrow(target_rows) == 0L) {
     stop("Target variable `", summarize_var, "` not found in normalized variables.")
   }
 
-  target_entity <- target_row$entity[[1]]
+  if (data.table::uniqueN(target_rows$entity) != 1L) {
+    stop("Target variable `", summarize_var, "` maps to multiple entities.")
+  }
+
+  target_entity <- target_rows$entity[[1]]
   target_spec <- entity_map[[target_entity]]
   analysis_dt <- data.table::copy(normalized_inputs$data[[target_spec$table]])
+  target_is_checkbox <- all(target_rows$is_checkbox)
+  target_vars <- if (target_is_checkbox) target_rows$variable else summarize_var
 
   keep_cols <- unique(c(
     target_spec$id,
@@ -89,7 +117,7 @@ hts_build_analysis_table <- function(
     target_spec$psu %||% character(),
     target_spec$strata %||% character(),
     summarize_by %||% character(),
-    summarize_var
+    target_vars
   ))
   keep_cols <- intersect(keep_cols, names(analysis_dt))
   analysis_dt <- analysis_dt[, ..keep_cols]
@@ -130,17 +158,96 @@ hts_build_analysis_table <- function(
     }
   }
 
-  selected_output_cols <- unique(c(
-    target_spec$id,
-    target_spec$join_keys %||% character(),
-    target_spec$weight %||% character(),
-    target_spec$psu %||% character(),
-    target_spec$strata %||% character(),
-    grouping_vars,
-    summarize_var
-  ))
-  selected_output_cols <- intersect(selected_output_cols, names(analysis_dt))
-  analysis_dt <- analysis_dt[, ..selected_output_cols]
+  checkbox_meta <- NULL
+
+  if (target_is_checkbox) {
+    valid_mask <- analysis_dt[
+      ,
+      Reduce(
+        `&`,
+        lapply(.SD, function(x) !is.na(x))
+      ),
+      .SDcols = target_vars
+    ]
+
+    denominator_dt <- analysis_dt[valid_mask]
+    denominator_group_cols <- c(grouping_vars)
+
+    if (length(denominator_group_cols) == 0L) {
+      denominator <- data.table::data.table(
+        unwtd_denom = denominator_dt[, data.table::uniqueN(get(target_spec$id))],
+        wtd_denom = if (!is.null(target_spec$weight) && target_spec$weight %in% names(denominator_dt)) {
+          denominator_dt[, sum(get(target_spec$weight))]
+        } else {
+          NA_real_
+        }
+      )
+    } else {
+      denominator <- denominator_dt[
+        ,
+        .(
+          unwtd_denom = data.table::uniqueN(get(target_spec$id)),
+          wtd_denom = if (!is.null(target_spec$weight) && target_spec$weight %in% names(.SD)) {
+            sum(get(target_spec$weight))
+          } else {
+            NA_real_
+          }
+        ),
+        by = denominator_group_cols
+      ]
+    }
+
+    id_cols <- unique(c(
+      target_spec$id,
+      target_spec$join_keys %||% character(),
+      target_spec$weight %||% character(),
+      target_spec$psu %||% character(),
+      target_spec$strata %||% character(),
+      grouping_vars
+    ))
+    id_cols <- intersect(id_cols, names(analysis_dt))
+
+    checkbox_long <- data.table::melt(
+      analysis_dt[valid_mask],
+      id.vars = id_cols,
+      measure.vars = target_vars,
+      variable.name = "checkbox_variable",
+      value.name = "checkbox_value"
+    )
+
+    checkbox_lookup <- data.table::data.table(
+      checkbox_variable = target_rows$variable,
+      checkbox_label = hts_checkbox_label(target_rows)
+    )
+
+    checkbox_long <- merge(
+      checkbox_long,
+      checkbox_lookup,
+      by = "checkbox_variable",
+      all.x = TRUE
+    )
+
+    data.table::setnames(checkbox_long, "checkbox_label", summarize_var)
+    analysis_dt <- checkbox_long[]
+
+    checkbox_meta <- list(
+      checkbox_vars = target_vars,
+      selected_value = 1,
+      denominator = denominator
+    )
+  } else {
+    selected_output_cols <- unique(c(
+      target_spec$id,
+      target_spec$join_keys %||% character(),
+      target_spec$weight %||% character(),
+      target_spec$psu %||% character(),
+      target_spec$strata %||% character(),
+      grouping_vars,
+      summarize_var
+    ))
+    selected_output_cols <- intersect(selected_output_cols, names(analysis_dt))
+    analysis_dt <- analysis_dt[, ..selected_output_cols]
+  }
 
   group_entities <- if (length(grouping_vars) == 0L) {
     data.table::data.table(variable = character(), entity = character())
@@ -154,7 +261,9 @@ hts_build_analysis_table <- function(
       target = list(
         variable = summarize_var,
         entity = target_entity,
-        table = target_spec$table
+        table = target_spec$table,
+        is_checkbox = target_is_checkbox,
+        shared_name = if (target_is_checkbox) summarize_var else target_rows$shared_name[[1]]
       ),
       group_by = list(
         variables = grouping_vars,
@@ -165,7 +274,8 @@ hts_build_analysis_table <- function(
         psu_var = target_spec$psu %||% NULL,
         strata_var = target_spec$strata %||% NULL
       ),
-      joins = joins_performed
+      joins = joins_performed,
+      checkbox = checkbox_meta
     )
   )
 }

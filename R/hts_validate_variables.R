@@ -112,7 +112,7 @@ hts_validate_variables <- function(variables_dt, settings = NULL, data = NULL) {
   }
 
   checkbox_groups <- variables_dt[is_checkbox == TRUE, .N, by = .(entity, shared_name)]
-  singleton_checkbox_groups <- if (nrow(checkbox_groups) == 0L) {
+  singleton_checkbox_groups <- if (nrow(checkbox_groups) == 0L || checkbox_groups[N < 2L, .N] == 0L) {
     character()
   } else {
     checkbox_groups[N < 2L, paste0(entity, "::", shared_name)]
