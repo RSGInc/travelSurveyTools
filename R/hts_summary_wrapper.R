@@ -89,6 +89,84 @@ hts_wrapper_meta_value <- function(var_rows, col_name, default = NULL) {
   value %||% default
 }
 
+hts_wrapper_checkbox_description <- function(var_rows, default = NULL) {
+  descriptions <- var_rows$description[!is.na(var_rows$description)]
+
+  if (length(descriptions) == 0L) {
+    return(default)
+  }
+
+  prefixes <- trimws(sub(":.*$", "", descriptions))
+  shared_prefixes <- unique(prefixes[nzchar(prefixes)])
+
+  if (length(shared_prefixes) == 1L) {
+    return(shared_prefixes[[1]])
+  }
+
+  default
+}
+
+hts_wrapper_is_missing_value <- function(x, missing_values, not_imputable) {
+  is.na(x) |
+    as.character(x) %in% as.character(missing_values) |
+    as.character(x) %in% as.character(not_imputable)
+}
+
+hts_wrapper_checkbox_diagnostics <- function(
+    source_dt,
+    variables_dt,
+    summarize_var,
+    checkbox_yesval,
+    missing_values,
+    not_imputable
+) {
+  checkbox_vars <- variables_dt[shared_name == summarize_var, variable]
+  checkbox_vars <- intersect(checkbox_vars, names(source_dt))
+
+  if (length(checkbox_vars) == 0L) {
+    return(NULL)
+  }
+
+  valid_mask <- source_dt[
+    ,
+    Reduce(
+      `&`,
+      lapply(.SD, function(x) {
+        !hts_wrapper_is_missing_value(x, missing_values, not_imputable)
+      })
+    ),
+    .SDcols = checkbox_vars
+  ]
+
+  valid_dt <- source_dt[valid_mask, ..checkbox_vars]
+
+  list(
+    n_valid = as.integer(sum(valid_mask)),
+    n_selected = if (nrow(valid_dt) == 0L) {
+      0L
+    } else {
+      as.integer(valid_dt[, sum(rowSums(.SD == checkbox_yesval, na.rm = TRUE) > 0), .SDcols = checkbox_vars])
+    },
+    n_responses = if (nrow(valid_dt) == 0L) {
+      0L
+    } else {
+      as.integer(valid_dt[, sum(as.matrix(.SD == checkbox_yesval), na.rm = TRUE), .SDcols = checkbox_vars])
+    }
+  )
+}
+
+hts_wrapper_n_valid <- function(unit_counts, prepared_dt) {
+  if (!is.null(unit_counts) && !is.null(unit_counts$unwtd)) {
+    return(as.integer(max(unlist(unit_counts$unwtd, use.names = FALSE))))
+  }
+
+  if (is.null(prepared_dt)) {
+    return(0L)
+  }
+
+  nrow(prepared_dt)
+}
+
 hts_wrap_summary_payload <- function(summary_ls) {
   if (is.null(summary_ls)) {
     return(NULL)
@@ -117,6 +195,7 @@ hts_wrapper_meta <- function(
   var_rows <- data.table::copy(
     variables_dt[shared_name == summarize_var | variable == summarize_var]
   )
+  is_checkbox <- isTRUE(var_rows$is_checkbox[1] == 1)
 
   meta_tables <- unique(stats::na.omit(vapply(
     c(summarize_var, summarize_by %||% character()),
@@ -135,14 +214,21 @@ hts_wrapper_meta <- function(
       variable = summarize_var,
       variable_label = hts_wrapper_meta_value(var_rows, "label"),
       question_text = hts_wrapper_meta_value(var_rows, "question_text"),
-      variable_description = hts_wrapper_meta_value(var_rows, "description"),
+      variable_description = if (is_checkbox) {
+        hts_wrapper_checkbox_description(
+          var_rows,
+          default = hts_wrapper_meta_value(var_rows, "description")
+        )
+      } else {
+        hts_wrapper_meta_value(var_rows, "description")
+      },
       variable_logic = hts_wrapper_meta_value(var_rows, "logic"),
       variable_universe = hts_wrapper_meta_value(var_rows, "universe"),
       variable_topic = hts_wrapper_meta_value(var_rows, "topic"),
       variable_notes = hts_wrapper_meta_value(var_rows, "notes"),
       data_type = hts_wrapper_meta_value(var_rows, "data_type"),
       shared_name = hts_wrapper_meta_value(var_rows, "shared_name", summarize_var),
-      is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1)
+      is_checkbox = is_checkbox
     ),
     group_by = list(
       variables = summarize_by %||% character()
@@ -398,8 +484,34 @@ hts_summary_wrapper = function(
 
   source_dt = data[[target_table]]
   prepared_dt = prepped_dt_ls$cat %||% prepped_dt_ls$num
+  unit_counts = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL
   n_total = nrow(source_dt)
-  n_valid = if (is.null(prepared_dt)) 0L else nrow(prepared_dt)
+  obj_meta = hts_wrapper_meta(
+    summarize_var = summarize_var,
+    summarize_by = summarize_by,
+    variables_dt = variables_dt,
+    data = data,
+    day_name = day_name,
+    weight_var = weight,
+    strataname = strataname
+  )
+  checkbox_diagnostics = if (isTRUE(obj_meta$target$is_checkbox)) {
+    hts_wrapper_checkbox_diagnostics(
+      source_dt = source_dt,
+      variables_dt = variables_dt,
+      summarize_var = summarize_var,
+      checkbox_yesval = checkbox_yesval,
+      missing_values = missing_values,
+      not_imputable = not_imputable
+    )
+  } else {
+    NULL
+  }
+  n_valid = if (!is.null(checkbox_diagnostics)) {
+    checkbox_diagnostics$n_valid
+  } else {
+    hts_wrapper_n_valid(unit_counts, prepared_dt)
+  }
   n_missing = n_total - n_valid
   pct_missing = if (n_total == 0L) 0 else n_missing / n_total
   n_distinct = if (is.null(prepared_dt) || !summarize_var %in% names(prepared_dt)) {
@@ -410,23 +522,17 @@ hts_summary_wrapper = function(
   all_missing = n_valid == 0L
   
   obj = list(
-    meta = hts_wrapper_meta(
-      summarize_var = summarize_var,
-      summarize_by = summarize_by,
-      variables_dt = variables_dt,
-      data = data,
-      day_name = day_name,
-      weight_var = weight,
-      strataname = strataname
-    ),
+    meta = obj_meta,
     diagnostics = list(
-      unit_counts = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL,
+      unit_counts = unit_counts,
       n_total = n_total,
       n_valid = n_valid,
       n_missing = n_missing,
       pct_missing = pct_missing,
       n_distinct = n_distinct,
       all_missing = all_missing,
+      n_selected = checkbox_diagnostics$n_selected %||% NULL,
+      n_responses = checkbox_diagnostics$n_responses %||% NULL,
       notes = character(),
       warnings = character()
     ),

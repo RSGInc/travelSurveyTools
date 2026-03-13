@@ -134,3 +134,54 @@ test_that("hts_summary_wrapper carries optional variable metadata into meta targ
   expect_equal(results$meta$target$variable_topic, "Demographics")
   expect_equal(results$meta$target$variable_notes, "Collapsed to major employment categories")
 })
+
+test_that("hts_summary_wrapper handles checkbox summaries with unit-level diagnostics", {
+  checkbox_vars = variable_list[shared_name == "race", variable]
+  expected_n_valid = person[
+    ,
+    sum(Reduce(`&`, lapply(.SD, function(x) !is.na(x)))),
+    .SDcols = checkbox_vars
+  ]
+  expected_n_selected = person[
+    ,
+    sum(rowSums(.SD == 1, na.rm = TRUE) > 0),
+    .SDcols = checkbox_vars
+  ]
+  expected_n_responses = person[
+    ,
+    sum(as.matrix(.SD == 1), na.rm = TRUE),
+    .SDcols = checkbox_vars
+  ]
+
+  results = hts_summary_wrapper(
+    summarize_var = "race",
+    summarize_by = "age"
+  )
+
+  expect_true(results$meta$target$is_checkbox)
+  expect_equal(results$meta$target$variable, "race")
+  expect_equal(results$meta$target$shared_name, "race")
+  expect_equal(results$meta$target$variable_description, "Race")
+  expect_equal(results$meta$source_tables, "person")
+  expect_equal(results$diagnostics$n_total, nrow(person))
+  expect_equal(results$diagnostics$n_valid, expected_n_valid)
+  expect_equal(results$diagnostics$n_selected, expected_n_selected)
+  expect_equal(results$diagnostics$n_responses, expected_n_responses)
+  expect_equal(
+    results$diagnostics$n_missing,
+    results$diagnostics$n_total - results$diagnostics$n_valid
+  )
+  expect_true("categorical" %in% names(results$summaries))
+  expect_null(results$summaries$numeric)
+  expect_true(all(
+    c(
+      "African American or Black",
+      "American Indian or Alaska Native",
+      "Asian",
+      "Native Hawaiian or other Pacific Islander",
+      "White",
+      "Other race",
+      "Prefer not to answer"
+    ) %in% unique(as.character(results$summaries$categorical$summary_data$unwtd$race))
+  ))
+})
