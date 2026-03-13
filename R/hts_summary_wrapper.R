@@ -35,7 +35,9 @@
 #'  \describe{
 #'    \item{meta}{Summary metadata, including `target` information for the
 #'    summarized variable, `group_by` variables, `source_tables`, and survey
-#'    `design` fields such as weight and strata variables.}
+#'    `design` fields such as weight and strata variables. `meta$target`
+#'    includes variable metadata such as label, question text, description,
+#'    logic, universe, topic, and notes when available in `variables_dt`.}
 #'    \item{diagnostics}{Wrapper-level diagnostic information, currently
 #'    including sample sizes in `n_ls` plus `notes` and `warnings`.}
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
@@ -115,6 +117,9 @@ hts_wrapper_meta <- function(
       question_text = hts_wrapper_meta_value(var_rows, "question_text"),
       variable_description = hts_wrapper_meta_value(var_rows, "description"),
       variable_logic = hts_wrapper_meta_value(var_rows, "logic"),
+      variable_universe = hts_wrapper_meta_value(var_rows, "universe"),
+      variable_topic = hts_wrapper_meta_value(var_rows, "topic"),
+      variable_notes = hts_wrapper_meta_value(var_rows, "notes"),
       data_type = hts_wrapper_meta_value(var_rows, "data_type"),
       shared_name = hts_wrapper_meta_value(var_rows, "shared_name", summarize_var),
       is_checkbox = isTRUE(var_rows$is_checkbox[1] == 1)

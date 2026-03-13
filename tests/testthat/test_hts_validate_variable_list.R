@@ -35,15 +35,23 @@ test_that("hts_validate_variable_list preserves extra metadata columns", {
 test_that("hts_validate_variable_list adds optional wrapper metadata columns when absent", {
   data("variable_list")
 
-  drop_cols = intersect(c("label", "question_text", "logic"), names(variable_list))
+  drop_cols = intersect(
+    c("label", "question_text", "logic", "universe", "topic", "notes"),
+    names(variable_list)
+  )
   if (length(drop_cols) > 0) {
     variable_list[, (drop_cols) := NULL]
   }
 
   results = hts_validate_variable_list(variable_list, test_data)
 
-  expect_true(all(c("label", "question_text", "logic") %in% names(results)))
+  expect_true(all(
+    c("label", "question_text", "logic", "universe", "topic", "notes") %in% names(results)
+  ))
   expect_true(all(is.na(results$label)))
   expect_true(all(is.na(results$question_text)))
   expect_true(all(is.na(results$logic)))
+  expect_true(all(is.na(results$universe)))
+  expect_true(all(is.na(results$topic)))
+  expect_true(all(is.na(results$notes)))
 })

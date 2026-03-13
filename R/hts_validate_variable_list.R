@@ -27,7 +27,10 @@ hts_validate_variable_list = function(variable_list,
   optional_metadata_names = c(
     "label",
     "question_text",
-    "logic"
+    "logic",
+    "universe",
+    "topic",
+    "notes"
   )
 
   expected_names = c(admin_names, tbl_names)
