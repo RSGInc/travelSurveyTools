@@ -52,6 +52,19 @@ hts_data$hh[, home_lon := sample(
   replace = TRUE
 )]
 
+# Keep a study-like hh-level strata field available for survey design tests
+if (!"sample_segment" %in% names(hts_data$hh)) {
+  hts_data$hh[, sample_segment := c("Zone 1", "Zone 2", "Zone 3")[
+    (seq_len(.N) %% 3L) + 1L
+  ]]
+}
+
+hts_data$hh[, weighting_zone := fifelse(
+  sample_segment %chin% c("Zone 1", "Zone 2", "Zone 3"),
+  sample_segment,
+  c("Zone 1", "Zone 2", "Zone 3")[(seq_len(.N) %% 3L) + 1L]
+)]
+
 ## Choose a subset of columns --------------------------------------------------
 keep_cols = c(
   "hh_id",
@@ -62,6 +75,7 @@ keep_cols = c(
 
   # Household variables:
   "sample_segment",
+  "weighting_zone",
   "income_detailed",
   "income_followup",
   "num_people",
@@ -105,6 +119,7 @@ keep_cols = c(
 
   # Trip variables:
   "travel_date",
+  "travel_datetime",
   "mode_type",
   "mode_1",
   "mode_2",
@@ -149,6 +164,8 @@ hts_data$trip[, day_id := sample(nrow(hts_data$day), nrow(hts_data$trip), replac
 hts_data$trip[, trip_id := sample(nrow(hts_data$trip), nrow(hts_data$trip))]
 hts_data$trip[, c("hh_id", "person_id", "travel_date") := NULL]
 hts_data$trip = merge(hts_data$trip, hts_data$day[, c("hh_id", "person_id", "day_id", "travel_date")], by = "day_id", all.x = TRUE)
+hts_data$trip[, travel_datetime := as.POSIXct(travel_date, tz = "UTC") +
+  sample(0:(24 * 60 * 60 - 1), .N, replace = TRUE)]
 
 
 hts_data$vehicle[, hh_id := sample(1000, nrow(hts_data$vehicle), replace = TRUE)]
@@ -204,6 +221,44 @@ setDT(value_labels)
 variable_list = variable_list[variable %in% keep_cols]
 value_labels = value_labels[variable %in% keep_cols]
 
+if (!"weighting_zone" %in% variable_list$variable) {
+  variable_list = rbind(
+    variable_list,
+    data.table(
+      variable = "weighting_zone",
+      is_checkbox = 0,
+      hh = 1,
+      person = 0,
+      day = 0,
+      trip = 0,
+      vehicle = 0,
+      location = "hh",
+      description = "Household weighting zone",
+      data_type = "categorical"
+    ),
+    fill = TRUE
+  )
+}
+
+if (!"travel_datetime" %in% variable_list$variable) {
+  variable_list = rbind(
+    variable_list,
+    data.table(
+      variable = "travel_datetime",
+      is_checkbox = 0,
+      hh = 0,
+      person = 0,
+      day = 0,
+      trip = 1,
+      vehicle = 0,
+      location = "trip",
+      description = "Trip date-time",
+      data_type = "datetime"
+    ),
+    fill = TRUE
+  )
+}
+
 # add fake home_county labels to value_labels and remove real ones
 value_labels = value_labels[variable != "home_county"]
 
@@ -213,7 +268,13 @@ county_labels = data.frame(
   label = c("Arike County", "Clark County", "Moore County")
 )
 
-value_labels = rbind(value_labels, county_labels, fill = TRUE)
+weighting_zone_labels = data.frame(
+  variable = rep("weighting_zone", 3),
+  value = c("Zone 1", "Zone 2", "Zone 3"),
+  label = c("Zone 1", "Zone 2", "Zone 3")
+)
+
+value_labels = rbind(value_labels, county_labels, weighting_zone_labels, fill = TRUE)
 ## Subset to minimum required columns ------------------------------------------
 variable_list = variable_list[, c(
   "variable",
