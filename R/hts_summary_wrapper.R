@@ -39,8 +39,9 @@
 #'    includes variable metadata such as label, question text, description,
 #'    logic, universe, topic, and notes when available in `variables_dt`.}
 #'    \item{diagnostics}{Wrapper-level diagnostic information, currently
-#'    including `unit_counts`, `n_total`, `n_valid`, `n_missing`, plus
-#'    `notes` and `warnings`.}
+#'    including `unit_counts`, `n_total`, `n_valid`, `n_missing`,
+#'    `pct_missing`, `n_distinct`, `all_missing`,
+#'    plus `notes` and `warnings`.}
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
 #'    contains the categorical summary payload, and `summaries$numeric`
 #'    contains the numeric summary payload when available. Each payload
@@ -400,6 +401,13 @@ hts_summary_wrapper = function(
   n_total = nrow(source_dt)
   n_valid = if (is.null(prepared_dt)) 0L else nrow(prepared_dt)
   n_missing = n_total - n_valid
+  pct_missing = if (n_total == 0L) 0 else n_missing / n_total
+  n_distinct = if (is.null(prepared_dt) || !summarize_var %in% names(prepared_dt)) {
+    0L
+  } else {
+    data.table::uniqueN(prepared_dt[[summarize_var]])
+  }
+  all_missing = n_valid == 0L
   
   obj = list(
     meta = hts_wrapper_meta(
@@ -416,6 +424,9 @@ hts_summary_wrapper = function(
       n_total = n_total,
       n_valid = n_valid,
       n_missing = n_missing,
+      pct_missing = pct_missing,
+      n_distinct = n_distinct,
+      all_missing = all_missing,
       notes = character(),
       warnings = character()
     ),
