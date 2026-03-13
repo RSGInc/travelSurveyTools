@@ -226,13 +226,16 @@ hts_prep_variable = function(summarize_var = NULL,
   
   # Identify, then bin, if summarize_var is numeric:
   v_class = variables_dt[shared_name == summarize_var, data_type][[1]]
+  is_numeric_type = v_class %in% c("integer", "numeric")
+  is_datetime_type = v_class %in% c("date", "date-time", "datetime", "posixct", "posixlt")
   
-  if (!v_class %in% c("integer", "numeric")) {
+  if (!is_numeric_type & !is_datetime_type) {
     var_dt_num = NULL
+    var_dt_datetime = NULL
     var_dt_cat = var_dt
   }
   
-  if (v_class %in% c("integer", "numeric")) {
+  if (is_numeric_type) {
     # remove outliers
     if (remove_outliers) {
       out = hts_remove_outliers(var_dt,
@@ -255,11 +258,19 @@ hts_prep_variable = function(summarize_var = NULL,
       numvar = summarize_var,
       nbins = 7
     )
+    var_dt_datetime = NULL
+  }
+
+  if (is_datetime_type) {
+    var_dt_num = NULL
+    var_dt_datetime = data.table::copy(var_dt)
+    var_dt_cat = NULL
   }
   
   # Summarize-by variables:
   if (length(summarize_by) == 0) {
     num_res = var_dt_num
+    datetime_res = var_dt_datetime
     cat_res = var_dt_cat
   }
   
@@ -307,7 +318,7 @@ hts_prep_variable = function(summarize_var = NULL,
     
     setcolorder(cat_res, intersect(c(sum_vars_id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
     
-    if (v_class %in% c("integer", "numeric")) {
+    if (is_numeric_type) {
       num_res = merge(var_dt_num,
                       byvar_dt,
                       all.x = FALSE, all.y = FALSE,
@@ -317,8 +328,22 @@ hts_prep_variable = function(summarize_var = NULL,
       setcolorder(num_res, intersect(c(sum_vars_id_cols, wt_cols, summarize_var, summarize_by), names(cat_res)))
     }
     
-    if (!v_class %in% c("integer", "numeric")) {
+    if (!is_numeric_type) {
       num_res = NULL
+    }
+
+    if (is_datetime_type) {
+      datetime_res = merge(var_dt_datetime,
+                           byvar_dt,
+                           all.x = FALSE, all.y = FALSE,
+                           allow.cartesian = allow_cartesian_setting
+      )
+
+      setcolorder(datetime_res, intersect(c(sum_vars_id_cols, wt_cols, summarize_var, summarize_by), names(datetime_res)))
+    }
+
+    if (!is_datetime_type) {
+      datetime_res = NULL
     }
   }
   
@@ -344,18 +369,31 @@ hts_prep_variable = function(summarize_var = NULL,
         cbind_wts = wt_cols
       )
     }
+
+    if (!is.null(datetime_res)) {
+      datetime_res = hts_cbind_var(
+        lhs_table = datetime_res,
+        rhs_var = strataname,
+        hts_data = data,
+        variable_list = variables_dt,
+        cbind_ids = sum_vars_id_cols,
+        cbind_wts = wt_cols
+      )
+    }
   }
   
   prepped_dt_ls = list(
     "cat" = cat_res,
-    "num" = num_res
+    "num" = num_res,
+    "datetime" = datetime_res
   )
   
   # Append outliers:
-  if (v_class %in% c("integer", "numeric") & remove_outliers) {
+  if (is_numeric_type & remove_outliers) {
     prepped_dt_ls = list(
       "cat" = cat_res,
       "num" = num_res,
+      "datetime" = datetime_res,
       "outliers" = outlier_table
     )
   }

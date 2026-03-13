@@ -91,6 +91,25 @@ test_that("hts_summary_wrapper includes numeric summaries when available", {
   expect_equal(results$summaries$numeric$weight_var, "trip_weight")
 })
 
+test_that("hts_summary_wrapper includes datetime summaries when available", {
+  results = hts_summary_wrapper(
+    summarize_var = "travel_date"
+  )
+
+  expect_type(results, "list")
+  expect_equal(results$meta$target$variable, "travel_date")
+  expect_equal(results$meta$target$data_type, "date")
+  expect_equal(results$meta$source_tables, "trip")
+  expect_true("datetime" %in% names(results$summaries))
+  expect_false(is.null(results$summaries$datetime))
+  expect_equal(results$summaries$datetime$weight_var, "trip_weight")
+  expect_true(inherits(results$summaries$datetime$summary_data$unwtd$min, "Date"))
+  expect_true(inherits(results$summaries$datetime$summary_data$unwtd$max, "Date"))
+  expect_true(inherits(results$summaries$datetime$summary_data$unwtd$mean, "Date"))
+  expect_true(inherits(results$summaries$datetime$summary_data$unwtd$median, "Date"))
+  expect_true(inherits(results$summaries$datetime$summary_data$wtd$mean, "Date"))
+})
+
 test_that("hts_summary_wrapper carries optional variable metadata into meta target", {
   data("variable_list")
 

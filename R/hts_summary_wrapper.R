@@ -46,8 +46,10 @@
 #'    plus `notes` and `warnings`.}
 #'    \item{summaries}{Computed summary outputs. `summaries$categorical`
 #'    contains the categorical summary payload, and `summaries$numeric`
-#'    contains the numeric summary payload when available. Each payload
-#'    includes `summary_data`, `weight_var`, and `unit_counts`.}
+#'    contains the numeric summary payload when available, and
+#'    `summaries$datetime` contains the date/date-time summary payload when
+#'    available. Each payload includes `summary_data`, `weight_var`, and
+#'    `unit_counts`.}
 #'  }
 #' @export
 #'
@@ -178,6 +180,53 @@ hts_wrap_summary_payload <- function(summary_ls) {
     weight_var = summary_ls$summary$weight_name %||% NULL,
     unit_counts = summary_ls$n_ls %||% NULL
   )
+}
+
+hts_coerce_datetime_vector <- function(x, prototype) {
+  if (is.null(x) || is.null(prototype)) {
+    return(x)
+  }
+
+  if (inherits(prototype, "Date")) {
+    return(as.Date(x, origin = "1970-01-01"))
+  }
+
+  if (inherits(prototype, "POSIXct") || inherits(prototype, "POSIXlt")) {
+    tz <- attr(prototype, "tzone")[[1]] %||% "UTC"
+    return(as.POSIXct(x, origin = "1970-01-01", tz = tz))
+  }
+
+  x
+}
+
+hts_wrap_datetime_payload <- function(summary_ls, prototype) {
+  payload <- hts_wrap_summary_payload(summary_ls)
+
+  if (is.null(payload)) {
+    return(NULL)
+  }
+
+  datetime_cols <- c("min", "max", "mean", "median")
+
+  for (summary_type in c("unwtd", "wtd")) {
+    summary_dt <- payload$summary_data[[summary_type]]
+
+    if (is.null(summary_dt)) {
+      next
+    }
+
+    for (col_name in intersect(datetime_cols, names(summary_dt))) {
+      data.table::set(
+        summary_dt,
+        j = col_name,
+        value = hts_coerce_datetime_vector(summary_dt[[col_name]], prototype)
+      )
+    }
+
+    payload$summary_data[[summary_type]] <- summary_dt
+  }
+
+  payload
 }
 
 hts_wrapper_meta <- function(
@@ -319,7 +368,7 @@ hts_summary_wrapper = function(
     
   }
   
-  prepped_dt = prepped_dt_ls$cat
+  prepped_dt = prepped_dt_ls$cat %||% prepped_dt_ls$num %||% prepped_dt_ls$datetime
   
   # if we prepped a triprate rename summarize_var for hts_summary
   if (summarize_var == 'num_trips'){
@@ -360,43 +409,43 @@ hts_summary_wrapper = function(
   
   
   # run hts_summary
-  output_ls_cat = hts_summary(
-    prepped_dt,
-    summarize_var = summarize_var,
-    summarize_by = summarize_by,
-    summarize_vartype = summarize_vartype,
-    id_cols = id_cols,
-    weighted = weighted,
-    se = se,
-    conf_level = conf_level,
-    wtname = weight,
-    strataname = strataname,
-    checkbox_valname = checkbox_valname,
-    checkbox_yesval = checkbox_yesval
-  )
-  
-  #return variables used
-  output_ls_cat$summarize_var = summarize_var
-  output_ls_cat$summarize_by = summarize_by
-  
-  if (!is.null(output_ls_cat$summary$wtd)){
-    
-    output_ls_cat$summary$wtd = factorize_df(
-      output_ls_cat$summary$wtd,
+  if (!is.null(prepped_dt_ls$cat)) {
+    output_ls_cat = hts_summary(
+      prepped_dt_ls$cat,
+      summarize_var = summarize_var,
+      summarize_by = summarize_by,
+      summarize_vartype = summarize_vartype,
+      id_cols = id_cols,
+      weighted = weighted,
+      se = se,
+      conf_level = conf_level,
+      wtname = weight,
+      strataname = strataname,
+      checkbox_valname = checkbox_valname,
+      checkbox_yesval = checkbox_yesval
+    )
+
+    output_ls_cat$summarize_var = summarize_var
+    output_ls_cat$summarize_by = summarize_by
+
+    if (!is.null(output_ls_cat$summary$wtd)){
+      output_ls_cat$summary$wtd = factorize_df(
+        output_ls_cat$summary$wtd,
+        vals_df = vals_df,
+        value_label_colname = value_label_colname,
+        verbose = FALSE
+      )
+    }
+
+    output_ls_cat$summary$unwtd = factorize_df(
+      output_ls_cat$summary$unwtd,
       vals_df = vals_df,
       value_label_colname = value_label_colname,
       verbose = FALSE
     )
-    
-    
+  } else {
+    output_ls_cat = NULL
   }
-  
-  output_ls_cat$summary$unwtd = factorize_df(
-    output_ls_cat$summary$unwtd,
-    vals_df = vals_df,
-    value_label_colname = value_label_colname,
-    verbose = FALSE
-  )
   
   
   if (!is.null(prepped_dt_ls$num)){
@@ -470,10 +519,33 @@ hts_summary_wrapper = function(
     output_ls_num = NULL
     
   }
+
+  if (!is.null(prepped_dt_ls$datetime)) {
+    output_ls_datetime = hts_summary(
+      prepped_dt_ls$datetime,
+      summarize_var = summarize_var,
+      summarize_by = summarize_by,
+      summarize_vartype = "numeric",
+      id_cols = id_cols,
+      weighted = weighted,
+      se = se,
+      conf_level = conf_level,
+      wtname = weight,
+      strataname = strataname,
+      checkbox_valname = checkbox_valname,
+      checkbox_yesval = checkbox_yesval
+    )
+
+    output_ls_datetime$summarize_var = summarize_var
+    output_ls_datetime$summarize_by = summarize_by
+  } else {
+    output_ls_datetime = NULL
+  }
   
   output_ls = list(
     'cat' = output_ls_cat,
-    'num' = output_ls_num
+    'num' = output_ls_num,
+    'datetime' = output_ls_datetime
   )
 
   target_table = if (identical(summarize_var, "num_trips")) {
@@ -483,8 +555,8 @@ hts_summary_wrapper = function(
   }
 
   source_dt = data[[target_table]]
-  prepared_dt = prepped_dt_ls$cat %||% prepped_dt_ls$num
-  unit_counts = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% NULL
+  prepared_dt = prepped_dt_ls$cat %||% prepped_dt_ls$num %||% prepped_dt_ls$datetime
+  unit_counts = output_ls_cat$n_ls %||% output_ls_num$n_ls %||% output_ls_datetime$n_ls %||% NULL
   n_total = nrow(source_dt)
   obj_meta = hts_wrapper_meta(
     summarize_var = summarize_var,
@@ -538,7 +610,11 @@ hts_summary_wrapper = function(
     ),
     summaries = list(
       categorical = hts_wrap_summary_payload(output_ls_cat),
-      numeric = hts_wrap_summary_payload(output_ls_num)
+      numeric = hts_wrap_summary_payload(output_ls_num),
+      datetime = hts_wrap_datetime_payload(
+        output_ls_datetime,
+        prototype = source_dt[[summarize_var]]
+      )
     )
   )
 
