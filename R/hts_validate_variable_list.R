@@ -69,8 +69,6 @@ hts_validate_variable_list = function(variable_list,
     message("Editing ", not_categorical, ' categorical variables to "integer/categorical"')
   }
 
-  var_dt = var_dt[, ..expected_names]
-
   return(var_dt)
 }
 
