@@ -42,7 +42,7 @@ hts_summarize_numeric <- function(
   wtname <- analysis_bundle$meta$design$weight_var %||% NULL
   psu_var <- analysis_bundle$meta$design$psu_var %||% NULL
   strataname <- analysis_bundle$meta$design$strata_var %||% NULL
-  use_strata <- !is.null(strataname)
+  use_strata <- isTRUE(analysis_bundle$meta$design$use_strata) && !is.null(strataname)
 
   if (length(group_vars) == 0L) {
     unwtd_summary <- analysis_dt[, .(

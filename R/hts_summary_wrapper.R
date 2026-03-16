@@ -9,6 +9,11 @@
 #'  function.
 #' @param data List of household, person, vehicle, day, and trip tables in
 #'  data.table format.
+#' @param settings Optional settings object created by
+#'  [hts_summary_settings()]. When supplied, or when `variables_dt` contains an
+#'  `entity` column, the wrapper uses the new settings-driven entity workflow.
+#' @param apply_filters Optional character vector of named filters from
+#'  `settings$filters$named` to apply in the settings-driven workflow.
 #' @param id_cols name of unique identifier for each table in hts_data
 #' @param weighted Whether the data is weighted. Default is TRUE.
 #' @param wt_cols weight name for each table in hts_data 
@@ -343,6 +348,8 @@ hts_summary_wrapper = function(
       "trip" = trip,
       "vehicle" = vehicle
     ),
+    settings = NULL,
+    apply_filters = NULL,
     id_cols = c("hh_id", "person_id", "day_id", "trip_id", "vehicle_id"),
     weighted = TRUE,
     wt_cols = c("hh_weight", "person_weight", "day_weight", "trip_weight", "hh_weight"),
@@ -362,6 +369,29 @@ hts_summary_wrapper = function(
     not_imputable = -1,
     missing_values = c("Missing Response", "995")
 ){
+  if (hts_wrapper_use_rewrite_path(variables_dt = variables_dt, settings = settings) &&
+      identical(summarize_var, "num_trips")) {
+    stop("`num_trips` is not yet implemented in the settings-driven workflow.")
+  }
+
+  if (hts_wrapper_use_rewrite_path(variables_dt = variables_dt, settings = settings) &&
+      !identical(summarize_var, "num_trips")) {
+    return(
+      hts_summary_wrapper_rewrite(
+        summarize_var = summarize_var,
+        summarize_by = summarize_by,
+        variables_dt = variables_dt,
+        vals_df = vals_df,
+        data = data,
+        settings = settings,
+        weighted = weighted,
+        se = se,
+        conf_level = conf_level,
+        apply_filters = apply_filters
+      )
+    )
+  }
+
   variables_dt = hts_validate_variable_list(variables_dt, data)
   strataname = hts_resolve_strata_var(
     data = data,

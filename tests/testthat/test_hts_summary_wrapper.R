@@ -257,3 +257,119 @@ test_that("hts_summary_wrapper handles checkbox summaries with unit-level diagno
     ) %in% unique(as.character(results$summaries$categorical$summary_data$unwtd$race))
   ))
 })
+
+test_that("hts_summary_wrapper uses the settings-driven entity workflow", {
+  foos = data.table(
+    foo_id = 1:3,
+    foo_weight = c(1.5, 2.0, 3.5),
+    foo_group = c("A", "A", "B")
+  )
+  bars = data.table(
+    bar_id = 1:6,
+    foo_id = c(1, 1, 2, 2, 3, 3),
+    bar_mode = c(1, 2, 1, 2, 2, 2),
+    bar_weight = c(1, 1, 2, 2, 3, 3)
+  )
+  variables_dt = data.table(
+    variable = c("bar_mode", "foo_group"),
+    entity = c("bar", "foo"),
+    data_type = c("categorical", "categorical"),
+    variable_description = c("Bar mode", "Foo group"),
+    is_checkbox = c(FALSE, FALSE),
+    shared_name = c("bar_mode", "foo_group")
+  )
+  value_labels_dt = data.table(
+    variable = "bar_mode",
+    value = c(1, 2),
+    label = c("Walk", "Bike")
+  )
+  settings = hts_summary_settings(
+    entity_map = list(
+      foo = list(
+        table = "foos",
+        id = "foo_id",
+        weight = "foo_weight",
+        psu = "foo_id"
+      ),
+      bar = list(
+        table = "bars",
+        id = "bar_id",
+        parent = "foo",
+        join_keys = c("foo_id"),
+        weight = "bar_weight"
+      )
+    )
+  )
+
+  results = hts_summary_wrapper(
+    summarize_var = "bar_mode",
+    summarize_by = "foo_group",
+    variables_dt = variables_dt,
+    vals_df = value_labels_dt,
+    data = list(foos = foos, bars = bars),
+    settings = settings,
+    weighted = TRUE
+  )
+
+  expect_equal(results$meta$target$variable, "bar_mode")
+  expect_equal(results$meta$source_tables, c("bars", "foos"))
+  expect_equal(results$meta$design$weight_var, "bar_weight")
+  expect_equal(results$meta$design$psu_var, "foo_id")
+  expect_true("categorical" %in% names(results$summaries))
+  expect_true(all(c("Walk", "Bike") %in% as.character(results$summaries$categorical$summary_data$unwtd$bar_mode)))
+})
+
+test_that("hts_summary_wrapper applies named settings filters in the rewrite path", {
+  foos = data.table(
+    foo_id = 1:4,
+    foo_weight = c(1, 1, 1, 1),
+    foo_group = c("A", "A", "B", "B")
+  )
+  bars = data.table(
+    bar_id = 1:8,
+    foo_id = c(1, 1, 2, 2, 3, 3, 4, 4),
+    bar_mode = c(1, 2, 1, 2, 1, 2, 1, 2),
+    bar_weight = c(1, 1, 1, 1, 1, 1, 1, 1),
+    keep_row = c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE)
+  )
+  variables_dt = data.table(
+    variable = c("bar_mode", "foo_group", "keep_row"),
+    entity = c("bar", "foo", "bar"),
+    data_type = c("categorical", "categorical", "categorical")
+  )
+  settings = hts_summary_settings(
+    entity_map = list(
+      foo = list(
+        table = "foos",
+        id = "foo_id",
+        weight = "foo_weight",
+        psu = "foo_id"
+      ),
+      bar = list(
+        table = "bars",
+        id = "bar_id",
+        parent = "foo",
+        join_keys = c("foo_id"),
+        weight = "bar_weight"
+      )
+    ),
+    filters = list(
+      entities = list(),
+      named = list(kept = expression(keep_row == TRUE))
+    )
+  )
+
+  results = hts_summary_wrapper(
+    summarize_var = "bar_mode",
+    summarize_by = "foo_group",
+    variables_dt = variables_dt,
+    vals_df = value_labels,
+    data = list(foos = foos, bars = bars),
+    settings = settings,
+    weighted = FALSE,
+    apply_filters = "kept"
+  )
+
+  expect_equal(results$diagnostics$n_valid, 4L)
+  expect_equal(sum(results$summaries$categorical$summary_data$unwtd$count), 4)
+})

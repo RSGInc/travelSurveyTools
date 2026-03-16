@@ -31,7 +31,7 @@ hts_summarize_checkbox <- function(
   wtname <- analysis_bundle$meta$design$weight_var %||% NULL
   psu_var <- analysis_bundle$meta$design$psu_var %||% NULL
   strataname <- analysis_bundle$meta$design$strata_var %||% NULL
-  use_strata <- !is.null(strataname)
+  use_strata <- isTRUE(analysis_bundle$meta$design$use_strata) && !is.null(strataname)
   denominator <- analysis_bundle$meta$checkbox$denominator
   groupbyvars <- c(group_vars, target_var)
 

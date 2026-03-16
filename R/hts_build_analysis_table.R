@@ -37,6 +37,25 @@ hts_entity_ancestors <- function(entity_name, entity_map) {
   ancestors
 }
 
+hts_resolve_design_entity <- function(target_entity, entity_map, preferred_entity = NULL, field_name) {
+  if (!is.null(preferred_entity)) {
+    return(preferred_entity)
+  }
+
+  lineage <- c(target_entity, hts_entity_ancestors(target_entity, entity_map))
+  matched <- lineage[vapply(
+    lineage,
+    function(entity_name) !is.null(entity_map[[entity_name]][[field_name]]),
+    FUN.VALUE = logical(1)
+  )]
+
+  if (length(matched) > 0L) {
+    return(matched[[1]])
+  }
+
+  target_entity
+}
+
 hts_variable_row <- function(variable_name, variables_dt) {
   variables_dt[variable == variable_name][1]
 }
@@ -85,7 +104,8 @@ hts_join_entity_table <- function(analysis_dt, entity_name, normalized_inputs) {
 hts_build_analysis_table <- function(
     summarize_var,
     summarize_by = NULL,
-    normalized_inputs
+    normalized_inputs,
+    include_vars = NULL
 ) {
   if (!is.list(normalized_inputs) ||
       !all(c("data", "variables", "value_labels", "settings") %in% names(normalized_inputs))) {
@@ -106,9 +126,25 @@ hts_build_analysis_table <- function(
 
   target_entity <- target_rows$entity[[1]]
   target_spec <- entity_map[[target_entity]]
+  survey_settings <- normalized_inputs$settings$survey
   analysis_dt <- data.table::copy(normalized_inputs$data[[target_spec$table]])
   target_is_checkbox <- all(target_rows$is_checkbox)
   target_vars <- if (target_is_checkbox) target_rows$variable else summarize_var
+  weight_entity <- hts_resolve_design_entity(
+    target_entity = target_entity,
+    entity_map = entity_map,
+    preferred_entity = survey_settings$default_weight_entity,
+    field_name = "weight"
+  )
+  psu_entity <- hts_resolve_design_entity(
+    target_entity = target_entity,
+    entity_map = entity_map,
+    preferred_entity = survey_settings$psu_entity,
+    field_name = "psu"
+  )
+  weight_spec <- entity_map[[weight_entity]]
+  psu_spec <- entity_map[[psu_entity]]
+  include_vars <- include_vars %||% character()
 
   keep_cols <- unique(c(
     target_spec$id,
@@ -117,15 +153,17 @@ hts_build_analysis_table <- function(
     target_spec$psu %||% character(),
     target_spec$strata %||% character(),
     summarize_by %||% character(),
+    include_vars,
     target_vars
   ))
   keep_cols <- intersect(keep_cols, names(analysis_dt))
   analysis_dt <- analysis_dt[, ..keep_cols]
 
   grouping_vars <- summarize_by %||% character()
+  join_vars <- unique(c(grouping_vars, include_vars))
   joins_performed <- list()
 
-  for (group_var in grouping_vars) {
+  for (group_var in join_vars) {
     group_row <- hts_variable_row(group_var, variables_dt)
     if (nrow(group_row) == 0L) {
       stop("Grouping variable `", group_var, "` not found in normalized variables.")
@@ -156,6 +194,30 @@ hts_build_analysis_table <- function(
         names(analysis_dt)
       )
     }
+  }
+
+  design_entities <- unique(c(weight_entity, psu_entity))
+  for (entity_name in setdiff(design_entities, c(target_entity, names(joins_performed)))) {
+    design_fields <- c(
+      entity_map[[entity_name]]$weight %||% character(),
+      entity_map[[entity_name]]$psu %||% character(),
+      entity_map[[entity_name]]$strata %||% character()
+    )
+    design_fields <- intersect(design_fields, names(normalized_inputs$data[[entity_map[[entity_name]]$table]]))
+
+    if (length(design_fields) == 0L || all(design_fields %in% names(analysis_dt))) {
+      next
+    }
+
+    analysis_dt <- hts_join_entity_table(
+      analysis_dt = analysis_dt,
+      entity_name = entity_name,
+      normalized_inputs = normalized_inputs
+    )
+    joins_performed[[entity_name]] <- intersect(
+      names(normalized_inputs$data[[entity_map[[entity_name]]$table]]),
+      names(analysis_dt)
+    )
   }
 
   checkbox_meta <- NULL
@@ -243,6 +305,7 @@ hts_build_analysis_table <- function(
       target_spec$psu %||% character(),
       target_spec$strata %||% character(),
       grouping_vars,
+      include_vars,
       summarize_var
     ))
     selected_output_cols <- intersect(selected_output_cols, names(analysis_dt))
@@ -261,6 +324,7 @@ hts_build_analysis_table <- function(
       target = list(
         variable = summarize_var,
         entity = target_entity,
+        id = target_spec$id,
         table = target_spec$table,
         is_checkbox = target_is_checkbox,
         shared_name = if (target_is_checkbox) summarize_var else target_rows$shared_name[[1]]
@@ -270,11 +334,17 @@ hts_build_analysis_table <- function(
         entities = group_entities
       ),
       design = list(
-        weight_var = target_spec$weight %||% NULL,
-        psu_var = target_spec$psu %||% NULL,
-        strata_var = target_spec$strata %||% NULL
+        weight_var = weight_spec$weight %||% NULL,
+        psu_var = psu_spec$psu %||% psu_spec$id %||% NULL,
+        strata_var = if (isTRUE(survey_settings$use_strata)) {
+          psu_spec$strata %||% NULL
+        } else {
+          NULL
+        },
+        use_strata = isTRUE(survey_settings$use_strata)
       ),
       joins = joins_performed,
+      entities = entity_map,
       checkbox = checkbox_meta
     )
   )
