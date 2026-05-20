@@ -191,12 +191,19 @@ hts_prep_triprate = function(summarize_by = NULL,
     # If one of the by-variables is in trip table, need to expand to
     # include all levels of the variable for every trip, and fill with zeros:
     if (trip_id %in% names(byvar_dt)) {
+      triprate_cast_vars = summarize_by[vapply(
+        summarize_by,
+        function(var_name) hts_find_var(var_name, data = hts_data, variables_dt = variables_dt) == trip_name,
+        logical(1)
+      )]
+      triprate_id_vars = unique(c(triprate_cols, setdiff(summarize_by, triprate_cast_vars)))
+
       # fill in with zeros for zero trips for a given level of xt_var using dcast:
       dcast_formula =
         paste0(
-          paste0(triprate_cols, collapse = " + "),
+          paste0(triprate_id_vars, collapse = " + "),
           " ~ ",
-          paste0(summarize_by, collapse = " + ")
+          paste0(triprate_cast_vars, collapse = " + ")
         )
       
       triprate_cast = dcast(triprate_dt,
@@ -215,18 +222,18 @@ hts_prep_triprate = function(summarize_by = NULL,
       # transform back to long format, with separate cols for weighted & unwt. trip rates:
       triprate_dt = data.table::melt(
         triprate_cast,
-        id.vars = triprate_cols,
+        id.vars = triprate_id_vars,
         value.name = "num_trips"
       )
       
       # Relabel xtab trip vars after melting:
-      if (length(summarize_by) > 1) {
-        triprate_dt[, c(summarize_by) := tstrsplit(variable, "_")]
+      if (length(triprate_cast_vars) > 1) {
+        triprate_dt[, c(triprate_cast_vars) := tstrsplit(variable, "_")]
         triprate_dt[, variable := NULL]
       }
       
-      if (length(summarize_by) == 1) {
-        setnames(triprate_dt, old = "variable", new = summarize_by)
+      if (length(triprate_cast_vars) == 1) {
+        setnames(triprate_dt, old = "variable", new = triprate_cast_vars)
       }
       
       triprate_dt = triprate_dt[]
